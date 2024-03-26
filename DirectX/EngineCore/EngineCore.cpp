@@ -4,6 +4,9 @@
 #include <EngineBase/EngineFile.h>
 #include <EngineBase/EngineDirectory.h>
 
+#include <EnginePlatform/EngineSound.h>
+#include <EnginePlatform/EngineInput.h>
+
 UEngineCore::UEngineCore()
 {
 }
@@ -43,6 +46,21 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	EngineWindow.SetWindowScale(Option.WindowScale);
 
 	UserCorePtr->Initialize();
+
+	// 사운드 체크.
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.MoveToSearchChild("Sound");
+		std::list<UEngineFile> Files = Dir.AllFile({ ".mp3" });
+
+		for (UEngineFile File : Files)
+		{
+			UEngineSound::Load(File.GetFullPath());
+		}
+
+		UEngineSound::SoundPlay("Ready.mp3");
+	}
 
 	UEngineWindow::WindowMessageLoop(
 		nullptr,
