@@ -43,7 +43,7 @@ protected:
 
 private:
 	UEngineWindow EngineWindow;
-	UserCore* UserCorePtr;
+	UserCore* UserCorePtr = nullptr;
 
 	void EngineStart(HINSTANCE _Inst);
 };
