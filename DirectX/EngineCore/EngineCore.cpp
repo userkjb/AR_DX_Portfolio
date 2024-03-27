@@ -1,6 +1,5 @@
 #include "PreCompile.h"
 #include "EngineCore.h"
-
 #include <EngineBase/EngineFile.h>
 #include <EngineBase/EngineDirectory.h>
 #include <EnginePlatform/EngineSound.h>
@@ -22,6 +21,26 @@ UEngineCore::~UEngineCore()
 }
 
 UEngineCore* GEngine = nullptr;
+
+void UEngineCore::EngineStart(HINSTANCE _Inst)
+{
+	EngineOptionInit();
+
+	EngineWindow.Open(EngineOption.WindowTitle);
+	EngineWindow.SetWindowScale(EngineOption.WindowScale);
+
+	EngineDevice.Initialize(EngineWindow);
+
+	{
+		UserCorePtr->Initialize();
+		MainTimer.TimeCheckStart();
+	}
+
+	UEngineWindow::WindowMessageLoop(
+		std::bind(&UEngineCore::EngineUpdate, this),
+		nullptr
+	);
+}
 
 void UEngineCore::EngineOptionInit()
 {
@@ -46,24 +65,7 @@ void UEngineCore::EngineOptionInit()
 		File.Load(Ser);
 		EngineOption.DeSerialize(Ser);
 	}
-}
 
-void UEngineCore::EngineStart(HINSTANCE _Inst)
-{
-	EngineOptionInit();
-
-	EngineWindow.Open(EngineOption.WindowTitle);
-	EngineWindow.SetWindowScale(EngineOption.WindowScale);
-
-	{
-		UserCorePtr->Initialize();
-		MainTimer.TimeCheckStart();
-	}
-
-	UEngineWindow::WindowMessageLoop(
-		std::bind(&UEngineCore::EngineUpdate, this),
-		nullptr
-	);
 }
 
 void UEngineCore::EngineUpdate()
