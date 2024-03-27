@@ -21,6 +21,7 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="EngineGraphicDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -32,5 +33,6 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
+    <ClInclude Include="EngineGraphicDevice.h" />
   </ItemGroup>
 </Project>
