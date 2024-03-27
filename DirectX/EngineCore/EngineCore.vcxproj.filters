@@ -13,6 +13,12 @@
     <Filter Include="Device">
       <UniqueIdentifier>{b135e5a2-c9fc-404e-ae35-357cd1c7d740}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{1c3530dc-00dc-4d9e-af1e-4dc1dc926a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Texture">
+      <UniqueIdentifier>{9106536e-e73b-4799-b263-11104c4ec88b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -27,6 +33,12 @@
     <ClCompile Include="EngineGraphicDevice.cpp">
       <Filter>Device</Filter>
     </ClCompile>
+    <ClCompile Include="EngineTexture.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineRenderTarget.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -40,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="EngineGraphicDevice.h">
       <Filter>Device</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTexture.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRenderTarget.h">
+      <Filter>Resources\Texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
