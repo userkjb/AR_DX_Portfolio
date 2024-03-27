@@ -10,12 +10,12 @@ UEngineGraphicDevice::UEngineGraphicDevice()
 
 UEngineGraphicDevice::~UEngineGraphicDevice()
 {
-	if (nullptr == Context)
+	if (nullptr != Context)
 	{
 		Context->Release();
 	}
 
-	if (nullptr == Device)
+	if (nullptr != Device)
 	{
 		Device->Release();
 	}
