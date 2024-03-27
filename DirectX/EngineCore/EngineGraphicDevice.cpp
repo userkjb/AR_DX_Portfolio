@@ -198,10 +198,13 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 	//RPC_E_CHANGED_MODE;
 
 	// 멀티쓰레드로 잘 바뀌었어요
-	if ((RPC_E_CHANGED_MODE != Result) && (S_OK != Result))
+	if (S_OK != Result)
 	{
-		MsgBoxAssert("멀티쓰레드 옵션을 사용할 수가 없습니다.");
-		return;
+		if (RPC_E_CHANGED_MODE != Result)
+		{
+			MsgBoxAssert("멀티쓰레드 옵션을 사용할 수가 없습니다.");
+			return;
+		}
 	}
 
 	WindowPtr = &_Window;
