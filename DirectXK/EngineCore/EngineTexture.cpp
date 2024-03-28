@@ -8,6 +8,11 @@ UEngineTexture::UEngineTexture()
 
 UEngineTexture::~UEngineTexture()
 {
+	if (nullptr != RTV)
+	{
+		RTV->Release();
+	}
+
 	if (nullptr != Texture2D)
 	{
 		Texture2D->Release();
