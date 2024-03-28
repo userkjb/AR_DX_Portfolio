@@ -19,6 +19,21 @@
     <Filter Include="Resources\Texture">
       <UniqueIdentifier>{9106536e-e73b-4799-b263-11104c4ec88b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Actor">
+      <UniqueIdentifier>{3f6d2d70-790d-4dee-9244-48ec17bc4d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Actor\GameMode">
+      <UniqueIdentifier>{3862eaf1-ea9d-498b-b758-725336f44c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component">
+      <UniqueIdentifier>{e3c22cff-71f8-4869-8380-5a99b4009f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering">
+      <UniqueIdentifier>{098c1eea-75ef-4145-b71a-df2e8823f7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Rendering\Component">
+      <UniqueIdentifier>{e58f7771-8a4a-49cb-93f0-7c4c3d4fcd31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -39,15 +54,33 @@
     <ClCompile Include="EngineOption.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="TickObject.cpp" />
-    <ClCompile Include="SceneComponent.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Level.cpp" />
-    <ClCompile Include="GameMode.cpp" />
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="ActorComponent.cpp" />
-    <ClCompile Include="WorldObject.cpp" />
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Actor.cpp">
+      <Filter>Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Object\Actor\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneComponent.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Object\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TickObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -68,14 +101,32 @@
     <ClInclude Include="EngineOption.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="TickObject.h" />
-    <ClInclude Include="SceneComponent.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="GameMode.h" />
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorComponent.h" />
-    <ClInclude Include="WorldObject.h" />
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Actor.h">
+      <Filter>Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Object\Actor\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Object\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Object\Rendering\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TickObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

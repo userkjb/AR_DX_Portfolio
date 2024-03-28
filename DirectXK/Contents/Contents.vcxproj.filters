@@ -7,6 +7,15 @@
     <Filter Include="PreCompile">
       <UniqueIdentifier>{f3d9c7ee-e9a0-4777-b2f9-75b4d48c11ce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{cfa31789-c772-4b5b-8708-3c64e016c7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel">
+      <UniqueIdentifier>{0d8d6560-cadb-4420-b17c-f2aeae13226b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\PlayLevel\Object">
+      <UniqueIdentifier>{27d91663-f422-40e0-b91b-82c493e367b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -15,8 +24,12 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
-    <ClCompile Include="PlayGameMode.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayGameMode.cpp">
+      <Filter>Level\PlayLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -25,7 +38,11 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="PlayGameMode.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayGameMode.h">
+      <Filter>Level\PlayLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\PlayLevel\Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
