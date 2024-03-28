@@ -3,10 +3,12 @@
 #include <EngineBase/NameObject.h>
 
 
+
 // final을 사용하면 이제 ULevel 상속받은 클래스를 만들수가 없어요.
 
 // 설명 :
 class AActor;
+class URenderer;
 class AGameMode;
 class UEngineCore;
 class ULevel final : public UTickObject, public UNameObject
@@ -14,6 +16,7 @@ class ULevel final : public UTickObject, public UNameObject
 	GENERATED_BODY(UTickObject)
 
 	friend AActor;
+	friend URenderer;
 	friend UEngineCore;
 	static bool IsActorConstructer;
 
@@ -46,12 +49,15 @@ public:
 
 protected:
 	void Tick(float _DeltaTime) override;
+	void Render(float _DeltaTime);
 
 private:
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
 
-	void ActorInit(std::shared_ptr<AActor> _Actor);
+	std::map<int, std::list<std::shared_ptr<URenderer>>> Renderers;
+
 	void PushActor(std::shared_ptr<AActor> _Actor);
+	void PushRenderer(std::shared_ptr<URenderer> _Renderer);
 };
 
