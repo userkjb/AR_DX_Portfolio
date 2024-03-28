@@ -322,8 +322,8 @@ void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 	// 그릴수 있는 권한이나 지우는 기능들은 다 랜더타겟이라는 걸로 
 	// 텍스처 그대로는 편집기능을 사용하지 않고
 	// 오로지 랜더타겟 뷰로만 사용할 겁니다.
+	// 이미지에대 이미지로 그린다.
 	BackBufferRenderTarget = UEngineRenderTarget::Create(Texture, _ClearColor);
-
 	// 우리 winapi HDC를 HDC그대로 사용했나요?
 	// 
 

@@ -45,6 +45,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="ActorComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -71,5 +72,6 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorComponent.h" />
   </ItemGroup>
 </Project>

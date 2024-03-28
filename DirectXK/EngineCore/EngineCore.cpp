@@ -4,6 +4,7 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EnginePlatform/EngineSound.h>
 #include <EngineCore/EngineTexture.h>
+#include "Level.h"
 
 UEngineCore::UEngineCore()
 {
@@ -45,7 +46,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	}
 
 	UEngineWindow::WindowMessageLoop(
-		std::bind(&UEngineCore::EngineUpdate, this),
+		std::bind(&UEngineCore::EngineFrameUpdate, this),
 		std::bind(&UEngineCore::EngineEnd, this)
 	);
 }
@@ -84,9 +85,36 @@ void UEngineCore::EngineEnd()
 	UEngineTexture::ResourcesRelease();
 }
 
-void UEngineCore::EngineUpdate()
+void UEngineCore::EngineFrameUpdate()
 {
 	float DeltaTime = MainTimer.TimeCheck();
 	UEngineInput::KeyCheckTick(DeltaTime);
 
+	if (nullptr != NextLevel)
+	{
+		CurLevel = NextLevel;
+		NextLevel = nullptr;
+	}
+
+	CurLevel->Tick(DeltaTime);
+
+	// 화면 지우고
+	EngineDevice.RenderStart();
+	// 게임에 요소들을 그리고
+
+	// CurLevel->Render();
+
+	// 억지로 그냥 그려본다.
+
+	// 출력한다
+	EngineDevice.RenderEnd();
+}
+
+std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string& _Name, std::shared_ptr<AActor> _GameMode)
+{
+	std::shared_ptr<ULevel> Level = std::make_shared<ULevel>();
+	Level->PushActor(_GameMode);
+	Level->BeginPlay();
+	Levels[_Name] = Level;
+	return Level;
 }
