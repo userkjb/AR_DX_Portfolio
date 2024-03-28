@@ -24,9 +24,6 @@
     <ClCompile Include="EngineCore.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="EngineOption.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
@@ -39,13 +36,19 @@
     <ClCompile Include="EngineRenderTarget.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="EngineOption.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TickObject.cpp" />
+    <ClCompile Include="SceneComponent.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="GameMode.cpp" />
+    <ClCompile Include="Actor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineOption.h">
-      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
@@ -59,5 +62,14 @@
     <ClInclude Include="EngineRenderTarget.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="EngineOption.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TickObject.h" />
+    <ClInclude Include="SceneComponent.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="GameMode.h" />
+    <ClInclude Include="Actor.h" />
   </ItemGroup>
 </Project>
