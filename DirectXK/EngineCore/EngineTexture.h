@@ -71,6 +71,7 @@
 // 설명 :
 // 템플릿
 // class UEngineTexture : public UEngineResourcesUEngineTexture
+// 사용하기나 관리하기가 너무 힘드니까
 class UEngineTexture : public UEngineResources<UEngineTexture>
 {
 public:
