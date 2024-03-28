@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "GameMode.h"
 
+bool ULevel::IsActorConstructer = true;
+
 ULevel::ULevel()
 {
 }
@@ -32,5 +34,9 @@ void ULevel::PushActor(std::shared_ptr<AActor> _Actor)
 		return;
 	}
 
+	_Actor->SetWorld(this);
+	_Actor->BeginPlay();
+
 	Actors[_Actor->GetOrder()].push_back(_Actor);
 }
+

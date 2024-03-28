@@ -13,7 +13,9 @@ class ULevel final : public UTickObject, public UNameObject
 {
 	GENERATED_BODY(UTickObject)
 
+	friend AActor;
 	friend UEngineCore;
+	static bool IsActorConstructer;
 
 public:
 	// constrcuter destructer
@@ -27,10 +29,19 @@ public:
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
 	template<typename ActorType>
-	void SpawnActor(int _Order = 0, std::string _Name = "")
+	void SpawnActor(std::string _Name, int _Order = 0)
 	{
+		// 이 사이에서만 컴포넌트를 생성할수 있어야 한다.
+		IsActorConstructer = true;
 		std::shared_ptr<AActor> NewActor = std::make_shared<ActorType>();
-		Actors[_Order].push_back(NewActor);
+		IsActorConstructer = false;
+		// 이
+		//NewActor->SetWorld(this);
+		//NewActor->BeginPlay();
+
+		PushActor(NewActor);
+
+		// Actors[_Order].push_back(NewActor);
 	}
 
 protected:
@@ -40,6 +51,7 @@ private:
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
 
+	void ActorInit(std::shared_ptr<AActor> _Actor);
 	void PushActor(std::shared_ptr<AActor> _Actor);
 };
 
