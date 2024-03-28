@@ -47,6 +47,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
     <ClCompile Include="WorldObject.cpp" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -75,5 +76,6 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
     <ClInclude Include="WorldObject.h" />
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
 </Project>

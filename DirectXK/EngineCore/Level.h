@@ -8,6 +8,7 @@
 
 // Ό³Έν :
 class AActor;
+class UCamera;
 class URenderer;
 class AGameMode;
 class UEngineCore;
@@ -52,6 +53,9 @@ protected:
 	void Render(float _DeltaTime);
 
 private:
+	std::shared_ptr<UCamera> MainCamera = nullptr;
+	std::shared_ptr<UCamera> UICamera = nullptr;
+
 	std::shared_ptr<AGameMode> GameMode;
 	std::map<int, std::list<std::shared_ptr<AActor>>> Actors;
 

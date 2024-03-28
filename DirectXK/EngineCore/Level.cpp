@@ -2,11 +2,13 @@
 #include "Level.h"
 #include "GameMode.h"
 #include "Renderer.h"
+#include "Camera.h"
 
 bool ULevel::IsActorConstructer = true;
 
 ULevel::ULevel()
 {
+	MainCamera = std::make_shared<UCamera>();
 }
 
 ULevel::~ULevel()
