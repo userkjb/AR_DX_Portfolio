@@ -40,6 +40,7 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
+    <ClInclude Include="TransformObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp">
@@ -81,6 +82,7 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
+    <ClCompile Include="TransformObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">
