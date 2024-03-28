@@ -46,6 +46,7 @@
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -73,5 +74,6 @@
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="WorldObject.h" />
   </ItemGroup>
 </Project>
