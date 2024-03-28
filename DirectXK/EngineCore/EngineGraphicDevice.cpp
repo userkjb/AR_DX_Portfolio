@@ -5,7 +5,6 @@
 
 // 다이렉트 라이브러리를 사용하기 위해서
 
-
 UEngineGraphicDevice::UEngineGraphicDevice()
 {
 }
@@ -89,7 +88,7 @@ IDXGIAdapter* UEngineGraphicDevice::GetHighPerFormanceAdapter()
 	return Adapter;
 }
 
-void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
+void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window, const float4& _ClearColor)
 {
 	if (nullptr == _Window.GetHWND())
 	{
@@ -197,7 +196,7 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 	//S_FALSE;
 	//RPC_E_CHANGED_MODE;
 
-	// 멀티쓰레드로 잘 바뀌었어요
+	// 멀티쓰레드로 잘 바뀡었어요
 	if (S_OK != Result)
 	{
 		if (RPC_E_CHANGED_MODE != Result)
@@ -207,12 +206,13 @@ void UEngineGraphicDevice::Initialize(const UEngineWindow& _Window)
 		}
 	}
 
+
 	WindowPtr = &_Window;
 
-	CreateSwapChain();
+	CreateSwapChain(_ClearColor);
 }
 
-void UEngineGraphicDevice::CreateSwapChain()
+void UEngineGraphicDevice::CreateSwapChain(const float4& _ClearColor)
 {
 	// 스왑체인 자체가 기능입니다.
 	// 제공 최종적으로 나오는 이미지를 처리하기 때문에.
@@ -315,9 +315,14 @@ void UEngineGraphicDevice::CreateSwapChain()
 	// 싱글톤 안씀
 	// 이제부터 그냥 그 클래스가 관리함.
 	// 당연히 static으로 모든 리소스는 관리방식이 동일해야 한다.
+	// 우리가 말하는 랜더리잉란 이녀석이 가장 중요한 텍스처 결국 여기에 그려야 화면에 나온다.
+	// 하지만 그릴수 있는 권한은 아직 없어요
 	std::shared_ptr<UEngineTexture> Texture = UEngineTexture::Create(DXBackBufferTexture);
 
-	std::shared_ptr<UEngineRenderTarget> RenderTarget = UEngineRenderTarget::Create(Texture);
+	// 그릴수 있는 권한이나 지우는 기능들은 다 랜더타겟이라는 걸로 
+	// 텍스처 그대로는 편집기능을 사용하지 않고
+	// 오로지 랜더타겟 뷰로만 사용할 겁니다.
+	BackBufferRenderTarget = UEngineRenderTarget::Create(Texture, _ClearColor);
 
 	// 우리 winapi HDC를 HDC그대로 사용했나요?
 	// 
@@ -325,3 +330,23 @@ void UEngineGraphicDevice::CreateSwapChain()
 
 
 }
+
+void UEngineGraphicDevice::RenderStart()
+{
+	BackBufferRenderTarget->Clear();
+}
+
+void UEngineGraphicDevice::RenderEnd()
+{
+	// BackBufferRenderTarget에 그려진걸 화면에 그려라
+	// tn
+	HRESULT Result = SwapChain->Present(0, 0);
+
+	if (Result == DXGI_ERROR_DEVICE_REMOVED || Result == DXGI_ERROR_DEVICE_RESET)
+	{
+		MsgBoxAssert("해상도나 디바이스 관련 설정이 변경 되었습니다");
+		return;
+	}
+
+}
+

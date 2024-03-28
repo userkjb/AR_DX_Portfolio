@@ -27,6 +27,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 {
 	// 릭체크
 	LeakCheck;
+	GEngine = this;
 
 	EngineOptionInit();
 
@@ -35,8 +36,8 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	// EngineOption.WindowScale 해상도
 	// 해상도는 윈도우 크기와 관련이 없습니다.
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
+	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
-	EngineDevice.Initialize(EngineWindow);
 
 	{
 		UserCorePtr->Initialize();
@@ -75,16 +76,17 @@ void UEngineCore::EngineOptionInit()
 
 }
 
-void UEngineCore::EngineUpdate()
-{
-	float DeltaTime = MainTimer.TimeCheck();
-	UEngineInput::KeyCheckTick(DeltaTime);
-}
-
 void UEngineCore::EngineEnd()
 {
 	// 어차피 자동으로 지워지는 리소스들을 왜 굳이 여기서 클리어를 직접 해주지?
 	// 엔진이 종료되는 시점에 텍스처를 모두다 삭제한다.
 	UEngineSound::ResourcesRelease();
 	UEngineTexture::ResourcesRelease();
+}
+
+void UEngineCore::EngineUpdate()
+{
+	float DeltaTime = MainTimer.TimeCheck();
+	UEngineInput::KeyCheckTick(DeltaTime);
+
 }

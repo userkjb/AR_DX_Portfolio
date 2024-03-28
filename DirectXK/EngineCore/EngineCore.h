@@ -43,6 +43,20 @@ public:
 		EngineWindow.SetWindowScale(_Scale);
 	}
 
+	UEngineGraphicDevice& GetEngineDevice()
+	{
+		return EngineDevice;
+	}
+
+	struct ID3D11Device* GetDirectXDevice()
+	{
+		return EngineDevice.GetDevice();
+	}
+
+	struct ID3D11DeviceContext* GetDirectXContext()
+	{
+		return EngineDevice.GetContext();
+	}
 protected:
 
 private:
