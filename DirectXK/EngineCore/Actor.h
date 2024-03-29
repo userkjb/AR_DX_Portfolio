@@ -27,7 +27,7 @@ public:
 	// 오로지 생성자에서만 호출될수 있게 만들어 놓는다.
 	// 언리얼 따라할려고 그냥 함.
 	template<typename ComponentType>
-	std::shared_ptr<ComponentType> CreateDefaultSubobject(std::string_view _Name)
+	ComponentType* CreateDefaultSubObject(std::string_view _Name)
 	{
 		if (false == ULevel::IsActorConstructer)
 		{
@@ -38,7 +38,7 @@ public:
 
 		PushComponent(NewComponent, _Name);
 
-		return std::dynamic_pointer_cast<ComponentType>(NewComponent);
+		return dynamic_cast<ComponentType*>(NewComponent.get());
 	}
 
 protected:
@@ -52,12 +52,11 @@ private:
 	// 거기에 필요한 기능만 만들면 되기 때문에 
 	// 컴포넌트 구조라는 것.
 	// 뭘만들든 동적으로 만들수 있는 구조를 만드는것.
-	// 액터가 루트 컴포넌트를 가지면 
 	USceneComponent* RootComponent = nullptr;
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
-
+	void RootCheck();
 
 };
 

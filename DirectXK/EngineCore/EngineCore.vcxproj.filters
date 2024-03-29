@@ -81,6 +81,7 @@
     <ClCompile Include="WorldObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultSceneComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -128,5 +129,6 @@
     <ClInclude Include="WorldObject.h">
       <Filter>Object</Filter>
     </ClInclude>
+    <ClInclude Include="DefaultSceneComponent.h" />
   </ItemGroup>
 </Project>
