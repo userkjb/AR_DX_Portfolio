@@ -197,6 +197,7 @@
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp" />
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
     <ClCompile Include="EngineMesh.cpp" />
     <ClCompile Include="EngineOption.cpp" />
