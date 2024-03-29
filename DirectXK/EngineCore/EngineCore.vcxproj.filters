@@ -84,6 +84,7 @@
     <ClCompile Include="DefaultSceneComponent.cpp" />
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
+    <ClCompile Include="EngineIndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -135,5 +136,6 @@
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
+    <ClInclude Include="EngineIndexBuffer.h" />
   </ItemGroup>
 </Project>
