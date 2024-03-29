@@ -82,6 +82,7 @@
       <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="DefaultSceneComponent.cpp" />
+    <ClCompile Include="EngineBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -130,5 +131,6 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="DefaultSceneComponent.h" />
+    <ClInclude Include="EngineBuffer.h" />
   </ItemGroup>
 </Project>
