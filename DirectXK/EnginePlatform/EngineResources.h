@@ -58,7 +58,7 @@ public:
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
 		std::string FileName = NewPath.GetFileName();
-		CreateResName(FileName, _Path);
+		return CreateResName(FileName, _Path);
 	}
 
 	/// <summary>
