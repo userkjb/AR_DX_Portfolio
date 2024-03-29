@@ -34,6 +34,12 @@
     <Filter Include="Object\Rendering\Component">
       <UniqueIdentifier>{e58f7771-8a4a-49cb-93f0-7c4c3d4fcd31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Mesh">
+      <UniqueIdentifier>{43712be7-6f7d-4dd3-830d-4c0b5150cde5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\EngineContent">
+      <UniqueIdentifier>{31b3de69-b4e6-4ac5-8da8-f5400eec53a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -81,12 +87,24 @@
     <ClCompile Include="WorldObject.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultSceneComponent.cpp" />
-    <ClCompile Include="EngineBuffer.cpp" />
-    <ClCompile Include="EngineVertexBuffer.cpp" />
-    <ClCompile Include="EngineIndexBuffer.cpp" />
-    <ClCompile Include="EngineMesh.cpp" />
-    <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
+    <ClCompile Include="EngineVertexBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMesh.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineIndexBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBuffer.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineGraphicDevice_Resources.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultSceneComponent.cpp">
+      <Filter>Object\EngineContent</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -134,11 +152,23 @@
     <ClInclude Include="WorldObject.h">
       <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultSceneComponent.h" />
-    <ClInclude Include="EngineBuffer.h" />
-    <ClInclude Include="EngineVertex.h" />
-    <ClInclude Include="EngineVertexBuffer.h" />
-    <ClInclude Include="EngineIndexBuffer.h" />
-    <ClInclude Include="EngineMesh.h" />
+    <ClInclude Include="EngineVertexBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineVertex.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineIndexBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBuffer.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultSceneComponent.h">
+      <Filter>Object\EngineContent</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
