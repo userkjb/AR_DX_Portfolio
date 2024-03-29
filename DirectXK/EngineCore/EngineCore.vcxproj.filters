@@ -85,6 +85,7 @@
     <ClCompile Include="EngineBuffer.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
+    <ClCompile Include="EngineMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -137,5 +138,6 @@
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
+    <ClInclude Include="EngineMesh.h" />
   </ItemGroup>
 </Project>
