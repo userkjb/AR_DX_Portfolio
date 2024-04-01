@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 #include <map>
+#include <EngineBase/EnginePath.h>
 #include <EngineBase/PathObject.h>
 
-/// <summary>
-/// 모든 Resource들은 해당 클래스를 상속 받는다.
-/// </summary>
-/// <typeparam name="ResType"></typeparam>
+// 설명 : 템플릿은 이상한 생각하지 말자.
+// 복사해 그 자료형으로 바꿔 템플릿 삭제해.
+// 모든 Resources 들은 해당 클래스를 상속 받는다.
 template<typename ResType>
 class UEngineResources : public UPathObject
 {
@@ -14,13 +14,13 @@ public:
 	// constrcuter destructer
 	UEngineResources() {}
 	~UEngineResources() {}
-	
+
 	// delete Function
 	UEngineResources(const UEngineResources& _Other) = delete;
 	UEngineResources(UEngineResources&& _Other) noexcept = delete;
 	UEngineResources& operator=(const UEngineResources& _Other) = delete;
 	UEngineResources& operator=(UEngineResources&& _Other) noexcept = delete;
-
+	
 	/// <summary>
 	/// Resource 찾기.
 	/// </summary>
@@ -95,7 +95,7 @@ public:
 		return NewRes;
 	}
 
-	
+
 	static void ResourcesRelease()
 	{
 		// 클리어했을때
@@ -108,11 +108,22 @@ public:
 protected:
 
 private:
+	// 당연히 그 자료형 그대로 쓰고
+	// 텍스처면 텍스처 그대로
+	// 랜더타겟이면 랜더타겟 그대로
+	// 사운드면 사운드 그대로 쓰고 싶을 것이다.
+	// class MapNode
+	// {
+	//    std::shared_ptr<ResType> Value;
+	// }
 	static std::map<std::string, std::shared_ptr<ResType>> NameResources;
 	static std::list<std::shared_ptr<ResType>> UnNameResources;
-	// Resource에 대한 이름과 경로는 UPathObject가 가지고 있다.
+
+	// std::string Name = "NONE";
+	// std::string Path = "NONE";
 };
 
+// 템플릿일때는 문제가 없습니다.
 // 전역변수는 헤더에 추가할수가 없죠?
 // 템플릿이면 문제가 해결됩니다.
 // 템플릿 static 변수를 선언하는 방법을 배워야 한다.
