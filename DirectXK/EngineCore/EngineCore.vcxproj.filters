@@ -43,6 +43,9 @@
     <Filter Include="Resources\Shader">
       <UniqueIdentifier>{ff9917b3-2c0b-4023-b02a-43185f4f755d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\RenderingSetting">
+      <UniqueIdentifier>{31910360-48eb-413b-8dfe-306b8c0e4144}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -117,6 +120,12 @@
     <ClCompile Include="EnginePixelShader.cpp">
       <Filter>Resources\Shader</Filter>
     </ClCompile>
+    <ClCompile Include="EngineRasterizer.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMaterial.cpp">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -190,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="EnginePixelShader.h">
       <Filter>Resources\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineRasterizer.h">
+      <Filter>Resources\RenderingSetting</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMaterial.h">
+      <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
