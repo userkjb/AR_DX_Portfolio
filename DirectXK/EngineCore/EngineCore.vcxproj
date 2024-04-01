@@ -178,6 +178,7 @@
     <ClInclude Include="EngineMesh.h" />
     <ClInclude Include="EngineOption.h" />
     <ClInclude Include="EngineRenderTarget.h" />
+    <ClInclude Include="EngineShader.h" />
     <ClInclude Include="EngineTexture.h" />
     <ClInclude Include="EngineVertex.h" />
     <ClInclude Include="EngineVertexBuffer.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="EngineMesh.cpp" />
     <ClCompile Include="EngineOption.cpp" />
     <ClCompile Include="EngineRenderTarget.cpp" />
+    <ClCompile Include="EngineShader.cpp" />
     <ClCompile Include="EngineTexture.cpp" />
     <ClCompile Include="EngineVertexBuffer.cpp" />
     <ClCompile Include="GameMode.cpp" />
