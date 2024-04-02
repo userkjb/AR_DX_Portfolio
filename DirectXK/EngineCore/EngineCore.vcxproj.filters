@@ -126,11 +126,15 @@
     <ClCompile Include="EngineMaterial.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
-    <ClCompile Include="EngineInputLayOut.cpp" />
     <ClCompile Include="EngineVertex.cpp">
       <Filter>Resources\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXHelper.cpp" />
+    <ClCompile Include="EngineInputLayOut.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXHelper.cpp">
+      <Filter>Device</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -211,7 +215,11 @@
     <ClInclude Include="EngineMaterial.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
-    <ClInclude Include="EngineInputLayOut.h" />
-    <ClInclude Include="DirectXHelper.h" />
+    <ClInclude Include="EngineInputLayOut.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXHelper.h">
+      <Filter>Device</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
