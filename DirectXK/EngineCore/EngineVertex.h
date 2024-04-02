@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
-//#include "DirectXHelper.h"
+#include "DirectXHelper.h"
 
 // 3D로 그려지는 점은 위치만 가질필요가 없습니다.
 // 자유
@@ -51,7 +51,7 @@ public:
 			Desc.AlignedByteOffset += OffsetSize;
 		}
 
-		//OffsetSize += UDirectXHelper::DirectFormatSize(_Format);
+		OffsetSize += UDirectXHelper::DirectFormatSize(_Format);
 
 		// D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
 		// D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_INSTANCE_DATA
