@@ -1,5 +1,6 @@
 #pragma once
 #include <EnginePlatform/EngineResources.h>
+#include "EngineShader.h"
 
 // Ό³Έν :
 class UEngineConstantBuffer : public UEngineResources<UEngineConstantBuffer>
@@ -18,6 +19,6 @@ public:
 protected:
 
 private:
-
+	static std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineConstantBuffer>>>> ConstantBuffers;
 };
 
