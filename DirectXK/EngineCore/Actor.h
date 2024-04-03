@@ -1,4 +1,6 @@
 #pragma once
+#include <EngineBase/Transform.h>
+
 #include <vector>
 #include "TickObject.h"
 #include "WorldObject.h"
@@ -40,6 +42,8 @@ public:
 
 		return dynamic_cast<ComponentType*>(NewComponent.get());
 	}
+
+	FTransform& GetActorTransform();
 
 protected:
 	void BeginPlay() override;

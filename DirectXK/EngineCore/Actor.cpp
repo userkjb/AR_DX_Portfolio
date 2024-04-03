@@ -12,6 +12,11 @@ AActor::~AActor()
 {
 }
 
+FTransform& AActor::GetActorTransform()
+{
+	return RootComponent->Transform;
+}
+
 void AActor::RootCheck()
 {
 	if (nullptr == RootComponent)
