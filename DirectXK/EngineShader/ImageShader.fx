@@ -39,7 +39,7 @@ ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
     //Out.POSITION.xyz = _Input.POSITION.xyz * 2.0f;
     //Out.POSITION.w = 1.0f;
     Out.POSITION = mul(_Input.POSITION, WVP);
-    Out.POSITION.x = Test.x;
+    //Out.POSITION.x = Test.x;
     return Out;
 }
 //}

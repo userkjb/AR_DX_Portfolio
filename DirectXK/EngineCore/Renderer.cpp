@@ -51,7 +51,7 @@ void URenderer::Render(float _DeltaTime)
 	// PixelShader
 	Material->PixelShaderSetting();
 
-	// OM
+	Resources->SettingAllShaderResources();
 
 	// Draw
 	Mesh->IndexedDraw();
