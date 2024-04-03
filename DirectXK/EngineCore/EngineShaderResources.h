@@ -1,8 +1,11 @@
 #pragma once
 
 // Ό³Έν :
+class UEngineShader;
 class UEngineShaderResources
 {
+	friend UEngineShader;
+
 public:
 
 protected:
