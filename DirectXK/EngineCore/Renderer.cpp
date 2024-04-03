@@ -90,10 +90,10 @@ void URenderer::SetMaterial(std::string_view _Name)
 
 	ResCopy();
 
-	//if (true == Resources->IsConstantBuffer("FTransform"))
-	//{
-	//	Resources->SettingConstantBuffer("FTransform", Transform);
-	//}
+	if (true == Resources->IsConstantBuffer("FTransform"))
+	{
+		Resources->SettingConstantBuffer("FTransform", Transform);
+	}
 
 }
 
