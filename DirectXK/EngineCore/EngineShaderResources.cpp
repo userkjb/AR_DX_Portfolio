@@ -53,6 +53,8 @@ void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, I
 
 			BufferInfo->GetDesc(&ConstantBufferDesc);
 
+			// 상수버퍼는 이름이 중요한게 아니라
+			// 바이트가 중요해.
 			// UEngineConstantBuffer::CreateResName()
 
 			break;

@@ -136,6 +136,7 @@
       <Filter>Device</Filter>
     </ClCompile>
     <ClCompile Include="EngineShaderResources.cpp" />
+    <ClCompile Include="EngineConstantBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -223,5 +224,6 @@
       <Filter>Device</Filter>
     </ClInclude>
     <ClInclude Include="EngineShaderResources.h" />
+    <ClInclude Include="EngineConstantBuffer.h" />
   </ItemGroup>
 </Project>

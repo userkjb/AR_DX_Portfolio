@@ -173,6 +173,7 @@
     <ClInclude Include="DefaultSceneComponent.h" />
     <ClInclude Include="DirectXHelper.h" />
     <ClInclude Include="EngineBuffer.h" />
+    <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="DefaultSceneComponent.cpp" />
     <ClCompile Include="DirectXHelper.cpp" />
     <ClCompile Include="EngineBuffer.cpp" />
+    <ClCompile Include="EngineConstantBuffer.cpp" />
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
