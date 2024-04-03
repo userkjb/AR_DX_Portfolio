@@ -13,7 +13,7 @@ UCamera::~UCamera()
 void UCamera::CameraTransformUpdate()
 {
 	// ºäÇà·Ä ¸¸µé¾îÁü
-	//View.View(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
+	View.View(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
 
 	//FVector Scale = GEngine->GetWindowScale();
 
