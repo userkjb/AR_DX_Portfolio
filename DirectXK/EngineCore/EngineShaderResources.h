@@ -11,10 +11,12 @@ public:
 };
 
 // Ό³Έν :
+class URenderer;
 class UEngineShader;
 class UEngineShaderResources
 {
 	friend UEngineShader;
+	friend URenderer;
 
 public:
 

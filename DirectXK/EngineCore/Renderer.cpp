@@ -87,4 +87,15 @@ void URenderer::SetMaterial(std::string_view _Name)
 	{
 		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
+
+	if (true)
+	{
+		std::shared_ptr<UEngineShaderResources> RendererResources = Resources;
+		std::shared_ptr<UEngineShaderResources> VertexResources = Material->GetVertexShader()->Resources;
+		std::shared_ptr<UEngineShaderResources> PixelResources = Material->GetPixelShader()->Resources;
+
+		RendererResources->ConstantBuffers;
+
+		// RendererResources->
+	}
 }
