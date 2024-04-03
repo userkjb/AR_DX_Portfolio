@@ -1,12 +1,6 @@
 #pragma once
 #include "EngineShaderResources.h"
-
-enum class EShaderType
-{
-	NONE,
-	Vertex,
-	Pixel,
-};
+#include "EngineEnums.h"
 
 class UEngineInputLayOut;
 // Ό³Έν :
