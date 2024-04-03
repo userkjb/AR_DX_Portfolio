@@ -69,16 +69,16 @@ FTransform& AActor::GetActorTransform()
 
 FVector AActor::GetActorForwardVector()
 {
-	//return RootComponent->Transform.GetForward();
+	return RootComponent->Transform.GetForward();
 }
 
 FVector AActor::GetActorRightVector()
 {
-	//return RootComponent->Transform.GetRight();
+	return RootComponent->Transform.GetRight();
 }
 FVector AActor::GetActorUpVector()
 {
-	//return RootComponent->Transform.GetUp();
+	return RootComponent->Transform.GetUp();
 }
 
 FVector AActor::GetActorLocation()
