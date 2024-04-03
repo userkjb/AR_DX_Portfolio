@@ -24,6 +24,8 @@ public:
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 
+	UEngineShaderResources Resources;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
