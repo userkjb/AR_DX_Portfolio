@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "EngineInputLayOut.h"
 #include "EngineShaderResources.h"
+#include "Camera.h"
 
 URenderer::URenderer()
 {
@@ -123,4 +124,9 @@ void URenderer::ResCopy()
 		}
 
 	}
+}
+
+void URenderer::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
+{
+	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
 }
