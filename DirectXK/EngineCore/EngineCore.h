@@ -49,6 +49,11 @@ public:
 		EngineWindow.SetWindowScale(_Scale);
 	}
 
+	FVector GetWindowScale()
+	{
+		return EngineWindow.GetWindowScale();
+	}
+
 	UEngineGraphicDevice& GetEngineDevice()
 	{
 		return EngineDevice;
