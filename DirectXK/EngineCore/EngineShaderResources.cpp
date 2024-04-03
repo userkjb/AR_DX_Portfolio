@@ -54,7 +54,6 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 
 			BufferInfo->GetDesc(&ConstantBufferDesc);
 
-
 			_EntryName;
 
 			// 상수버퍼는 이름이 중요한게 아니라
@@ -72,8 +71,11 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			MsgBoxAssert("처리할수 없는 타입입니다.");
 			break;
 		}
+
+
 		int a = 0;
 	}
+
 	CompileInfo->Release();
 
 	int a = 0;

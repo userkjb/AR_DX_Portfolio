@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Renderer.h"
 #include "EngineInputLayOut.h"
+#include "EngineShaderResources.h"
 
 URenderer::URenderer()
 {

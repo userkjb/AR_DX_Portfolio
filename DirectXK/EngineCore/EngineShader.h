@@ -1,8 +1,8 @@
 #pragma once
-#include "EngineShaderResources.h"
 #include "EngineEnums.h"
 
 class UEngineInputLayOut;
+class UEngineShaderResources;
 // Ό³Έν :
 class UEngineShader
 {
@@ -33,6 +33,7 @@ protected:
 	void ShaderResCheck();
 
 private:
+
 
 };
 

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EngineShader.h"
+#include "EngineShaderResources.h"
 
 UEngineShader::UEngineShader()
 {
