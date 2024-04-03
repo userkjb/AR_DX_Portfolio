@@ -22,5 +22,5 @@ UEngineShader::~UEngineShader()
 
 void UEngineShader::ShaderResCheck()
 {
-	Resources.ShaderResourcesCheck(EntryName, ShaderCodeBlob);
+	Resources.ShaderResourcesCheck(Type, EntryName, ShaderCodeBlob);
 }

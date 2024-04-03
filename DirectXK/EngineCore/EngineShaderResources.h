@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineEnums.h"
 
 // Ό³Έν :
 class UEngineShader;
@@ -11,5 +12,5 @@ public:
 protected:
 
 private:
-	void ShaderResourcesCheck(std::string_view _EntryName, ID3DBlob* _ShaderCode);
+	void ShaderResourcesCheck(EShaderType _Type, std::string_view _EntryName, ID3DBlob* _ShaderCode);
 };
