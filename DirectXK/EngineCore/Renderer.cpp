@@ -15,7 +15,7 @@ void URenderer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// 해줘야 한다/
+	// 해줘야 한다
 	GetWorld()->PushRenderer(shared_from_this());
 }
 
@@ -88,14 +88,38 @@ void URenderer::SetMaterial(std::string_view _Name)
 		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
 
-	if (true)
+	ResCopy();
+
+	//if (true == Resources->IsConstantBuffer("FTransform"))
+	//{
+	//	Resources->SettingConstantBuffer("FTransform", Transform);
+	//}
+
+}
+
+void URenderer::ResCopy()
+{
+
+	if (nullptr != Material->GetVertexShader())
 	{
-		std::shared_ptr<UEngineShaderResources> RendererResources = Resources;
-		std::shared_ptr<UEngineShaderResources> VertexResources = Material->GetVertexShader()->Resources;
-		std::shared_ptr<UEngineShaderResources> PixelResources = Material->GetPixelShader()->Resources;
+		// 버텍스쉐이더 내부에는 어떤 상수버퍼를 사용하고 있는지 다 들어 있을 것이다.
+		// Material->GetVertexShader()
 
-		RendererResources->ConstantBuffers;
+		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers
+			= Resources->ConstantBuffers;
 
-		// RendererResources->
+		std::shared_ptr<UEngineShaderResources> ShaderResources = Material->GetVertexShader()->Resources;
+
+		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers
+			= ShaderResources->ConstantBuffers;
+
+		for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
+		{
+			for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
+			{
+				RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
+			}
+		}
+
 	}
 }
