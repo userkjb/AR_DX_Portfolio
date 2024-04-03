@@ -1,5 +1,12 @@
 #pragma once
 
+enum class EShaderType
+{
+	NONE,
+	Vertex,
+	Pixel,
+};
+
 class UEngineInputLayOut;
 // Ό³Έν :
 class UEngineShader
