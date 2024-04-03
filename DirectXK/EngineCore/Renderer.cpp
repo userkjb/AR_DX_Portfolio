@@ -4,6 +4,7 @@
 
 URenderer::URenderer()
 {
+	Resources = std::make_shared<UEngineShaderResources>();
 }
 
 URenderer::~URenderer()

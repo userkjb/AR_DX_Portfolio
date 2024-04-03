@@ -54,11 +54,14 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 
 			BufferInfo->GetDesc(&ConstantBufferDesc);
 
+
+			_EntryName;
+
 			// 상수버퍼는 이름이 중요한게 아니라
 			// 바이트가 중요해.
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
-
-
+			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
+			ConstantBuffers[_Type][UpperName].Res = Buffer;
 			break;
 		}
 		case D3D_SIT_TEXTURE:

@@ -24,7 +24,7 @@ public:
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 
-	UEngineShaderResources Resources;
+	std::shared_ptr<UEngineShaderResources> Resources;
 
 protected:
 	void BeginPlay() override;
