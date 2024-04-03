@@ -34,6 +34,7 @@ protected:
 	ID3DBlob* ErrorCodeBlob = nullptr;
 
 	std::string EntryName = "NONE";
+	EShaderType Type = EShaderType::NONE;
 
 	void ShaderResCheck();
 
