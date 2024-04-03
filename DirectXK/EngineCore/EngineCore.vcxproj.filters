@@ -225,5 +225,6 @@
     </ClInclude>
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
+    <ClInclude Include="EngineEnums.h" />
   </ItemGroup>
 </Project>
