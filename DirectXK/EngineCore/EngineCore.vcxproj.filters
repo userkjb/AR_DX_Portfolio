@@ -135,6 +135,7 @@
     <ClCompile Include="DirectXHelper.cpp">
       <Filter>Device</Filter>
     </ClCompile>
+    <ClCompile Include="EngineShaderResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -221,5 +222,6 @@
     <ClInclude Include="DirectXHelper.h">
       <Filter>Device</Filter>
     </ClInclude>
+    <ClInclude Include="EngineShaderResources.h" />
   </ItemGroup>
 </Project>
