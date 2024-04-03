@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "EngineShaderResources.h"
+#include "EngineConstantBuffer.h"
 
 void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, ID3DBlob* _ShaderCode)
 {
@@ -55,7 +56,8 @@ void UEngineShaderResources::ShaderResourcesCheck(std::string_view _EntryName, I
 
 			// 상수버퍼는 이름이 중요한게 아니라
 			// 바이트가 중요해.
-			// UEngineConstantBuffer::CreateResName()
+			//std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
+
 
 			break;
 		}
