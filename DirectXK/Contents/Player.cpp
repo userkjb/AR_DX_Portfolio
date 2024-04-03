@@ -17,10 +17,9 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	// 랜더가 이때 들어간간다.
 
-
-	// 여기서 만들었야하는데.
+	FTransform& Transform = GetActorTransform();
+	Renderer->Resources->SettingConstantBuffer("FTransform", Transform);
 }
 
 void APlayer::Tick(float _DeltaTime)
