@@ -1,9 +1,10 @@
 #pragma once
 #include <EnginePlatform/EngineResources.h>
+#include "EngineBuffer.h"
 #include "EngineShader.h"
 
 // Ό³Έν :
-class UEngineConstantBuffer : public UEngineResources<UEngineConstantBuffer>
+class UEngineConstantBuffer : public UEngineResources<UEngineConstantBuffer>, public UEngineBuffer
 {
 public:
 	// constrcuter destructer
@@ -52,7 +53,7 @@ public:
 
 		std::shared_ptr<UEngineConstantBuffer> Res = CreateResUnName();
 		Res->SetName(_Name);
-		//Res->ResCreate(_ByteSize);
+		Res->ResCreate(_ByteSize);
 		Buffers[_ByteSize] = Res;
 		return Res;
 	}
@@ -61,5 +62,7 @@ protected:
 
 private:
 	static std::map<EShaderType, std::map<std::string, std::map<int, std::shared_ptr<UEngineConstantBuffer>>>> ConstantBuffers;
+
+	void ResCreate(UINT _ByteSize);
 };
 
