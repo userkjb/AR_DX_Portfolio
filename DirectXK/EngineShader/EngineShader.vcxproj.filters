@@ -12,6 +12,9 @@
     <None Include="TransformData.hlsli">
       <Filter>2D</Filter>
     </None>
+    <None Include="EngineShaderBase.hlsli">
+      <Filter>2D</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ImageShader.fx">

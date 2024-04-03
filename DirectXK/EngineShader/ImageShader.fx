@@ -12,7 +12,7 @@
 // 각 쉐이더 뒤쪽에는 픽셀이면 _PS
 // 규칙을 만들었습니다. <= 회사마다 매번 달라질수 있다.
 
-#include "EngineVertex.hlsli"
+#include "EngineShaderBase.hlsli"
 
 // 인풋레이아웃의 개념
 // 인풋레이아웃은 2가지를 역할을 합니다.

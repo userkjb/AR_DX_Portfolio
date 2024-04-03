@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="EngineShaderBase.hlsli" />
     <None Include="EngineVertex.hlsli" />
     <None Include="TransformData.hlsli" />
   </ItemGroup>
