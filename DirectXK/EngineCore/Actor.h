@@ -6,6 +6,7 @@
 #include "WorldObject.h"
 #include "Level.h"
 
+
 // 설명 : 액터가 트랜스폼을 가지는게 아니라
 class ULevel;
 class UActorComponent;
@@ -44,6 +45,18 @@ public:
 	}
 
 	FTransform& GetActorTransform();
+
+	FVector GetActorLocation();
+	FVector GetActorForwardVector();
+	FVector GetActorRightVector();
+	FVector GetActorUpVector();
+
+
+	void SetActorLocation(FVector _Value);
+	void SetActorScale3D(FVector _Value);
+
+	void AddActorLocation(FVector _Value);
+	void AddActorScale3D(FVector _Value);
 
 protected:
 	void BeginPlay() override;
