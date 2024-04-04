@@ -21,6 +21,14 @@ public:
 	void Setting();
 };
 
+class UEngineTextureSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineTexture> Tex;
+	std::shared_ptr<class UEngineSampler> Smp;
+	//void Setting();
+};
+
 // Ό³Έν :
 class URenderer;
 class UEngineShader;
