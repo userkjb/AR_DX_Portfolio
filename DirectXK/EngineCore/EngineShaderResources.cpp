@@ -79,7 +79,6 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 			// 상수버퍼는 이름이 중요한게 아니라
 			// 바이트가 중요해.
 			std::shared_ptr<UEngineConstantBuffer> Buffer = UEngineConstantBuffer::CreateAndFind(_Type, ResDesc.Name, ConstantBufferDesc.Size);
-			std::string UpperName = UEngineString::ToUpper(ResDesc.Name);
 
 			UEngineConstantBufferSetter& NewSetter = ConstantBuffers[_Type][UpperName];
 			NewSetter.Type = _Type;
