@@ -24,12 +24,12 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(100.0f, 100.0f, 100.0f));
+	SetActorScale3D(FVector(100.0f, 300.0f, 100.0f));
 
 	// 안해주면 터져야한다.
 	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
-	//Renderer->Resources->SettingTexture("Image", "AAAA.png", "POINT");
-	// Renderer->Resources->SettingSampler("Sampler", "POINT");
+	// 내부에서 샘플러도 같이 찾을
+	// Renderer->Resources->SettingTexture("Image", "AAAA.png", "POINT");
 }
 
 void APlayer::Tick(float _DeltaTime)
