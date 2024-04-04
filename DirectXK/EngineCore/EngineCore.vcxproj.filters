@@ -49,6 +49,21 @@
     <Filter Include="Resources\ShaderResources">
       <UniqueIdentifier>{3f1714dc-d999-4427-bc85-f8eb0544d486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{20e3d56f-084e-41dd-a596-27af90bf00ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex">
+      <UniqueIdentifier>{561c4a63-87ea-4737-bfea-3532bea3a270}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Debug">
+      <UniqueIdentifier>{f39b9d67-db6c-4f2f-b87f-2fd9b37303e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Inc">
+      <UniqueIdentifier>{22c6bd9b-e7f6-4913-97f7-39e33b1e35e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\DirectXTex\Release">
+      <UniqueIdentifier>{8db18c1a-18d8-44fd-a024-ade113298257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -245,5 +260,16 @@
     <ClInclude Include="EngineSampler.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\DirectXTex.h">
+      <Filter>ThirdParty\DirectXTex\Inc</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Release\DirectXTex.lib">
+      <Filter>ThirdParty\DirectXTex\Release</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
