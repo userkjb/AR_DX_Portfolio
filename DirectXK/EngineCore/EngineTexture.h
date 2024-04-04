@@ -7,6 +7,7 @@
 #include <EngineBase/EngineString.h>
 #include <EnginePlatform/EngineResources.h>
 
+#include "EngineSampler.h"
 
 //class UEngineResourcesUEngineTexture
 //{
@@ -111,6 +112,8 @@ private:
 	ID3D11RenderTargetView* RTV = nullptr;
 
 	D3D11_TEXTURE2D_DESC Desc;
+
+	std::shared_ptr<UEngineSampler> Sampler;
 
 	void CreateRes(ID3D11Texture2D* _Texture);
 
