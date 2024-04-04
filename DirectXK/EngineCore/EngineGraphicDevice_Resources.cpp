@@ -45,9 +45,9 @@ void MeshInit()
 			// 3    2
 
 			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} , {0.0f, 0.0f} };
-			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {1.0f, 0.0f} };
-			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {1.0f, 1.0f} };
-			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 1.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {2.0f, 0.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {2.0f, 2.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 2.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
 		}
 
@@ -167,11 +167,14 @@ void SettingInit()
 		D3D11_SAMPLER_DESC Desc = {};
 
 		// 옵션바꾸면서 설명드리겠습니다.
-		Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
-		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		// 가로
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		// 세로
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
 		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
 
-		Desc.Filter = D3D11_FILTER::D3D11_FILTER_COMPARISON_MIN_MAG_MIP_POINT;
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
 
 		// 밉맵의 개념에 대해서 이해해야한다.
 		Desc.MipLODBias = 0.0f; // 보간하지 않는다.

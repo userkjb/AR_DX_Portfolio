@@ -24,7 +24,7 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(100.0f, 300.0f, 100.0f));
+	SetActorScale3D(FVector(300.0f, 300.0f, 100.0f));
 
 	// 안해주면 터져야한다.
 	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
