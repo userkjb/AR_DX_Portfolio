@@ -137,6 +137,7 @@
     </ClCompile>
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="EngineConstantBuffer.cpp" />
+    <ClCompile Include="EngineSampler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -226,5 +227,6 @@
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineEnums.h" />
+    <ClInclude Include="EngineSampler.h" />
   </ItemGroup>
 </Project>
