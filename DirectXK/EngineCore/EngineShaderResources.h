@@ -59,5 +59,7 @@ private:
 	// 버텍스 쉐이더 
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
 
+	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
+
 };
 
