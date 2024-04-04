@@ -51,10 +51,9 @@ struct ImagePSOutPut
 // 언리얼 쉐이더 랭귀지.
 // HLSL => OpenGL shader 언어로 변경하는 기능도 지원합니다.
 
-TextureSet(Image, 0)
-#define TextureSet(Name, Slot) Texture2D Name : register(t##Slot##); SamplerState Name##_Sampler : register(s##Slot##);
-// Texture2D Image : register(t0); 
-// SamplerState Image_Sampler : register(s0);
+// TextureSet(Image, 0)
+Texture2D Image : register(t0);
+SamplerState Image_Sampler : register(s0);
 
 
 // C++코드로 표현한겁니다.

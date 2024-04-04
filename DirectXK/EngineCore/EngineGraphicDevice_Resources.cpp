@@ -172,9 +172,17 @@ void SettingInit()
 		// 세로
 		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 		// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
-		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 
-		Desc.Filter = D3D11_FILTER::D3D11_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
+		// MIP MAP
+		// MIN_MAG_MIP 나보다 클때든 작을때는 
+		// MIP 나보다 작을때
+		// MAG 나보다 클때
+		// MIN 확대할때
+		// 언제나 POINT로 샘플링히라
+		// POINT 보간을 하지 않고 색깔을 추출해라.
+		// Liner 는 보간을 하고 추출해라.
+		Desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
 
 		// 밉맵의 개념에 대해서 이해해야한다.
 		Desc.MipLODBias = 0.0f; // 보간하지 않는다.
