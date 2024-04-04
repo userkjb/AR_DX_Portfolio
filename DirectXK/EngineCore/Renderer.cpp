@@ -90,7 +90,8 @@ void URenderer::SetMaterial(std::string_view _Name)
 		LayOut = UEngineInputLayOut::Create(Mesh->VertexBuffer, Material->GetVertexShader());
 	}
 
-	ResCopy();
+	ResCopy(Material->GetVertexShader().get());
+	ResCopy(Material->GetPixelShader().get());
 
 	if (true == Resources->IsConstantBuffer("FTransform"))
 	{
@@ -99,30 +100,24 @@ void URenderer::SetMaterial(std::string_view _Name)
 
 }
 
-void URenderer::ResCopy()
+void URenderer::ResCopy(UEngineShader* _Shader)
 {
+	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers
+		= Resources->ConstantBuffers;
 
-	if (nullptr != Material->GetVertexShader())
+	//std::shared_ptr<UEngineShaderResources> ShaderResources = Material->GetVertexShader()->Resources;
+	std::shared_ptr<UEngineShaderResources> ShaderResources = _Shader->Resources;
+
+
+	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers
+		= ShaderResources->ConstantBuffers;
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
 	{
-		// 버텍스쉐이더 내부에는 어떤 상수버퍼를 사용하고 있는지 다 들어 있을 것이다.
-		// Material->GetVertexShader()
-
-		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& RendererConstantBuffers
-			= Resources->ConstantBuffers;
-
-		std::shared_ptr<UEngineShaderResources> ShaderResources = Material->GetVertexShader()->Resources;
-
-		std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& ShaderConstantBuffers
-			= ShaderResources->ConstantBuffers;
-
-		for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>> Setters : ShaderConstantBuffers)
+		for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
 		{
-			for (std::pair<const std::string, UEngineConstantBufferSetter> ConstantBufferSetter : Setters.second)
-			{
-				RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
-			}
+			RendererConstantBuffers[Setters.first][ConstantBufferSetter.first] = ConstantBufferSetter.second;
 		}
-
 	}
 }
 
