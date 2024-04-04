@@ -43,11 +43,14 @@ public:
 	{
 		SettingConstantBuffer(_Name, &_Data, static_cast<UINT>(sizeof(Value)));
 	}
+	bool IsConstantBuffer(std::string_view _Name);
 
 	void SettingConstantBuffer(std::string_view _Name, const void* _Data, UINT _Size);
 
-	bool IsConstantBuffer(std::string_view _Name);
-	
+	void SettingTexture(std::string_view _TexName, std::string_view _ImageName, std::string_view _SamperName);
+
+
+
 	void SettingAllShaderResources();
 
 protected:
