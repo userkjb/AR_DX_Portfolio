@@ -58,16 +58,16 @@ public:
 	{
 		UEnginePath NewPath = UEnginePath(std::filesystem::path(_Path));
 		std::string FileName = NewPath.GetFileName();
-		return CreateResName(FileName, _Path);
+		return CreateResName(_Path, FileName);
 	}
 
 	/// <summary>
-	/// 이름, 경로 를 가진 Resource 생성
+	/// 경로, 이름 을 가진 Resource 생성
 	/// </summary>
-	/// <param name="_Name"></param>
 	/// <param name="_Path"></param>
+	/// <param name="_Name"></param>
 	/// <returns></returns>
-	static std::shared_ptr<ResType> CreateResName(std::string_view _Name, std::string_view _Path)
+	static std::shared_ptr<ResType> CreateResName(std::string_view _Path, std::string_view _Name)
 	{
 		std::string UpperName = UEngineString::ToUpper(_Name);
 
