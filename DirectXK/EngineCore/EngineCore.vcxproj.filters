@@ -46,6 +46,9 @@
     <Filter Include="Resources\RenderingSetting">
       <UniqueIdentifier>{31910360-48eb-413b-8dfe-306b8c0e4144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\ShaderResources">
+      <UniqueIdentifier>{3f1714dc-d999-4427-bc85-f8eb0544d486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -135,9 +138,15 @@
     <ClCompile Include="DirectXHelper.cpp">
       <Filter>Device</Filter>
     </ClCompile>
-    <ClCompile Include="EngineShaderResources.cpp" />
-    <ClCompile Include="EngineConstantBuffer.cpp" />
-    <ClCompile Include="EngineSampler.cpp" />
+    <ClCompile Include="EngineConstantBuffer.cpp">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineShaderResources.cpp">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSampler.cpp">
+      <Filter>Resources\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -224,9 +233,17 @@
     <ClInclude Include="DirectXHelper.h">
       <Filter>Device</Filter>
     </ClInclude>
-    <ClInclude Include="EngineShaderResources.h" />
-    <ClInclude Include="EngineConstantBuffer.h" />
-    <ClInclude Include="EngineEnums.h" />
-    <ClInclude Include="EngineSampler.h" />
+    <ClInclude Include="EngineEnums.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineConstantBuffer.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineShaderResources.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSampler.h">
+      <Filter>Resources\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

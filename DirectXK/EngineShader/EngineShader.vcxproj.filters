@@ -18,6 +18,9 @@
     <None Include="TransformData.hlsli">
       <Filter>Header</Filter>
     </None>
+    <None Include="EngineTexture.hlsli">
+      <Filter>Header</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="ImageShader.fx">
