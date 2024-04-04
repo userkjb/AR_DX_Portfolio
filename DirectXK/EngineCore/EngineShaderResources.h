@@ -24,8 +24,14 @@ public:
 class UEngineTextureSetter : public USetterBase
 {
 public:
-	std::shared_ptr<class UEngineTexture> Tex;
-	std::shared_ptr<class UEngineSampler> Smp;
+	std::shared_ptr<class UEngineTexture> Res;
+	//void Setting();
+};
+
+class UEngineSamplerSetter : public USetterBase
+{
+public:
+	std::shared_ptr<class UEngineSampler> Res;
 	//void Setting();
 };
 
@@ -61,8 +67,7 @@ private:
 	// ÇÈ¼¿½¦ÀÌ´õ¶û 
 	// ¹öÅØ½º ½¦ÀÌ´õ 
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
-
 	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
-
+	std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>> Samplers;
 };
 
