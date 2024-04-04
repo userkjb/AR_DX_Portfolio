@@ -166,13 +166,16 @@ void SettingInit()
 	{
 		D3D11_SAMPLER_DESC Desc = {};
 
-		// 옵션바꾸면서 설명드리겠습니다.
-		// 가로
-		Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		// 세로
-		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
-		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		//// 옵션바꾸면서 설명드리겠습니다.
+		//// 가로
+		//Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		//// 세로
+		//Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+		//// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
+		//Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+
+		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+
 
 		// MIP MAP
 		// MIN_MAG_MIP 나보다 클때든 작을때는 
