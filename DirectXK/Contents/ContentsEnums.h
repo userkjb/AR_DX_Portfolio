@@ -1,6 +1,6 @@
 #pragma once
 
-enum class ActorOrder
+enum class ERenderOrder
 {
 
 };
