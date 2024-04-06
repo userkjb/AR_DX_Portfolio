@@ -42,6 +42,9 @@
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\01_TitleLevel</Filter>
     </ClCompile>
+    <ClCompile Include="GameLogo.cpp">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -58,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\01_TitleLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsEnums.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLogo.h">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
