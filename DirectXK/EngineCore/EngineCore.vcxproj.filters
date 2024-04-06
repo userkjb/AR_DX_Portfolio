@@ -162,6 +162,8 @@
     <ClCompile Include="EngineSampler.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="EngineSprite.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -263,6 +265,8 @@
     <ClInclude Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\DirectXTex.h">
       <Filter>ThirdParty\DirectXTex\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="EngineSprite.h" />
+    <ClInclude Include="SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
