@@ -27,11 +27,40 @@ struct ImageVSOutPut
     float4 TEXCOORD : TEXCOORD;
 };
 
+// 내가 여기에다가 스트럭트를 넣는다고 이게 쉐이더에서 
+// CPU쪽에서 넣어주기로 한 데이터로 인정되지 않아요
+// CPU에서 내가 행렬이나 데이터 등등을 만들어서
+// 넣어주고 싶다면
+// 상수버퍼라고 하는 인터페이스와 전용 문법을 이용해야만
+// 다이렉트에 넣어줄수가 있습니다.
+// hlsl에서 struct 이런 데이터가 있을거야. 라는 정의만 내려줄수 있고
+
+cbuffer FCuttingData : register(b2)
+{
+    //       0, 0
+    float4 CuttingPosition;
+    //      0.5 0.5
+    float4 CuttingSize;
+};
+
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
     Out.POSITION = mul(_Input.POSITION, WVP);
-    Out.TEXCOORD = _Input.TEXCOORD;
+    //Out.TEXCOORD = _Input.TEXCOORD;
+    // 00,    1. 0
+    // 01,   1 1
+    
+    Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
+    Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
+    
+    // 00,    1. 0
+    // 01,   1 1
+    
+       // Rect에 존재하는 녀석이다.
+    // 0.5 0.5,    1. 0.5
+    // 0.5 1,    1 1
+    
     return Out;
 }
 
@@ -71,6 +100,12 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     ImagePSOutPut Out = (ImagePSOutPut) 0;
     
     // Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
+    
+    // Rect에 존재하는 녀석이다.
+    // 00,    10
+    
+    
+    // 01,    11
     
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
