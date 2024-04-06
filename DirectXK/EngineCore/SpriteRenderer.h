@@ -1,6 +1,14 @@
 #pragma once
 #include "Renderer.h"
 
+struct FCuttingData
+{
+	//       0, 0
+	float4 CuttingPosition;
+	//      0.5 0.5
+	float4 CuttingSize;
+};
+
 // Ό³Έν :
 class UEngineTexture;
 class USpriteRenderer : public URenderer
@@ -25,6 +33,7 @@ public:
 protected:
 
 private:
+	FCuttingData CuttingDataValue;
 	float4 PlusColor = float4::Zero;
 	std::shared_ptr<UEngineTexture> CurTexture;
 
