@@ -1,5 +1,6 @@
 #pragma once
 #include "Renderer.h"
+#include "EngineSprite.h"
 
 struct FCuttingData
 {
@@ -9,10 +10,18 @@ struct FCuttingData
 	float4 CuttingSize;
 };
 
+class UEngineSprite;
+class USpriteAnimation : public UNameObject
+{
+
+};
+
 // Ό³Έν :
 class UEngineTexture;
 class USpriteRenderer : public URenderer
 {
+	GENERATED_BODY(URenderer);
+
 public:
 	// constrcuter destructer
 	USpriteRenderer();
