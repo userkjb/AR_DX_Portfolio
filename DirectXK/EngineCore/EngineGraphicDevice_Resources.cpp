@@ -45,9 +45,9 @@ void MeshInit()
 			// 3    2
 
 			VertexData[0] = { {-0.5f, 0.5f, 0.0f, 1.0f} , {0.0f, 0.0f} };
-			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {2.0f, 0.0f} };
-			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {2.0f, 2.0f} };
-			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 2.0f} };
+			VertexData[1] = { {0.5f, 0.5f, 0.0f, 1.0f} , {1.0f, 0.0f} };
+			VertexData[2] = { {0.5f, -0.5f, 0.0f, 1.0f}, {1.0f, 1.0f} };
+			VertexData[3] = { {-0.5f, -0.5f, 0.0f, 1.0f}, {0.0f, 1.0f} };
 			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Rect", VertexData);
 		}
 
