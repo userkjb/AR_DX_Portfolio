@@ -228,6 +228,21 @@ void MaterialInit()
 
 }
 
+void EngineTextureInit()
+{
+	{
+		// 파일의 헤더
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("EngineResources");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineTexture::Load(File.GetFullPath());
+		}
+	}
+
+}
+
 
 // 엔진에서 박스하나도 지원안해주면 
 void UEngineGraphicDevice::EngineResourcesInit()
@@ -236,4 +251,5 @@ void UEngineGraphicDevice::EngineResourcesInit()
 	ShaderInit();
 	SettingInit();
 	MaterialInit();
+	EngineTextureInit();
 }
