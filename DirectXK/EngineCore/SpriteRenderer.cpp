@@ -143,7 +143,7 @@ void USpriteRenderer::CreateAnimation(
 	if (0 > _Start)
 	{
 		Start = 0;
-		End = static_cast<UINT>(FindSprite->GetInfoSize());
+		End = static_cast<int>(FindSprite->GetInfoSize());
 	}
 
 	for (int i = 0; i < End; i++)
