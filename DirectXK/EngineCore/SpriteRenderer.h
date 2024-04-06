@@ -63,6 +63,7 @@ public:
 	void ChangeAnimation(std::string_view _AnimationName);
 
 protected:
+	void Tick(float _DeltaTime) override;
 
 private:
 	FCuttingData CuttingDataValue;
