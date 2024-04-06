@@ -3,6 +3,14 @@
 #include "EngineShaderResources.h"
 #include "EngineSprite.h"
 
+struct FCuttingData
+{
+	//       0, 0
+	float4 CuttingPosition;
+	//      0.5 0.5
+	float4 CuttingSize;
+};
+
 USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
