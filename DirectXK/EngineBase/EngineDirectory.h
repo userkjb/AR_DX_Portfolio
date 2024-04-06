@@ -20,6 +20,11 @@ public:
 
 	void MoveToSearchChild(std::string_view _Path);
 
+	std::string GetFolderName() const
+	{
+		return GetFileName();
+	}
+
 	// AAA.Png;
 	// AAA.pNg;
 
