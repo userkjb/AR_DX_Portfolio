@@ -56,14 +56,21 @@ public:
 	void SetPlusColor(float4 _Color);
 	void SetSamplering(ETextureSampling _Value);
 
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, float _Inter, bool _Loop = true, int _Start = -1, int _End = -1);
 
+	void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName, std::vector<float> _Inter, std::vector<int> _Frame, bool _Loop = true);
+
+	void ChangeAnimation(std::string_view _AnimationName);
 
 protected:
 
 private:
 	FCuttingData CuttingDataValue;
 	float4 PlusColor = float4::Zero;
-	std::shared_ptr<UEngineTexture> CurTexture;
+	std::shared_ptr<UEngineTexture> CurTexture = nullptr;
+	std::map<std::string, std::shared_ptr<USpriteAnimation>> Animations;
+	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
+	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
 };
 
