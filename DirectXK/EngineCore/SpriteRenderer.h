@@ -13,7 +13,26 @@ struct FCuttingData
 class UEngineSprite;
 class USpriteAnimation : public UNameObject
 {
+public:
+	std::shared_ptr<UEngineSprite> Sprite;
+	std::vector<float> Inter;
+	std::vector<int> Frame;
+	int CurFrame = 0;
+	float CurTime = 0.0f;
+	bool Loop = true;
 
+	void Update(float _DeltaTime);
+
+	FSpriteInfo GetCurSpriteInfo()
+	{
+		return Sprite->GetSpriteInfo(CurFrame);
+	}
+
+	void Reset()
+	{
+		CurTime = 0.0f;
+		CurFrame = 0;
+	}
 };
 
 // Ό³Έν :

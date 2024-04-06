@@ -3,6 +3,29 @@
 #include "EngineShaderResources.h"
 #include "EngineSprite.h"
 
+void USpriteAnimation::Update(float _DeltaTime)
+{
+	CurTime += _DeltaTime;
+
+	if (CurTime > Inter[CurFrame])
+	{
+		CurTime -= Inter[CurFrame];
+		++CurFrame;
+
+		if (Frame.size() <= CurFrame)
+		{
+			if (true == Loop)
+			{
+				CurFrame = 0;
+			}
+			else
+			{
+				--CurFrame;
+			}
+		}
+	}
+}
+
 USpriteRenderer::USpriteRenderer()
 {
 	SetMesh("Rect");
