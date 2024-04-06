@@ -14,24 +14,16 @@ void AGameLogo::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(500.0f, 500.0f, 100.0f));
+	SetActorScale3D(FVector(156.0f, 75.0f, 0.0f));
 
 	//LogoRenderer->SetSprite("Idle", 0);
 
+	LogoRenderer->CreateAnimation("GameTitleLogo", "GameTitleLogo", 0.25f);
 
-	LogoRenderer->CreateAnimation("Idle", "Idle", 0.25f);
-	LogoRenderer->CreateAnimation("Run", "Run", 0.25f);
-
-
-	LogoRenderer->ChangeAnimation("Idle");
+	LogoRenderer->ChangeAnimation("GameTitleLogo");
 }
 
 void AGameLogo::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	if (true == UEngineInput::IsDown('X'))
-	{
-		LogoRenderer->ChangeAnimation("Run");
-	}
 }
