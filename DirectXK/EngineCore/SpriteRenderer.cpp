@@ -10,6 +10,8 @@ USpriteRenderer::USpriteRenderer()
 	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
 	CurTexture = nullptr;
 	Resources->SettingConstantBuffer("ResultColorValue", PlusColor);
+	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
+
 }
 
 
@@ -28,7 +30,8 @@ void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
 	}
 
 	FSpriteInfo Info = Sprite->GetSpriteInfo(_Index);
-
+	CuttingDataValue.CuttingPosition = Info.CuttingPosition;
+	CuttingDataValue.CuttingSize = Info.CuttingSize;
 	CurTexture = Info.Texture;
 	Resources->SettingTexture("Image", Info.Texture, "POINT");
 }
