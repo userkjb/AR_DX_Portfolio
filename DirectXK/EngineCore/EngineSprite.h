@@ -78,7 +78,10 @@ public:
 		return FindSprite;
 	}
 
-
+	size_t GetInfoSize()
+	{
+		return Infos.size();
+	}
 
 	FSpriteInfo GetSpriteInfo(UINT _Index)
 	{
