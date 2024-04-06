@@ -51,10 +51,14 @@ struct ImagePSOutPut
 // 언리얼 쉐이더 랭귀지.
 // HLSL => OpenGL shader 언어로 변경하는 기능도 지원합니다.
 
-// TextureSet(Image, 0)
-Texture2D Image : register(t0);
-SamplerState Image_Sampler : register(s0);
+TextureSet(Image, 0)
+//Texture2D Image : register(t0);
+//SamplerState Image_Sampler : register(s0);
 
+cbuffer ResultColorValue : register(b10)
+{
+    float4 PlusColor;
+};
 
 // C++코드로 표현한겁니다.
 // std::vector<Pixel> Pixels
@@ -69,7 +73,8 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     // Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
-    
+    Out.COLOR.xyz += PlusColor.xyz;
+
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     
