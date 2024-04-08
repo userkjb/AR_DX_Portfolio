@@ -59,6 +59,8 @@ private:
 	FMatrix Projection;
 	D3D11_VIEWPORT ViewPort;
 
+	FTransform PrevTransform;
+
 	float FreeCameraMoveSpeed = 500.0f;
 
 	ECameraType PrevProjectionType = ECameraType::Orthographic;

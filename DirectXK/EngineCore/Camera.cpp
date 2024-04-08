@@ -23,7 +23,7 @@ UCamera::~UCamera()
 void UCamera::CameraTransformUpdate()
 {
 	// 뷰행렬 만들어짐
-	View.View(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
+	View.LookToLH(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
 
 	FVector Scale = GEngine->EngineWindow.GetWindowScale();
 
@@ -61,6 +61,8 @@ void UCamera::Tick(float _DeltaTime)
 
 	if (false == IsFreeCamera && IsDown(Key))
 	{
+		PrevTransform = GetActorTransform();
+
 		PrevProjectionType = ProjectionType;
 		ProjectionType = ECameraType::Perspective;
 		IsFreeCamera = true;
@@ -68,6 +70,7 @@ void UCamera::Tick(float _DeltaTime)
 	}
 	else if (true == IsFreeCamera && IsDown(Key))
 	{
+		SetActorTransform(PrevTransform);
 		ProjectionType = PrevProjectionType;
 		IsFreeCamera = false;
 		OnlyInputStop();
@@ -97,35 +100,43 @@ void UCamera::Tick(float _DeltaTime)
 
 	}
 
+	float Speed = FreeCameraMoveSpeed;
+
+	if (true == IsPress(VK_LSHIFT))
+	{
+		Speed = Speed * 4.0f;
+	}
+
+
 
 	if (true == IsPress('A'))
 	{
-		AddActorLocation(FVector::Left * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::Left * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('D'))
 	{
-		AddActorLocation(FVector::Right * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::Right * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('Q'))
 	{
-		AddActorLocation(FVector::Up * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::Up * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('E'))
 	{
-		AddActorLocation(FVector::Down * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::Down * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('W'))
 	{
-		AddActorLocation(FVector::Forward * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::Forward * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('S'))
 	{
-		AddActorLocation(FVector::BackWard * _DeltaTime * FreeCameraMoveSpeed);
+		AddActorLocation(FVector::BackWard * _DeltaTime * Speed);
 	}
 
 	// 이때부터 회전이 된다.
@@ -133,7 +144,6 @@ void UCamera::Tick(float _DeltaTime)
 	{
 		// 
 		float4 Rot = GEngine->EngineWindow.GetScreenMouseDirNormal();
-
 		AddActorRotation({ -Rot.Y, -Rot.X, 0.0f });
 	}
 }
