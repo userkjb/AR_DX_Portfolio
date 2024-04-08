@@ -16,7 +16,7 @@ void AGameLogo::BeginPlay()
 
 	SetActorScale3D(FVector(156.0f, 75.0f, 0.0f));
 
-	//LogoRenderer->SetSprite("Idle", 0);
+	//LogoRenderer->SetSprite("Idle.png"); // 이미지 단장.
 
 	LogoRenderer->CreateAnimation("GameTitleLogo", "GameTitleLogo", 0.25f);
 
