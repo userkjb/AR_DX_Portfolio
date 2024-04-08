@@ -51,12 +51,13 @@ public:
 	FVector GetActorRightVector();
 	FVector GetActorUpVector();
 
-
-	void SetActorLocation(FVector _Value);
 	void SetActorScale3D(FVector _Value);
+	void SetActorRotation(FVector _Value);
+	void SetActorLocation(FVector _Value);
 
-	void AddActorLocation(FVector _Value);
 	void AddActorScale3D(FVector _Value);
+	void AddActorRotation(FVector _Value);
+	void AddActorLocation(FVector _Value);
 
 protected:
 	void BeginPlay() override;

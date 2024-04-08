@@ -118,10 +118,21 @@ void AActor::SetActorScale3D(FVector _Value)
 	RootComponent->Transform.SetScale(_Value);
 }
 
+void AActor::SetActorRotation(FVector _Value)
+{
+	RootComponent->Transform.SetRotation(_Value);
+}
+
 void AActor::AddActorLocation(FVector _Value)
 {
 	RootComponent->Transform.AddPosition(_Value);
 }
+
+void AActor::AddActorRotation(FVector _Value)
+{
+	RootComponent->Transform.AddRotation(_Value);
+}
+
 void AActor::AddActorScale3D(FVector _Value)
 {
 	RootComponent->Transform.AddScale(_Value);
