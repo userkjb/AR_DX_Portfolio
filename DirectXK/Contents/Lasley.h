@@ -45,8 +45,12 @@ private :
 	void DownBegin();
 	void DownTick(float _DeltaTime);
 
+
+
 	USpriteRenderer* LasleyRenderer = nullptr;
 
 	ELasleyState State = ELasleyState::None;
+
+	const float MoveSpeed = 500.0f;
 };
 
