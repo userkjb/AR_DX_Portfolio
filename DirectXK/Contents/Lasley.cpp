@@ -4,6 +4,7 @@
 ALasley::ALasley()
 {
 	LasleyRenderer = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
+	InputOn();
 }
 
 ALasley::~ALasley()
@@ -101,6 +102,7 @@ void ALasley::StateUpdate(float _DeltaTime)
 
 void ALasley::CreateAnimation()
 {
+	LasleyRenderer->CreateAnimation("None", "LasleyNone", 0.25);
 	// State
 	LasleyRenderer->CreateAnimation("DevilEye", "LasleyDevilEye", 0.125f);
 	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle", 0.125f);
@@ -112,7 +114,7 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
 	LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDoubleDimensionCutter", 0.125f);
 
-	LasleyRenderer->ChangeAnimation("DevilEye");
+	LasleyRenderer->ChangeAnimation("None");
 }
 
 
@@ -123,6 +125,11 @@ void ALasley::NoneBegin()
 
 void ALasley::NoneTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::DevilEye);
+		return;
+	}
 }
 
 void ALasley::DevilEyeBegin()
@@ -132,6 +139,11 @@ void ALasley::DevilEyeBegin()
 
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::Idle);
+		return;
+	}
 }
 
 void ALasley::IdleBegin()
@@ -141,6 +153,11 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::Wake);
+		return;
+	}
 }
 
 void ALasley::WakeBegin()
@@ -150,6 +167,11 @@ void ALasley::WakeBegin()
 
 void ALasley::WakeTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::DemonicBlade);
+		return;
+	}
 }
 
 void ALasley::DemonicBladeBegin()
@@ -159,6 +181,11 @@ void ALasley::DemonicBladeBegin()
 
 void ALasley::DemonicBladeTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::DimensionCutter);
+		return;
+	}
 }
 
 void ALasley::DimensionCutterBegin()
@@ -168,6 +195,11 @@ void ALasley::DimensionCutterBegin()
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::DoubleDimensionCutter);
+		return;
+	}
 }
 
 void ALasley::DoubleDimensionCutterBegin()
@@ -177,6 +209,11 @@ void ALasley::DoubleDimensionCutterBegin()
 
 void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		StateChange(ELasleyState::Down);
+		return;
+	}
 }
 
 void ALasley::DownBegin()
