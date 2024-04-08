@@ -49,11 +49,6 @@ public:
 		EngineWindow.SetWindowScale(_Scale);
 	}
 
-	FVector GetWindowScale()
-	{
-		return EngineWindow.GetWindowScale();
-	}
-
 	UEngineGraphicDevice& GetEngineDevice()
 	{
 		return EngineDevice;
@@ -104,6 +99,8 @@ public:
 		return EngineOption;
 	}
 
+	UEngineWindow EngineWindow;
+
 protected:
 
 private:
@@ -111,7 +108,6 @@ private:
 
 	UEngineTime MainTimer;
 
-	UEngineWindow EngineWindow;
 
 	UEngineGraphicDevice EngineDevice;
 
