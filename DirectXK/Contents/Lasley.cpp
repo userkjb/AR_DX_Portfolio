@@ -115,6 +115,8 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->ChangeAnimation("DevilEye");
 }
 
+
+// --- State ---
 void ALasley::NoneBegin()
 {
 }
@@ -125,6 +127,7 @@ void ALasley::NoneTick(float _DeltaTime)
 
 void ALasley::DevilEyeBegin()
 {
+	LasleyRenderer->ChangeAnimation("DevilEye");
 }
 
 void ALasley::DevilEyeTick(float _DeltaTime)
@@ -133,6 +136,7 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 
 void ALasley::IdleBegin()
 {
+	LasleyRenderer->ChangeAnimation("Idle");
 }
 
 void ALasley::IdleTick(float _DeltaTime)
@@ -141,6 +145,7 @@ void ALasley::IdleTick(float _DeltaTime)
 
 void ALasley::WakeBegin()
 {
+	LasleyRenderer->ChangeAnimation("Wake");
 }
 
 void ALasley::WakeTick(float _DeltaTime)
@@ -149,6 +154,7 @@ void ALasley::WakeTick(float _DeltaTime)
 
 void ALasley::DemonicBladeBegin()
 {
+	LasleyRenderer->ChangeAnimation("DemonicBlade");
 }
 
 void ALasley::DemonicBladeTick(float _DeltaTime)
@@ -157,6 +163,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 
 void ALasley::DimensionCutterBegin()
 {
+	LasleyRenderer->ChangeAnimation("DimensionCutter");
 }
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
@@ -165,6 +172,7 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 
 void ALasley::DoubleDimensionCutterBegin()
 {
+	LasleyRenderer->ChangeAnimation("DoubleDimensionCutter");
 }
 
 void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
@@ -173,6 +181,7 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 
 void ALasley::DownBegin()
 {
+	LasleyRenderer->ChangeAnimation("Down");
 }
 
 void ALasley::DownTick(float _DeltaTime)
