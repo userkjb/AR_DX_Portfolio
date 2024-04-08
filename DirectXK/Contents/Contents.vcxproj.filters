@@ -31,6 +31,9 @@
     <Filter Include="Level\TestLevel\Object">
       <UniqueIdentifier>{27d91663-f422-40e0-b91b-82c493e367b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel">
+      <UniqueIdentifier>{1dbb66fb-f01d-4b85-856e-659435d386cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
