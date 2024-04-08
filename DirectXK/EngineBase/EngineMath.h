@@ -41,6 +41,8 @@ struct float4
 public:
 	static const float4 Zero;
 	static const float4 One;
+	static const float4 Forward;
+	static const float4 BackWard;
 	static const float4 Left;
 	static const float4 Right;
 	static const float4 Up;
@@ -70,6 +72,7 @@ public:
 
 		float Arr1D[4];
 		float Arr2D[1][4];
+		DirectX::XMVECTOR DirectVector;
 	};
 
 	// 생성자를 한번 만들게 되면 리스트 이니셜라이저가 동작하지 않아서
@@ -139,21 +142,6 @@ public:
 		return Result;
 	}
 
-	static float4 Cross3D(float4 _Left, float4 _Right)
-	{
-		float4 Result;
-		Result.X = (_Left.Y * _Right.Z) - (_Left.Z * _Right.Y);
-		Result.Y = (_Left.Z * _Right.X) - (_Left.X * _Right.Z);
-		Result.Z = (_Left.X * _Right.Y) - (_Left.Y * _Right.X);
-		return Result;
-	}
-
-	static float DotProduct3D(float4 _Left, float4 _Right)
-	{
-		float Result = (_Left.X * _Right.X) + (_Left.Y * _Right.Y) + (_Left.Z * _Right.Z);
-		return Result;
-	}
-
 
 	static float4 VectorRotationXToDeg(float4 _OriginVector, float _Angle)
 	{
@@ -182,6 +170,23 @@ public:
 		Result.Z = (_OriginVector.X * sinf(_Angle)) + (_OriginVector.Z * cosf(_Angle));
 		return Result;
 	}
+
+
+	static float4 Cross3D(float4 _Left, float4 _Right)
+	{
+		float4 Result;
+		Result.X = (_Left.Y * _Right.Z) - (_Left.Z * _Right.Y);
+		Result.Y = (_Left.Z * _Right.X) - (_Left.X * _Right.Z);
+		Result.Z = (_Left.X * _Right.Y) - (_Left.Y * _Right.X);
+		return Result;
+	}
+
+	static float DotProduct3D(float4 _Left, float4 _Right)
+	{
+		float Result = (_Left.X * _Right.X) + (_Left.Y * _Right.Y) + (_Left.Z * _Right.Z);
+		return Result;
+	}
+
 
 
 
@@ -502,6 +507,13 @@ public:
 		float4 ArrVector[4];
 		float Arr1D[16] = { };
 		float Arr2D[4][4];
+
+		// 다이렉트에서 사용하는 함수를 사용하려면 다이렉트에서 제공하는 vector를 사용해야 한다.
+		// 다이렉트 함수는 왜 빠르냐?
+		// 내부에서 SIMD연산을 사용한다.
+		// CPU에서 그래픽카드와 같이 한번에 XYZW를 동시에 연산처리 하는 기술
+		DirectX::XMMATRIX DirectMatrix;
+
 	};
 
 
@@ -525,18 +537,23 @@ public:
 	void Scale(float4 _Value)
 	{
 		Identity();
-		Arr2D[0][0] = _Value.X;
-		Arr2D[1][1] = _Value.Y;
-		Arr2D[2][2] = _Value.Z;
-		Arr2D[3][3] = 1.0f;
+
+		DirectMatrix = DirectX::XMMatrixScalingFromVector(_Value.DirectVector);
+
+		//Arr2D[0][0] = _Value.X;
+		//Arr2D[1][1] = _Value.Y;
+		//Arr2D[2][2] = _Value.Z;
+		//Arr2D[3][3] = 1.0f;
 	}
 
 	void Position(float4 _Value)
 	{
 		Identity();
-		Arr2D[3][0] = _Value.X;
-		Arr2D[3][1] = _Value.Y;
-		Arr2D[3][2] = _Value.Z;
+		DirectMatrix = DirectX::XMMatrixTranslationFromVector(_Value.DirectVector);
+
+		//Arr2D[3][0] = _Value.X;
+		//Arr2D[3][1] = _Value.Y;
+		//Arr2D[3][2] = _Value.Z;
 	}
 
 	void Identity()
@@ -545,11 +562,13 @@ public:
 		// Arr1D 주소값위치부터 100
 		// sizeof(float) * 16 크기만큼을 164 번지 까지를
 		// 0으로 채워라.
-		memset(Arr1D, 0, sizeof(float) * 16);
-		Arr2D[0][0] = 1.0f;
-		Arr2D[1][1] = 1.0f;
-		Arr2D[2][2] = 1.0f;
-		Arr2D[3][3] = 1.0f;
+		// memset(Arr1D, 0, sizeof(float) * 16);
+		//Arr2D[0][0] = 1.0f;
+		//Arr2D[1][1] = 1.0f;
+		//Arr2D[2][2] = 1.0f;
+		//Arr2D[3][3] = 1.0f;
+
+		DirectMatrix = DirectX::XMMatrixIdentity();
 	}
 
 	float4 LeftVector()
@@ -582,16 +601,28 @@ public:
 		return -ArrVector[2].Normalize3DReturn();
 	}
 
-	float4x4 RotationDeg(const float4 _Value)
+	void RotationDeg(const float4 _Value)
 	{
 		Identity();
+		//float4x4 X;
+		//X.RotationXDeg(_Value.X);
+		//float4x4 Y;
+		//Y.RotationYDeg(_Value.Y);
+		//float4x4 Z;
+		//Z.RotationZDeg(_Value.Z);
+		// *this = X * Y * Z;
+
 		float4x4 X;
-		X.RotationXDeg(_Value.X);
 		float4x4 Y;
-		Y.RotationYDeg(_Value.Y);
 		float4x4 Z;
-		Z.RotationZDeg(_Value.Z);
-		return X * Y * Z;
+
+		X.DirectMatrix = DirectX::XMMatrixRotationX(_Value.X);
+		Y.DirectMatrix = DirectX::XMMatrixRotationX(_Value.Y);
+		Y.DirectMatrix = DirectX::XMMatrixRotationX(_Value.Z);
+
+		*this = X * Y * Z;
+
+		return;
 	}
 
 	void RotationXDeg(float _Angle)
@@ -743,6 +774,8 @@ public:
 	void PerspectiveFovRad(float _FovAngle, float _Width, float _Height, float _Near, float _Far)
 	{
 		Identity();
+
+
 
 		// w에 z값 이전을 위한 값
 		Arr2D[2][3] = 1.0f;
