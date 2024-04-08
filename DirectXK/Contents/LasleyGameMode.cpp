@@ -27,6 +27,7 @@ void ALasleyGameMode::BeginPlay()
 		UEngineTexture::Load(File.GetFullPath());
 	}
 
+	Dir.Move("Boss_Lasley");
 	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
 	for (size_t i = 0; i < Directorys.size(); i++)
 	{

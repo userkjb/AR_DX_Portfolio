@@ -26,6 +26,8 @@ private :
 	void StateChange(ELasleyState _State);
 	void StateUpdate(float _DeltaTime);
 
+	void CreateAnimation();
+
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 
