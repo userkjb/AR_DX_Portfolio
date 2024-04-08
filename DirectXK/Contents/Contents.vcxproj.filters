@@ -72,6 +72,9 @@
     <ClCompile Include="Lasley.cpp">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="LasleySkill.cpp">
+      <Filter>Level\03_LasleyLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -102,6 +105,9 @@
       <Filter>Level\02_TownLevel</Filter>
     </ClInclude>
     <ClInclude Include="Lasley.h">
+      <Filter>Level\03_LasleyLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleySkill.h">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
