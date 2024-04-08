@@ -6,6 +6,11 @@ struct ImageVSOutPut
     float4 POSITION : SV_POSITION;
 };
 
+struct ImagePSOutPut
+{
+    float4 COLOR : SV_Target0;
+};
+
 ImageVSOutPut ColorShader_VS(FEngineVertex _Input)
 {
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
@@ -42,11 +47,6 @@ cbuffer OutPutColor : register(b0)
     float4 Color;
 };
 
-
-struct ImagePSOutPut
-{
-    float4 COLOR : SV_Target0;
-};
 
 ImagePSOutPut ColorShader_PS(ImageVSOutPut _Input)
 {
