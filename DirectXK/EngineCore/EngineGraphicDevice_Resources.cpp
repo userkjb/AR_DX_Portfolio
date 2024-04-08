@@ -156,7 +156,8 @@ void SettingInit()
 
 		// Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
 		// µÞ¸é ±×¸®Áö¸¶
-		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		//Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 		// ¾Õ¸é°ú µÞ¸é
 		// ½Ã°è¹æÇâÀÌ¸é µÞ¸éÀ¸·Î º¾´Ï´Ù.
 
