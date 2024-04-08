@@ -295,14 +295,17 @@ public:
 
 	void Normalize3D()
 	{
-		float Size = Size3D();
-		if (0.0f < Size && false == isnan(Size))
-		{
-			X /= Size;
-			Y /= Size;
-			Z /= Size;
-			W = 0.0f;
-		}
+		// w값 제외 노말라이즈
+		DirectVector = DirectX::XMVector3Normalize(DirectVector);
+
+		// float Size = Size3D();
+		//if (0.0f < Size && false == isnan(Size))
+		//{
+		//	X /= Size;
+		//	Y /= Size;
+		//	Z /= Size;
+		//	W = 0.0f;
+		//}
 	}
 
 	// 나는 변화하지 않고 길이 1짜리로 변한 나와 방향이 같은 벡터를 리턴하는 함수
@@ -616,9 +619,9 @@ public:
 		float4x4 Y;
 		float4x4 Z;
 
-		X.DirectMatrix = DirectX::XMMatrixRotationX(_Value.X);
-		Y.DirectMatrix = DirectX::XMMatrixRotationX(_Value.Y);
-		Y.DirectMatrix = DirectX::XMMatrixRotationX(_Value.Z);
+		X.RotationXDeg(_Value.X);
+		Y.RotationYDeg(_Value.Y);
+		Z.RotationZDeg(_Value.Z);
 
 		*this = X * Y * Z;
 
@@ -633,10 +636,11 @@ public:
 	void RotationXRad(float _Angle)
 	{
 		Identity();
-		Arr2D[1][1] = cosf(_Angle);
-		Arr2D[1][2] = sinf(_Angle);
-		Arr2D[2][1] = -sinf(_Angle);
-		Arr2D[2][2] = cosf(_Angle);
+		DirectMatrix = DirectX::XMMatrixRotationX(_Angle);
+		//Arr2D[1][1] = cosf(_Angle);
+		//Arr2D[1][2] = sinf(_Angle);
+		//Arr2D[2][1] = -sinf(_Angle);
+		//Arr2D[2][2] = cosf(_Angle);
 	}
 
 	void RotationYDeg(float _Angle)
@@ -647,10 +651,12 @@ public:
 	void RotationYRad(float _Angle)
 	{
 		Identity();
-		Arr2D[0][0] = cosf(_Angle);
-		Arr2D[0][2] = -sinf(_Angle);
-		Arr2D[2][0] = sinf(_Angle);
-		Arr2D[2][2] = cosf(_Angle);
+		DirectMatrix = DirectX::XMMatrixRotationY(_Angle);
+
+		//Arr2D[0][0] = cosf(_Angle);
+		//Arr2D[0][2] = -sinf(_Angle);
+		//Arr2D[2][0] = sinf(_Angle);
+		//Arr2D[2][2] = cosf(_Angle);
 	}
 
 	void RotationZDeg(float _Angle)
@@ -662,85 +668,93 @@ public:
 	{
 		// 코시시코
 		Identity();
-		Arr2D[0][0] = cosf(_Angle);
-		Arr2D[0][1] = sinf(_Angle);
-		Arr2D[1][0] = -sinf(_Angle);
-		Arr2D[1][1] = cosf(_Angle);
+		DirectMatrix = DirectX::XMMatrixRotationZ(_Angle);
+
+		//Arr2D[0][0] = cosf(_Angle);
+		//Arr2D[0][1] = sinf(_Angle);
+		//Arr2D[1][0] = -sinf(_Angle);
+		//Arr2D[1][1] = cosf(_Angle);
 	}
 
 	void Transpose()
 	{
-		float4x4 Result = *this;
-		for (size_t y = 0; y < 4; y++)
-		{
-			for (size_t x = 0; x < 4; x++)
-			{
-				Result.Arr2D[y][x] = Arr2D[x][y];
-			}
-		}
+		DirectMatrix = DirectX::XMMatrixTranspose(DirectMatrix);
 
-		*this = Result;
+
+		//float4x4 Result = *this;
+		//for (size_t y = 0; y < 4; y++)
+		//{
+		//	for (size_t x = 0; x < 4; x++)
+		//	{
+		//		Result.Arr2D[y][x] = Arr2D[x][y];
+		//	}
+		//}
+
+		//*this = Result;
 	}
 
 	// 전치행렬
 	float4x4 TransposeReturn()
 	{
 		float4x4 Result = *this;
-		for (size_t y = 0; y < 4; y++)
-		{
-			for (size_t x = 0; x < 4; x++)
-			{
-				Result.Arr2D[y][x] = Arr2D[x][y];
-			}
-		}
+		Result.DirectMatrix = DirectX::XMMatrixTranspose(DirectMatrix);
+
+
+		//for (size_t y = 0; y < 4; y++)
+		//{
+		//	for (size_t x = 0; x < 4; x++)
+		//	{
+		//		Result.Arr2D[y][x] = Arr2D[x][y];
+		//	}
+		//}
 		return Result;
 	}
 
 	// const float4 _EyePos 바라보는 사람의 위치
 	// const float4 _EyeDir 바라보는 사람의 바라보는 방향
 	// const float4 _EyeUp 바라보는 사람의 바라보는 방향과 수직인 벡터.
-	float4x4 View(const float4 _EyePos, const float4 _EyeDir, const float4 _EyeUp)
+	void LookToLH(const float4 _EyePos, const float4 _EyeDir, const float4 _EyeUp)
 	{
 		// 카메라가 회전의 반대방향으로 회전시켜야 합니다.
 		// 회전행렬을 만들어 내야 합니다.
 
-		float4x4 View;
+		DirectMatrix = DirectX::XMMatrixLookToLH(_EyePos.DirectVector, _EyeDir.DirectVector, _EyeUp.DirectVector);
 
-		// 회전행렬을 구할수 있는 방법은
-		// 코시시코를 통해서 구하는 방법이 있다.
-		// 회전의 정의
-		// 수직인 3개의 벡터의 모임이 곧 => 회전행렬
-		// 회전행렬이 되려면
-		// 3개의 벡터가 무조건 수직이어야 해.
+		//// 회전행렬을 구할수 있는 방법은
+		//// 코시시코를 통해서 구하는 방법이 있다.
+		//// 회전의 정의
+		//// 수직인 3개의 벡터의 모임이 곧 => 회전행렬
+		//// 회전행렬이 되려면
+		//// 3개의 벡터가 무조건 수직이어야 해.
 
-		// 크기요소의 개입을 막기 위해서
-		FVector Up = _EyeUp.Normalize3DReturn();
-		FVector Forward = _EyeDir.Normalize3DReturn();
-		FVector Right = FVector::Cross3D(Up, Forward);
-		Up.W = 0.0f;
-		Forward.W = 0.0f;
-		Right.W = 0.0f;
+		//// 크기요소의 개입을 막기 위해서
+		//FVector Up = _EyeUp.Normalize3DReturn();
+		//FVector Forward = _EyeDir.Normalize3DReturn();
+		//FVector Right = FVector::Cross3D(Up, Forward);
+		//Up.W = 0.0f;
+		//Forward.W = 0.0f;
+		//Right.W = 0.0f;
 
-		// 외적해서 나머지 부분을 구하고
-		View.ArrVector[0] = Right;
-		View.ArrVector[1] = Up;
-		View.ArrVector[2] = Forward;
-		View.Transpose();
+		//// 외적해서 나머지 부분을 구하고
+		//View.ArrVector[0] = Right;
+		//View.ArrVector[1] = Up;
+		//View.ArrVector[2] = Forward;
+		//View.Transpose();
 
 
-		float4 NegEyePos = -_EyePos;
-		NegEyePos.W = 1.0f;
+		//float4 NegEyePos = -_EyePos;
+		//NegEyePos.W = 1.0f;
 
-		// 결국 현재 카메라의 위치를 회전시켜서 빼줘야 한다.
-		// float4 Result = NegEyePos * View;
-		// 이때 내적이 사용됩니다.
-		View.ArrVector[3].X = float4::DotProduct3D(Right, NegEyePos);
-		View.ArrVector[3].Y = float4::DotProduct3D(Up, NegEyePos);
-		View.ArrVector[3].Z = float4::DotProduct3D(Forward, NegEyePos);
+		//// 결국 현재 카메라의 위치를 회전시켜서 빼줘야 한다.
+		//// float4 Result = NegEyePos * View;
+		//// 이때 내적이 사용됩니다.
+		//View.ArrVector[3].X = float4::DotProduct3D(Right, NegEyePos);
+		//View.ArrVector[3].Y = float4::DotProduct3D(Up, NegEyePos);
+		//View.ArrVector[3].Z = float4::DotProduct3D(Forward, NegEyePos);
 
-		*this = View;
+		//*this = View;
 
-		return View;
+		return;
 	}
 
 
@@ -751,16 +765,18 @@ public:
 
 		Identity();
 
+		DirectMatrix = DirectX::XMMatrixOrthographicLH(_Width, _Height, _Near, _Far);
+
 		// N   F
 		// 100 1000
 		// Range 900
-		float fRange = 1.0f / (_Far - _Near);
+		//float fRange = 1.0f / (_Far - _Near);
 
-		Arr2D[0][0] = 2.0f / _Width;
-		Arr2D[1][1] = 2.0f / _Height;
-		Arr2D[2][2] = fRange;
-		// 각벡터에 Z에 영향을 미치는 부위
-		Arr2D[3][2] = -fRange * _Near;
+		//Arr2D[0][0] = 2.0f / _Width;
+		//Arr2D[1][1] = 2.0f / _Height;
+		//Arr2D[2][2] = fRange;
+		//// 각벡터에 Z에 영향을 미치는 부위
+		//Arr2D[3][2] = -fRange * _Near;
 
 	}
 
@@ -775,25 +791,26 @@ public:
 	{
 		Identity();
 
+		DirectMatrix = DirectX::XMMatrixPerspectiveFovLH(_FovAngle, _Width / _Height, _Near, _Far);
 
 
-		// w에 z값 이전을 위한 값
-		Arr2D[2][3] = 1.0f;
+		//// w에 z값 이전을 위한 값
+		//Arr2D[2][3] = 1.0f;
 
-		// 그 w값에 1안더해 지게 만들려고
-		Arr2D[3][3] = 0.0f;
+		//// 그 w값에 1안더해 지게 만들려고
+		//Arr2D[3][3] = 0.0f;
+		//
+		//// _FovAngle y각도
+		//float Ratio = _Width / _Height;
+		//float DivFov = _FovAngle / 2.0f;
 
-		// _FovAngle y각도
-		float Ratio = _Width / _Height;
-		float DivFov = _FovAngle / 2.0f;
+		//	// x쪽 값이 된다.
+		//Arr2D[0][0] = 1.0f / (tanf(DivFov) * Ratio);
 
-		// x쪽 값이 된다.
-		Arr2D[0][0] = 1.0f / (tanf(DivFov) * Ratio);
+		//Arr2D[1][1] = 1.0f / tanf(DivFov);
+		//Arr2D[2][2] = _Far / (_Far - _Near);
 
-		Arr2D[1][1] = 1.0f / tanf(DivFov);
-		Arr2D[2][2] = _Far / (_Far - _Near);
-
-		Arr2D[3][2] = -(_Near * _Far) / (_Far - _Near);
+		//Arr2D[3][2] = -(_Near * _Far) / (_Far - _Near);
 	}
 
 
