@@ -99,6 +99,11 @@ public:
 		std::shared_ptr<ULevel> Level = NewLevelCreate(UpperName, NewGameMode);
 	}
 
+	FEngineOption GetEngineOption()
+	{
+		return EngineOption;
+	}
+
 protected:
 
 private:
