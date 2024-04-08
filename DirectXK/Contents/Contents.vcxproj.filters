@@ -40,6 +40,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor">
       <UniqueIdentifier>{5e12aeab-4292-49b9-a026-83c1bc32efc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\02_TownLevel\Actor\NPC">
+      <UniqueIdentifier>{e59d1144-980c-4067-930f-1a7ad4297b05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
