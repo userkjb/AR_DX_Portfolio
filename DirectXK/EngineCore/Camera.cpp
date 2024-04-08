@@ -6,7 +6,7 @@ UCamera::UCamera()
 {
 	InputOn();
 
-	float4 Scale = GEngine->GetWindowScale();
+	float4 Scale = GEngine->EngineWindow.GetWindowScale();
 
 	ViewPort.Width = Scale.X;
 	ViewPort.Height = Scale.Y;
@@ -25,7 +25,7 @@ void UCamera::CameraTransformUpdate()
 	// 뷰행렬 만들어짐
 	View.View(GetActorLocation(), GetActorForwardVector(), GetActorUpVector());
 
-	FVector Scale = GEngine->GetWindowScale();
+	FVector Scale = GEngine->EngineWindow.GetWindowScale();
 
 	switch (ProjectionType)
 	{
@@ -59,9 +59,19 @@ void UCamera::Tick(float _DeltaTime)
 
 	int Key = GEngine->GetEngineOption().FreeCameraKey;
 
-	if (IsDown(Key))
+	if (false == IsFreeCamera && IsDown(Key))
 	{
+		PrevProjectionType = ProjectionType;
+		ProjectionType = ECameraType::Perspective;
 		IsFreeCamera = true;
+		OnlyInput(this);
+	}
+	else if (true == IsFreeCamera && IsDown(Key))
+	{
+		ProjectionType = PrevProjectionType;
+		IsFreeCamera = false;
+		OnlyInputStop();
+		return;
 	}
 
 	if (false == IsFreeCamera)
@@ -69,7 +79,63 @@ void UCamera::Tick(float _DeltaTime)
 		return;
 	}
 
-	int a = 0;
+	if (true == IsDown('R'))
+	{
+		switch (ProjectionType)
+		{
+		case ECameraType::NONE:
+			break;
+		case ECameraType::Perspective:
+			ProjectionType = ECameraType::Orthographic;
+			break;
+		case ECameraType::Orthographic:
+			ProjectionType = ECameraType::Perspective;
+			break;
+		default:
+			break;
+		}
+
+	}
+
+
+	if (true == IsPress('A'))
+	{
+		AddActorLocation(FVector::Left * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	if (true == IsPress('D'))
+	{
+		AddActorLocation(FVector::Right * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	if (true == IsPress('Q'))
+	{
+		AddActorLocation(FVector::Up * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	if (true == IsPress('E'))
+	{
+		AddActorLocation(FVector::Down * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	if (true == IsPress('W'))
+	{
+		AddActorLocation(FVector::Forward * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	if (true == IsPress('S'))
+	{
+		AddActorLocation(FVector::BackWard * _DeltaTime * FreeCameraMoveSpeed);
+	}
+
+	// 이때부터 회전이 된다.
+	if (true == IsPress(VK_RBUTTON))
+	{
+		// 
+		float4 Rot = GEngine->EngineWindow.GetScreenMouseDirNormal();
+
+		AddActorRotation({ -Rot.Y, -Rot.X, 0.0f });
+	}
 }
 
 void UCamera::ViewPortSetting()
