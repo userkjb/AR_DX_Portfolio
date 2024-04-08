@@ -34,6 +34,12 @@
     <Filter Include="Level\03_LasleyLevel">
       <UniqueIdentifier>{1dbb66fb-f01d-4b85-856e-659435d386cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\02_TownLevel\Actor">
+      <UniqueIdentifier>{478d82ee-1ae0-4f5b-848b-e3e6c00cf3a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor">
+      <UniqueIdentifier>{5e12aeab-4292-49b9-a026-83c1bc32efc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -53,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="GameLogo.cpp">
       <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="LasleyGameMode.cpp">
+      <Filter>Level\03_LasleyLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TownGameMode.cpp">
+      <Filter>Level\02_TownLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Lasley.cpp">
+      <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="GameLogo.h">
       <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyGameMode.h">
+      <Filter>Level\03_LasleyLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TownGameMode.h">
+      <Filter>Level\02_TownLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Lasley.h">
+      <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

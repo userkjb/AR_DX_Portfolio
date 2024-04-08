@@ -170,14 +170,19 @@
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentsEnums.h" />
     <ClInclude Include="GameLogo.h" />
+    <ClInclude Include="Lasley.h" />
+    <ClInclude Include="LasleyGameMode.h" />
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="TestGameMode.h" />
     <ClInclude Include="PreCompile.h" />
     <ClInclude Include="TitleGameMode.h" />
+    <ClInclude Include="TownGameMode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />
+    <ClCompile Include="Lasley.cpp" />
+    <ClCompile Include="LasleyGameMode.cpp" />
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="TestGameMode.cpp" />
     <ClCompile Include="PreCompile.cpp">
@@ -187,6 +192,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp" />
+    <ClCompile Include="TownGameMode.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
