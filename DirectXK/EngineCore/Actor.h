@@ -75,5 +75,39 @@ private:
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
 	void RootCheck();
 
+	/////////////////////// 인풋
+
+
+
+
+public:
+	void InputOff();
+	void InputOn();
+
+	// 이녀석을 쓰면
+	// UEngineInput <= 항상동작 키누르면
+
+	// 액터에서만 인풋 처리가 가능하게 되었습니다.
+	bool IsDoubleClick(int _Key, float _ClickTime);
+	bool IsDown(int _Key);
+	float GetPressTime(int _Key);
+	bool IsPress(int _Key);
+	bool IsUp(int _Key);
+	bool IsFree(int _Key);
+	bool IsAnykeyDown();
+	bool IsAnykeyPress();
+	bool IsAnykeyUp();
+	bool IsAnykeyFree();
+
+	static void OnlyInput(AActor* _this);
+	static void OnlyInputStop();
+
+private:
+	// set은 굉장히 간단한 자료구조로서
+	// Value 없는 맵입니다.
+	static std::set<AActor*> InputActors;
+	static std::set<AActor*> PrevInputActors;
+
+
 };
 
