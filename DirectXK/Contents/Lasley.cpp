@@ -71,3 +71,66 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->ChangeAnimation("DevilEye");
 }
 
+void ALasley::NoneBegin()
+{
+}
+
+void ALasley::NoneTick(float _DeltaTime)
+{
+}
+
+void ALasley::DevilEyeBegin()
+{
+}
+
+void ALasley::DevilEyeTick(float _DeltaTime)
+{
+}
+
+void ALasley::IdleBegin()
+{
+}
+
+void ALasley::IdleTick(float _DeltaTime)
+{
+}
+
+void ALasley::WakeBegin()
+{
+}
+
+void ALasley::WakeTick(float _DeltaTime)
+{
+}
+
+void ALasley::DemonicBladeBegin()
+{
+}
+
+void ALasley::DemonicBladeTick(float _DeltaTime)
+{
+}
+
+void ALasley::DimensionCutterBegin()
+{
+}
+
+void ALasley::DimensionCutterTick(float _DeltaTime)
+{
+}
+
+void ALasley::DoubleDimensionCutterBegin()
+{
+}
+
+void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
+{
+}
+
+void ALasley::DownBegin()
+{
+}
+
+void ALasley::DownTick(float _DeltaTime)
+{
+}

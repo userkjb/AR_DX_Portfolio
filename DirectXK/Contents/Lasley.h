@@ -28,6 +28,22 @@ private :
 
 	void CreateAnimation();
 
+	void NoneBegin();
+	void NoneTick(float _DeltaTime);
+	void DevilEyeBegin();
+	void DevilEyeTick(float _DeltaTime);
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void WakeBegin();
+	void WakeTick(float _DeltaTime);
+	void DemonicBladeBegin();
+	void DemonicBladeTick(float _DeltaTime);
+	void DimensionCutterBegin();
+	void DimensionCutterTick(float _DeltaTime);
+	void DoubleDimensionCutterBegin();
+	void DoubleDimensionCutterTick(float _DeltaTime);
+	void DownBegin();
+	void DownTick(float _DeltaTime);
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 
