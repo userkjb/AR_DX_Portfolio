@@ -18,6 +18,7 @@ public:
 	FVector WindowScale = { 1280.0f, 720.0f };
 	bool IsDebug = false;
 	FVector ClearColor = { 0.0f, 0.0f, 1.0f };
+	char FreeCameraKey = '0';
 
 	void Serialize(UEngineSerializer& _Ser) override
 	{
