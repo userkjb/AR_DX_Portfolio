@@ -111,32 +111,32 @@ void UCamera::Tick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		AddActorLocation(FVector::Left * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetLeft() * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('D'))
 	{
-		AddActorLocation(FVector::Right * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetRight() * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('Q'))
 	{
-		AddActorLocation(FVector::Up * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetUp() * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('E'))
 	{
-		AddActorLocation(FVector::Down * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetDown() * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('W'))
 	{
-		AddActorLocation(FVector::Forward * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetForward() * _DeltaTime * Speed);
 	}
 
 	if (true == IsPress('S'))
 	{
-		AddActorLocation(FVector::BackWard * _DeltaTime * Speed);
+		AddActorLocation(GetActorTransform().GetBack() * _DeltaTime * Speed);
 	}
 
 	// 이때부터 회전이 된다.
