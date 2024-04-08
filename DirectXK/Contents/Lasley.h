@@ -18,6 +18,16 @@ public :
 	ALasley& operator=(const ALasley& _Other) = delete;
 	ALasley& operator=(ALasley&& _Other) noexcept = delete;
 
+	inline ELasleyState GetState() const
+	{
+		return State;
+	}
+
+	inline void SetState(ELasleyState _State)
+	{
+		StateChange(_State);
+	}
+
 protected :
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
