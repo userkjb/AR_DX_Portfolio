@@ -89,6 +89,11 @@ FTransform& AActor::GetActorTransform()
 	return RootComponent->Transform;
 }
 
+void AActor::SetActorTransform(const FTransform& _Transform)
+{
+	RootComponent->Transform = _Transform;
+}
+
 FVector AActor::GetActorForwardVector()
 {
 	return RootComponent->Transform.GetForward();
@@ -120,7 +125,7 @@ void AActor::SetActorScale3D(FVector _Value)
 
 void AActor::SetActorRotation(FVector _Value)
 {
-	RootComponent->Transform.SetRotation(_Value);
+	RootComponent->Transform.SetRotationDeg(_Value);
 }
 
 void AActor::AddActorLocation(FVector _Value)
@@ -130,7 +135,7 @@ void AActor::AddActorLocation(FVector _Value)
 
 void AActor::AddActorRotation(FVector _Value)
 {
-	RootComponent->Transform.AddRotation(_Value);
+	RootComponent->Transform.AddRotationDeg(_Value);
 }
 
 void AActor::AddActorScale3D(FVector _Value)

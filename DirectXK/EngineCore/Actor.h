@@ -45,6 +45,7 @@ public:
 	}
 
 	FTransform& GetActorTransform();
+	void SetActorTransform(const FTransform& _Transform);
 
 	FVector GetActorLocation();
 	FVector GetActorForwardVector();
