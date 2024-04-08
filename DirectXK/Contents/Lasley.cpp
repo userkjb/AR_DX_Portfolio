@@ -35,6 +35,28 @@ void ALasley::StateChange(ELasleyState _State)
 		switch (_State)
 		{
 		case ELasleyState::None:
+			NoneBegin();
+			break;
+		case ELasleyState::DevilEye:
+			DevilEyeBegin();
+			break;
+		case ELasleyState::Idle:
+			IdleBegin();
+			break;
+		case ELasleyState::Wake:
+			WakeBegin();
+			break;
+		case ELasleyState::DemonicBlade:
+			DemonicBladeBegin();
+			break;
+		case ELasleyState::DimensionCutter:
+			DimensionCutterBegin();
+			break;
+		case ELasleyState::DoubleDimensionCutter:
+			DoubleDimensionCutterBegin();
+			break;
+		case ELasleyState::Down:
+			DownBegin();
 			break;
 		default :
 			break;
@@ -49,6 +71,28 @@ void ALasley::StateUpdate(float _DeltaTime)
 	switch (State)
 	{
 	case ELasleyState::None:
+		NoneTick(_DeltaTime);
+		break;
+	case ELasleyState::DevilEye:
+		DevilEyeTick(_DeltaTime);
+		break;
+	case ELasleyState::Idle:
+		IdleTick(_DeltaTime);
+		break;
+	case ELasleyState::Wake:
+		WakeTick(_DeltaTime);
+		break;
+	case ELasleyState::DemonicBlade:
+		DemonicBladeTick(_DeltaTime);
+		break;
+	case ELasleyState::DimensionCutter:
+		DimensionCutterTick(_DeltaTime);
+		break;
+	case ELasleyState::DoubleDimensionCutter:
+		DoubleDimensionCutterTick(_DeltaTime);
+		break;
+	case ELasleyState::Down:
+		DownTick(_DeltaTime);
 		break;
 	default:
 		break;
