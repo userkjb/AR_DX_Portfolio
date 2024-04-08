@@ -1,27 +1,27 @@
 #include "PreCompile.h"
-#include "PlayGameMode.h"
-#include "Player.h"
+#include "TestGameMode.h"
+#include "TestActor.h"
 #include <EngineCore/Camera.h>
 
-APlayGameMode::APlayGameMode()
+ATestGameMode::ATestGameMode()
 {
 }
 
-APlayGameMode::~APlayGameMode()
+ATestGameMode::~ATestGameMode()
 {
 }
 
-void APlayGameMode::BeginPlay()
+void ATestGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 
-	GetWorld()->SpawnActor<APlayer>("Player");
+	GetWorld()->SpawnActor<ATestActor>("Player");
 }
 
-void APlayGameMode::Tick(float _DeltaTime)
+void ATestGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 

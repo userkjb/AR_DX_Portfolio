@@ -10,12 +10,6 @@
     <Filter Include="Level">
       <UniqueIdentifier>{cfa31789-c772-4b5b-8708-3c64e016c7dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\PlayLevel">
-      <UniqueIdentifier>{0d8d6560-cadb-4420-b17c-f2aeae13226b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\PlayLevel\Object">
-      <UniqueIdentifier>{27d91663-f422-40e0-b91b-82c493e367b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\01_TitleLevel">
       <UniqueIdentifier>{a8b0d83b-4dd7-40b7-849d-21e40c1c25c2}</UniqueIdentifier>
     </Filter>
@@ -25,6 +19,18 @@
     <Filter Include="Level\00_GameStart">
       <UniqueIdentifier>{eea35d04-489c-4dbb-8dd0-cdc3602e1bda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\02_TownLevel">
+      <UniqueIdentifier>{ca131621-22be-44b8-9b3f-2256c21e9af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00_GameStart\Actor">
+      <UniqueIdentifier>{c7eebbec-c57e-4ec9-bfc1-80bc2f09da2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TestLevel">
+      <UniqueIdentifier>{0d8d6560-cadb-4420-b17c-f2aeae13226b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\TestLevel\Object">
+      <UniqueIdentifier>{27d91663-f422-40e0-b91b-82c493e367b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -33,11 +39,11 @@
     <ClCompile Include="PreCompile.cpp">
       <Filter>PreCompile</Filter>
     </ClCompile>
-    <ClCompile Include="PlayGameMode.cpp">
-      <Filter>Level\PlayLevel</Filter>
+    <ClCompile Include="TestGameMode.cpp">
+      <Filter>Level\TestLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\PlayLevel\Object</Filter>
+    <ClCompile Include="TestActor.cpp">
+      <Filter>Level\TestLevel\Object</Filter>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>Level\01_TitleLevel</Filter>
@@ -53,11 +59,11 @@
     <ClInclude Include="PreCompile.h">
       <Filter>PreCompile</Filter>
     </ClInclude>
-    <ClInclude Include="PlayGameMode.h">
-      <Filter>Level\PlayLevel</Filter>
+    <ClInclude Include="TestGameMode.h">
+      <Filter>Level\TestLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\PlayLevel\Object</Filter>
+    <ClInclude Include="TestActor.h">
+      <Filter>Level\TestLevel\Object</Filter>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>Level\01_TitleLevel</Filter>

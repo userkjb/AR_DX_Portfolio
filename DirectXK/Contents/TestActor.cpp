@@ -1,8 +1,8 @@
 #include "PreCompile.h"
-#include "Player.h"
+#include "TestActor.h"
 #include <EngineCore/Renderer.h>
 
-APlayer::APlayer()
+ATestActor::ATestActor()
 {
 	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
 	Renderer->SetMesh("Rect");
@@ -16,11 +16,11 @@ APlayer::APlayer()
 	// Renderer->세팅버텍스쉐이더상수버퍼();
 }
 
-APlayer::~APlayer()
+ATestActor::~ATestActor()
 {
 }
 
-void APlayer::BeginPlay()
+void ATestActor::BeginPlay()
 {
 	Super::BeginPlay();
 
@@ -32,7 +32,7 @@ void APlayer::BeginPlay()
 	Renderer->Resources->SettingTexture("Image", "CharIdle0.png", "POINT");
 }
 
-void APlayer::Tick(float _DeltaTime)
+void ATestActor::Tick(float _DeltaTime)
 {
 	// 위에 뭔가를 쳐야할때도 있다.
 	Super::Tick(_DeltaTime);
