@@ -52,6 +52,8 @@ void URenderer::Render(float _DeltaTime)
 	// PixelShader
 	Material->PixelShaderSetting();
 
+	Material->BlendSetting();
+
 	Resources->SettingAllShaderResources();
 
 

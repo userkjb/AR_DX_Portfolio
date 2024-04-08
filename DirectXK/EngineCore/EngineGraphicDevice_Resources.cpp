@@ -290,7 +290,7 @@ void MaterialInit()
 	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
 	Mat->SetPixelShader("ImageShader.fx");
 	Mat->SetVertexShader("ImageShader.fx");
-	Mat->SetRasterizer("EngineBasic");
+	
 
 }
 
