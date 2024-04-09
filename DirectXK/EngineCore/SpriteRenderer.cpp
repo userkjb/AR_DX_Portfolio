@@ -42,6 +42,7 @@ USpriteRenderer::~USpriteRenderer()
 {
 }
 
+
 void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 {
 	AutoSize = _AutoSize;
@@ -53,10 +54,10 @@ void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
 	}
 }
 
+
 void USpriteRenderer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
 
 
 	if (nullptr != CurAnimation)
@@ -65,6 +66,16 @@ void USpriteRenderer::Tick(float _DeltaTime)
 
 		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
 		SetSpriteInfo(Info);
+	}
+}
+
+void USpriteRenderer::SetDir(EEngineDir _Dir)
+{
+	Dir = _Dir;
+
+	if (nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
 	}
 }
 
@@ -80,6 +91,36 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 		// 0~1상이의 비율 값이다.
 		float4 TexScale = _Info.Texture->GetScale();
 		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
+	}
+
+	if (Dir != EEngineDir::MAX)
+	{
+		float4 Scale = Transform.GetScale();
+
+		switch (Dir)
+		{
+		case EEngineDir::Left:
+		{
+			if (0 < Scale.X)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::Right:
+		{
+			if (0 > Scale.X)
+			{
+				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::MAX:
+		default:
+			break;
+		}
+
+		Transform.SetScale(Scale);
 	}
 
 	CurInfo = _Info;
@@ -127,8 +168,6 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 	default:
 		break;
 	}
-
-
 }
 
 void USpriteRenderer::SetPlusColor(float4 _Color)
@@ -173,6 +212,8 @@ void USpriteRenderer::CreateAnimation(
 		MsgBoxAssert("아직 역방향 기능은 지원하지 않습니다.");
 		return;
 	}
+
+
 
 	for (int i = Start; i < End + 1; i++)
 	{
