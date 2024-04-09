@@ -53,5 +53,9 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	GetWorld()->SpawnActor<ALasley>("Lasley");
+	std::shared_ptr<ALasley> Player = GetWorld()->SpawnActor<ALasley>("Lasley");
+	// Actor의 위치, 크기는 여기서 Set 해주는 것이 좋다.
+	// float4 IimageScale = {  }
+	// Player->SetActorScale3D(ImageScale);
+	// Player->SetActorLocation( { ImageScale.hX(), -ImageScale.hY, 500.0f } );
 }
