@@ -24,7 +24,6 @@ void URenderer::BeginPlay()
 void URenderer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-	int a = 0;
 }
 
 void URenderer::Render(float _DeltaTime)
