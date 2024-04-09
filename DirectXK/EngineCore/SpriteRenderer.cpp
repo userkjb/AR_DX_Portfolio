@@ -42,6 +42,17 @@ USpriteRenderer::~USpriteRenderer()
 {
 }
 
+void USpriteRenderer::SetAutoSize(float _ScaleRatio, bool _AutoSize)
+{
+	AutoSize = _AutoSize;
+	ScaleRatio = _ScaleRatio;
+
+	if (true == AutoSize && nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
+}
+
 void USpriteRenderer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
@@ -58,6 +69,26 @@ void USpriteRenderer::Tick(float _DeltaTime)
 		Resources->SettingTexture("Image", Info.Texture, "POINT");
 		SetSamplering(SamplingValue);
 	}
+}
+
+void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
+{
+	CuttingDataValue.CuttingPosition = _Info.CuttingPosition;
+	CuttingDataValue.CuttingSize = _Info.CuttingSize;
+	CurTexture = _Info.Texture;
+
+	if (true == AutoSize)
+	{
+		// 문제 UV기반
+		// 0~1상이의 비율 값이다.
+		float4 TexScale = _Info.Texture->GetScale();
+		Transform.SetScale(TexScale * CuttingDataValue.CuttingSize * ScaleRatio);
+	}
+
+	CurInfo = _Info;
+
+	Resources->SettingTexture("Image", _Info.Texture, "POINT");
+	SetSamplering(SamplingValue);
 }
 
 void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)

@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ContentsConstValue.h" />
     <ClInclude Include="LasleySkill.h" />
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -180,6 +181,7 @@
     <ClInclude Include="TownGameMode.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ContentsConstValue.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />

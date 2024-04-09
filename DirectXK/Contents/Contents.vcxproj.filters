@@ -75,6 +75,9 @@
     <ClCompile Include="LasleySkill.cpp">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="ContentsConstValue.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="LasleySkill.h">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentsConstValue.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
