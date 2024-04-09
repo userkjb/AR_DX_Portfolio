@@ -33,6 +33,14 @@ public:
 
 	std::shared_ptr<UEngineShaderResources> Resources;
 
+	template<typename EnumType>
+	void SetOrder(EnumType _Order)
+	{
+		SetOrder(static_cast<int>(_Order));
+	}
+
+	void SetOrder(int _Order) override;
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
