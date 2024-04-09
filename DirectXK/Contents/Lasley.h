@@ -1,7 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/SpriteRenderer.h>
-#include "ContentsEnums.h"
 
 class ALasley : public AActor
 {
