@@ -58,16 +58,13 @@ void USpriteRenderer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 
+
 	if (nullptr != CurAnimation)
 	{
 		CurAnimation->Update(_DeltaTime);
 
 		FSpriteInfo Info = CurAnimation->GetCurSpriteInfo();
-		CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-		CuttingDataValue.CuttingSize = Info.CuttingSize;
-		CurTexture = Info.Texture;
-		Resources->SettingTexture("Image", Info.Texture, "POINT");
-		SetSamplering(SamplingValue);
+		SetSpriteInfo(Info);
 	}
 }
 
@@ -102,11 +99,7 @@ void USpriteRenderer::SetSprite(std::string_view _Name, UINT _Index/* = 0*/)
 	}
 
 	FSpriteInfo Info = Sprite->GetSpriteInfo(_Index);
-	CuttingDataValue.CuttingPosition = Info.CuttingPosition;
-	CuttingDataValue.CuttingSize = Info.CuttingSize;
-	CurTexture = Info.Texture;
-	Resources->SettingTexture("Image", Info.Texture, "POINT");
-	SetSamplering(SamplingValue);
+	SetSpriteInfo(Info);
 }
 
 void USpriteRenderer::SetSamplering(ETextureSampling _Value)
