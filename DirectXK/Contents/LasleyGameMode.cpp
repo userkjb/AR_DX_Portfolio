@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "LasleyGameMode.h"
 #include <EngineCore/Camera.h>
+#include <EngineCore/EngineSprite.h>
 
 #include "Lasley.h"
 

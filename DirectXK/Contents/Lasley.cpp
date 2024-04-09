@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Lasley.h"
+#include <EngineCore/SpriteRenderer.h>
 
 ALasley::ALasley()
 {
@@ -19,85 +20,14 @@ void ALasley::BeginPlay()
 
 	CreateAnimation();
 
-	StateChange(ELasleyState::None);
+	StateInit();
 }
 
 void ALasley::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	StateUpdate(_DeltaTime);
-}
-
-void ALasley::StateChange(ELasleyState _State)
-{
-	if (State != _State)
-	{
-		switch (_State)
-		{
-		case ELasleyState::None:
-			NoneBegin();
-			break;
-		case ELasleyState::DevilEye:
-			DevilEyeBegin();
-			break;
-		case ELasleyState::Idle:
-			IdleBegin();
-			break;
-		case ELasleyState::Wake:
-			WakeBegin();
-			break;
-		case ELasleyState::DemonicBlade:
-			DemonicBladeBegin();
-			break;
-		case ELasleyState::DimensionCutter:
-			DimensionCutterBegin();
-			break;
-		case ELasleyState::DoubleDimensionCutter:
-			DoubleDimensionCutterBegin();
-			break;
-		case ELasleyState::Down:
-			DownBegin();
-			break;
-		default :
-			break;
-		}
-	}
-
-	State = _State;
-}
-
-void ALasley::StateUpdate(float _DeltaTime)
-{
-	switch (State)
-	{
-	case ELasleyState::None:
-		NoneTick(_DeltaTime);
-		break;
-	case ELasleyState::DevilEye:
-		DevilEyeTick(_DeltaTime);
-		break;
-	case ELasleyState::Idle:
-		IdleTick(_DeltaTime);
-		break;
-	case ELasleyState::Wake:
-		WakeTick(_DeltaTime);
-		break;
-	case ELasleyState::DemonicBlade:
-		DemonicBladeTick(_DeltaTime);
-		break;
-	case ELasleyState::DimensionCutter:
-		DimensionCutterTick(_DeltaTime);
-		break;
-	case ELasleyState::DoubleDimensionCutter:
-		DoubleDimensionCutterTick(_DeltaTime);
-		break;
-	case ELasleyState::Down:
-		DownTick(_DeltaTime);
-		break;
-	default:
-		break;
-	}
+	State.Update(_DeltaTime);
 }
 
 void ALasley::CreateAnimation()
@@ -117,20 +47,55 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->ChangeAnimation("None");
 }
 
+void ALasley::StateInit()
+{
+	// Create
+	State.CreateState("Idle");
+	State.CreateState("Wake");
+
+	State.CreateState("DevilEye");
+	State.CreateState("DemonicBlade");
+	State.CreateState("DimensionCutter");
+	State.CreateState("DoubleDimensionCutter");
+
+	State.CreateState("Down");
+
+	// Set Function
+	State.SetStartFunction("Idle", std::bind(&ALasley::IdleBegin, this));
+	State.SetUpdateFunction("Idle", std::bind(&ALasley::IdleTick, this, std::placeholders::_1));
+
+	State.SetStartFunction ("DevilEye", std::bind(&ALasley::DevilEyeBegin, this));
+	State.SetUpdateFunction("DevilEye", std::bind(&ALasley::DevilEyeTick, this, std::placeholders::_1));
+	State.SetStartFunction ("Wake", std::bind(&ALasley::WakeBegin, this));
+	State.SetUpdateFunction("Wake", std::bind(&ALasley::WakeTick, this, std::placeholders::_1));
+	State.SetStartFunction ("DemonicBlade", std::bind(&ALasley::DemonicBladeBegin, this));
+	State.SetUpdateFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeTick, this, std::placeholders::_1));
+	State.SetStartFunction ("DimensionCutter", std::bind(&ALasley::DimensionCutterBegin, this));
+	State.SetUpdateFunction("DimensionCutter", std::bind(&ALasley::DimensionCutterTick, this, std::placeholders::_1));
+	State.SetStartFunction ("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterBegin, this));
+	State.SetUpdateFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterTick, this, std::placeholders::_1));
+	State.SetStartFunction ("Down", std::bind(&ALasley::DownBegin, this));
+	State.SetUpdateFunction("Down", std::bind(&ALasley::DownTick, this, std::placeholders::_1));
+
+
+	// Change
+	State.ChangeState("Idle");
+}
+
 
 // --- State ---
-void ALasley::NoneBegin()
-{
-}
-
-void ALasley::NoneTick(float _DeltaTime)
-{
-	if (true == IsDown('A'))
-	{
-		StateChange(ELasleyState::DevilEye);
-		return;
-	}
-}
+//void ALasley::NoneBegin()
+//{
+//}
+//
+//void ALasley::NoneTick(float _DeltaTime)
+//{
+//	if (true == IsDown('A'))
+//	{
+//		StateChange(ELasleyState::DevilEye);
+//		return;
+//	}
+//}
 
 void ALasley::DevilEyeBegin()
 {
@@ -141,7 +106,7 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::Idle);
+		State.ChangeState("Idle");
 		return;
 	}
 }
@@ -155,7 +120,7 @@ void ALasley::IdleTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::Wake);
+		State.ChangeState("Wake");
 		return;
 	}
 }
@@ -169,7 +134,7 @@ void ALasley::WakeTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::DemonicBlade);
+		State.ChangeState("DemonicBlade");
 		return;
 	}
 }
@@ -183,7 +148,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::DimensionCutter);
+		State.ChangeState("DimensionCutter");
 		return;
 	}
 }
@@ -197,7 +162,7 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::DoubleDimensionCutter);
+		State.ChangeState("DoubleDimensionCutter");
 		return;
 	}
 }
@@ -211,7 +176,7 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 {
 	if (true == IsDown('A'))
 	{
-		StateChange(ELasleyState::Down);
+		State.ChangeState("Down");
 		return;
 	}
 }

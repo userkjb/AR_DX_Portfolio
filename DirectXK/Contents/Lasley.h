@@ -1,7 +1,8 @@
 #pragma once
 #include <EngineCore/Actor.h>
-#include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/StateManager.h>
 
+class USpriteRenderer;
 class ALasley : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -17,28 +18,25 @@ public :
 	ALasley& operator=(const ALasley& _Other) = delete;
 	ALasley& operator=(ALasley&& _Other) noexcept = delete;
 
-	inline ELasleyState GetState() const
-	{
-		return State;
-	}
+	//inline ELasleyState GetState() const
+	//{
+	//	return State;
+	//}
 
-	inline void SetState(ELasleyState _State)
-	{
-		StateChange(_State);
-	}
+	//inline void SetState(ELasleyState _State)
+	//{
+	//	StateChange(_State);
+	//}
 
 protected :
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private :
-	void StateChange(ELasleyState _State);
-	void StateUpdate(float _DeltaTime);
 
 	void CreateAnimation();
+	void StateInit();
 
-	void NoneBegin();
-	void NoneTick(float _DeltaTime);
 	void DevilEyeBegin();
 	void DevilEyeTick(float _DeltaTime);
 	void IdleBegin();
@@ -58,7 +56,8 @@ private :
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 
-	ELasleyState State = ELasleyState::None;
+	//ELasleyState State = ELasleyState::None;
+	UStateManager State;
 
 	const float MoveSpeed = 500.0f;
 };
