@@ -12,12 +12,14 @@
 // 기능이 집약되지 않았고 특화기능을 만들수가 없다.
 // 특화기능?
 
+class UEngineShaderResources;
 class URenderer : public USceneComponent, public std::enable_shared_from_this<URenderer>
 {
 	friend ULevel;
 	GENERATED_BODY(USceneComponent)
 
 public:
+
 	// constrcuter destructer
 	URenderer();
 	~URenderer();
@@ -27,6 +29,18 @@ public:
 	URenderer(URenderer&& _Other) noexcept = delete;
 	URenderer& operator=(const URenderer& _Other) = delete;
 	URenderer& operator=(URenderer&& _Other) noexcept = delete;
+
+
+	std::shared_ptr<UEngineMesh> GetMesh()
+	{
+		return Mesh;
+	}
+
+	std::shared_ptr<UEngineMaterial> GetMaterial()
+	{
+		return Material;
+	}
+
 
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
@@ -48,6 +62,8 @@ protected:
 	void ResCopy(UEngineShader* _Shader);
 
 private:
+
+
 	void RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera);
 
 	void Render(float _DeltaTime);

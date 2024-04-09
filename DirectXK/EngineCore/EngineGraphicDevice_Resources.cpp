@@ -157,7 +157,6 @@ void SettingInit()
 		// Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_FRONT;
 		// 뒷면 그리지마
 		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
-		//Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
 		// 앞면과 뒷면
 		// 시계방향이면 뒷면으로 봅니다.
 
@@ -171,16 +170,9 @@ void SettingInit()
 	{
 		D3D11_SAMPLER_DESC Desc = {};
 
-		//// 옵션바꾸면서 설명드리겠습니다.
-		//// 가로
-		//Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		//// 세로
-		//Desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-		//// 3차원 텍스터 여러장 겹쳐있는 멀티플 텍스처 일때
-		//Desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
-
+		// 옵션바꾸면서 설명드리겠습니다.
+		// 가로
 		Desc.AddressW = Desc.AddressV = Desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_CLAMP;
-
 
 		// MIP MAP
 		// MIN_MAG_MIP 나보다 클때든 작을때는 
@@ -282,6 +274,25 @@ void SettingInit()
 
 		UEngineBlend::Create("EngineBase", Desc);
 	}
+
+
+	{
+		D3D11_BLEND_DESC Desc = {};
+		Desc.AlphaToCoverageEnable = false;
+		Desc.IndependentBlendEnable = false;
+		Desc.RenderTarget[0].BlendEnable = true;
+		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ZERO;
+		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+
+		UEngineBlend::Create("Overlay", Desc);
+	}
+
+
 }
 
 void MaterialInit()
@@ -291,7 +302,6 @@ void MaterialInit()
 	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
 	Mat->SetPixelShader("ImageShader.fx");
 	Mat->SetVertexShader("ImageShader.fx");
-	
 
 }
 
@@ -309,7 +319,6 @@ void EngineTextureInit()
 	}
 
 }
-
 
 // 엔진에서 박스하나도 지원안해주면 
 void UEngineGraphicDevice::EngineResourcesInit()
