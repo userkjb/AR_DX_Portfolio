@@ -1,9 +1,10 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EngineCore/SpriteRenderer.h>
 
 class ALasleySkill : public AActor
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(AActor)
 
 public:
 	// constrcuter destructer
