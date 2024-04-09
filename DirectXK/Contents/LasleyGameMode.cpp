@@ -5,6 +5,7 @@
 
 #include "Lasley.h"
 #include "LasleyStageMap.h"
+#include "BackGround.h"
 
 ALasleyGameMode::ALasleyGameMode()
 {
@@ -57,6 +58,16 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("BGLayer.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
+
+	{
+		std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
+		float TileSize = UContentsConstValue::TileSize;
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
+
+		BackGournd->SetActorScale3D(ImageScale);
+		BackGournd->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
+	}
 
 	{
 		std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
