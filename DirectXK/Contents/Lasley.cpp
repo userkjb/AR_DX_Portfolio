@@ -16,7 +16,7 @@ void ALasley::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(45.0f, 44.0f, 0.0f));
+	//SetActorScale3D(FVector(45.0f, 44.0f, 0.0f));
 
 	CreateAnimation();
 

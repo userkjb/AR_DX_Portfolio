@@ -3,6 +3,8 @@
 enum class ERenderOrder
 {
 	BackGroundImage,
+	MapCol,
+	Map,
 	Player,
 
 };
