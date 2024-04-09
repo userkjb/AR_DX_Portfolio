@@ -2,6 +2,8 @@
 
 enum class ERenderOrder
 {
+	BackGroundImage,
+	Player,
 
 };
 

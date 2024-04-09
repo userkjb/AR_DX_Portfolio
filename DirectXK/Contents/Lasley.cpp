@@ -16,11 +16,14 @@ void ALasley::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(45.0f, 44.0f, 0.0f) * 2.0f);
+	SetActorScale3D(FVector(45.0f, 44.0f, 0.0f));
 
 	CreateAnimation();
 
 	StateInit();
+
+	LasleyRenderer->SetAutoSize(5.0f, true);
+	LasleyRenderer->SetOrder(ERenderOrder::Player);
 }
 
 void ALasley::Tick(float _DeltaTime)
@@ -188,4 +191,9 @@ void ALasley::DownBegin()
 
 void ALasley::DownTick(float _DeltaTime)
 {
+	if (true == IsDown('A'))
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 }
