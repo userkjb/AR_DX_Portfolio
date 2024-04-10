@@ -15,6 +15,9 @@ APlayer::~APlayer()
 void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	CreateAnimation();
+	StateInit();
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -24,8 +27,15 @@ void APlayer::Tick(float _DeltaTime)
 
 void APlayer::CreateAnimation()
 {
+	PlayerRenderer->CreateAnimation("Idle", "Idle", 0.125f);
+	PlayerRenderer->CreateAnimation("Jump", "Jump", 0.125f);
+	PlayerRenderer->CreateAnimation("Run", "Run", 0.125f);
+	PlayerRenderer->CreateAnimation("Die", "Die", 0.125f);
+
+	PlayerRenderer->ChangeAnimation("Idle");
 }
 
 void APlayer::StateInit()
 {
+
 }
