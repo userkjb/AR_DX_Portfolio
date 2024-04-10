@@ -24,7 +24,7 @@ void ATitleGameMode::BeginPlay()
 	{
 		// CuttingTest.png texture로도 한장이 로드가 됐고
 		// 스프라이트로도 1장짜리로 로드가 된 상황이야.
-		UEngineTexture::Load(File.GetFullPath());
+		UEngineSprite::Load(File.GetFullPath());
 	}
 
 	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();

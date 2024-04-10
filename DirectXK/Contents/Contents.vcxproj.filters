@@ -84,6 +84,12 @@
     <ClCompile Include="LasleyStageMap.cpp">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\00_GameStart\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStartGameMode.cpp">
+      <Filter>Level\00_GameStart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -127,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="LasleyStageMap.h">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\00_GameStart\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStartGameMode.h">
+      <Filter>Level\00_GameStart</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

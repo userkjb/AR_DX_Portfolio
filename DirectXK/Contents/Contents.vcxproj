@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="ContentsConstValue.h" />
+    <ClInclude Include="GameStartGameMode.h" />
     <ClInclude Include="LasleySkill.h" />
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Lasley.h" />
     <ClInclude Include="LasleyGameMode.h" />
     <ClInclude Include="LasleyStageMap.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="TestGameMode.h" />
     <ClInclude Include="PreCompile.h" />
@@ -185,12 +187,14 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="ContentsConstValue.cpp" />
+    <ClCompile Include="GameStartGameMode.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />
     <ClCompile Include="Lasley.cpp" />
     <ClCompile Include="LasleyGameMode.cpp" />
     <ClCompile Include="LasleyStageMap.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="TestGameMode.cpp" />
     <ClCompile Include="PreCompile.cpp">
