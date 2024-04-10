@@ -85,8 +85,6 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		FVector Dir = GetActorScale3D();
-
 		AddActorLocation(float4::Left * RunSpeed * _DeltaTime);
 	}
 	if (true == IsPress('D'))
