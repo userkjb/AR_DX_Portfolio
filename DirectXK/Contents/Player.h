@@ -26,6 +26,18 @@ private:
 	void CreateAnimation();
 	void StateInit();
 
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleEnd();
+	void RunBegin();
+	void RunTick(float _DeltaTime);
+	void RunEnd();
+	void JumpBegin();
+	void JumpTick(float _DeltaTime);
+	void JumpEnd();
+	void DieBegin();
+	void DieTick(float _DeltaTime);
+	void DieEnd();
 
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
