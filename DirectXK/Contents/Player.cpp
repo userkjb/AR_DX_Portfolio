@@ -37,5 +37,11 @@ void APlayer::CreateAnimation()
 
 void APlayer::StateInit()
 {
+	State.CreateState("Idle");
+	State.CreateState("Jump");
+	State.CreateState("Run");
+	State.CreateState("Die");
 
+
+	State.ChangeState("Idle");
 }
