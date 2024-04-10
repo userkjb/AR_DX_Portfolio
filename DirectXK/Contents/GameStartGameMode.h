@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 
+class APlayer;
 class AGameStartGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -24,6 +25,6 @@ protected :
 	void LevelStart(ULevel* _PrevLevel);
 
 private :
-
+	std::shared_ptr<APlayer> Player = nullptr;
 };
 
