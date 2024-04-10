@@ -27,6 +27,16 @@ void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	FVector Dir = GetActorScale3D();
+	if (0 <= Dir.Y)
+	{
+		ActorDir = EActorDir::Right;
+	}
+	else
+	{
+		ActorDir = EActorDir::Left;
+	}
+
 	State.Update(_DeltaTime);
 }
 
