@@ -195,6 +195,7 @@
     <ClCompile Include="LasleyGameMode.cpp" />
     <ClCompile Include="LasleyStageMap.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="TestGameMode.cpp" />
     <ClCompile Include="PreCompile.cpp">

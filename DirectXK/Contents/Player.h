@@ -18,6 +18,15 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
+	inline int GetHp() const
+	{
+		return Hp;
+	}
+	inline void SetHp(int _Hp)
+	{
+		Hp = _Hp;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -42,6 +51,9 @@ private:
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
 	const float RunSpeed = 500.0f;
+	int Hp = 0;
+	int MaxHp = 0;
+
 	int DashCount = 2;
 };
 
