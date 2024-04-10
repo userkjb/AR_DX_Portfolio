@@ -52,4 +52,6 @@ void AGameStartGameMode::LevelEnd(ULevel* _NextLevel)
 void AGameStartGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	GetWorld()->SpawnActor<APlayer>("Player");
 }
