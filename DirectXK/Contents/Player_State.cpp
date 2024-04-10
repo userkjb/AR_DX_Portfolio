@@ -43,6 +43,13 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
+	if (true == IsDown(VK_SPACE))
+	{
+		// 점프
+		State.ChangeState("Jump");
+		return;
+	}
+
 	if (true == IsDown(VK_LBUTTON))
 	{
 		// 공격
@@ -96,6 +103,7 @@ void APlayer::RunEnd()
 #pragma region Jump
 void APlayer::JumpBegin()
 {
+	PlayerRenderer->ChangeAnimation("Jump");
 }
 
 void APlayer::JumpTick(float _DeltaTime)
