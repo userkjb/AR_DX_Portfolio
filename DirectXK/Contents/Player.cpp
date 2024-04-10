@@ -18,11 +18,16 @@ void APlayer::BeginPlay()
 
 	CreateAnimation();
 	StateInit();
+
+	PlayerRenderer->SetAutoSize(5.0f, true);
+	PlayerRenderer->SetOrder(ERenderOrder::Player);
 }
 
 void APlayer::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	State.Update(_DeltaTime);
 }
 
 void APlayer::CreateAnimation()
@@ -64,22 +69,56 @@ void APlayer::StateInit()
 
 void APlayer::IdleBegin()
 {
+	PlayerRenderer->ChangeAnimation("Idle");
 }
 
 void APlayer::IdleTick(float _DeltaTime)
 {
+	if (true == IsDown('A') || true == IsDown('D'))
+	{
+		State.ChangeState("Run");
+		return;
+	}
+
+	if (true == IsDown(VK_LBUTTON))
+	{
+		// 공격
+	}
+
+	if (true == IsDown(VK_RBUTTON))
+	{
+		// 대쉬
+	}
 }
 
 void APlayer::IdleEnd()
 {
+	int a = 0;
 }
 
 void APlayer::RunBegin()
 {
+	PlayerRenderer->ChangeAnimation("Run");
 }
 
 void APlayer::RunTick(float _DeltaTime)
 {
+	if (true == IsFree('A') && true == IsFree('D'))
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == IsPress('A'))
+	{
+		FVector Dir = GetActorScale3D();
+		
+		AddActorLocation(float4::Left * RunSpeed * _DeltaTime);
+	}
+	if (true == IsPress('D'))
+	{
+		AddActorLocation(float4::Right * RunSpeed * _DeltaTime);
+	}
 }
 
 void APlayer::RunEnd()

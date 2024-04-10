@@ -41,6 +41,7 @@ private:
 
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
-	const float MoveSpeed = 500.0f;
+	const float RunSpeed = 500.0f;
+	int DashCount = 2;
 };
 
