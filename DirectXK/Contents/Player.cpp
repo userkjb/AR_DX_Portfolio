@@ -28,6 +28,8 @@ void APlayer::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+
+	PlayerPos = GetActorLocation();
 }
 
 void APlayer::CreateAnimation()

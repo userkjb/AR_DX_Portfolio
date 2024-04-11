@@ -27,6 +27,11 @@ public:
 		Hp = _Hp;
 	}
 
+	inline FVector GetPlayerPos() const
+	{
+		return PlayerPos;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
