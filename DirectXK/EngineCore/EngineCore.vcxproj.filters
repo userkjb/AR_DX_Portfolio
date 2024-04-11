@@ -73,6 +73,9 @@
     <Filter Include="Editor\Imgui">
       <UniqueIdentifier>{cef6f7aa-b577-4e42-9fc5-df9af2752c4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor\Contents">
+      <UniqueIdentifier>{cb5d0f15-952c-43f8-bac8-0065212fa7c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -207,8 +210,12 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Editor\Imgui</Filter>
     </ClCompile>
-    <ClCompile Include="EngineDebugMsgWindow.cpp" />
-    <ClCompile Include="EngineEditorWindow.cpp" />
+    <ClCompile Include="EngineDebugMsgWindow.cpp">
+      <Filter>Editor\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineEditorWindow.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -349,9 +356,15 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Editor\Imgui</Filter>
     </ClInclude>
-    <ClInclude Include="EngineDefines.h" />
-    <ClInclude Include="EngineDebugMsgWindow.h" />
-    <ClInclude Include="EngineEditorWindow.h" />
+    <ClInclude Include="EngineDebugMsgWindow.h">
+      <Filter>Editor\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineEditorWindow.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDefines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
