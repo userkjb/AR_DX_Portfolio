@@ -8,6 +8,7 @@ void APlayer::StateInit()
 	State.CreateState("Idle");
 	State.CreateState("Run");
 	State.CreateState("Jump");
+	State.CreateState("Dash");
 	State.CreateState("Die");
 
 	State.SetFunction("Idle",
@@ -22,6 +23,10 @@ void APlayer::StateInit()
 		std::bind(&APlayer::JumpBegin, this),
 		std::bind(&APlayer::JumpTick, this, std::placeholders::_1),
 		std::bind(&APlayer::JumpEnd, this));
+	State.SetFunction("Dash",
+		std::bind(&APlayer::DashBegin, this),
+		std::bind(&APlayer::DashTick, this, std::placeholders::_1),
+		std::bind(&APlayer::DashEnd, this));
 	State.SetFunction("Die",
 		std::bind(&APlayer::DieBegin, this),
 		std::bind(&APlayer::DieTick, this, std::placeholders::_1),
@@ -74,14 +79,11 @@ void APlayer::IdleTick(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (true == IsPress(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON))
 	{
 		// ´ë½¬
-		
-		AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
-
-		//DashCount--;
-		int a = 0;
+		State.ChangeState("Dash");
+		return;
 	}
 }
 
@@ -138,7 +140,7 @@ void APlayer::JumpBegin()
 void APlayer::JumpTick(float _DeltaTime)
 {
 	PlayerMouseDir();
-	AddActorLocation(float4::Up * JumpPower * _DeltaTime);
+	//AddActorLocation(float4::Up * JumpPower * _DeltaTime);
 
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
@@ -162,6 +164,26 @@ void APlayer::JumpEnd()
 {
 }
 #pragma endregion
+
+#pragma region Dash
+void APlayer::DashBegin()
+{
+	AddActorLocation(PlayerToMouseDir * DashPower);
+}
+
+void APlayer::DashTick(float _DeltaTime)
+{
+	AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
+
+	State.ChangeState("Idle");
+	return;
+}
+
+void APlayer::DashEnd()
+{
+}
+#pragma endregion
+
 
 #pragma region Die
 void APlayer::DieBegin()

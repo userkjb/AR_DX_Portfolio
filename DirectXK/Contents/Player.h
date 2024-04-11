@@ -51,6 +51,9 @@ private:
 	void JumpBegin();
 	void JumpTick(float _DeltaTime);
 	void JumpEnd();
+	void DashBegin();
+	void DashTick(float _DeltaTime);
+	void DashEnd();
 	void DieBegin();
 	void DieTick(float _DeltaTime);
 	void DieEnd();
@@ -65,7 +68,7 @@ private:
 
 	const float RunSpeed = 500.0f;
 	const float JumpPower = 100.0f;
-	const float DashPower = 500.0f;
+	const float DashPower = 100.0f;
 	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
 	int Hp = 0;
