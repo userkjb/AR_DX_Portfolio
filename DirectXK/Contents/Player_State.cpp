@@ -32,9 +32,7 @@ void APlayer::StateInit()
 
 void APlayer::PlayerMouseDir()
 {
-	float ScreenX = GEngine->EngineWindow.GetWindowScale().hX();
-	float MouseX = GEngine->EngineWindow.GetScreenMousePos().X;
-	if (MouseX < ScreenX)
+	if (PlayerToMouseDir.X < 0.0f)
 	{
 		FVector Dir = GetActorScale3D();
 		Dir.X *= -1.0f;
@@ -76,9 +74,13 @@ void APlayer::IdleTick(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (true == IsDown(VK_RBUTTON))
+	if (true == IsPress(VK_RBUTTON))
 	{
 		// ´ë½¬
+		
+		AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
+
+		//DashCount--;
 		int a = 0;
 	}
 }

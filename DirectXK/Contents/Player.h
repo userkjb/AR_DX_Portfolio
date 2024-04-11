@@ -59,10 +59,15 @@ private:
 	UStateManager State;
 	EActorDir ActorDir = EActorDir::Right;
 	FVector PlayerPos = FVector::Zero;
+	
+	float4 MouseCenter = float4::Zero;
+	float4 PlayerToMouseDir = float4::Zero;
+
 	const float RunSpeed = 500.0f;
 	const float JumpPower = 100.0f;
-	const float DashPower = 100.0f;
+	const float DashPower = 500.0f;
 	float DashCreationTime = 0.0f;
+	const float DashCountUp = 3.0f; // 3√ 
 	int Hp = 0;
 	int MaxHp = 0;
 

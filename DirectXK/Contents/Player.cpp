@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 APlayer::APlayer()
 {
@@ -31,6 +32,14 @@ void APlayer::Tick(float _DeltaTime)
 
 	PlayerPos = GetActorLocation();
 	DashCountTime(_DeltaTime);
+
+	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
+	float4 ScreenScale = GEngine->EngineWindow.GetWindowScale();
+	ScreenScale /= 2;
+	MouseCenter = CulMousPos - ScreenScale;
+	MouseCenter.Y *= -1.0f;
+	float4 Leng = MouseCenter - PlayerPos;
+	PlayerToMouseDir = Leng.Normalize3DReturn();
 }
 
 void APlayer::CreateAnimation()
@@ -45,10 +54,14 @@ void APlayer::CreateAnimation()
 
 void APlayer::DashCountTime(float _DeltaTime)
 {
-	if (DashCount < DashCountMax)
+	if (DashCount != DashCountMax)
 	{
 		DashCreationTime += _DeltaTime;
 	}
 
-
+	if (DashCreationTime >= DashCountUp)
+	{
+		DashCount++;
+		DashCreationTime = 0.0f;
+	}
 }
