@@ -39,6 +39,7 @@ protected:
 private:
 	void CreateAnimation();
 	void StateInit();
+	void PlayerMouseDir();
 
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);

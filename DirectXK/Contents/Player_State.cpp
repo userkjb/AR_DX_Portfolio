@@ -30,6 +30,23 @@ void APlayer::StateInit()
 	State.ChangeState("Idle");
 }
 
+void APlayer::PlayerMouseDir()
+{
+	float ScreenX = GEngine->EngineWindow.GetWindowScale().hX();
+	float MouseX = GEngine->EngineWindow.GetScreenMousePos().X;
+	if (MouseX < ScreenX)
+	{
+		FVector Dir = GetActorScale3D();
+		Dir.X *= -1.0f;
+		SetActorScale3D(Dir);
+		ActorDir = EActorDir::Left;
+	}
+	else
+	{
+		ActorDir = EActorDir::Right;
+	}
+}
+
 #pragma region Idle
 void APlayer::IdleBegin()
 {
@@ -44,19 +61,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	float ScreenX = GEngine->EngineWindow.GetWindowScale().hX();
-	float MouseX= GEngine->EngineWindow.GetScreenMousePos().X;
-	if (MouseX < ScreenX)
-	{
-		FVector Dir = GetActorScale3D();
-		Dir.X *= -1.0f;
-		SetActorScale3D(Dir);
-		ActorDir = EActorDir::Left;
-	}
-	else
-	{
-		ActorDir = EActorDir::Right;
-	}
+	PlayerMouseDir();
 
 	if (true == IsDown(VK_SPACE))
 	{
