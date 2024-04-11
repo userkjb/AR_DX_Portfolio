@@ -188,6 +188,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="ContentsConstValue.cpp" />
     <ClCompile Include="GameStartGameMode.cpp" />
+    <ClCompile Include="GameStartGameMode_State.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />

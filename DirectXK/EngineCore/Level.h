@@ -1,5 +1,6 @@
 #pragma once
 #include "TickObject.h"
+#include "EngineDefines.h"
 #include <EngineBase/NameObject.h>
 
 

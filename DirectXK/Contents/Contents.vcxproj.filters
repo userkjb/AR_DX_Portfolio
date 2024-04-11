@@ -93,6 +93,9 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="GameStartGameMode_State.cpp">
+      <Filter>Level\00_GameStart</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

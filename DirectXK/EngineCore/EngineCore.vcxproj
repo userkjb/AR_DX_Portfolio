@@ -177,6 +177,7 @@
     <ClInclude Include="EngineBuffer.h" />
     <ClInclude Include="EngineConstantBuffer.h" />
     <ClInclude Include="EngineCore.h" />
+    <ClInclude Include="EngineDefines.h" />
     <ClInclude Include="EngineEditorGUI.h" />
     <ClInclude Include="EngineEnums.h" />
     <ClInclude Include="EngineGraphicDevice.h" />

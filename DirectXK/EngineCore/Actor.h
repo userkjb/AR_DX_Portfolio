@@ -4,6 +4,7 @@
 #include <vector>
 #include "TickObject.h"
 #include "WorldObject.h"
+#include "EngineDefines.h"
 #include "Level.h"
 
 

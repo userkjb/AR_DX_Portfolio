@@ -347,6 +347,7 @@
     <ClInclude Include="imstb_truetype.h">
       <Filter>Editor\Imgui</Filter>
     </ClInclude>
+    <ClInclude Include="EngineDefines.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
