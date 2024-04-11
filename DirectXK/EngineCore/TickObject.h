@@ -1,4 +1,8 @@
 #pragma once
+#include "EngineDefines.h"
+#include <functional>
+#include <memory>
+#include <EngineBase/EngineDebug.h>
 
 class UEngineTickCallBack
 {
@@ -21,6 +25,7 @@ public:
 	UTickObject(UTickObject&& _Other) noexcept = delete;
 	UTickObject& operator=(const UTickObject& _Other) = delete;
 	UTickObject& operator=(UTickObject&& _Other) noexcept = delete;
+
 
 	int GetOrder()
 	{
