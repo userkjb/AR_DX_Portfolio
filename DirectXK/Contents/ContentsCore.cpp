@@ -23,5 +23,5 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 
-	GEngine->ChangeLevel("GameStartGameMode");
+	GEngine->ChangeLevel("LasleyLevel");
 }

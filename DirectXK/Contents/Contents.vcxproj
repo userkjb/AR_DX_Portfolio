@@ -178,6 +178,7 @@
     <ClInclude Include="LasleyGameMode.h" />
     <ClInclude Include="LasleyStageMap.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Tentacle.h" />
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="TestGameMode.h" />
     <ClInclude Include="PreCompile.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="LasleyStageMap.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_State.cpp" />
+    <ClCompile Include="Tentacle.cpp" />
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="TestGameMode.cpp" />
     <ClCompile Include="PreCompile.cpp">
