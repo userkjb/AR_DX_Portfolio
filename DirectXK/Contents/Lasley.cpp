@@ -23,7 +23,7 @@ void ALasley::BeginPlay()
 	StateInit();
 
 	LasleyRenderer->SetAutoSize(5.0f, true);
-	LasleyRenderer->SetOrder(ERenderOrder::Player);
+	LasleyRenderer->SetOrder(ERenderOrder::Boss);
 }
 
 void ALasley::Tick(float _DeltaTime)
