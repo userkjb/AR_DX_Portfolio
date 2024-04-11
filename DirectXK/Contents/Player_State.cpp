@@ -116,6 +116,7 @@ void APlayer::JumpEnd()
 #pragma region Die
 void APlayer::DieBegin()
 {
+	PlayerRenderer->ChangeAnimation("Die");
 }
 
 void APlayer::DieTick(float _DeltaTime)
