@@ -51,6 +51,7 @@ private:
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
 	EActorDir ActorDir = EActorDir::Right;
+	FVector PlayerPos = FVector::Zero;
 	const float RunSpeed = 500.0f;
 	int Hp = 0;
 	int MaxHp = 0;
