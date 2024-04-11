@@ -6,7 +6,8 @@ enum class ERenderOrder
 	MapCol,
 	Map,
 	Player,
-
+	Boss,
+	BossSkill,
 };
 
 enum class EActorDir

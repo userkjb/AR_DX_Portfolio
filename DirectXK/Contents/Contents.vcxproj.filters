@@ -46,6 +46,9 @@
     <Filter Include="Level\03_LasleyLevel\GameMode">
       <UniqueIdentifier>{3e67d197-8c73-4163-9e2d-b700f79194f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Boss">
+      <UniqueIdentifier>{bd463087-5fd4-41d2-892e-c69e9ab1529d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -68,12 +71,6 @@
     </ClCompile>
     <ClCompile Include="TownGameMode.cpp">
       <Filter>Level\02_TownLevel</Filter>
-    </ClCompile>
-    <ClCompile Include="Lasley.cpp">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="LasleySkill.cpp">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
     <ClCompile Include="ContentsConstValue.cpp">
       <Filter>Core</Filter>
@@ -99,8 +96,14 @@
     <ClCompile Include="LasleyGameMode.cpp">
       <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="Lasley.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="LasleySkill.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClCompile>
     <ClCompile Include="Tentacle.cpp">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,12 +131,6 @@
     <ClInclude Include="TownGameMode.h">
       <Filter>Level\02_TownLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Lasley.h">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="LasleySkill.h">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="ContentsConstValue.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -152,8 +149,14 @@
     <ClInclude Include="LasleyGameMode.h">
       <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="LasleySkill.h">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Lasley.h">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClInclude>
     <ClInclude Include="Tentacle.h">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
