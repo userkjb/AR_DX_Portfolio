@@ -4,6 +4,7 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EnginePlatform/EngineSound.h>
 #include <EngineCore/EngineTexture.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 #include "EngineEditorGUI.h"
 
 #include "Level.h"
@@ -45,6 +46,8 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
 	UEngineEditorGUI::GUIInit();
+
+	UEngineEditorGUI::CreateEditorWindow<UEngineDebugMsgWindow>("DebugMsgWindow");
 
 	{
 		UserCorePtr->Initialize();

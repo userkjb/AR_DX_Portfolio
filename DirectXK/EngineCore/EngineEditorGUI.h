@@ -15,9 +15,12 @@
 
 // 설명 :
 class UEngineCore;
+class UEngineEditorWindow;
 class UEngineEditorGUI
 {
 	friend UEngineCore;
+	friend UEngineEditorWindow;
+
 public:
 	// constrcuter destructer
 	UEngineEditorGUI();
@@ -29,14 +32,37 @@ public:
 	UEngineEditorGUI& operator=(const UEngineEditorGUI& _Other) = delete;
 	UEngineEditorGUI& operator=(UEngineEditorGUI&& _Other) noexcept = delete;
 
+	template<typename EditorWindowType>
+	static std::shared_ptr<EditorWindowType> CreateEditorWindow(std::string_view _Name)
+	{
+		std::string UpperName = UEngineString::ToUpper(_Name);
+
+		if (true == EditorWindows.contains(UpperName))
+		{
+			MsgBoxAssert("같은 이름의 window는 2개 만들수 없습니다.");
+			return nullptr;
+		}
+
+		std::shared_ptr<UEngineEditorWindow> Windows = std::make_shared<EditorWindowType>();
+		WindowInit(Windows, _Name);
+		EditorWindows[UpperName] = Windows;
+		return std::dynamic_pointer_cast<EditorWindowType>(Windows);
+	}
+
+	static void WindowOn(std::string_view _Name);
+
+	static void WindowOff(std::string_view _Name);
+
 protected:
 
 private:
+	static void WindowInit(std::shared_ptr<UEngineEditorWindow> _Window, std::string_view _Name);
+
 	static void GUIRender(float _DeltaTime);
 	static void GUIInit();
 	static void GUIRelease();
 
-	static ImGuiIO* IOPtr;
+	static std::map<std::string, std::shared_ptr<UEngineEditorWindow>> EditorWindows;
 
 };
 
