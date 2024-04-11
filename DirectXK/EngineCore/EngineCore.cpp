@@ -4,6 +4,8 @@
 #include <EngineBase/EngineDirectory.h>
 #include <EnginePlatform/EngineSound.h>
 #include <EngineCore/EngineTexture.h>
+#include "EngineEditorGUI.h"
+
 #include "Level.h"
 #include "GameMode.h"
 
@@ -42,16 +44,20 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);
 
+	UEngineEditorGUI::GUIInit();
 
 	{
 		UserCorePtr->Initialize();
 		MainTimer.TimeCheckStart();
 	}
 
+
 	UEngineWindow::WindowMessageLoop(
 		std::bind(&UEngineCore::EngineFrameUpdate, this),
 		std::bind(&UEngineCore::EngineEnd, this)
 	);
+
+	UEngineEditorGUI::GUIRelease();
 }
 
 void UEngineCore::EngineOptionInit()
@@ -115,6 +121,8 @@ void UEngineCore::EngineFrameUpdate()
 	// 게임에 요소들을 그리고
 
 	CurLevel->Render(DeltaTime);
+
+	UEngineEditorGUI::GUIRender(DeltaTime);
 
 	// 억지로 그냥 그려본다.
 
