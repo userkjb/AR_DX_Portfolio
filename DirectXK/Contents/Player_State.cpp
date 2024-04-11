@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
 
 void APlayer::StateInit()
 {
@@ -41,6 +42,20 @@ void APlayer::IdleTick(float _DeltaTime)
 	{
 		State.ChangeState("Run");
 		return;
+	}
+
+	float ScreenX = GEngine->EngineWindow.GetWindowScale().hX();
+	float MouseX= GEngine->EngineWindow.GetScreenMousePos().X;
+	if (MouseX < ScreenX)
+	{
+		FVector Dir = GetActorScale3D();
+		Dir.X *= -1.0f;
+		SetActorScale3D(Dir);
+		ActorDir = EActorDir::Left;
+	}
+	else
+	{
+		ActorDir = EActorDir::Right;
 	}
 
 	if (true == IsDown(VK_SPACE))
