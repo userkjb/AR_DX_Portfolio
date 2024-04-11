@@ -207,6 +207,8 @@
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>Editor\Imgui</Filter>
     </ClCompile>
+    <ClCompile Include="EngineDebugMsgWindow.cpp" />
+    <ClCompile Include="EngineEditorWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -348,6 +350,8 @@
       <Filter>Editor\Imgui</Filter>
     </ClInclude>
     <ClInclude Include="EngineDefines.h" />
+    <ClInclude Include="EngineDebugMsgWindow.h" />
+    <ClInclude Include="EngineEditorWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
