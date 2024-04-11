@@ -55,13 +55,13 @@ void APlayer::IdleBegin()
 
 void APlayer::IdleTick(float _DeltaTime)
 {
+	PlayerMouseDir();
+	
 	if (true == IsDown('A') || true == IsDown('D'))
 	{
 		State.ChangeState("Run");
 		return;
 	}
-
-	PlayerMouseDir();
 
 	if (true == IsDown(VK_SPACE))
 	{
@@ -97,6 +97,8 @@ void APlayer::RunBegin()
 
 void APlayer::RunTick(float _DeltaTime)
 {
+	PlayerMouseDir();
+
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
 		State.ChangeState("Idle");
@@ -111,6 +113,12 @@ void APlayer::RunTick(float _DeltaTime)
 	{
 		AddActorLocation(float4::Right * RunSpeed * _DeltaTime);
 	}
+
+	if (true == IsDown(VK_SPACE))
+	{
+		State.ChangeState("Jump");
+		return;
+	}
 }
 
 void APlayer::RunEnd()
@@ -122,10 +130,30 @@ void APlayer::RunEnd()
 void APlayer::JumpBegin()
 {
 	PlayerRenderer->ChangeAnimation("Jump");
+	AddActorLocation(float4::Up * JumpPower);
 }
 
 void APlayer::JumpTick(float _DeltaTime)
 {
+	PlayerMouseDir();
+	AddActorLocation(float4::Up * JumpPower * _DeltaTime);
+
+	if (true == IsFree('A') && true == IsFree('D'))
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
+	if (true == IsPress('A'))
+	{
+		AddActorLocation(float4::Left * RunSpeed * _DeltaTime);
+	}
+	if (true == IsPress('D'))
+	{
+		AddActorLocation(float4::Right * RunSpeed * _DeltaTime);
+	}
+
+
 }
 
 void APlayer::JumpEnd()
@@ -147,3 +175,4 @@ void APlayer::DieEnd()
 {
 }
 #pragma endregion
+

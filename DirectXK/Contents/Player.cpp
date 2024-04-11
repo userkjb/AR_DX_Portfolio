@@ -30,6 +30,7 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	PlayerPos = GetActorLocation();
+	DashCountTime(_DeltaTime);
 }
 
 void APlayer::CreateAnimation()
@@ -40,4 +41,14 @@ void APlayer::CreateAnimation()
 	PlayerRenderer->CreateAnimation("Die", "Die", 0.125f);
 
 	PlayerRenderer->ChangeAnimation("Idle");
+}
+
+void APlayer::DashCountTime(float _DeltaTime)
+{
+	if (DashCount < DashCountMax)
+	{
+		DashCreationTime += _DeltaTime;
+	}
+
+
 }

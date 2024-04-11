@@ -40,6 +40,7 @@ private:
 	void CreateAnimation();
 	void StateInit();
 	void PlayerMouseDir();
+	void DashCountTime(float _DeltaTime);
 
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
@@ -59,9 +60,13 @@ private:
 	EActorDir ActorDir = EActorDir::Right;
 	FVector PlayerPos = FVector::Zero;
 	const float RunSpeed = 500.0f;
+	const float JumpPower = 100.0f;
+	const float DashPower = 100.0f;
+	float DashCreationTime = 0.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 
 	int DashCount = 2;
+	int DashCountMax = 2;
 };
 
