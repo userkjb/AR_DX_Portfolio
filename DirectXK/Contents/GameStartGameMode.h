@@ -25,6 +25,9 @@ protected :
 	void LevelStart(ULevel* _PrevLevel);
 
 private :
+	void StateInit();
+
 	std::shared_ptr<APlayer> Player = nullptr;
+	UStateManager State;
 };
 

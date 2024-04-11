@@ -37,11 +37,14 @@ void AGameStartGameMode::BeginPlay()
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+
+	//StateInit();
 }
 
 void AGameStartGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	//State.Update(_DeltaTime);
 }
 
 void AGameStartGameMode::LevelEnd(ULevel* _NextLevel)
