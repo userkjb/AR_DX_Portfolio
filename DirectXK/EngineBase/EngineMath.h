@@ -3,6 +3,9 @@
 #include <cmath>
 #include <Windows.h>
 
+#include <DirectXPackedVector.h> // 다이렉트벡터 헤더
+#include <DirectXCollision.h> 
+
 
 // 설명 :
 class UEngineMath
