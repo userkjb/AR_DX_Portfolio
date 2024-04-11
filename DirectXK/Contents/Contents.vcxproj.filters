@@ -105,6 +105,9 @@
     <ClCompile Include="Tentacle.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClCompile>
+    <ClCompile Include="LasleyStateStartMode.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="Tentacle.h">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStateStartMode.h">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

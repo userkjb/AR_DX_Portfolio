@@ -6,6 +6,7 @@
 #include "GameStartGameMode.h"
 #include "TitleGameMode.h"
 #include "LasleyGameMode.h"
+#include "LasleyStateStartMode.h"
 
 UContentsCore::UContentsCore()
 {
@@ -19,9 +20,10 @@ void UContentsCore::Initialize()
 {
 	//GEngine->CreateLevel<APlayGameMode>("PlayLevel");
 	//GEngine->ChangeLevel("PlayLevel");
-	GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
-	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
-	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
+	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
+	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	//GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
+	GEngine->CreateLevel<ALasleyStateStartMode>("LasleyStartLevel");
 
-	GEngine->ChangeLevel("LasleyLevel");
+	GEngine->ChangeLevel("LasleyStartLevel");
 }
