@@ -12,7 +12,7 @@
 class ULevel;
 class UActorComponent;
 class USceneComponent;
-class AActor : public UTickObject, public UWorldObject
+class AActor : public UTickObject, public UWorldObject, public UNameObject
 {
 	friend ULevel;
 	GENERATED_BODY(UTickObject)

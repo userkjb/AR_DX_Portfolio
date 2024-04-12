@@ -30,6 +30,11 @@ public:
 		ActiveValue = _Value;
 	}
 
+	AActor* GetActor()
+	{
+		return Actor;
+	}
+
 protected:
 
 private:
