@@ -53,11 +53,13 @@ private:
 	void DieTick(float _DeltaTime);
 	void DieEnd();
 
+	void Gravity(float _DeltaTime);
+
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;
-	
+		
 	float4 MouseCenter = float4::Zero;
 	float4 PlayerToMouseDir = float4::Zero;
 
@@ -66,6 +68,7 @@ private:
 	const float DashPower = 100.0f;
 	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
+	const float GravityPower = 1000.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 

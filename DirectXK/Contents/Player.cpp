@@ -5,9 +5,12 @@
 APlayer::APlayer()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-	SetRoot(Root);
+	
 	PlayerRenderer = CreateDefaultSubObject<USpriteRenderer>("PlayerRenderer");
 	PlayerRenderer->SetupAttachment(Root);
+	PlayerRenderer->SetPivot(EPivot::BOT);
+
+	SetRoot(Root);
 
 	InputOn();
 }

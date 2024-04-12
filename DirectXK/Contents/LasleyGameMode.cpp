@@ -82,8 +82,8 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	//UContentsConstValue::MapTex = UEngineTexture::FindRes("BGLayer.png");
-	//UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
+	UContentsConstValue::MapTex = UEngineTexture::FindRes("StartStageCol.png");
+	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
 
 	{
 		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");

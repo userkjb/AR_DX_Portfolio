@@ -86,6 +86,8 @@ void APlayer::IdleTick(float _DeltaTime)
 		State.ChangeState("Dash");
 		return;
 	}
+
+	Gravity(_DeltaTime);
 }
 
 void APlayer::IdleEnd()
@@ -124,6 +126,17 @@ void APlayer::RunTick(float _DeltaTime)
 		State.ChangeState("Jump");
 		return;
 	}
+
+	if (true == IsDown(VK_RBUTTON))
+	{
+		State.ChangeState("Dash");
+		return;
+	}
+
+	Gravity(_DeltaTime);
+	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
+	Color8Bit Color = Tex->GetColor(MouseCenter, Color8Bit::Black);
+
 }
 
 void APlayer::RunEnd()
@@ -170,11 +183,18 @@ void APlayer::JumpEnd()
 void APlayer::DashBegin()
 {
 	AddActorLocation(PlayerToMouseDir * DashPower);
+	PlayerRenderer->ChangeAnimation("Run");
 }
 
 void APlayer::DashTick(float _DeltaTime)
 {
-	AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
+	//AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
+	
+	if (true == IsDown('A') || true == IsDown('D'))
+	{
+		State.ChangeState("Run");
+		return;
+	}
 
 	State.ChangeState("Idle");
 	return;
@@ -200,4 +220,23 @@ void APlayer::DieEnd()
 {
 }
 #pragma endregion
+
+
+
+void APlayer::Gravity(float _DeltaTime)
+{
+	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
+	if (nullptr == Tex)
+	{
+		MsgBoxAssert("Col ¸ÊÀÌ nullptr ÀÔ´Ï´Ù.");
+		return;
+	}
+
+	Color8Bit Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
+
+	if (Color != Color8Bit::Black)
+	{
+		AddActorLocation(float4::Down * _DeltaTime * GravityPower);
+	}
+}
 

@@ -5,8 +5,7 @@
 ALasleyStageOne::ALasleyStageOne()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-	SetRoot(Root);
-
+	
 	MapRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapRenderer->SetupAttachment(Root);
 	MapRenderer->SetActive(true);
@@ -15,6 +14,8 @@ ALasleyStageOne::ALasleyStageOne()
 	MapColRenderer->SetupAttachment(Root);
 	MapColRenderer->SetActive(false);
 	
+	SetRoot(Root);
+
 	InputOn(); // test
 }
 
@@ -27,12 +28,12 @@ void ALasleyStageOne::BeginPlay()
 	Super::BeginPlay();
 
 	MapRenderer->SetSprite("StartStage.png");
-	MapRenderer->SetAutoSize(3.0f, true);
+	MapRenderer->SetAutoSize(1.0f, true);
 	MapRenderer->SetOrder(ERenderOrder::Map);
 
 	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(3.0f, true);
-	MapColRenderer->SetOrder(ERenderOrder::Map);
+	MapColRenderer->SetAutoSize(1.0f, true);
+	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 }
 
 void ALasleyStageOne::Tick(float _DeltaTime)
