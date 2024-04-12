@@ -3,6 +3,7 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/EngineSprite.h>
 
+#include "Player.h"
 #include "Lasley.h"
 #include "LasleyStageMap.h"
 #include "BackGround.h"
@@ -22,24 +23,45 @@ ALasleyGameMode::~ALasleyGameMode()
 void ALasleyGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-
-	UEngineDirectory Dir;
-	Dir.MoveToSearchChild("ContentsResources");
-	Dir.Move("Image\\LasleyStage");
-	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-	for (UEngineFile& File : Files)
 	{
-		// CuttingTest.png texture로도 한장이 로드가 됐고
-		// 스프라이트로도 1장짜리로 로드가 된 상황이야.
-		UEngineSprite::Load(File.GetFullPath());
-	}
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\LasleyStage");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			// CuttingTest.png texture로도 한장이 로드가 됐고
+			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
+			UEngineSprite::Load(File.GetFullPath());
+		}
 
-	Dir.Move("Boss_Lasley");
-	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-	for (size_t i = 0; i < Directorys.size(); i++)
+		Dir.Move("Boss_Lasley");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}	
+
 	{
-		std::string Name = Directorys[i].GetFolderName();
-		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\PlayerActor");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			// CuttingTest.png texture로도 한장이 로드가 됐고
+			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
 	}
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
@@ -66,6 +88,10 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 	{
 		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
 		//StageMap_One->SetActorScale3D()
+	}
+
+	{
+		std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player");
 	}
 
 	{

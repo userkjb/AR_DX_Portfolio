@@ -55,7 +55,7 @@ private:
 
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
-	EActorDir ActorDir = EActorDir::Right;
+	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;
 	
 	float4 MouseCenter = float4::Zero;

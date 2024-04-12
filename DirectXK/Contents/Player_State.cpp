@@ -41,12 +41,13 @@ void APlayer::PlayerMouseDir()
 	{
 		FVector Dir = GetActorScale3D();
 		Dir.X *= -1.0f;
-		SetActorScale3D(Dir);
-		ActorDir = EActorDir::Left;
+		PlayerRenderer->SetDir(EEngineDir::Left);
+		ActorDir = PlayerRenderer->GetDir();
 	}
 	else
 	{
-		ActorDir = EActorDir::Right;
+		PlayerRenderer->SetDir(EEngineDir::Right);
+		ActorDir = PlayerRenderer->GetDir();
 	}
 }
 

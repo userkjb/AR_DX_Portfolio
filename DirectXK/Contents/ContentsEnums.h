@@ -9,9 +9,3 @@ enum class ERenderOrder
 	Boss,
 	BossSkill,
 };
-
-enum class EActorDir
-{
-	Right,
-	Left,
-};
