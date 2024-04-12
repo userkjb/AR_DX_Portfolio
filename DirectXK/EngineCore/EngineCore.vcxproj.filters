@@ -216,6 +216,7 @@
     <ClCompile Include="EngineEditorWindow.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -365,6 +366,7 @@
     <ClInclude Include="EngineDefines.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">

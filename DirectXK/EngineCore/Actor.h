@@ -4,7 +4,6 @@
 #include <vector>
 #include "TickObject.h"
 #include "WorldObject.h"
-#include "EngineDefines.h"
 #include "Level.h"
 
 
@@ -63,6 +62,16 @@ public:
 	void AddActorRotation(FVector _Value);
 	void AddActorLocation(FVector _Value);
 
+	void SetRoot(USceneComponent* _Root)
+	{
+		if (nullptr != RootComponent)
+		{
+			MsgBoxAssert("이미 루트를 지정한 상태입니다.");
+		}
+
+		RootComponent = _Root;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -78,8 +87,6 @@ private:
 	std::vector<std::shared_ptr<UActorComponent>> Components;
 
 	void PushComponent(std::shared_ptr<UActorComponent> _Component, std::string_view _Name);
-	void RootCheck();
-
 	/////////////////////// 인풋
 
 

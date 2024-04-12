@@ -30,14 +30,6 @@ void AActor::InputOn()
 	InputActors.insert(this);
 }
 
-void AActor::RootCheck()
-{
-	if (nullptr == RootComponent)
-	{
-		RootComponent = CreateDefaultSubObject<UDefaultSceneComponent>("UDefaultSceneComponent");
-	}
-}
-
 void AActor::BeginPlay()
 {
 	Super::BeginPlay();
