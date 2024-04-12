@@ -9,5 +9,10 @@
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/StateManager.h>
 
+#include <EngineCore/Collision.h>
+#include <EngineCore/Renderer.h>
+#include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/EngineDebugMsgWindow.h>
+
 #include <Contents/ContentsEnums.h>
 #include <Contents/ContentsConstValue.h>

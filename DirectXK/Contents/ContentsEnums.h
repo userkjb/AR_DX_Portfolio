@@ -3,8 +3,8 @@
 enum class ERenderOrder
 {
 	BackGroundImage,
-	MapCol,
 	Map,
+	MapCol,
 	Player,
 	Boss,
 	BossSkill,

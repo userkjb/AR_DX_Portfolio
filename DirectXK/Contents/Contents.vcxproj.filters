@@ -49,6 +49,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Boss">
       <UniqueIdentifier>{bd463087-5fd4-41d2-892e-c69e9ab1529d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Map">
+      <UniqueIdentifier>{763ab9f9-8d8d-49b8-838c-b7411c2a6885}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -105,8 +108,8 @@
     <ClCompile Include="Tentacle.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="LasleyStateStartMode.cpp">
-      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    <ClCompile Include="LasleyStageOne.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,8 +164,8 @@
     <ClInclude Include="Tentacle.h">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="LasleyStateStartMode.h">
-      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    <ClInclude Include="LasleyStageOne.h">
+      <Filter>Level\03_LasleyLevel\Actor\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

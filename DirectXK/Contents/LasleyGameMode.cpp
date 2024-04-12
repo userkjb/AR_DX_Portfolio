@@ -7,6 +7,10 @@
 #include "LasleyStageMap.h"
 #include "BackGround.h"
 
+// Map Image
+#include "LasleyStageOne.h"
+
+
 ALasleyGameMode::ALasleyGameMode()
 {
 }
@@ -56,23 +60,28 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	UContentsConstValue::MapTex = UEngineTexture::FindRes("BGLayer.png");
-	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
+	//UContentsConstValue::MapTex = UEngineTexture::FindRes("BGLayer.png");
+	//UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
 
 	{
-		std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
-		float TileSize = UContentsConstValue::TileSize; // 64.0f 
-		float4 TexScale = UContentsConstValue::MapTexScale;
-		float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
-
-		BackGournd->SetActorScale3D(ImageScale);
-		BackGournd->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
+		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
+		//StageMap_One->SetActorScale3D()
 	}
 
 	{
-		std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
+		//std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
+		//float TileSize = UContentsConstValue::TileSize; // 64.0f 
+		//float4 TexScale = UContentsConstValue::MapTexScale;
+		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
+
+		//BackGournd->SetActorScale3D(ImageScale);
+		//BackGournd->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
+	}
+
+	{
+		//std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
 		//Lasley->SetActorScale3D();
-		Lasley->SetActorLocation({ 0.0f, 0.0f, 200.0f });
+		//Lasley->SetActorLocation({ 0.0f, 0.0f, 200.0f });
 		// Actor의 위치, 크기는 여기서 Set 해주는 것이 좋다.
 		//float TileSize = UContentsConstValue::TileSize;
 		//float4 TexScale = UContentsConstValue::MapTexScale;
@@ -82,7 +91,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 	}
 
 	{
-		std::shared_ptr<ALasleyStageMap> BackGround = GetWorld()->SpawnActor<ALasleyStageMap>("LasleyStageMap");
+		//std::shared_ptr<ALasleyStageMap> BackGround = GetWorld()->SpawnActor<ALasleyStageMap>("LasleyStageMap");
 		//float TileSize = UContentsConstValue::TileSize;
 		//float4 TexScale = UContentsConstValue::MapTexScale;
 		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
