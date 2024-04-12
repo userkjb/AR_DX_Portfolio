@@ -106,7 +106,7 @@ FVector AActor::GetActorForwardVector()
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	return FVector::Zero;
+	return RootComponent->GetWorldForward();
 }
 
 FVector AActor::GetActorRightVector()
@@ -117,7 +117,7 @@ FVector AActor::GetActorRightVector()
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	return FVector::Zero;
+	return RootComponent->GetWorldRight();
 }
 FVector AActor::GetActorUpVector()
 {
@@ -127,7 +127,7 @@ FVector AActor::GetActorUpVector()
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	return FVector::Zero;
+	return RootComponent->GetWorldUp();
 }
 
 FVector AActor::GetActorScale3D()
@@ -138,7 +138,7 @@ FVector AActor::GetActorScale3D()
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	return FVector::Zero;
+	return RootComponent->GetWorldScale();
 }
 
 FVector AActor::GetActorLocation()
@@ -149,7 +149,7 @@ FVector AActor::GetActorLocation()
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	return FVector::Zero;
+	return RootComponent->GetWorldPosition();
 }
 
 void AActor::SetActorLocation(FVector _Value)
@@ -160,7 +160,7 @@ void AActor::SetActorLocation(FVector _Value)
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	RootComponent->Transform.SetPosition(_Value);
+	RootComponent->SetPosition(_Value);
 }
 
 void AActor::SetActorScale3D(FVector _Value)
@@ -172,7 +172,7 @@ void AActor::SetActorScale3D(FVector _Value)
 	}
 #endif
 
-	RootComponent->Transform.SetScale(_Value);
+	RootComponent->SetScale(_Value);
 }
 
 void AActor::SetActorRotation(FVector _Value)
@@ -183,7 +183,7 @@ void AActor::SetActorRotation(FVector _Value)
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	RootComponent->Transform.SetRotationDeg(_Value);
+	RootComponent->SetRotationDeg(_Value);
 }
 
 void AActor::AddActorLocation(FVector _Value)
@@ -194,7 +194,7 @@ void AActor::AddActorLocation(FVector _Value)
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	RootComponent->Transform.AddPosition(_Value);
+	RootComponent->AddPosition(_Value);
 }
 
 void AActor::AddActorRotation(FVector _Value)
@@ -205,7 +205,7 @@ void AActor::AddActorRotation(FVector _Value)
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	RootComponent->Transform.AddRotationDeg(_Value);
+	RootComponent->AddRotationDeg(_Value);
 }
 
 void AActor::AddActorScale3D(FVector _Value)
@@ -216,7 +216,7 @@ void AActor::AddActorScale3D(FVector _Value)
 		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
 	}
 #endif
-	RootComponent->Transform.AddScale(_Value);
+	RootComponent->AddScale(_Value);
 }
 
 
