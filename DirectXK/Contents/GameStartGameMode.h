@@ -28,6 +28,7 @@ private :
 	void StateInit();
 
 	std::shared_ptr<APlayer> Player = nullptr;
+	float4 PlayerPos = float4::Zero;
 	UStateManager State;
 };
 

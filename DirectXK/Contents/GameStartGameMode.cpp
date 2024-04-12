@@ -44,6 +44,7 @@ void AGameStartGameMode::BeginPlay()
 void AGameStartGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	PlayerPos = Player->GetActorLocation();
 	//State.Update(_DeltaTime);
 }
 
