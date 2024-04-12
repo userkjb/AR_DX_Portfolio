@@ -1,10 +1,16 @@
 #include "PreCompile.h"
 #include "Lasley.h"
-#include <EngineCore/SpriteRenderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 ALasley::ALasley()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
+	SetRoot(Root);
+	
 	LasleyRenderer = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
+	LasleyRenderer->SetupAttachment(Root);
+
+
 	InputOn();
 }
 
