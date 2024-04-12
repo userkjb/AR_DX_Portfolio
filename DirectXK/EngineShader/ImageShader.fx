@@ -35,39 +35,76 @@ struct ImageVSOutPut
 // 다이렉트에 넣어줄수가 있습니다.
 // hlsl에서 struct 이런 데이터가 있을거야. 라는 정의만 내려줄수 있고
 
+
+//struct FTransform
+//{
+//    float4 Scale;
+//    float4 Rotation;
+//    float4 Position;
+//    float4x4 ScaleMat;
+//    float4x4 RotationMat;
+//    float4x4 PositionMat;
+//    float4x4 World;
+//    float4x4 View;
+//    float4x4 Projection;
+//    float4x4 WVP;
+//};
+
+// 버텍스 쉐이더에 넣어줄수 있
+
 cbuffer FCuttingData : register(b2)
 {
     //       0, 0
     float4 CuttingPosition;
     //      0.5 0.5
     float4 CuttingSize;
+    float4x4 PivotMat;
 };
+
+struct ImagePSOutPut
+{
+    float4 COLOR : SV_Target0;
+};
+
 
 ImageVSOutPut ImageShader_VS(FEngineVertex _Input)
 {
     ImageVSOutPut Out = (ImageVSOutPut) 0;
-    Out.POSITION = mul(_Input.POSITION, WVP);
-    //Out.TEXCOORD = _Input.TEXCOORD;
+    
+    // World.
+    
+    float4x4 PivotWorld = mul(World, PivotMat);
+    // float4x4 PivotWorld = World;
+    
+    Out.POSITION = mul(_Input.POSITION, PivotWorld);
+    Out.POSITION = mul(Out.POSITION, View);
+    Out.POSITION = mul(Out.POSITION, Projection);
+    
+    // Out.POSITION = mul(_Input.POSITION, WVP);
+    // Out.TEXCOORD = _Input.TEXCOORD;
+
+    
     // 00,    1. 0
+    
+    
     // 01,   1 1
     
     Out.TEXCOORD.x = (_Input.TEXCOORD.x * CuttingSize.x) + CuttingPosition.x;
     Out.TEXCOORD.y = (_Input.TEXCOORD.y * CuttingSize.y) + CuttingPosition.y;
     
     // 00,    1. 0
+    
+    
     // 01,   1 1
     
        // Rect에 존재하는 녀석이다.
     // 0.5 0.5,    1. 0.5
-    // 0.5 1,    1 1
     
+    
+    // 0.5 1,    1 1
+
     return Out;
 }
-
-struct ImagePSOutPut
-{
-    float4 COLOR : SV_Target0;
-};
 
 // 텍스처는 상수버퍼와 슬롯을 공유하지 않습니다.
 // b0 buffer 0번 슬롯
@@ -80,19 +117,24 @@ struct ImagePSOutPut
 // 언리얼 쉐이더 랭귀지.
 // HLSL => OpenGL shader 언어로 변경하는 기능도 지원합니다.
 
+
+
+
+
+
+
 TextureSet(Image, 0)
-//Texture2D Image : register(t0);
+//Texture2D Image : register(t0); 
 //SamplerState Image_Sampler : register(s0);
 
 cbuffer ResultColorValue : register(b10)
 {
     float4 PlusColor;
+    float4 MulColor;
+    float4 AlphaColor;
 };
 
-// C++코드로 표현한겁니다.
-// std::vector<Pixel> Pixels
-//for(int i = 0;i < Pixels.size(), ++i)
-//{
+
 ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
 {
         // 언어를 배울때는 왜 안돼 어리석은 초보적인 생각은 그만두고 배워야한다.
@@ -106,13 +148,12 @@ ImagePSOutPut ImageShader_PS(ImageVSOutPut _Input)
     
     
     // 01,    11
-    
     Out.COLOR = Sampling(Image, _Input.TEXCOORD);
     Out.COLOR.xyz += PlusColor.xyz;
-
+    //Out.COLOR.xyz *= MulColor.xyz;
+    //Out.COLOR.a = AlphaColor.a;
     // #define Sampling(Name, TEXCOORD) Name##.Sample(##Name##_Sampler, TEXCOORD.xy);
     // Image.Sample(Image_Sampler, _Input.TEXCOORD.xy);
     
     return Out;
 }
-//}
