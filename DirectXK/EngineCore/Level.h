@@ -51,6 +51,7 @@ public:
 
 		PushActor(NewActor);
 
+
 		return std::dynamic_pointer_cast<ActorType>(NewActor);
 		// Actors[_Order].push_back(NewActor);
 	}
@@ -79,6 +80,8 @@ protected:
 
 	void LevelEnd(ULevel* _NextLevel) override;
 	void LevelStart(ULevel* _PrevLevel) override;
+
+	void Destroy();
 
 private:
 	std::shared_ptr<UCamera> MainCamera = nullptr;
