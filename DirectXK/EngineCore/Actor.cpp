@@ -68,75 +68,154 @@ void AActor::PushComponent(std::shared_ptr<UActorComponent> _Component, std::str
 	// shared_ptr을 안전하게 다운캐스팅하는 함수
 	std::shared_ptr<USceneComponent> SceneComponent = std::dynamic_pointer_cast<USceneComponent>(_Component);
 
-	if (nullptr == RootComponent && nullptr != SceneComponent)
-	{
-		// std::shared_ptr을 그냥 포인터로 변경하는 함수
-		RootComponent = SceneComponent.get();
-	}
+	//if (nullptr == RootComponent && nullptr != SceneComponent)
+	//{
+	//	// std::shared_ptr을 그냥 포인터로 변경하는 함수
+	//	RootComponent = SceneComponent.get();
+	//}
 }
 
 
 FTransform& AActor::GetActorTransform()
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	return RootComponent->Transform;
 }
 
 void AActor::SetActorTransform(const FTransform& _Transform)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform = _Transform;
 }
 
 FVector AActor::GetActorForwardVector()
 {
-	return RootComponent->Transform.GetForward();
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+	return FVector::Zero;
 }
 
 FVector AActor::GetActorRightVector()
 {
-	return RootComponent->Transform.GetRight();
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+	return FVector::Zero;
 }
 FVector AActor::GetActorUpVector()
 {
-	return RootComponent->Transform.GetUp();
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+	return FVector::Zero;
 }
 
 FVector AActor::GetActorScale3D()
 {
-	return RootComponent->Transform.GetScale();
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+	return FVector::Zero;
 }
 
 FVector AActor::GetActorLocation()
 {
-	return RootComponent->Transform.GetPosition();
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+	return FVector::Zero;
 }
 
 void AActor::SetActorLocation(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform.SetPosition(_Value);
 }
 
 void AActor::SetActorScale3D(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
+
 	RootComponent->Transform.SetScale(_Value);
 }
 
 void AActor::SetActorRotation(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform.SetRotationDeg(_Value);
 }
 
 void AActor::AddActorLocation(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform.AddPosition(_Value);
 }
 
 void AActor::AddActorRotation(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform.AddRotationDeg(_Value);
 }
 
 void AActor::AddActorScale3D(FVector _Value)
 {
+#ifdef _DEBUG
+	if (nullptr == RootComponent)
+	{
+		MsgBoxAssert("루트 컴포넌트가 지정되지 않았습니다.");
+	}
+#endif
 	RootComponent->Transform.AddScale(_Value);
 }
 

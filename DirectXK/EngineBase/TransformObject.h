@@ -18,6 +18,12 @@ public:
 
 	FTransform Transform;
 
+	void SetParent(UTransformObject* _Parent)
+	{
+		Parent = _Parent;
+		Parent->Childs.push_back(this);
+	}
+
 protected:
 
 private:
