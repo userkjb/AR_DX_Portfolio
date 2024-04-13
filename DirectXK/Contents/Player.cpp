@@ -26,7 +26,7 @@ void APlayer::BeginPlay()
 	CreateAnimation();
 	StateInit();
 
-	PlayerRenderer->SetAutoSize(3.0f, true);
+	PlayerRenderer->SetAutoSize(4.0f, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 }
 

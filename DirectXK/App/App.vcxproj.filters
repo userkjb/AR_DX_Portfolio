@@ -16,4 +16,7 @@
       <Filter>PreCompile</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Config\EngineOption.EData" />
+  </ItemGroup>
 </Project>

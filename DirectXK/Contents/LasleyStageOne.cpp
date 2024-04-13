@@ -27,12 +27,14 @@ void ALasleyStageOne::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MapRenderer->SetSprite("StartStage.png");
-	MapRenderer->SetAutoSize(1.0f, true);
+	//MapRenderer->SetSprite("StartStage.png");
+	MapRenderer->SetSprite("Town.png");
+	MapRenderer->SetAutoSize(4.0f, true);
 	MapRenderer->SetOrder(ERenderOrder::Map);
 
-	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(1.0f, true);
+	//MapColRenderer->SetSprite("StartStageCol.png");
+	MapColRenderer->SetSprite("Town_Col.png");
+	MapColRenderer->SetAutoSize(4.0f, true);
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 }
 
