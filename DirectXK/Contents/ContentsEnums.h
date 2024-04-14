@@ -8,4 +8,5 @@ enum class ERenderOrder
 	Player,
 	Boss,
 	BossSkill,
+	MapObject,
 };
