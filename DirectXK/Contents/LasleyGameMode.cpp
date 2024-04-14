@@ -23,6 +23,7 @@ ALasleyGameMode::~ALasleyGameMode()
 void ALasleyGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
@@ -42,7 +43,7 @@ void ALasleyGameMode::BeginPlay()
 			std::string Name = Directorys[i].GetFolderName();
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
-	}	
+	}
 
 	{
 		UEngineDirectory Dir;
@@ -64,18 +65,25 @@ void ALasleyGameMode::BeginPlay()
 		}
 	}
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
+	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 }
 
 void ALasleyGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-}
 
-void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
-{
-	Super::LevelEnd(_NextLevel);
+
+#ifdef _DEBUG
+	//FVector PlayerPos = Player->GetPlayerPos();
+	//FVector CameraPos = Camera->GetActorLocation();
+	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
+	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
+	//UEngineDebugMsgWindow::PushMsg(Msg1);
+	//UEngineDebugMsgWindow::PushMsg(Msg2);
+#endif
+	
+	//Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
 }
 
 void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
@@ -87,11 +95,17 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 
 	{
 		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
-		//StageMap_One->SetActorScale3D()
+		
+		// Set Image Center
+		FVector ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale();
+		//StageMap_One->SetActorScale3D({ ScreenScaleHalf.X, ScreenScaleHalf.Y, 0.0f });
+		//StageMap_One->Set
+		//StageMap_One->SetActorLocation({0.0f, 0.0f, 0.0f});
 	}
 
 	{
-		std::shared_ptr<APlayer> Player = GetWorld()->SpawnActor<APlayer>("Player");
+		Player = GetWorld()->SpawnActor<APlayer>("Player");
+		int a = 0;
 	}
 
 	{
@@ -124,4 +138,9 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		//BackGround->SetActorScale3D(ImageScale);
 		//BackGround->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
 	}
+}
+
+void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
+{
+	Super::LevelEnd(_NextLevel);
 }

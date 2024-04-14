@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 
+class APlayer;
 class ALasleyGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -20,7 +21,11 @@ protected :
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-	void LevelEnd(ULevel* _NextLevel);
 	void LevelStart(ULevel* _PrevLevel);
+	void LevelEnd(ULevel* _NextLevel);
+
+private :
+	std::shared_ptr<UCamera> Camera;
+	std::shared_ptr<APlayer> Player;
 };
 
