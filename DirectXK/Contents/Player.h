@@ -3,6 +3,7 @@
 #include <EngineCore/StateManager.h>
 
 class USpriteRenderer;
+class UDefaultSceneComponent;
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -25,6 +26,11 @@ public:
 	inline void SetHp(int _Hp)
 	{
 		Hp = _Hp;
+	}
+
+	inline FVector GetPlayerPos() const
+	{
+		return PlayerPos;
 	}
 
 protected:
@@ -55,6 +61,7 @@ private:
 
 	void Gravity(float _DeltaTime);
 
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;
@@ -68,7 +75,7 @@ private:
 	const float DashPower = 100.0f;
 	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
-	const float GravityPower = 1000.0f;
+	const float GravityPower = 100.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 
