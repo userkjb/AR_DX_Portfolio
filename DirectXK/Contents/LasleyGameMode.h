@@ -1,10 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 
-class UCamera;
 class APlayer;
-class ALasleyStageOne;
-
 class ALasleyGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -29,9 +26,6 @@ protected :
 
 private :
 	std::shared_ptr<UCamera> Camera;
-	std::shared_ptr<ALasleyStageOne> StageMap_One;
 	std::shared_ptr<APlayer> Player;
-
-	UStateManager LevelState; // 추후 추가.
 };
 

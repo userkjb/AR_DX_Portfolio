@@ -93,20 +93,18 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
 
 	{
-		StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
-
-		float TileSize = UContentsConstValue::TileSize;
-		float4 TexScale = UContentsConstValue::MapTexScale;
-
-		float4 StageMapScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
-
-		StageMap_One->SetActorScale3D(StageMapScale);
-		StageMap_One->SetActorLocation({ StageMapScale.hX(), -StageMapScale.hY(), 100.0f });
+		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
+		
+		// Set Image Center
+		FVector ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale();
+		//StageMap_One->SetActorScale3D({ ScreenScaleHalf.X, ScreenScaleHalf.Y, 0.0f });
+		//StageMap_One->Set
+		//StageMap_One->SetActorLocation({0.0f, 0.0f, 0.0f});
 	}
 
 	{
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
-		Player->SetActorScale3D({ 32.0f, 32.0f, 0.0f });
+		int a = 0;
 	}
 
 	{
