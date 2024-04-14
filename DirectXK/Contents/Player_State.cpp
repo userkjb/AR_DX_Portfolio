@@ -87,7 +87,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	Gravity(_DeltaTime);
+	//Gravity(_DeltaTime);
 }
 
 void APlayer::IdleEnd()
@@ -133,7 +133,7 @@ void APlayer::RunTick(float _DeltaTime)
 		return;
 	}
 
-	Gravity(_DeltaTime);
+	//Gravity(_DeltaTime);
 	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
 	Color8Bit Color = Tex->GetColor(MouseCenter, Color8Bit::Black);
 
