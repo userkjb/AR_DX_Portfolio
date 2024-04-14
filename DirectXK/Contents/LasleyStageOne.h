@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class USpriteRenderer;
+class UDefaultSceneComponent;
 class ALasleyStageOne : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -23,8 +24,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	USpriteRenderer* MapRenderer;
-	USpriteRenderer* MapColRenderer;
-
+	UDefaultSceneComponent* Root = nullptr;
+	USpriteRenderer* MapRenderer = nullptr;
+	USpriteRenderer* MapColRenderer = nullptr;
 };
 
