@@ -12,7 +12,7 @@ ALasleyStageOne::ALasleyStageOne()
 	
 	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapColRenderer->SetupAttachment(Root);	
-	MapColRenderer->SetActive(false);
+	MapColRenderer->SetActive(true);
 
 	SetRoot(Root);
 
@@ -28,11 +28,11 @@ void ALasleyStageOne::BeginPlay()
 	Super::BeginPlay();
 
 	MapRenderer->SetSprite("StartStage.png");
-	MapRenderer->SetAutoSize(4.0f, true);
+	MapRenderer->SetAutoSize(1.0f, true);
 	MapRenderer->SetOrder(ERenderOrder::Map);
 
 	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(4.0f, true);
+	MapColRenderer->SetAutoSize(1.0f, true);
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 }
 

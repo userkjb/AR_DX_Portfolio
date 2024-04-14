@@ -52,6 +52,12 @@
     <Filter Include="Level\03_LasleyLevel\GameMode\Map Actor">
       <UniqueIdentifier>{763ab9f9-8d8d-49b8-838c-b7411c2a6885}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\GameMode\Level">
+      <UniqueIdentifier>{92757f81-3feb-4d2c-aa34-6aa0a50cf35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Monster">
+      <UniqueIdentifier>{a86d928d-22b7-4454-8598-63b74bd79b94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -78,9 +84,6 @@
     <ClCompile Include="ContentsConstValue.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="BackGround.cpp">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
@@ -92,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="GameStartGameMode_State.cpp">
       <Filter>Level\00_GameStart</Filter>
-    </ClCompile>
-    <ClCompile Include="LasleyGameMode.cpp">
-      <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Lasley.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
@@ -110,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="PlayerWeapon.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="LasleyGameMode.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,17 +146,11 @@
     <ClInclude Include="ContentsConstValue.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="BackGround.h">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClInclude>
     <ClInclude Include="GameStartGameMode.h">
       <Filter>Level\00_GameStart</Filter>
-    </ClInclude>
-    <ClInclude Include="LasleyGameMode.h">
-      <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="LasleySkill.h">
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
@@ -166,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="PlayerWeapon.h">
       <Filter>Level\00_GameStart\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyGameMode.h">
+      <Filter>Level\03_LasleyLevel\GameMode\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
