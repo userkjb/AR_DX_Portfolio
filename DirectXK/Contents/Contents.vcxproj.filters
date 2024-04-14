@@ -49,7 +49,7 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Boss">
       <UniqueIdentifier>{bd463087-5fd4-41d2-892e-c69e9ab1529d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03_LasleyLevel\Actor\Map">
+    <Filter Include="Level\03_LasleyLevel\GameMode\Map Actor">
       <UniqueIdentifier>{763ab9f9-8d8d-49b8-838c-b7411c2a6885}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -81,9 +81,6 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="LasleyStageMap.cpp">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
@@ -109,7 +106,7 @@
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClCompile>
     <ClCompile Include="LasleyStageOne.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Map</Filter>
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClCompile>
     <ClCompile Include="PlayerWeapon.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
@@ -146,9 +143,6 @@
     <ClInclude Include="BackGround.h">
       <Filter>Level\03_LasleyLevel\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="LasleyStageMap.h">
-      <Filter>Level\03_LasleyLevel\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClInclude>
@@ -168,7 +162,7 @@
       <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClInclude>
     <ClInclude Include="LasleyStageOne.h">
-      <Filter>Level\03_LasleyLevel\Actor\Map</Filter>
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClInclude>
     <ClInclude Include="PlayerWeapon.h">
       <Filter>Level\00_GameStart\Actor</Filter>
