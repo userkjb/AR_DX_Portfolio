@@ -66,7 +66,7 @@ private:
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;
-		
+
 	float4 MouseCenter = float4::Zero;
 	float4 PlayerToMouseDir = float4::Zero;
 

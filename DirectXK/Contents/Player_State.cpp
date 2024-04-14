@@ -87,7 +87,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	//Gravity(_DeltaTime);
+	Gravity(_DeltaTime);
 }
 
 void APlayer::IdleEnd()
@@ -133,10 +133,7 @@ void APlayer::RunTick(float _DeltaTime)
 		return;
 	}
 
-	//Gravity(_DeltaTime);
-	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
-	Color8Bit Color = Tex->GetColor(MouseCenter, Color8Bit::Black);
-
+	Gravity(_DeltaTime);
 }
 
 void APlayer::RunEnd()
@@ -231,6 +228,9 @@ void APlayer::Gravity(float _DeltaTime)
 		MsgBoxAssert("Col ¸ÊÀÌ nullptr ÀÔ´Ï´Ù.");
 		return;
 	}
+
+	PlayerPos /= UContentsConstValue::TileSize;
+	PlayerPos.Y = -PlayerPos.Y;
 
 	Color8Bit Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
 

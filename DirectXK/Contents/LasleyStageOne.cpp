@@ -53,4 +53,25 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 			MapColRenderer->SetActive(false);
 		}
 	}
+
+	
+	/////
+	float Speed = 100.0f;
+
+	if (true == IsPress('U'))
+	{
+		AddActorLocation(FVector::Up * 100.0f * _DeltaTime);
+	}
+	if (true == IsPress('J'))
+	{
+		AddActorLocation(FVector::Down * 100.0f * _DeltaTime);
+	}
+	if (true == IsPress('H'))
+	{
+		AddActorLocation(FVector::Left * 100.0f * _DeltaTime);
+	}
+	if (true == IsPress('K'))
+	{
+		AddActorLocation(FVector::Right * 100.0f * _DeltaTime);
+	}
 }

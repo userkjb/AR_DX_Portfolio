@@ -7,8 +7,8 @@ APlayer::APlayer()
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
 	PlayerRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	PlayerRenderer->SetupAttachment(Root);
 	PlayerRenderer->SetPivot(EPivot::BOT);
+	PlayerRenderer->SetupAttachment(Root);
 
 	SetRoot(Root);
 
@@ -53,8 +53,8 @@ void APlayer::Tick(float _DeltaTime)
 	}
 	
 	{
-		//PlayerPos = GetActorLocation();
-		PlayerPos = PlayerRenderer->GetWorldPosition();
+		PlayerPos = GetActorLocation();
+		//PlayerPos = PlayerRenderer->GetWorldPosition();
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 		float4 ScreenScale = GEngine->EngineWindow.GetWindowScale().Half2D();
 		ScreenScale.Z = 0.0f;
