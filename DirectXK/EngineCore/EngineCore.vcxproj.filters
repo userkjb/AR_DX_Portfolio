@@ -76,6 +76,9 @@
     <Filter Include="Editor\Contents">
       <UniqueIdentifier>{cb5d0f15-952c-43f8-bac8-0065212fa7c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Component\Collision">
+      <UniqueIdentifier>{26efc2f9-740f-4917-b332-6d1ca9805122}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -216,7 +219,9 @@
     <ClCompile Include="EngineEditorWindow.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Collision.cpp">
+      <Filter>Object\Component\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -366,7 +371,9 @@
     <ClInclude Include="EngineDefines.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Collision.h">
+      <Filter>Object\Component\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
