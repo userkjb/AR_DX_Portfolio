@@ -4,10 +4,12 @@
 
 class USpriteRenderer;
 class UDefaultSceneComponent;
+class APlayerWeapon;
 class APlayer : public AActor
 {
 	GENERATED_BODY(AActor)
 
+	friend APlayerWeapon;
 public:
 	// constrcuter destructer
 	APlayer();
@@ -98,5 +100,7 @@ private:
 
 	int DashCount = 500; // 2
 	int DashCountMax = 500; // 2
+
+	std::shared_ptr<APlayerWeapon> Weapone = nullptr;
 };
 

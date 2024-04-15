@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Player.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "PlayerWeapon.h"
 
 APlayer::APlayer()
 {
@@ -28,6 +29,8 @@ void APlayer::BeginPlay()
 
 	PlayerRenderer->SetAutoSize(1.0f, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
+
+	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -85,6 +88,10 @@ void APlayer::Tick(float _DeltaTime)
 		UEngineDebugMsgWindow::PushMsg(Msg5);
 		UEngineDebugMsgWindow::PushMsg(Msg6);
 #endif
+	}
+
+	{
+		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
 	}
 }
 
