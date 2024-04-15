@@ -32,15 +32,28 @@ APlayerWeapon::~APlayerWeapon()
 void APlayerWeapon::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Weapon_One_Renderer->SetSprite("BasicShortSword.png");
+	Weapon_One_Renderer->SetAutoSize(1.0f, true);
+	Weapon_One_Renderer->SetOrder(ERenderOrder::Map);
 }
 
 void APlayerWeapon::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	if (true == IsDown(VK_LBUTTON))
+	//if (true == IsDown(VK_LBUTTON))
+	if (true == IsDown('Z'))
 	{
 		AttackState(_DeltaTime);
+	}
+
+	//AddActorRotation(PlayerToMouseDir);
+	if (true == IsPress('R'))
+	{
+		//FVector Rot = FVector::Zero;
+		//Rot.Z = 100.0f * _DeltaTime;
+		//AddActorRotation(Rot);
 	}
 }
 
