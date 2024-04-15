@@ -146,32 +146,43 @@ void APlayer::JumpBegin()
 {
 	PlayerRenderer->ChangeAnimation("Jump");
 	JumpVector = JumpPower;
+	JumpTime = 0.0f;
 }
 
 void APlayer::JumpTick(float _DeltaTime)
 {
+	JumpTime += _DeltaTime;
 	PlayerMouseDir();
-
-	MoveUpdate(_DeltaTime);
-
-	if (true == IsFree('A') && true == IsFree('D'))
-	{
-		State.ChangeState("Idle");
-		return;
-	}
 
 	if (true == IsPress('A'))
 	{
-		State.ChangeState("Run");
-		return;
+		RunVector = FVector::Left * RunSpeed;
 	}
 	if (true == IsPress('D'))
 	{
-		State.ChangeState("Run");
-		return;
+		RunVector = FVector::Right * RunSpeed;
 	}
 
-	
+	MoveUpdate(_DeltaTime);	
+
+	if (JumpTime >= 0.1f)
+	{
+		if (true == IsGround)
+		{
+			JumpVector = FVector::Zero;
+
+			if (true == IsPress('A') || true == IsPress('D'))
+			{
+				State.ChangeState("Run");
+				return;
+			}
+			else
+			{
+				State.ChangeState("Idle");
+				return;
+			}
+		}
+	}
 }
 
 void APlayer::JumpEnd()

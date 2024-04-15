@@ -90,6 +90,7 @@ private:
 
 	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
+	float JumpTime = 0.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 
