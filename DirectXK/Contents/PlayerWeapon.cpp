@@ -52,7 +52,8 @@ void APlayerWeapon::Tick(float _DeltaTime)
 	if (true == IsPress('R'))
 	{
 		//FVector Rot = FVector::Zero;
-		//Rot.Z = 100.0f * _DeltaTime;
+		//PlayerToMouseDir.Z
+		////Rot.Z = PlayerToMouseDir.
 		//AddActorRotation(Rot);
 	}
 }

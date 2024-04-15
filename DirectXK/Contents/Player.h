@@ -79,8 +79,7 @@ private:
 	float4 MouseCenter = float4::Zero;
 	float4 PlayerToMouseDir = float4::Zero;
 
-	FVector CalVectors = FVector::Zero;
-	
+	FVector CalVectors = FVector::Zero;	
 	FVector RunVector = FVector::Zero;
 	const float RunSpeed = 200.0f;
 	FVector JumpVector = FVector::Zero;

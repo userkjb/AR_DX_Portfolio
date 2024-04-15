@@ -2,6 +2,7 @@
 #include "Player.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include "PlayerWeapon.h"
+#include <math.h>
 
 APlayer::APlayer()
 {
@@ -42,21 +43,7 @@ void APlayer::Tick(float _DeltaTime)
 	DashCountTime(_DeltaTime);
 
 	PixelCheck(_DeltaTime);
-
-	{
-		// Actor 와 Component 위치
-		FVector MainActorPos = GetActorLocation();
-		FVector LocalActorPos = PlayerRenderer->GetLocalPosition();
-		FVector WorldActorPos = PlayerRenderer->GetWorldPosition();
-
-		std::string Msg1 = std::format("Main  Pos : {}\n", MainActorPos.ToString());
-		std::string Msg2 = std::format("Local Pos : {}\n", LocalActorPos.ToString());
-		std::string Msg3 = std::format("World Pos : {}\n", WorldActorPos.ToString());
-		UEngineDebugMsgWindow::PushMsg(Msg1);
-		UEngineDebugMsgWindow::PushMsg(Msg2);
-		UEngineDebugMsgWindow::PushMsg(Msg3);
-	}
-	
+		
 	{
 		PlayerPos = GetActorLocation();
 		//PlayerPos = PlayerRenderer->GetWorldPosition();
@@ -68,18 +55,25 @@ void APlayer::Tick(float _DeltaTime)
 		//MouseCenter = CulMousPos - ScreenScale;
 		//MouseCenter.Y *= -1.0f;
 		
-		float4 Leng = PlayerPos - CulMousPos;
+		float4 Leng = CulMousPos - PlayerPos;
 		PlayerToMouseDir = Leng.Normalize3DReturn();
-		PlayerToMouseDir.X *= -1.0f;
-		PlayerToMouseDir.Y *= -1.0f;
 
+		////
+		// 라디안 각도.
+		float Rot = atan2((CulMousPos.Y - PlayerPos.Y), (CulMousPos.X - PlayerPos.X));
+		Rot *= UEngineMath::RToD; // 디그리( 0 ~ 180)
+		FVector x = FVector::Zero;
+		x.RotationZToDeg(Rot);
+		////
 #ifdef _DEBUG
 		//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
 		//std::string Msg2 = std::format("Player Pos : {}\n", PlayerPos.ToString());
 		//std::string Msg3 = std::format("Mouses Pos : {}\n", CulMousPos.ToString());
 		//std::string Msg4 = std::format("Leng : {}\n", Leng.ToString());
 		std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
-		std::string Msg6 = std::format("CalVectors : {}\n", CalVectors.ToString());
+		std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
+		std::string Msg7 = std::format("Rot : {}\n", x.ToString());
+		std::string Msg8 = std::format("CalVectors : {}\n", CalVectors.ToString());
 
 		//UEngineDebugMsgWindow::PushMsg(Msg1);
 		//UEngineDebugMsgWindow::PushMsg(Msg2);
@@ -87,10 +81,13 @@ void APlayer::Tick(float _DeltaTime)
 		//UEngineDebugMsgWindow::PushMsg(Msg4);
 		UEngineDebugMsgWindow::PushMsg(Msg5);
 		UEngineDebugMsgWindow::PushMsg(Msg6);
+		UEngineDebugMsgWindow::PushMsg(Msg7);
+		UEngineDebugMsgWindow::PushMsg(Msg8);
 #endif
 	}
 
 	{
+		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치
 		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
 	}
 }
