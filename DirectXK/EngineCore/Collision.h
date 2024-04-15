@@ -20,6 +20,7 @@ protected:
 	void BeginPlay() override;
 
 private:
+	ECollisionType CollisionType = ECollisionType::CirCle;
 
 };
 
