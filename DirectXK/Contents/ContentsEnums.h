@@ -10,3 +10,10 @@ enum class ERenderOrder
 	BossSkill,
 	MapObject,
 };
+
+
+enum class ECollisionOrder
+{
+	Player,
+	Monster,
+};
