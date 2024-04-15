@@ -104,7 +104,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
 		
 		//StageMap_One->SetActorScale3D();
-		//StageMap_One->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 100.0f });
+		StageMap_One->SetActorLocation({ TexScale.hX(), -TexScale.hY(), 100.0f });
 	}
 
 	{

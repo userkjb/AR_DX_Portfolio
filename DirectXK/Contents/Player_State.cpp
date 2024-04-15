@@ -229,7 +229,7 @@ void APlayer::Gravity(float _DeltaTime)
 		return;
 	}
 
-	PlayerPos /= UContentsConstValue::TileSize;
+	//PlayerPos /= UContentsConstValue::TileSize;
 	PlayerPos.Y = -PlayerPos.Y;
 
 	Color8Bit Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
