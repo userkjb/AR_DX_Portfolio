@@ -85,16 +85,18 @@ private:
 	const FVector JumpPower = FVector::Up * 250.0f;
 	FVector GravityVector = FVector::Zero;
 	const FVector GravityPower = FVector::Down * 500.0f;
-	
-	const float DashPower = 100.0f;
+	//FVector DashVector = FVector::Zero;
+	const float DashPower = 250.0f;
+	float DashTime = 0.0f;
+	float4 DashDir = float4::Zero;
 
-	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
+	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 
-	int DashCount = 2;
-	int DashCountMax = 2;
+	int DashCount = 500; // 2
+	int DashCountMax = 500; // 2
 };
 

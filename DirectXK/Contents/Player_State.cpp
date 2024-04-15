@@ -79,7 +79,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		int a = 0;
 	}
 
-	if (true == IsDown(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
 		// ´ë½¬
 		State.ChangeState("Dash");
@@ -127,7 +127,7 @@ void APlayer::RunTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_RBUTTON))
+	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
 		State.ChangeState("Dash");
 		return;
@@ -193,26 +193,39 @@ void APlayer::JumpEnd()
 #pragma region Dash
 void APlayer::DashBegin()
 {
-	AddActorLocation(PlayerToMouseDir * DashPower);
+	//AddActorLocation(PlayerToMouseDir * DashPower); // test
+	DashCount--;
+	//DashVector = FVector::Zero;
+	DashDir = PlayerToMouseDir;
 	PlayerRenderer->ChangeAnimation("Run");
 }
 
 void APlayer::DashTick(float _DeltaTime)
 {
-	//AddActorLocation(PlayerToMouseDir * DashPower * _DeltaTime);
-	
+	DashTime += _DeltaTime;
+
+	//DashVector = DashDir * DashPower * _DeltaTime;
+	//MoveUpdate(_DeltaTime);
+	AddActorLocation(DashDir * DashPower * _DeltaTime);
+
 	if (true == IsDown('A') || true == IsDown('D'))
 	{
 		State.ChangeState("Run");
 		return;
 	}
 
-	State.ChangeState("Idle");
-	return;
+	if (DashTime >= 0.5f)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
 }
 
 void APlayer::DashEnd()
 {
+	DashTime = 0.0f;
+	DashDir = float4::Zero;
+	//DashVector = FVector::Zero;
 }
 #pragma endregion
 
@@ -250,6 +263,7 @@ void APlayer::CalVector()
 	CalVectors += RunVector;
 	CalVectors += JumpVector;
 	CalVectors += GravityVector;
+	//CalVectors += DashVector;
 
 	CalVectors + JumpVector;
 }

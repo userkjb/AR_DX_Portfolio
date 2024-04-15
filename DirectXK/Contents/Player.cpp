@@ -110,4 +110,10 @@ void APlayer::DashCountTime(float _DeltaTime)
 		DashCount++;
 		DashCreationTime = 0.0f;
 	}
+
+#ifdef _DEBUG
+	std::string Msg1 = std::format("DashCount : {}\n", DashCount);
+
+	UEngineDebugMsgWindow::PushMsg(Msg1);
+#endif
 }
