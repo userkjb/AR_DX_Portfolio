@@ -9,6 +9,11 @@ UCollision::~UCollision()
 {
 }
 
+void UCollision::SetCollisionGroup(int _Index)
+{
+	SetOrder(_Index);
+}
+
 void UCollision::BeginPlay()
 {
 	Super::BeginPlay();
