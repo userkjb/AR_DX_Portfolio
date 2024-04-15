@@ -73,12 +73,6 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_LBUTTON))
-	{
-		// 공격
-		int a = 0;
-	}
-
 	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
 		// 대쉬
