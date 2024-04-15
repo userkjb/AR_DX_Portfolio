@@ -64,8 +64,11 @@ void ALasleyGameMode::BeginPlay()
 		}
 	}
 
+	float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+
 	Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	//Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	Camera->SetActorLocation(FVector(ScreenScaleHalf.X, -ScreenScaleHalf.Y, -100.0f));
 }
 
 void ALasleyGameMode::Tick(float _DeltaTime)
@@ -75,11 +78,11 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 
 #ifdef _DEBUG
 	//FVector PlayerPos = Player->GetPlayerPos();
-	//FVector CameraPos = Camera->GetActorLocation();
+	FVector CameraPos = Camera->GetActorLocation();
 	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
-	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
+	std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	//UEngineDebugMsgWindow::PushMsg(Msg2);
+	UEngineDebugMsgWindow::PushMsg(Msg2);
 #endif
 	
 	//Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });

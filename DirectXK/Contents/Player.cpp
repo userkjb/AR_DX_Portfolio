@@ -38,6 +38,8 @@ void APlayer::Tick(float _DeltaTime)
 
 	DashCountTime(_DeltaTime);
 
+	PixelCheck(_DeltaTime);
+
 	{
 		// Actor ¿Í Component À§Ä¡
 		FVector MainActorPos = GetActorLocation();
@@ -56,26 +58,32 @@ void APlayer::Tick(float _DeltaTime)
 		PlayerPos = GetActorLocation();
 		//PlayerPos = PlayerRenderer->GetWorldPosition();
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
-		float4 ScreenScale = GEngine->EngineWindow.GetWindowScale().Half2D();
-		ScreenScale.Z = 0.0f;
+		CulMousPos.Y *= -1.0f;
+		//float4 ScreenScale = GEngine->EngineWindow.GetWindowScale().Half2D();
+		//ScreenScale.Z = 0.0f;
 
-		MouseCenter = CulMousPos - ScreenScale;
-		MouseCenter.Y *= -1.0f;
+		//MouseCenter = CulMousPos - ScreenScale;
+		//MouseCenter.Y *= -1.0f;
 		
-		float4 Leng = MouseCenter - PlayerPos;
+		float4 Leng = PlayerPos - CulMousPos;
 		PlayerToMouseDir = Leng.Normalize3DReturn();
+		PlayerToMouseDir.X *= -1.0f;
+		PlayerToMouseDir.Y *= -1.0f;
 
 #ifdef _DEBUG
 		//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
 		//std::string Msg2 = std::format("Player Pos : {}\n", PlayerPos.ToString());
 		//std::string Msg3 = std::format("Mouses Pos : {}\n", CulMousPos.ToString());
 		//std::string Msg4 = std::format("Leng : {}\n", Leng.ToString());
-		//std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
+		std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
+		std::string Msg6 = std::format("CalVectors : {}\n", CalVectors.ToString());
+
 		//UEngineDebugMsgWindow::PushMsg(Msg1);
 		//UEngineDebugMsgWindow::PushMsg(Msg2);
 		//UEngineDebugMsgWindow::PushMsg(Msg3);
 		//UEngineDebugMsgWindow::PushMsg(Msg4);
-		//UEngineDebugMsgWindow::PushMsg(Msg5);
+		UEngineDebugMsgWindow::PushMsg(Msg5);
+		UEngineDebugMsgWindow::PushMsg(Msg6);
 #endif
 	}
 }

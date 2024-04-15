@@ -59,7 +59,14 @@ private:
 	void DieTick(float _DeltaTime);
 	void DieEnd();
 
+	void MoveUpdate(float _DeltaTime);
+	void CalVector();
 	void Gravity(float _DeltaTime);
+	void CalMoveVector(float _DeltaTime);
+
+	void PixelCheck(float _DeltaTime);
+
+	bool IsGround = false;
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
@@ -70,12 +77,19 @@ private:
 	float4 MouseCenter = float4::Zero;
 	float4 PlayerToMouseDir = float4::Zero;
 
-	const float RunSpeed = 500.0f;
-	const float JumpPower = 100.0f;
+	FVector CalVectors = FVector::Zero;
+	
+	FVector RunVector = FVector::Zero;
+	const float RunSpeed = 200.0f;
+	FVector JumpVector = FVector::Zero;
+	const FVector JumpPower = FVector::Up * 250.0f;
+	FVector GravityVector = FVector::Zero;
+	const FVector GravityPower = FVector::Down * 500.0f;
+	
 	const float DashPower = 100.0f;
+
 	float DashCreationTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
-	const float GravityPower = 100.0f;
 	int Hp = 0;
 	int MaxHp = 0;
 

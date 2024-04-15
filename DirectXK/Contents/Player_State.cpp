@@ -39,8 +39,6 @@ void APlayer::PlayerMouseDir()
 {
 	if (PlayerToMouseDir.X < 0.0f)
 	{
-		FVector Dir = GetActorScale3D();
-		Dir.X *= -1.0f;
 		PlayerRenderer->SetDir(EEngineDir::Left);
 		ActorDir = PlayerRenderer->GetDir();
 	}
@@ -55,6 +53,7 @@ void APlayer::PlayerMouseDir()
 void APlayer::IdleBegin()
 {
 	PlayerRenderer->ChangeAnimation("Idle");
+	RunVector = FVector::Zero;
 }
 
 void APlayer::IdleTick(float _DeltaTime)
@@ -87,7 +86,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	Gravity(_DeltaTime);
+	MoveUpdate(_DeltaTime);
 }
 
 void APlayer::IdleEnd()
@@ -100,6 +99,7 @@ void APlayer::IdleEnd()
 void APlayer::RunBegin()
 {
 	PlayerRenderer->ChangeAnimation("Run");
+	RunVector = FVector::Zero;
 }
 
 void APlayer::RunTick(float _DeltaTime)
@@ -114,11 +114,11 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		AddActorLocation(float4::Left * RunSpeed * _DeltaTime);
+		RunVector = FVector::Left * RunSpeed;
 	}
 	if (true == IsPress('D'))
 	{
-		AddActorLocation(float4::Right * RunSpeed * _DeltaTime);
+		RunVector = FVector::Right * RunSpeed;
 	}
 
 	if (true == IsDown(VK_SPACE))
@@ -133,7 +133,7 @@ void APlayer::RunTick(float _DeltaTime)
 		return;
 	}
 
-	Gravity(_DeltaTime);
+	MoveUpdate(_DeltaTime);
 }
 
 void APlayer::RunEnd()
@@ -145,13 +145,14 @@ void APlayer::RunEnd()
 void APlayer::JumpBegin()
 {
 	PlayerRenderer->ChangeAnimation("Jump");
-	AddActorLocation(float4::Up * JumpPower);
+	JumpVector = JumpPower;
 }
 
 void APlayer::JumpTick(float _DeltaTime)
 {
 	PlayerMouseDir();
-	//AddActorLocation(float4::Up * JumpPower * _DeltaTime);
+
+	MoveUpdate(_DeltaTime);
 
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
@@ -161,14 +162,16 @@ void APlayer::JumpTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		AddActorLocation(float4::Left * RunSpeed * _DeltaTime);
+		State.ChangeState("Run");
+		return;
 	}
 	if (true == IsPress('D'))
 	{
-		AddActorLocation(float4::Right * RunSpeed * _DeltaTime);
+		State.ChangeState("Run");
+		return;
 	}
 
-
+	
 }
 
 void APlayer::JumpEnd()
@@ -220,7 +223,42 @@ void APlayer::DieEnd()
 
 
 
+void APlayer::MoveUpdate(float _DeltaTime)
+{
+	Gravity(_DeltaTime); // 중력
+
+
+	CalVector(); // Vector 최종 계산
+
+	CalMoveVector(_DeltaTime); // 움직이기.
+}
+
+void APlayer::CalVector()
+{
+	CalVectors = FVector::Zero;
+	CalVectors += RunVector;
+	CalVectors += JumpVector;
+	CalVectors += GravityVector;
+
+	CalVectors + JumpVector;
+}
+
 void APlayer::Gravity(float _DeltaTime)
+{
+	GravityVector += GravityPower * _DeltaTime;
+	
+	if(true == IsGround)// 땅에 닿으면,
+	{
+		GravityVector = FVector::Zero;
+	}
+}
+
+void APlayer::CalMoveVector(float _DeltaTime)
+{
+	AddActorLocation(CalVectors * _DeltaTime);
+}
+
+void APlayer::PixelCheck(float _DeltaTime)
 {
 	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
 	if (nullptr == Tex)
@@ -229,14 +267,17 @@ void APlayer::Gravity(float _DeltaTime)
 		return;
 	}
 
-	//PlayerPos /= UContentsConstValue::TileSize;
+	//PlayerPos /= UContentsConstValue::TileSize; 
 	PlayerPos.Y = -PlayerPos.Y;
 
 	Color8Bit Color = Tex->GetColor(PlayerPos, Color8Bit::Black);
-
-	if (Color != Color8Bit::Black)
+	if (Color != Color8Bit::Black) // 공중
 	{
-		AddActorLocation(float4::Down * _DeltaTime * GravityPower);
+		IsGround = false;
+	}
+	else // 땅에 닿으면,
+	{
+		IsGround = true;
 	}
 }
 
