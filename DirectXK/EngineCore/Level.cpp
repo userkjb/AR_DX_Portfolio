@@ -73,6 +73,28 @@ void ULevel::Render(float _DeltaTime)
 void ULevel::Destroy()
 {
 
+	for (std::pair<const int, std::list<std::shared_ptr<UCollision>>>& Group : Collisions)
+	{
+		std::list<std::shared_ptr<UCollision>>& GroupCollisions = Group.second;
+
+		std::list<std::shared_ptr<UCollision>>::iterator StartIter = GroupCollisions.begin();
+		std::list<std::shared_ptr<UCollision>>::iterator EndIter = GroupCollisions.end();
+
+
+		for (; StartIter != EndIter; )
+		{
+			std::shared_ptr<UCollision> CurCollision = *StartIter;
+
+			if (false == CurCollision->GetActor()->IsDestroy())
+			{
+				++StartIter;
+				continue;
+			}
+
+			StartIter = GroupCollisions.erase(StartIter);
+		}
+	}
+
 	for (std::pair<const int, std::list<std::shared_ptr<URenderer>>>& RenderGroup : Renderers)
 	{
 		std::list<std::shared_ptr<URenderer>>& GroupRenderers = RenderGroup.second;
@@ -164,6 +186,7 @@ void ULevel::ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _P
 
 	Collisions[_ChangeOrder].push_front(_Collision);
 }
+
 
 void ULevel::LevelEnd(ULevel* _NextLevel)
 {

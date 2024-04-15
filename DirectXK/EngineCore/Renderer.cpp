@@ -55,7 +55,6 @@ void URenderer::Render(float _DeltaTime)
 
 	Resources->SettingAllShaderResources();
 
-
 	// Draw
 	Mesh->IndexedDraw();
 }
