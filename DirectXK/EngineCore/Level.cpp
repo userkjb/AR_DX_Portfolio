@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "GameMode.h"
 #include "Renderer.h"
+#include "Collision.h"
 #include "Camera.h"
 #include "EngineCore.h"
 #include "EngineRenderTarget.h"
@@ -143,12 +144,25 @@ void ULevel::PushRenderer(std::shared_ptr<URenderer> _Renderer)
 	Renderers[_Renderer->GetOrder()].push_front(_Renderer);
 }
 
+void ULevel::PushCollision(std::shared_ptr<UCollision> _Collision)
+{
+	Collisions[_Collision->GetOrder()].push_front(_Collision);
+}
+
 void ULevel::ChangeOrderRenderer(std::shared_ptr<URenderer> _Renderer, int _PrevOrder, int _ChangeOrder)
 {
 	// 안지워지고 
 	Renderers[_PrevOrder].remove(_Renderer);
 
 	Renderers[_ChangeOrder].push_front(_Renderer);
+}
+
+void ULevel::ChangeOrderCollision(std::shared_ptr<UCollision> _Collision, int _PrevOrder, int _ChangeOrder)
+{
+	// 안지워지고 
+	Collisions[_PrevOrder].remove(_Collision);
+
+	Collisions[_ChangeOrder].push_front(_Collision);
 }
 
 void ULevel::LevelEnd(ULevel* _NextLevel)
