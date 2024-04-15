@@ -28,11 +28,16 @@ private :
 	{
 		PlayerToMouseDir = _PlayerToMouseDir;
 	}
+	inline void SetWeaponRotation(FVector _Rot)
+	{
+		WeaponRotation = _Rot;
+	}
 
 	void AttackState(float _DeltaTime);
 
 	float4 PlayerToMouseDir = float4::Zero;
-		
+	FVector WeaponRotation = FVector::Zero;
+
 	USpriteRenderer* Weapon_One_Renderer = nullptr;
 	USpriteRenderer* Weapon_Two_Renderer = nullptr;
 	//USpriteRenderer* Weapon_Effect = nullptr;

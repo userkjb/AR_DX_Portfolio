@@ -48,14 +48,7 @@ void APlayerWeapon::Tick(float _DeltaTime)
 		AttackState(_DeltaTime);
 	}
 
-	//AddActorRotation(PlayerToMouseDir);
-	if (true == IsPress('R'))
-	{
-		//FVector Rot = FVector::Zero;
-		//PlayerToMouseDir.Z
-		////Rot.Z = PlayerToMouseDir.
-		//AddActorRotation(Rot);
-	}
+	SetActorRotation(WeaponRotation);
 }
 
 void APlayerWeapon::AttackState(float _DeltaTime)

@@ -62,8 +62,7 @@ void APlayer::Tick(float _DeltaTime)
 		// 라디안 각도.
 		float Rot = atan2((CulMousPos.Y - PlayerPos.Y), (CulMousPos.X - PlayerPos.X));
 		Rot *= UEngineMath::RToD; // 디그리( 0 ~ 180)
-		FVector x = FVector::Zero;
-		x.RotationZToDeg(Rot);
+		WeaponDir.Z = Rot;
 		////
 #ifdef _DEBUG
 		//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
@@ -72,7 +71,7 @@ void APlayer::Tick(float _DeltaTime)
 		//std::string Msg4 = std::format("Leng : {}\n", Leng.ToString());
 		std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
 		std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
-		std::string Msg7 = std::format("Rot : {}\n", x.ToString());
+		std::string Msg7 = std::format("Rot : {}\n", WeaponDir.ToString());
 		std::string Msg8 = std::format("CalVectors : {}\n", CalVectors.ToString());
 
 		//UEngineDebugMsgWindow::PushMsg(Msg1);
@@ -89,6 +88,7 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치
 		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
+		Weapone->SetWeaponRotation(WeaponDir);
 	}
 }
 
