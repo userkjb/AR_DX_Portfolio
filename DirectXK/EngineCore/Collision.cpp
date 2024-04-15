@@ -9,3 +9,8 @@ UCollision::~UCollision()
 {
 }
 
+void UCollision::BeginPlay()
+{
+	Super::BeginPlay();
+}
+

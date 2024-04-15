@@ -2,8 +2,9 @@
 #include "SceneComponent.h"
 
 // Ό³Έν :
-class UCollision : public USceneComponent
+class UCollision : public USceneComponent, public std::enable_shared_from_this<UCollision>
 {
+	GENERATED_BODY(USceneComponent)
 public:
 	// constrcuter destructer
 	UCollision();
@@ -16,6 +17,7 @@ public:
 	UCollision& operator=(UCollision&& _Other) noexcept = delete;
 
 protected:
+	void BeginPlay() override;
 
 private:
 
