@@ -48,12 +48,22 @@ void APlayerWeapon::Tick(float _DeltaTime)
 		AttackState(_DeltaTime);
 	}
 
-	SetActorRotation(WeaponRotation);
+	WeaponRotControll(_DeltaTime);
 }
 
 void APlayerWeapon::AttackState(float _DeltaTime)
 {
-	float4 x = PlayerToMouseDir;
+	//float4 x = PlayerToMouseDir;
+
+	FVector Scale = GetActorScale3D();
+	Scale.X *= -1.0f;
+	SetActorScale3D(Scale);
 
 	int a = 0;
+}
+
+void APlayerWeapon::WeaponRotControll(float _DeltaTime)
+{
+
+	SetActorRotation(WeaponRotation);
 }
