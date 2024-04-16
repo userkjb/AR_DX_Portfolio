@@ -22,7 +22,20 @@ void MapEditorGUI::Init()
 void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 {
 	Super::Tick(_Level, _DeltaTime);
+
+	if (true == UEngineInput::IsDown(VK_F8)) // F8
+	{
+		if (MapEditorCamera == true)
+		{
+			MapEditorCamera = false;
+		}
+		else
+		{
+			MapEditorCamera = true;
+		}
+	}
 	// Ä«¸Þ¶ó.
+	if(MapEditorCamera == true)
 	{
 		_Level->GetMainCamera();
 		float Speed = 500.0f;

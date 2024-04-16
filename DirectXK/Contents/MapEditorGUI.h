@@ -21,6 +21,7 @@ protected:
 	virtual void OnGui(ULevel* _Level, float _DeltaTime);
 
 private:
+	bool MapEditorCamera = false;
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;
 	float TileSizeX = 0.0f;
