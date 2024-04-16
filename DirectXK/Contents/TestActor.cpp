@@ -1,9 +1,13 @@
 #include "PreCompile.h"
 #include "TestActor.h"
+
 #include <EngineCore/Renderer.h>
+#include <EngineCore/DefaultSceneComponent.h>
 
 ATestActor::ATestActor()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
+
 	Renderer = CreateDefaultSubObject<URenderer>("Renderer");
 	Renderer->SetMesh("Rect");
 	// 메테리얼을 해주는순간
@@ -11,9 +15,11 @@ ATestActor::ATestActor()
 	// 색깔  머티리얼그자체에 세팅해준다.
 	// 
 	Renderer->SetMaterial("2DImage");
+	Renderer->SetupAttachment(Root);
 
 	// Renderer->세팅픽셀쉐이더상수버퍼();
 	// Renderer->세팅버텍스쉐이더상수버퍼();
+	SetRoot(Root);
 }
 
 ATestActor::~ATestActor()
