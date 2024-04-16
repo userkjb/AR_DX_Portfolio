@@ -1,11 +1,10 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+// Ό³Έν :
 class ATileMap : public AActor
 {
-	GENERATED_BODY(AActor)
-
-public :
+public:
 	// constrcuter destructer
 	ATileMap();
 	~ATileMap();
@@ -16,12 +15,10 @@ public :
 	ATileMap& operator=(const ATileMap& _Other) = delete;
 	ATileMap& operator=(ATileMap&& _Other) noexcept = delete;
 
-
 	class UTileRenderer* TileRenderer = nullptr;
+protected:
 
-protected :
-
-private :
+private:
 
 };
 

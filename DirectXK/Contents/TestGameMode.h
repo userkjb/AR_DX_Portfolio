@@ -1,10 +1,10 @@
 #pragma once
-#include <EngineCore/GameMode.h>
+#include "TileMapLevel.h"
 
 // Ό³Έν :
-class ATestGameMode : public AGameMode
+class ATestGameMode : public ATileMapLevel
 {
-	GENERATED_BODY(AGameMode)
+	GENERATED_BODY(ATileMapLevel)
 
 public:
 	// constrcuter destructer
@@ -21,7 +21,10 @@ protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
-private:
+	void LevelStart(ULevel* _PrevLevel) override;
+	void LevelEnd(ULevel* _NextLevel) override;
 
+private:
+	std::shared_ptr<UCamera> Camera = nullptr;
 };
 
