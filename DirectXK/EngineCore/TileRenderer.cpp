@@ -102,6 +102,7 @@ void UTileRenderer::Render(float _DeltaTime)
 			CuttingDataValue.CuttingSize = Info.CuttingSize;
 
 			float4 CurPos = { TileSize.X * x, TileSize.Y * y };
+			CurPos += TileSize.Half2D();
 
 			Transform.SetPosition(StartPos + CurPos);
 			Transform.SetScale(TileSize);
