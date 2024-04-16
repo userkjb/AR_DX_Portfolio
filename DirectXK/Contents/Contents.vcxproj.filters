@@ -58,6 +58,9 @@
     <Filter Include="TileMap">
       <UniqueIdentifier>{2aed9150-6ce5-486e-a5f3-94cf7c46239f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\00_TileLevel">
+      <UniqueIdentifier>{c3d60508-e7bd-4ffa-8ebc-9df9d8694383}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -127,7 +130,7 @@
       <Filter>TileMap</Filter>
     </ClCompile>
     <ClCompile Include="TileMapLevel.cpp">
-      <Filter>Level\00_GameStart</Filter>
+      <Filter>Level\00_TileLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +198,7 @@
       <Filter>TileMap</Filter>
     </ClInclude>
     <ClInclude Include="TileMapLevel.h">
-      <Filter>Level\00_GameStart</Filter>
+      <Filter>Level\00_TileLevel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

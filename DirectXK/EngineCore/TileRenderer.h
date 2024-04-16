@@ -20,7 +20,13 @@ public:
 	UTileRenderer& operator=(UTileRenderer&& _Other) noexcept = delete;
 
 	void CreateTileMap(std::string_view _TileSetSprite, float4 _TileSize, int _X, int _Y, int _DefaultIndex);
+	float4 ConvertTileIndex(float4 _WorldXY);
+	void SetTile(float4 _WorldXY, int _Index);
 	void SetTile(int _X, int _Y, int _Index);
+	std::vector<std::vector<int>> GetTileMapData()
+	{
+		return Tiles;
+	}
 
 protected:
 	void BeginPlay() override;
