@@ -22,7 +22,7 @@ UContentsCore::~UContentsCore()
 void UContentsCore::Initialize()
 {
 	{
-		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("GIU");
+		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("GUI");
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("Map");
 	}
 
