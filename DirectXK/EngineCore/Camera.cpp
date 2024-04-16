@@ -50,7 +50,7 @@ void UCamera::CameraTransformUpdate()
 
 void UCamera::BeginPlay()
 {
-
+	Super::BeginPlay();
 }
 
 // 프리카메라가 되면
@@ -58,6 +58,7 @@ void UCamera::BeginPlay()
 // 애니메이션도 안되야 하나요?
 void UCamera::Tick(float _DeltaTime)
 {
+	Super::Tick(_DeltaTime);
 	// tick은 그냥 진행된다.
 	// 그런데 입력은 카메라만 받아야 한다.
 	// IsDown()
@@ -156,4 +157,19 @@ void UCamera::Tick(float _DeltaTime)
 void UCamera::ViewPortSetting()
 {
 	GEngine->GetDirectXContext()->RSSetViewports(1, &ViewPort);
+}
+
+float4 UCamera::ScreenPosToWorldPos(float4 _ScreenPos)
+{
+	// A * B = C
+	// C * B의 역행렬 = A
+
+	float4x4 ViewPortIn = ViewPortMat.InverseReturn();
+	float4x4 ProjectionIn = Projection.InverseReturn();
+	float4x4 ViewIn = View.InverseReturn();
+
+	_ScreenPos *= ViewPortIn;
+	_ScreenPos *= ProjectionIn;
+	_ScreenPos *= ViewIn;
+	return _ScreenPos;
 }
