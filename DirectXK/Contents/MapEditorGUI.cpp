@@ -72,12 +72,15 @@ void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 		Off();
 	}
 
-	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(_Level);
+	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
+
+	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
+
 	if (nullptr == Ptr)
 	{
 		return;
 	}
-	
+
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
 	if (true == UEngineInput::IsPress(VK_LBUTTON))
@@ -89,20 +92,23 @@ void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 	}
 }
 
-void MapEditorGUI::OnGui(ULevel* _Level, float _DeltaTime)
+void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 {
+
 	float4 MousePos = GEngine->EngineWindow.GetScreenMousePos();
-	//MousePosWorld = _Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
+	MousePosWorld = _Level->GetMainCamera()->ScreenPosToWorldPos(MousePos);
 
 	std::shared_ptr<AGameMode> Mode = _Level->GetGameMode();
 
 	ATileMapLevel* Ptr = dynamic_cast<ATileMapLevel*>(Mode.get());
+
 	if (nullptr == Ptr)
 	{
 		return;
 	}
 
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
+
 
 	ImGui::InputFloat("TileSizeX", &TileSizeX);
 	// ImGui::InputFloat2()
@@ -118,6 +124,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _DeltaTime)
 		TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, 50, 50, 0);
 	}
 
+
 	ImGui::Text(("WorldMouse : " + MousePosWorld.ToString()).c_str());
 	float4 Index = TileRenderer->ConvertTileIndex(MousePosWorld);
 	ImGui::Text(("TileIndexPos : " + Index.ToString()).c_str());
@@ -125,9 +132,11 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _DeltaTime)
 
 
 	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
-	// DX에서 디바이스랑 컨텍스를 넣어줬다.
-	// ImGui는 이걸 사용한다.
-	// ImGui는 내부에서 자신의 쉐이더를 사용한다.	
+
+
+	// 다이렉트 디바이스랑
+	// 다이렉트 컨텍스
+	// imgui는 내부에서 자신의 쉐이더를 사용합니다.
 
 	// imgui에서 사용하는 쉐이더에 내 텍스처가 들어간다.
 	// ImVec2
@@ -171,13 +180,20 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _DeltaTime)
 			SelectSpriteIndex = i;
 		}
 
-		// 줄바꿈
 		if ((i + 1) % 5)
 		{
 			ImGui::SameLine();
 		}
 	}
 
-	// Index = 내가 찍어야 할 스프라이트니까.
+	// Index 내가 찍어야할 스프라이트
+
+	// 
+
+	//ImGui::TextUnformatted("child_2");
+	//ImGui::GetWindowDrawList()->AddLine({ 0, 0 }, { 500, 500 }, 0xFFFFFFFF);
+	//ImGui::SetCursorPos({ 1500, 1500 });
+	//ImGui::TextUnformatted("hello");
 	ImGui::EndChild();
+
 }
