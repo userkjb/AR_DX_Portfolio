@@ -31,9 +31,6 @@
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{098c1eea-75ef-4145-b71a-df2e8823f7f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Rendering\Component">
-      <UniqueIdentifier>{e58f7771-8a4a-49cb-93f0-7c4c3d4fcd31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources\Mesh">
       <UniqueIdentifier>{43712be7-6f7d-4dd3-830d-4c0b5150cde5}</UniqueIdentifier>
     </Filter>
@@ -79,8 +76,14 @@
     <Filter Include="Object\Component\Collision">
       <UniqueIdentifier>{26efc2f9-740f-4917-b332-6d1ca9805122}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Rendering\Contents">
-      <UniqueIdentifier>{f4ea4fd7-00b3-4ed8-ae04-8ae9479169be}</UniqueIdentifier>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{0c19c5ae-af10-4c61-b190-e7b6091cf4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Rendering">
+      <UniqueIdentifier>{e1af08d5-92b0-47aa-bf52-1eaa44bef0c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Component\Rendering\Contents">
+      <UniqueIdentifier>{5a9ed8ef-d540-4993-8015-fd401c73a3db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +119,6 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Object\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Object</Filter>
@@ -183,9 +183,6 @@
     <ClCompile Include="EngineSprite.cpp">
       <Filter>Resources\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Object\Rendering\Component</Filter>
-    </ClCompile>
     <ClCompile Include="EngineBlend.cpp">
       <Filter>Resources\RenderingSetting</Filter>
     </ClCompile>
@@ -225,12 +222,20 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Object\Component\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="EngineDebug3D.cpp" />
-    <ClCompile Include="TileRenderer.cpp">
-      <Filter>Object\Rendering\Contents</Filter>
-    </ClCompile>
     <ClCompile Include="EngineStruct.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineDebug3D.cpp">
+      <Filter>Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -266,9 +271,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Object\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Object\Rendering\Component</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Object</Filter>
@@ -336,9 +338,6 @@
     <ClInclude Include="EngineSprite.h">
       <Filter>Resources\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Object\Rendering\Component</Filter>
-    </ClInclude>
     <ClInclude Include="EngineBlend.h">
       <Filter>Resources\RenderingSetting</Filter>
     </ClInclude>
@@ -384,12 +383,20 @@
     <ClInclude Include="Collision.h">
       <Filter>Object\Component\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="EngineDebug3D.h" />
-    <ClInclude Include="TileRenderer.h">
-      <Filter>Object\Rendering\Contents</Filter>
-    </ClInclude>
     <ClInclude Include="EngineStruct.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineDebug3D.h">
+      <Filter>Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
