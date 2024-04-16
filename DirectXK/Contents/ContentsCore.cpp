@@ -2,7 +2,7 @@
 #include "ContentsCore.h"
 #include <EngineCore/EngineSprite.h>
 
-//#include "PlayGameMode.h"
+#include "TestGameMode.h"
 #include "GameStartGameMode.h"
 #include "TitleGameMode.h"
 #include "LasleyGameMode.h"
@@ -22,15 +22,15 @@ UContentsCore::~UContentsCore()
 void UContentsCore::Initialize()
 {
 	{
-		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("GUI");
-		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("Map");
+		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
+		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
 	}
 
-	//GEngine->CreateLevel<APlayGameMode>("PlayLevel");
+	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
 	//GEngine->ChangeLevel("PlayLevel");
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
 	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 
-	GEngine->ChangeLevel("LasleyLevel");
+	GEngine->ChangeLevel("TestGameMode");
 }
