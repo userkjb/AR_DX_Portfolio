@@ -15,6 +15,7 @@ APlayer::APlayer()
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
+	// 콜리전은 무조건 오더를 지정해줘야 한다.
 	Collision->SetCollisionGroup(ECollisionOrder::Player);
 	Collision->SetCollisionType(ECollisionType::Rect);
 	SetRoot(Root);
