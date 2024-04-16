@@ -79,6 +79,9 @@
     <Filter Include="Object\Component\Collision">
       <UniqueIdentifier>{26efc2f9-740f-4917-b332-6d1ca9805122}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Rendering\Contents">
+      <UniqueIdentifier>{f4ea4fd7-00b3-4ed8-ae04-8ae9479169be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -223,6 +226,12 @@
       <Filter>Object\Component\Collision</Filter>
     </ClCompile>
     <ClCompile Include="EngineDebug3D.cpp" />
+    <ClCompile Include="TileRenderer.cpp">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineStruct.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -376,6 +385,12 @@
       <Filter>Object\Component\Collision</Filter>
     </ClInclude>
     <ClInclude Include="EngineDebug3D.h" />
+    <ClInclude Include="TileRenderer.h">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineStruct.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
