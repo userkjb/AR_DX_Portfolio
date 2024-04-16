@@ -23,7 +23,7 @@ void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 {
 	Super::Tick(_Level, _DeltaTime);
 	// Ä«¸Þ¶ó.
-	/*{
+	{
 		_Level->GetMainCamera();
 		float Speed = 500.0f;
 		if (true == UEngineInput::IsPress('A'))
@@ -45,7 +45,7 @@ void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 		{
 			_Level->GetMainCamera()->AddActorLocation(float4::Down * _DeltaTime * Speed);
 		}
-	}*/
+	}
 
 
 	std::string LevelName = _Level->GetName();
