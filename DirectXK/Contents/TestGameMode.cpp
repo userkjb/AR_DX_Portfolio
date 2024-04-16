@@ -21,7 +21,7 @@ void ATestGameMode::BeginPlay()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\GameTitle\\MapTile");
+		Dir.Move("Image\\Tile\\MapTile");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
 		{
