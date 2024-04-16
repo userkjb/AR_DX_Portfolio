@@ -85,11 +85,6 @@ void ShaderInit()
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("EngineShader");
 	UEngineShader::AutoCompile(Dir);
-
-	// UEngineVertexShader::Load("D:ENgineShader\MeshVertexShader", "AAAA_VS");
-
-	//UEngineVertexShader::Load("AAA.png", EntryName);
-	//UEngineVertexShader::Load("BBB.png", EntryName);
 }
 
 void SettingInit()
@@ -129,6 +124,16 @@ void SettingInit()
 		// 레스터라이저 세팅
 		UEngineRasterizer::Create("EngineBase", Desc);
 	}
+
+	{
+		D3D11_RASTERIZER_DESC Desc = {};
+		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_WIREFRAME;
+		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		Desc.AntialiasedLineEnable = TRUE;
+		Desc.DepthClipEnable = TRUE;
+		UEngineRasterizer::Create("Debug", Desc);
+	}
+
 
 	{
 		D3D11_SAMPLER_DESC Desc = {};
@@ -261,10 +266,19 @@ void SettingInit()
 void MaterialInit()
 {
 
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
+		Mat->SetPixelShader("ImageShader.fx");
+		Mat->SetVertexShader("ImageShader.fx");
+	}
 
-	std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("2DImage");
-	Mat->SetPixelShader("ImageShader.fx");
-	Mat->SetVertexShader("ImageShader.fx");
+	{
+		std::shared_ptr<UEngineMaterial> Mat = UEngineMaterial::Create("Debug");
+		Mat->SetPixelShader("DebugShader.fx");
+		Mat->SetVertexShader("DebugShader.fx");
+		Mat->SetRasterizer("Debug");
+	}
+
 
 }
 
