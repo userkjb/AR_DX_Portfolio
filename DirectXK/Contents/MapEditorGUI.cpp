@@ -5,6 +5,11 @@
 #include "TileMap.h"
 #include <EngineCore/Camera.h>
 
+#include <xmllite.h>
+#include <Shlwapi.h>
+
+#pragma comment(lib, "shlwapi.lib")
+#pragma comment(lib, "xmllite.lib")
 
 MapEditorGUI::MapEditorGUI()
 {
@@ -232,6 +237,56 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	//ImGui::GetWindowDrawList()->AddLine({ 0, 0 }, { 500, 500 }, 0xFFFFFFFF);
 	//ImGui::SetCursorPos({ 1500, 1500 });
 	//ImGui::TextUnformatted("hello");
+	
+	{
+		if (true == ImGui::Button("Test"))
+		{
+			const wchar_t* FileName = L"Text.xml";
+
+			UEngineDirectory Dir;
+			Dir.MoveToSearchChild("Config");
+			Dir.Move("TileMapData");
+
+			if (true == FileExists(FileName))
+			{
+				CreateXmlFile(FileName);
+			}
+
+
+		}
+	}
+
 	ImGui::EndChild();
 
+}
+
+bool MapEditorGUI::FileExists(const wchar_t* _FileName)
+{
+	return PathFileExists(_FileName) != false;
+}
+
+void MapEditorGUI::CreateXmlFile(const wchar_t* _FileName)
+{
+	IStream* pFileStream = nullptr;
+	HRESULT hr = SHCreateStreamOnFileW(_FileName, STGM_READ, &pFileStream);
+
+	//IXmlWriter* pWirter;
+
+	if (FAILED(hr))
+	{
+		MsgBoxAssert("Failed to create file stream: " + hr);
+		//std::cerr << "Failed to create file stream: " << hr << std::endl;
+		return;
+	}
+
+	//IXmlReader* pReader;
+	//IXmlWriter* pWriter;
+	//hr = CreateXmlWriter(__uuidof(IXmlWriter), (void**)&pWriter, nullptr); // Error
+	//if (FAILED(hr))
+	//{
+	//	MsgBoxAssert("Failed to create XML reader: : " + hr);
+	//	//std::cerr << "Failed to create XML reader: " << hr << std::endl;
+	//	pFileStream->Release();
+	//	return;
+	//}
 }

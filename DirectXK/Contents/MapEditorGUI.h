@@ -21,6 +21,11 @@ protected:
 	virtual void OnGui(ULevel* _Level, float _DeltaTime);
 
 private:
+
+	bool FileExists(const wchar_t* _FileName);
+	void CreateXmlFile(const wchar_t* _FileName);
+	//void ReadXmlFile(const std::string_view _FileName);
+
 	bool MapEditorCamera = false;
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;

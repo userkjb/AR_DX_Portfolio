@@ -193,6 +193,9 @@
   <ItemGroup>
     <None Include="..\Config\EngineOption.EData" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Config\TileMapData\Text.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
