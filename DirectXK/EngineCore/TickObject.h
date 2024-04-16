@@ -18,7 +18,7 @@ class UTickObject
 public:
 	// constrcuter destructer
 	UTickObject();
-	~UTickObject();
+	virtual ~UTickObject(); // 다이나믹 캐스팅을 사용하려면 virtual 을 붙여줘야 한다.
 
 	// delete Function
 	UTickObject(const UTickObject& _Other) = delete;
