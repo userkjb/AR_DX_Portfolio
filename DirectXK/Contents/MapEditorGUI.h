@@ -25,8 +25,12 @@ private:
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;
 
+	std::string ImageFileName = "";
+
 	float4 InputTileSize = float4::Zero;
 	std::string Str_CreateImage = "";
 	bool IsCreateImage = false;
+
+	std::vector<std::vector<int>> TileData;
 };
 

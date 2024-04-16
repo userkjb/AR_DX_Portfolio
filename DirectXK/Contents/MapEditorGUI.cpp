@@ -117,28 +117,51 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	// 타일 개수 y를 
 	// 스프라이트 선택.
 	// 저장.
-
-	if (true == ImGui::Button("Create"))
 	{
-		if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f)
+		if (true == ImGui::Button("Create"))
 		{
-			IsCreateImage = false;
+			if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f)
+			{
+				IsCreateImage = false;
+			}
+			else
+			{
+				TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, 50, 50, 0);
+				IsCreateImage = true;
+			}
+		}
+		if (IsCreateImage)
+		{
+			Str_CreateImage = "True!!!";
 		}
 		else
 		{
-			TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, 50, 50, 0);
-			IsCreateImage = true;
+			Str_CreateImage = "False...";
+		}
+		ImGui::Text(std::format("Create Image : {}", Str_CreateImage).c_str());
+	}
+
+	// Save
+	{
+		if (true == ImGui::Button("Data"))
+		{
+			TileData = TileRenderer->GetTileMapData();
+		}
+
+		// File Save
+		//UEngineDirectory Dir;
+		//Dir.MoveToSearchChild("Config\\TileData");
+	}
+
+	// Save Data To Create
+	{ 
+		if (true == ImGui::Button("DataToCreate"))
+		{
+			// File Load
+			//-------------------------------------
+
 		}
 	}
-	if (IsCreateImage)
-	{
-		Str_CreateImage = "True!!!";
-	}
-	else
-	{
-		Str_CreateImage = "False...";
-	}
-	ImGui::Text(std::format("Create Image : {}", Str_CreateImage).c_str());
 
 	ImGui::Text(("WorldMouse : " + MousePosWorld.ToString()).c_str());
 	float4 Index = TileRenderer->ConvertTileIndex(MousePosWorld);
