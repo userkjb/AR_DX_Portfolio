@@ -55,7 +55,7 @@ void URenderer::Render(float _DeltaTime)
 	// 꼭 아래의 순서대로 세팅을 해야만 랜더링이 되는게 아니에요.
 	// Mesh->Setting()
 
-	// InputAssembler1
+	RenderingSetting();
 
 
 	Resources->SettingAllShaderResources();
