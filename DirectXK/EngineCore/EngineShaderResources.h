@@ -36,11 +36,14 @@ public:
 	void Setting();
 };
 
+
 // Ό³Έν :
 class URenderer;
+class URenderUnit;
 class UEngineShader;
 class UEngineShaderResources
 {
+	friend URenderUnit;
 	friend UEngineShader;
 	friend URenderer;
 
@@ -58,6 +61,7 @@ public:
 
 	void SettingTexture(std::string_view _TexName, std::shared_ptr<UEngineTexture> _Texture, std::string_view _SamperName);
 
+
 	void SettingAllShaderResources();
 
 	void Reset();
@@ -72,5 +76,6 @@ private:
 	std::map<EShaderType, std::map<std::string, UEngineConstantBufferSetter>> ConstantBuffers;
 	std::map<EShaderType, std::map<std::string, UEngineTextureSetter>> Textures;
 	std::map<EShaderType, std::map<std::string, UEngineSamplerSetter>> Samplers;
+
 };
 
