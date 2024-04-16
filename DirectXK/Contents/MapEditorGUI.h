@@ -24,6 +24,9 @@ private:
 	bool MapEditorCamera = false;
 	float4 MousePosWorld;
 	int SelectSpriteIndex = 0;
-	float TileSizeX = 0.0f;
+
+	float4 InputTileSize = float4::Zero;
+	std::string Str_CreateImage = "";
+	bool IsCreateImage = false;
 };
 

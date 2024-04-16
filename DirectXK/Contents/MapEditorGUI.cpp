@@ -110,8 +110,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
 
-	ImGui::InputFloat("TileSizeX", &TileSizeX);
-	// ImGui::InputFloat2()
+	ImGui::InputFloat2("TileSize", &InputTileSize.X);
 
 	// 타일 크기 지정
 	// 타일 개수 x
@@ -121,9 +120,25 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 	if (true == ImGui::Button("Create"))
 	{
-		TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, 50, 50, 0);
+		if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f)
+		{
+			IsCreateImage = false;
+		}
+		else
+		{
+			TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, 50, 50, 0);
+			IsCreateImage = true;
+		}
 	}
-
+	if (IsCreateImage)
+	{
+		Str_CreateImage = "True!!!";
+	}
+	else
+	{
+		Str_CreateImage = "False...";
+	}
+	ImGui::Text(std::format("Create Image : {}", Str_CreateImage).c_str());
 
 	ImGui::Text(("WorldMouse : " + MousePosWorld.ToString()).c_str());
 	float4 Index = TileRenderer->ConvertTileIndex(MousePosWorld);
