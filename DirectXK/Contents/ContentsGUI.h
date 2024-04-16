@@ -19,7 +19,7 @@ public :
 
 protected :
 	virtual void Init();
-	virtual void OnGui(ULevel* Level, float _Delta);
+	virtual void OnGui(ULevel* _Level, float _Delta);
 
 private :
 };
