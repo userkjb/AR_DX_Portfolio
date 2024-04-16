@@ -72,6 +72,7 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
+	UCollision* Collision = nullptr;
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;

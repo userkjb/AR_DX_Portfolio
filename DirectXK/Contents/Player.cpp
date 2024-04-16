@@ -12,6 +12,11 @@ APlayer::APlayer()
 	PlayerRenderer->SetPivot(EPivot::BOT);
 	PlayerRenderer->SetupAttachment(Root);
 
+	Collision = CreateDefaultSubObject<UCollision>("Collision");
+	Collision->SetupAttachment(Root);
+	Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
+	Collision->SetCollisionGroup(ECollisionOrder::Player);
+	Collision->SetCollisionType(ECollisionType::Rect);
 	SetRoot(Root);
 
 	InputOn();

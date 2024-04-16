@@ -7,6 +7,9 @@
     <Filter Include="Header">
       <UniqueIdentifier>{ecef1b8e-b4ae-4ec2-833a-7969a154e19e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{6db31ee0-6cc6-4fde-a3b0-5330204506fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineVertex.hlsli">
@@ -28,6 +31,9 @@
     </FxCompile>
     <FxCompile Include="ColorShader.fx">
       <Filter>2D</Filter>
+    </FxCompile>
+    <FxCompile Include="DebugShader.fx">
+      <Filter>Debug</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
