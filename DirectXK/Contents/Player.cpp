@@ -69,19 +69,19 @@ void APlayer::Tick(float _DeltaTime)
 		//std::string Msg2 = std::format("Player Pos : {}\n", PlayerPos.ToString());
 		//std::string Msg3 = std::format("Mouses Pos : {}\n", CulMousPos.ToString());
 		//std::string Msg4 = std::format("Leng : {}\n", Leng.ToString());
-		std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
-		std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
-		std::string Msg7 = std::format("Rot : {}\n", WeaponDir.ToString());
-		std::string Msg8 = std::format("CalVectors : {}\n", CalVectors.ToString());
+		//std::string Msg5 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
+		//std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
+		//std::string Msg7 = std::format("Rot : {}\n", WeaponDir.ToString());
+		//std::string Msg8 = std::format("CalVectors : {}\n", CalVectors.ToString());
 
 		//UEngineDebugMsgWindow::PushMsg(Msg1);
 		//UEngineDebugMsgWindow::PushMsg(Msg2);
 		//UEngineDebugMsgWindow::PushMsg(Msg3);
 		//UEngineDebugMsgWindow::PushMsg(Msg4);
-		UEngineDebugMsgWindow::PushMsg(Msg5);
-		UEngineDebugMsgWindow::PushMsg(Msg6);
-		UEngineDebugMsgWindow::PushMsg(Msg7);
-		UEngineDebugMsgWindow::PushMsg(Msg8);
+		//UEngineDebugMsgWindow::PushMsg(Msg5);
+		//UEngineDebugMsgWindow::PushMsg(Msg6);
+		//UEngineDebugMsgWindow::PushMsg(Msg7);
+		//UEngineDebugMsgWindow::PushMsg(Msg8);
 #endif
 	}
 

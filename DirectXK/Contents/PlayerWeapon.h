@@ -35,6 +35,10 @@ private :
 	}
 
 	void AttackState(float _DeltaTime);
+	/// <summary>
+	/// 무기 회전
+	/// </summary>
+	/// <param name="_DeltaTime">DeltaTime</param>
 	void WeaponRotControll(float _DeltaTime);
 
 	float4 PlayerToMouseDir = float4::Zero;

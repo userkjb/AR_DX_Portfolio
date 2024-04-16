@@ -42,6 +42,12 @@ void APlayerWeapon::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+#ifdef _DEBUG
+	FVector Scale = GetActorScale3D();
+
+	std::string Msg1 = std::format("Scale : {}\n", Scale.ToString());
+	UEngineDebugMsgWindow::PushMsg(Msg1);
+#endif
 	//if (true == IsDown(VK_LBUTTON))
 	if (true == IsDown('Z'))
 	{
@@ -57,6 +63,7 @@ void APlayerWeapon::AttackState(float _DeltaTime)
 
 	FVector Scale = GetActorScale3D();
 	Scale.X *= -1.0f;
+	Scale.Y *= -1.0f;
 	SetActorScale3D(Scale);
 
 	int a = 0;
@@ -64,6 +71,5 @@ void APlayerWeapon::AttackState(float _DeltaTime)
 
 void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 {
-
 	SetActorRotation(WeaponRotation);
 }

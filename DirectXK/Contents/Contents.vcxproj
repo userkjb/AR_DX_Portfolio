@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="ContentsConstValue.h" />
+    <ClInclude Include="ContentsGUI.h" />
     <ClInclude Include="GameStartGameMode.h" />
     <ClInclude Include="LasleySkill.h" />
     <ClInclude Include="ContentsCore.h" />
@@ -177,18 +178,25 @@
     <ClInclude Include="Lasley.h" />
     <ClInclude Include="LasleyGameMode.h" />
     <ClInclude Include="LasleyStageOne.h" />
+    <ClInclude Include="MapEditorGUI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerWeapon.h" />
     <ClInclude Include="Tentacle.h" />
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="TestGameMode.h" />
     <ClInclude Include="PreCompile.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TownGameMode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="ContentsConstValue.cpp" />
+    <ClCompile Include="ContentsGUI.cpp" />
     <ClCompile Include="GameStartGameMode.cpp" />
     <ClCompile Include="GameStartGameMode_State.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
@@ -197,6 +205,7 @@
     <ClCompile Include="Lasley.cpp" />
     <ClCompile Include="LasleyGameMode.cpp" />
     <ClCompile Include="LasleyStageOne.cpp" />
+    <ClCompile Include="MapEditorGUI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
     <ClCompile Include="Player_State.cpp" />
@@ -208,6 +217,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapLevel.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TownGameMode.cpp" />
