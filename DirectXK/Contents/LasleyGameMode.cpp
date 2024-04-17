@@ -83,11 +83,11 @@ void ALasleyGameMode::BeginPlay()
 
 	// Camera
 	{
-		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		Camera = GetWorld()->GetMainCamera();
 		//Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
 		//Camera->SetActorLocation(FVector(ScreenScaleHalf.X, -ScreenScaleHalf.Y, -100.0f));
-		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -100.0f));
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
 	}
 }
 
@@ -132,7 +132,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		
 		//StageMap_One->SetActorScale3D();
 		//StageMap_One->SetActorLocation({ TexScale.hX(), -TexScale.hY(), 100.0f }); // 4»çºÐ¸é
-		float Size = UContentsConstValue::AutoSizeValue;
+		float Size = UContentsConstValue::AutoSizeValue; // const
 		StageMap_One->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
 	}
 

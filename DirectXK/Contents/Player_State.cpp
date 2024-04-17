@@ -306,11 +306,7 @@ void APlayer::PixelCheck(float _DeltaTime)
 	FVector V_PlayerPos = PlayerPos;
 	V_PlayerPos.Y = UContentsConstValue::MapTexScale.Y - PlayerPos.Y;
 	
-	float Size = UContentsConstValue::AutoSizeValue;
-
-
-
-
+	float Size = UContentsConstValue::AutoSizeValue; // const
 	V_PlayerPos /= Size;
 
 	Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
