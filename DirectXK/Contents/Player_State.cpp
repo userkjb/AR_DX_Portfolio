@@ -157,6 +157,15 @@ void APlayer::JumpTick(float _DeltaTime)
 		RunVector = FVector::Right * RunSpeed;
 	}
 
+	if (true == IsUp('A'))
+	{
+		RunVector = FVector::Zero;
+	}
+	if (true == IsUp('D'))
+	{
+		RunVector = FVector::Zero;
+	}
+
 	MoveUpdate(_DeltaTime);	
 
 	if (JumpTime >= 0.1f)

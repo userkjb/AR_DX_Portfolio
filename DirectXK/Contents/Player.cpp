@@ -59,17 +59,6 @@ void APlayer::Tick(float _DeltaTime)
 		CulMousPos.Y -= ScreenScale.Y;
 		CulMousPos.Y *= -1.0f;
 		
-		// 마우스의 원점은 화면 왼쪽 상단.
-		// 이 원점을 모니터의 중앙으로 가져와야 한다.
-		// 진짜 가져올 수 없으니, 중앙에서 시작하는 것 처럼 계산을 진행해야 한다.
-		// X 축 기준.
-		// 스크린의 절반 -
-		// Y 축 기준.
-		// 스크린의 절반 +
-		MouseCenter = { CulMousPos.X, CulMousPos.Y, 0.0f, CulMousPos.W };
-		
-		
-
 		float4 Leng = CulMousPos - PlayerPos;
 		PlayerToMouseDir = Leng.Normalize3DReturn();
 
@@ -105,6 +94,13 @@ void APlayer::Tick(float _DeltaTime)
 		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
 		Weapone->SetWeaponRotation(WeaponDir); // 1사분면으로 이동하니 좀 이상하다.
 	}
+#ifdef _DEBUG
+	// State
+	{
+		std::string StateName = State.GetCurStateName();
+		UEngineDebugMsgWindow::PushMsg(StateName);
+	}
+#endif
 }
 
 void APlayer::CreateAnimation()
