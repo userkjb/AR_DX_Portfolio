@@ -55,8 +55,9 @@ void APlayer::Tick(float _DeltaTime)
 		PlayerPos = GetActorLocation();
 		//PlayerPos = PlayerRenderer->GetWorldPosition();
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
-		//CulMousPos.Y *= -1.0f; // (4 사분면 사용시 사용)
 		FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
+		CulMousPos.Y -= ScreenScale.Y;
+		CulMousPos.Y *= -1.0f;
 		
 		// 마우스의 원점은 화면 왼쪽 상단.
 		// 이 원점을 모니터의 중앙으로 가져와야 한다.
