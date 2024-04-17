@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerWeapon.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "Player.h"
 
 // 기본적으로 위.
 // 공격하면 아래. 위. 아래 를 반복한다.
@@ -70,20 +71,36 @@ void APlayerWeapon::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	GetPlayerToMouseDir();
 
-#ifdef _DEBUG
-	FVector Scale = GetActorScale3D();
 
-	std::string Msg1 = std::format("Scale : {}\n", Scale.ToString());
-	UEngineDebugMsgWindow::PushMsg(Msg1);
-#endif
 	//if (true == IsDown(VK_LBUTTON))
 	if (true == IsDown('Z'))
 	{
 		AttackState(_DeltaTime);
 	}
 
+
+
 	WeaponRotControll(_DeltaTime);
+
+#ifdef _DEBUG
+	FVector Scale = GetActorScale3D();
+
+	std::string Msg1 = std::format("Scale : {}\n", Scale.ToString());
+	UEngineDebugMsgWindow::PushMsg(Msg1);
+#endif	
+}
+
+void APlayerWeapon::GetPlayerToMouseDir()
+{
+	if (nullptr == PlayerActor)
+	{
+		MsgBoxAssert("Player Actor 가 없습니다.");
+		return;
+	}
+
+	PlayerToMouseDir = PlayerActor->GetPlayerToMouseDir();
 }
 
 void APlayerWeapon::AttackState(float _DeltaTime)

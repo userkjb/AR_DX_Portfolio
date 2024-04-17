@@ -35,11 +35,17 @@ public:
 		return PlayerPos;
 	}
 
+	inline float4 GetPlayerToMouseDir() const
+	{
+		return PlayerToMouseDir;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private:
+	
 	void CreateAnimation();
 	void StateInit();
 	void PlayerMouseDir();

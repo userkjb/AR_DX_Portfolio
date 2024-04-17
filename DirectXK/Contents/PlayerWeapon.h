@@ -30,10 +30,12 @@ private :
 		PlayerToMouseDir = _PlayerToMouseDir;
 	}
 
-	inline void SetWeaponRotation(FVector _Rot)
-	{
-		WeaponRotation = _Rot;
-	}
+	//inline void SetWeaponRotation(FVector _Rot)
+	//{
+	//	WeaponRotation = _Rot;
+	//}
+
+	void GetPlayerToMouseDir();
 
 	void AttackState(float _DeltaTime);
 	/// <summary>
@@ -45,6 +47,17 @@ private :
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleEnd();
+
+	/// <summary>
+	/// Player에서 Weapon을 생성 후 해당 함수를 이용해서 Player Actor를 넘겨준다.
+	/// </summary>
+	/// <param name="_APlayer"></param>
+	inline void SetPlayerActor(std::shared_ptr<APlayer> _APlayer)
+	{
+		PlayerActor = _APlayer;
+	}
+
+	std::shared_ptr<APlayer> PlayerActor = nullptr;
 
 	UDefaultSceneComponent* Root = nullptr;
 	float4 PlayerToMouseDir = float4::Zero;

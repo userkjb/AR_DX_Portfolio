@@ -40,6 +40,8 @@ void APlayer::BeginPlay()
 
 	//Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	//Weapone->SetPlayerActor(shared_from_this());
+
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -91,9 +93,9 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	{
-		//Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치
+		//Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
 		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		//Weapone->SetWeaponRotation(WeaponDir); // 1사분면으로 이동하니 좀 이상하다.
+		//Weapone->SetWeaponRotation(WeaponDir);
 	}
 #ifdef _DEBUG
 	// State
