@@ -36,6 +36,11 @@ void ATestActor::BeginPlay()
 	Renderer->Resources->SettingConstantBuffer("OutPutColor", Color);
 	// 내부에서 샘플러도 같이 찾을
 	Renderer->Resources->SettingTexture("Image", "CharIdle0.png", "POINT");
+
+	// 컴포넌트 리턴 예제
+	{
+		std::vector<std::shared_ptr<URenderer>> Renders = GetComponentToClass<URenderer>();
+	}
 }
 
 void ATestActor::Tick(float _DeltaTime)
