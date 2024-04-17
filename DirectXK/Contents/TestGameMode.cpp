@@ -56,7 +56,7 @@ void ATestGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	// Save Data Ex
-	{
+	/*{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Save");
@@ -84,7 +84,7 @@ void ATestGameMode::BeginPlay()
 
 			Ser >> TileData;
 		}
-	}
+	}*/
 	// End Save Data Ex
 
 	{
