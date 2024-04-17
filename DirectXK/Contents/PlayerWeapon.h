@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
+class UDefaultSceneComponent;
 class USpriteRenderer;
 class APlayer;
 class APlayerWeapon : public AActor
@@ -41,11 +42,18 @@ private :
 	/// <param name="_DeltaTime">DeltaTime</param>
 	void WeaponRotControll(float _DeltaTime);
 
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleEnd();
+
+	UDefaultSceneComponent* Root = nullptr;
 	float4 PlayerToMouseDir = float4::Zero;
 	FVector WeaponRotation = FVector::Zero;
 
+	UStateManager State;
+
 	USpriteRenderer* Weapon_One_Renderer = nullptr;
-	USpriteRenderer* Weapon_Two_Renderer = nullptr;
-	//USpriteRenderer* Weapon_Effect = nullptr;
+	//USpriteRenderer* Weapon_Two_Renderer = nullptr;
+	USpriteRenderer* Weapon_Effect = nullptr;
 };
 

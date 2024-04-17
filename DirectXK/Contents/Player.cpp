@@ -38,7 +38,8 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetAutoSize(1.0f, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
-	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	//Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -90,9 +91,9 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	{
-		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치
-		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		Weapone->SetWeaponRotation(WeaponDir); // 1사분면으로 이동하니 좀 이상하다.
+		//Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치
+		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
+		//Weapone->SetWeaponRotation(WeaponDir); // 1사분면으로 이동하니 좀 이상하다.
 	}
 #ifdef _DEBUG
 	// State
