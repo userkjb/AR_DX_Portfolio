@@ -4,19 +4,88 @@
 #include "TestActor.h"
 #include <EngineCore/Camera.h>
 #include <EngineCore/TileRenderer.h>
+#include <EngineBase/EngineSerializer.h>
 
 ATestGameMode::ATestGameMode()
 {
-
 }
 
 ATestGameMode::~ATestGameMode()
 {
 }
 
+// Save Data Ex
+class MonsterData
+{
+public:
+	int Att;
+	int Hp;
+};
+
+class MySaveFile : public UEngineSerializeObject
+{
+public:
+	ULevel* Test;
+	std::string PlayerName;
+	std::vector<int> Data;
+	std::vector<std::vector<int>> TileData;
+
+	void Serialize(UEngineSerializer& _Ser) override
+	{
+		// 저장순서랑 로드순서를 
+		_Ser << PlayerName;
+		_Ser << Data;
+		_Ser << TileData;
+	}
+
+	void DeSerialize(UEngineSerializer& _Ser) override
+	{
+		_Ser >> PlayerName;
+		_Ser >> Data;
+		_Ser >> TileData;
+	}
+};
+
+
+
+// End Save Data Ex
+
+
 void ATestGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Save Data Ex
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Save");
+
+		{
+			std::vector<std::vector<int>> TileData = { {4,3, 2}, {5,6, 7}, {7,6, 7} };
+
+			UEngineSerializer Ser;
+			Ser << TileData;
+
+			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			File.Open(EIOOpenMode::Write, EIODataType::Binary);
+			File.Save(Ser);
+		}
+
+		{
+			MySaveFile SaveData;
+
+			std::vector<std::vector<int>> TileData;
+			UEngineSerializer Ser;
+
+			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+			File.Load(Ser);
+
+			Ser >> TileData;
+		}
+	}
+	// End Save Data Ex
 
 	{
 		UEngineDirectory Dir;
