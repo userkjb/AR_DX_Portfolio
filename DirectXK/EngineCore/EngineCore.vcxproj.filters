@@ -240,6 +240,8 @@
     <ClCompile Include="RenderUnit.cpp">
       <Filter>Debug</Filter>
     </ClCompile>
+    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -404,6 +406,8 @@
     <ClInclude Include="RenderUnit.h">
       <Filter>Debug</Filter>
     </ClInclude>
+    <ClInclude Include="Widget.h" />
+    <ClInclude Include="Image.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
