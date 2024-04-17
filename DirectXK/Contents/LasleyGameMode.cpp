@@ -51,8 +51,6 @@ void ALasleyGameMode::BeginPlay()
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
 		{
-			// CuttingTest.png texture로도 한장이 로드가 됐고
-			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
 			UEngineSprite::Load(File.GetFullPath());
 		}
 
@@ -64,11 +62,14 @@ void ALasleyGameMode::BeginPlay()
 		}
 	}
 
-	float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
-
-	Camera = GetWorld()->GetMainCamera();
-	//Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
-	Camera->SetActorLocation(FVector(ScreenScaleHalf.X, -ScreenScaleHalf.Y, -100.0f));
+	// Camera
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		Camera = GetWorld()->GetMainCamera();
+		//Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+		//Camera->SetActorLocation(FVector(ScreenScaleHalf.X, -ScreenScaleHalf.Y, -100.0f));
+		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -100.0f));
+	}
 }
 
 void ALasleyGameMode::Tick(float _DeltaTime)
@@ -80,9 +81,9 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 	//FVector PlayerPos = Player->GetPlayerPos();
 	FVector CameraPos = Camera->GetActorLocation();
 	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
-	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
+	std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	//UEngineDebugMsgWindow::PushMsg(Msg2);
+	UEngineDebugMsgWindow::PushMsg(Msg2);
 #endif
 	
 	//Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
@@ -95,19 +96,24 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("StartStageCol.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
 
+	// Player
 	{
+		float4 TexScale = UContentsConstValue::MapTexScale;
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
+		Player->SetActorLocation({ 0.0f, (TexScale.Y - 50.0f), 0.0f });
 	}
 
+	// Map
 	{
 		std::shared_ptr<ALasleyStageOne> StageMap_One = GetWorld()->SpawnActor<ALasleyStageOne>("StageOneMap");
 
-		float TileSize = UContentsConstValue::TileSize;
+		//float TileSize = UContentsConstValue::TileSize;
 		float4 TexScale = UContentsConstValue::MapTexScale;
 		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
 		
 		//StageMap_One->SetActorScale3D();
-		StageMap_One->SetActorLocation({ TexScale.hX(), -TexScale.hY(), 100.0f });
+		//StageMap_One->SetActorLocation({ TexScale.hX(), -TexScale.hY(), 100.0f }); // 4사분면
+		StageMap_One->SetActorLocation({ TexScale.hX(), TexScale.hY(), 100.0f });
 	}
 
 	{
