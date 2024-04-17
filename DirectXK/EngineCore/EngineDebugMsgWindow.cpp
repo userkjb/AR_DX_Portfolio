@@ -24,7 +24,7 @@ void UEngineDebugMsgWindow::PushMsg(std::string_view _Msg)
 
 void UEngineDebugMsgWindow::OnGui(ULevel* _Level, float _Delta)
 {
-	if (true == ImGui::Button("DebugSwitch"))
+	if (true == ImGui::Button("Collision Debug Switch"))
 	{
 		GEngine->IsDebug = !GEngine->IsDebug;
 	}
