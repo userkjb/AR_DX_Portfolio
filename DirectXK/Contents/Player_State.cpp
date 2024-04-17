@@ -295,14 +295,10 @@ void APlayer::PixelCheck(float _DeltaTime)
 		return;
 	}
 
-	//PlayerPos /= UContentsConstValue::TileSize; 
-	//PlayerPos.Y = -PlayerPos.Y; // 4사분면
-	//PlayerPos.Y = UContentsConstValue::MapTexScale.Y - PlayerPos.Y;
+	FVector V_PlayerPos = PlayerPos;
+	V_PlayerPos.Y = UContentsConstValue::MapTexScale.Y - PlayerPos.Y;
 
-	FVector PPos = PlayerPos;
-	PPos.Y = UContentsConstValue::MapTexScale.Y - PlayerPos.Y;
-
-	Color8Bit Color = Tex->GetColor(PPos, Color8Bit::Black);
+	Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
 	if (Color != Color8Bit::Black) // 공중
 	{
 		IsGround = false;
