@@ -5,7 +5,7 @@
 class USpriteRenderer;
 class UDefaultSceneComponent;
 class APlayerWeapon;
-class APlayer : public AActor
+class APlayer : public AActor , public std::enable_shared_from_this<APlayer>
 {
 	GENERATED_BODY(AActor)
 
