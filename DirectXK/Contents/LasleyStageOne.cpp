@@ -27,12 +27,13 @@ void ALasleyStageOne::BeginPlay()
 {
 	Super::BeginPlay();
 
+	float Size = UContentsConstValue::AutoSizeValue;
 	MapRenderer->SetSprite("StartStage.png");
-	MapRenderer->SetAutoSize(1.0f, true);
+	MapRenderer->SetAutoSize(Size, true); // 
 	MapRenderer->SetOrder(ERenderOrder::Map);
 
 	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(1.0f, true);
+	MapColRenderer->SetAutoSize(Size, true); // 
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 }
 

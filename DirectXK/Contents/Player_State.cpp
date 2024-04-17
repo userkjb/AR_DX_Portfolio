@@ -60,7 +60,7 @@ void APlayer::IdleTick(float _DeltaTime)
 {
 	PlayerMouseDir();
 	
-	if (true == IsDown('A') || true == IsDown('D'))
+	if (true == IsPress('A') || true == IsPress('D'))
 	{
 		State.ChangeState("Run");
 		return;
@@ -305,6 +305,13 @@ void APlayer::PixelCheck(float _DeltaTime)
 
 	FVector V_PlayerPos = PlayerPos;
 	V_PlayerPos.Y = UContentsConstValue::MapTexScale.Y - PlayerPos.Y;
+	
+	float Size = UContentsConstValue::AutoSizeValue;
+
+
+
+
+	V_PlayerPos /= Size;
 
 	Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
 	if (Color != Color8Bit::Black) // АјСп

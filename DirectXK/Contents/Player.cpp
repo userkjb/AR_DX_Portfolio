@@ -35,7 +35,8 @@ void APlayer::BeginPlay()
 	CreateAnimation();
 	StateInit();
 
-	PlayerRenderer->SetAutoSize(1.0f, true);
+	float Size = UContentsConstValue::AutoSizeValue;
+	PlayerRenderer->SetAutoSize(Size, true); // 
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
 	//Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");

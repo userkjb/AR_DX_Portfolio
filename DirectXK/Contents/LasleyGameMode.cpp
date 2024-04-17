@@ -132,7 +132,8 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		
 		//StageMap_One->SetActorScale3D();
 		//StageMap_One->SetActorLocation({ TexScale.hX(), -TexScale.hY(), 100.0f }); // 4»çºÐ¸é
-		StageMap_One->SetActorLocation({ TexScale.hX(), TexScale.hY(), 100.0f });
+		float Size = UContentsConstValue::AutoSizeValue;
+		StageMap_One->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
 	}
 
 	{
