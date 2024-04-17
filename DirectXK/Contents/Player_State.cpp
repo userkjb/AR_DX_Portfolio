@@ -66,7 +66,8 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_SPACE))
+	// 게임에서 2개의 키를 받음
+	if (true == IsDown(VK_SPACE) || true == IsDown('W'))
 	{
 		// 점프
 		State.ChangeState("Jump");
@@ -78,6 +79,12 @@ void APlayer::IdleTick(float _DeltaTime)
 		// 대쉬
 		State.ChangeState("Dash");
 		return;
+	}
+
+	// 하단 이동
+	if (true == IsPress('S') && true == IsDown(VK_SPACE))
+	{
+		//
 	}
 
 	MoveUpdate(_DeltaTime);
@@ -115,7 +122,7 @@ void APlayer::RunTick(float _DeltaTime)
 		RunVector = FVector::Right * RunSpeed;
 	}
 
-	if (true == IsDown(VK_SPACE))
+	if (true == IsDown(VK_SPACE) || true == IsDown('W'))
 	{
 		State.ChangeState("Jump");
 		return;
@@ -194,6 +201,7 @@ void APlayer::JumpEnd()
 #pragma endregion
 
 #pragma region Dash
+// 잔상 3개.
 void APlayer::DashBegin()
 {
 	//AddActorLocation(PlayerToMouseDir * DashPower); // test
