@@ -35,4 +35,6 @@ void LasleyStageGUI::OnGui(ULevel* _Level, float _DeltaTime)
 	{
 		//APlayer::GUI_Gravity = false;
 	}
+
+	//ImGui::EndChild();
 }

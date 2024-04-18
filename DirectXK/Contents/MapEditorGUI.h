@@ -22,8 +22,8 @@ protected:
 
 private:
 
-	bool FileExists(const wchar_t* _FileName);
-	void CreateXmlFile(const wchar_t* _FileName);
+	//bool FileExists(const wchar_t* _FileName);
+	//void CreateXmlFile(const wchar_t* _FileName);
 	//void ReadXmlFile(const std::string_view _FileName);
 
 	bool MapEditorCamera = false;

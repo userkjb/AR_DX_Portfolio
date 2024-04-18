@@ -19,7 +19,4 @@
   <ItemGroup>
     <None Include="..\Config\EngineOption.EData" />
   </ItemGroup>
-  <ItemGroup>
-    <Xml Include="..\Config\TileMapData\Text.xml" />
-  </ItemGroup>
 </Project>

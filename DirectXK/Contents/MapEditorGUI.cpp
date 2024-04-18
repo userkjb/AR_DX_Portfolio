@@ -233,62 +233,77 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 	// Index 내가 찍어야할 스프라이트
 
-	// 
-
 	//ImGui::TextUnformatted("child_2");
 	//ImGui::GetWindowDrawList()->AddLine({ 0, 0 }, { 500, 500 }, 0xFFFFFFFF);
 	//ImGui::SetCursorPos({ 1500, 1500 });
 	//ImGui::TextUnformatted("hello");
 	
 	{
-		if (true == ImGui::Button("Test"))
+		if (true == ImGui::Button("Data Save Test"))
 		{
-			const wchar_t* FileName = L"Text.xml";
-
 			UEngineDirectory Dir;
 			Dir.MoveToSearchChild("Config");
 			Dir.Move("TileMapData");
 
-			if (true == FileExists(FileName))
-			{
-				CreateXmlFile(FileName);
-			}
+			std::vector<std::vector<int>> TileData = { {4,3, 2}, {5,6, 7}, {7,6, 7} };
 
+			UEngineSerializer Ser;
+			Ser << TileData;
 
+			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			File.Open(EIOOpenMode::Write, EIODataType::Binary);
+			File.Save(Ser);
+		}
+
+		if (true == ImGui::Button("Data Load Test"))
+		{
+			UEngineDirectory Dir;
+			Dir.MoveToSearchChild("Config");
+			Dir.Move("TileMapData");
+
+			std::vector<std::vector<int>> TileData;
+			UEngineSerializer Ser;
+
+			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+			File.Load(Ser);
+
+			Ser >> TileData;
+
+			int a = 0;
 		}
 	}
 
 	ImGui::EndChild();
-
 }
 
-bool MapEditorGUI::FileExists(const wchar_t* _FileName)
-{
-	return PathFileExists(_FileName) != false;
-}
+//bool MapEditorGUI::FileExists(const wchar_t* _FileName)
+//{
+//	return PathFileExists(_FileName) != false;
+//}
 
-void MapEditorGUI::CreateXmlFile(const wchar_t* _FileName)
-{
-	IStream* pFileStream = nullptr;
-	HRESULT hr = SHCreateStreamOnFileW(_FileName, STGM_READ, &pFileStream);
-
-	//IXmlWriter* pWirter;
-
-	if (FAILED(hr))
-	{
-		MsgBoxAssert("Failed to create file stream: " + hr);
-		//std::cerr << "Failed to create file stream: " << hr << std::endl;
-		return;
-	}
-
-	//IXmlReader* pReader;
-	//IXmlWriter* pWriter;
-	//hr = CreateXmlWriter(__uuidof(IXmlWriter), (void**)&pWriter, nullptr); // Error
-	//if (FAILED(hr))
-	//{
-	//	MsgBoxAssert("Failed to create XML reader: : " + hr);
-	//	//std::cerr << "Failed to create XML reader: " << hr << std::endl;
-	//	pFileStream->Release();
-	//	return;
-	//}
-}
+//void MapEditorGUI::CreateXmlFile(const wchar_t* _FileName)
+//{
+//	IStream* pFileStream = nullptr;
+//	HRESULT hr = SHCreateStreamOnFileW(_FileName, STGM_READ, &pFileStream);
+//
+//	//IXmlWriter* pWirter;
+//
+//	if (FAILED(hr))
+//	{
+//		MsgBoxAssert("Failed to create file stream: " + hr);
+//		//std::cerr << "Failed to create file stream: " << hr << std::endl;
+//		return;
+//	}
+//
+//	//IXmlReader* pReader;
+//	//IXmlWriter* pWriter;
+//	//hr = CreateXmlWriter(__uuidof(IXmlWriter), (void**)&pWriter, nullptr); // Error
+//	//if (FAILED(hr))
+//	//{
+//	//	MsgBoxAssert("Failed to create XML reader: : " + hr);
+//	//	//std::cerr << "Failed to create XML reader: " << hr << std::endl;
+//	//	pFileStream->Release();
+//	//	return;
+//	//}
+//}
