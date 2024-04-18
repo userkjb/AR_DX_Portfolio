@@ -61,6 +61,9 @@
     <Filter Include="Level\00_TileLevel">
       <UniqueIdentifier>{c3d60508-e7bd-4ffa-8ebc-9df9d8694383}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\GUI">
+      <UniqueIdentifier>{7edc4d64-1725-45a6-9315-947111b6f116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -132,6 +135,9 @@
     <ClCompile Include="TileMapLevel.cpp">
       <Filter>Level\00_TileLevel</Filter>
     </ClCompile>
+    <ClCompile Include="LasleyStageGUI.cpp">
+      <Filter>Level\03_LasleyLevel\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -199,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="TileMapLevel.h">
       <Filter>Level\00_TileLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStageGUI.h">
+      <Filter>Level\03_LasleyLevel\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

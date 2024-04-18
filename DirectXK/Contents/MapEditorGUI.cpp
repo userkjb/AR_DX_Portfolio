@@ -33,6 +33,7 @@ void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
 		if (MapEditorCamera == true)
 		{
 			MapEditorCamera = false;
+			//_Level->GetMainCamera()->SetActorLocation({ 0.0f, 0.0f, -500.0f });
 		}
 		else
 		{

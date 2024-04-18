@@ -10,6 +10,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include "ContentsGUI.h"
 #include "MapEditorGUI.h"
+#include "LasleyStageGUI.h"
 
 UContentsCore::UContentsCore()
 {
@@ -24,6 +25,7 @@ void UContentsCore::Initialize()
 	{
 		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
+		UEngineEditorGUI::CreateEditorWindow<LasleyStageGUI>("LasleyStage");
 	}
 
 	GEngine->CreateLevel<ATestGameMode>("TestGameMode");

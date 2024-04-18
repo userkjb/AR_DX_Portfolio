@@ -54,7 +54,7 @@ void APlayer::Tick(float _DeltaTime)
 	DashCountTime(_DeltaTime);
 
 	PixelCheck(_DeltaTime);
-		
+
 	{
 		PlayerPos = GetActorLocation();
 		//PlayerPos = PlayerRenderer->GetWorldPosition();
