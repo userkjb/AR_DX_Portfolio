@@ -103,9 +103,12 @@ void ATestGameMode::BeginPlay()
 		UEngineSprite::CreateCutting("Map4X(64).png", 12, 4);
 	}
 
-
-	Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		Camera = GetWorld()->GetMainCamera();
+		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
+		//Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
+	}
 
 	// UI ¿¹Á¦
 	/*
