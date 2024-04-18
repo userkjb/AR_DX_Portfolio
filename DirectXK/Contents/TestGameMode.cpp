@@ -108,6 +108,7 @@ void ATestGameMode::BeginPlay()
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
 
 	// UI 예제
+	/*
 	{
 		// UI를 만들겠다.
 		UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBar");
@@ -119,7 +120,6 @@ void ATestGameMode::BeginPlay()
 		Image->SetAutoSize(0.5f, true);
 		Image->SetPosition({ -400, 300 });
 
-		/*
 		Image->SetUnHover([=]()
 			{
 				Image->SetSprite("HPBar.png");
@@ -137,7 +137,7 @@ void ATestGameMode::BeginPlay()
 			{
 				UEngineDebugMsgWindow::PushMsg("Down!!!");
 			});
-		*/
+		
 
 		// Image->SetScale({200, 200});
 
@@ -145,6 +145,7 @@ void ATestGameMode::BeginPlay()
 		// Image->SetSprite("HPBar");
 		// Image->SetScale();
 	}
+	*/
 }
 
 void ATestGameMode::Tick(float _DeltaTime)
