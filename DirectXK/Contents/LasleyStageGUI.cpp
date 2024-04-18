@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "LasleyStageGUI.h"
+#include "Player.h"
 
 LasleyStageGUI::LasleyStageGUI()
 {
@@ -30,4 +31,8 @@ void LasleyStageGUI::Tick(ULevel* _Level, float _DeltaTime)
 
 void LasleyStageGUI::OnGui(ULevel* _Level, float _DeltaTime)
 {
+	if (true == ImGui::Button("hi"))
+	{
+		//APlayer::GUI_Gravity = false;
+	}
 }

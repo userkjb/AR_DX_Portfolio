@@ -5,11 +5,13 @@
 class USpriteRenderer;
 class UDefaultSceneComponent;
 class APlayerWeapon;
+class LasleyStageGUI;
 class APlayer : public AActor , public std::enable_shared_from_this<APlayer>
 {
 	GENERATED_BODY(AActor)
 
 	friend APlayerWeapon;
+	friend LasleyStageGUI;
 public:
 	// constrcuter destructer
 	APlayer();
