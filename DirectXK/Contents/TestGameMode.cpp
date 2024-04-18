@@ -119,6 +119,25 @@ void ATestGameMode::BeginPlay()
 		Image->SetAutoSize(0.5f, true);
 		Image->SetPosition({ -400, 300 });
 
+		/*
+		Image->SetUnHover([=]()
+			{
+				Image->SetSprite("HPBar.png");
+				// UEngineDebugMsgWindow::PushMsg("Hover!!!");
+			});
+
+		Image->SetHover([=]()
+			{
+				Image->SetSprite("Back.png");
+				// UEngineDebugMsgWindow::PushMsg("Hover!!!");
+			});
+
+		Image->SetDown([=]()
+			{
+				UEngineDebugMsgWindow::PushMsg("Down!!!");
+			});
+		*/
+
 		// Image->SetScale({200, 200});
 
 		// 화면에 떠야 한다.
