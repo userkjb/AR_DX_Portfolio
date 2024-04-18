@@ -22,7 +22,7 @@ protected:
 	void MaterialSettingEnd() override;
 
 private:
-	ResultColorValue ColorData;
+	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 };
 
