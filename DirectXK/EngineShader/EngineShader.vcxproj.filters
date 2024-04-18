@@ -10,6 +10,9 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{6db31ee0-6cc6-4fde-a3b0-5330204506fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Target">
+      <UniqueIdentifier>{bd3c7419-c521-4db6-b40d-5938eca6c466}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineVertex.hlsli">
@@ -34,6 +37,9 @@
     </FxCompile>
     <FxCompile Include="DebugShader.fx">
       <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="TargetCopyShader.fx">
+      <Filter>Target</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
