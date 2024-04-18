@@ -5,6 +5,7 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/TileRenderer.h>
 #include <EngineBase/EngineSerializer.h>
+#include <EngineCore/Image.h>
 
 ATestGameMode::ATestGameMode()
 {
@@ -105,6 +106,25 @@ void ATestGameMode::BeginPlay()
 
 	Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -200.0f));
+
+	// UI 예제
+	{
+		// UI를 만들겠다.
+		std::shared_ptr<UImage> Image = CreateWidget<UImage>(GetWorld(), "HpBar");
+
+		// 언리얼 따라한것
+		// 언리얼 안나옵니다.
+		Image->AddToViewPort();
+		Image->SetSprite("HPBar.png");
+		Image->SetAutoSize(0.5f, true);
+		Image->SetPosition({ -400, 300 });
+
+		// Image->SetScale({200, 200});
+
+		// 화면에 떠야 한다.
+		// Image->SetSprite("HPBar");
+		// Image->SetScale();
+	}
 }
 
 void ATestGameMode::Tick(float _DeltaTime)
