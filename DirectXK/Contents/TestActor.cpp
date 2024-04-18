@@ -102,5 +102,8 @@ void ATestActor::Tick(float _DeltaTime)
 
 	// Renderer->SetConstanctBuffer("Ftransform", GetTransform());
 
-
+	// 카메라 따라다니는 예제
+	{
+		GetWorld()->GetMainCamera()->SetActorLocation(GetActorLocation() + float4{ 0.0f, 0.0f, -100.0f });
+	}
 }
