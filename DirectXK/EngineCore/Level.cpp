@@ -92,6 +92,7 @@ void ULevel::Render(float _DeltaTime)
 				continue;
 			}
 
+			Widget->Tick(_DeltaTime);
 			Widget->RenderingTransformUpdate(UICamera);
 			if (false == Widget->Render(_DeltaTime))
 			{
