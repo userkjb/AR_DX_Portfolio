@@ -3,6 +3,9 @@
 #include <EngineCore/Camera.h>
 #include <EngineCore/EngineSprite.h>
 
+#include <EngineCore/EngineEditorGUI.h>
+#include "LasleyStageGUI.h"
+
 #include "Player.h"
 #include "Lasley.h"
 #include "BackGround.h"
@@ -88,6 +91,11 @@ void ALasleyGameMode::BeginPlay()
 		//Camera->SetActorLocation(FVector(ScreenScaleHalf.X, -ScreenScaleHalf.Y, -100.0f));
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
+	}
+
+	// GUI
+	{
+		UEngineEditorGUI::CreateEditorWindow<LasleyStageGUI>("Lasley Stage GUI");
 	}
 }
 

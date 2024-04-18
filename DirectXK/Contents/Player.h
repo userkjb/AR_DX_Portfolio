@@ -90,6 +90,7 @@ private:
 	const float RunSpeed = 400.0f;
 	FVector JumpVector = FVector::Zero;
 	const FVector JumpPower = FVector::Up * 500.0f;
+	bool GUI_Gravity = true;
 	FVector GravityVector = FVector::Zero;
 	const FVector GravityPower = FVector::Down * 1500.0f;
 	//FVector DashVector = FVector::Zero;

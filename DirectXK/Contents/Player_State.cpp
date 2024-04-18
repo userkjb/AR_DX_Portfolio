@@ -281,11 +281,14 @@ void APlayer::CalVector()
 
 void APlayer::Gravity(float _DeltaTime)
 {
-	GravityVector += GravityPower * _DeltaTime;
-	
-	if(true == IsGround)// ∂•ø° ¥Í¿∏∏È,
+	if (true == GUI_Gravity)
 	{
-		GravityVector = FVector::Zero;
+		GravityVector += GravityPower * _DeltaTime;
+	
+		if(true == IsGround)// ∂•ø° ¥Í¿∏∏È,
+		{
+			GravityVector = FVector::Zero;
+		}
 	}
 }
 
