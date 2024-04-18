@@ -129,6 +129,7 @@ void ATestGameMode::BeginPlay()
 		Image->SetHover([=]()
 			{
 				Image->SetSprite("Back.png");
+				Image->SetAutoSize(1.0f, false);
 				// UEngineDebugMsgWindow::PushMsg("Hover!!!");
 			});
 
