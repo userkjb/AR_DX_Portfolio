@@ -116,6 +116,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 
 	ImGui::InputFloat2("TileSize", &InputTileSize.X);
+	ImGui::InputInt2("Height and Width", InputHWValue);
 
 	// 타일 크기 지정
 	// 타일 개수 x
@@ -131,7 +132,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			}
 			else
 			{
-				TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, 50, 50, 0);
+				TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
 				IsCreateImage = true;
 			}
 		}

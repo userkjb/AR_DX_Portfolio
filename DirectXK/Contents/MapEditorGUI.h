@@ -33,6 +33,7 @@ private:
 	std::string ImageFileName = "";
 
 	float4 InputTileSize = float4::Zero;
+	int InputHWValue[2] = { 0 };
 	std::string Str_CreateImage = "";
 	bool IsCreateImage = false;
 
