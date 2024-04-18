@@ -296,6 +296,7 @@ void APlayer::CalMoveVector(float _DeltaTime)
 
 void APlayer::PixelCheck(float _DeltaTime)
 {
+	// ALasleyGameMode::LevelStart 에서 MapTex 과 MapTexScale 값을 넣음.
 	std::shared_ptr<UEngineTexture> Tex = UContentsConstValue::MapTex;
 	if (nullptr == Tex)
 	{

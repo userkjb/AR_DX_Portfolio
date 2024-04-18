@@ -7,11 +7,11 @@ ALasleyStageOne::ALasleyStageOne()
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
 	MapRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	MapRenderer->SetupAttachment(Root);	
+	MapRenderer->SetupAttachment(Root);
 	MapRenderer->SetActive(true);
 	
 	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	MapColRenderer->SetupAttachment(Root);	
+	MapColRenderer->SetupAttachment(Root);
 	MapColRenderer->SetActive(false);
 
 	SetRoot(Root);
