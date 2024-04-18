@@ -114,7 +114,7 @@ void ATestGameMode::BeginPlay()
 
 		// 언리얼 따라한것
 		// 언리얼 안나옵니다.
-		Image->AddToViewPort();
+		//Image->AddToViewPort();
 		Image->SetSprite("HPBar.png");
 		Image->SetAutoSize(0.5f, true);
 		Image->SetPosition({ -400, 300 });
