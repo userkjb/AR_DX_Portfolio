@@ -87,13 +87,13 @@ private:
 
 	FVector CalVectors = FVector::Zero;	
 	FVector RunVector = FVector::Zero;
-	const float RunSpeed = 200.0f;
+	const float RunSpeed = 400.0f;
 	FVector JumpVector = FVector::Zero;
-	const FVector JumpPower = FVector::Up * 250.0f;
+	const FVector JumpPower = FVector::Up * 500.0f;
 	FVector GravityVector = FVector::Zero;
-	const FVector GravityPower = FVector::Down * 500.0f;
+	const FVector GravityPower = FVector::Down * 1500.0f;
 	//FVector DashVector = FVector::Zero;
-	const float DashPower = 250.0f;
+	const float DashPower = 750.0f;
 	float DashTime = 0.0f;
 	float4 DashDir = float4::Zero;
 
