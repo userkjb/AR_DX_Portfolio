@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class USpriteRenderer;
+class UTileRenderer;
 class UDefaultSceneComponent;
 class ALasleyStageOne : public AActor
 {
@@ -25,6 +26,7 @@ protected:
 
 private:
 	UDefaultSceneComponent* Root = nullptr;
+	UTileRenderer* TileRenderer = nullptr;
 	//USpriteRenderer* MapRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
 
