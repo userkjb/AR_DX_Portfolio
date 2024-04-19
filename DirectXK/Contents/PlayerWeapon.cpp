@@ -13,18 +13,11 @@ APlayerWeapon::APlayerWeapon()
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("WeaponRootRenderer");
 
 	
-	Weapon_One_Renderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
-	Weapon_One_Renderer->SetPivot(EPivot::BOT);
-	Weapon_One_Renderer->SetupAttachment(Root);
-	Weapon_One_Renderer->SetActive(true);
-
-	//Weapon_Two_Renderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
-	//Weapon_Two_Renderer->SetupAttachment(Root);
-	//Weapon_Two_Renderer->SetActive(false);
-
-	//Weapon_Effect = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
-	//Weapon_Effect->SetupAttachment(Root);
-	//Weapon_Effect->SetActive(false);
+	Weapon_Renderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
+	Weapon_Renderer->SetPivot(EPivot::BOT);
+	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
+	Weapon_Renderer->SetupAttachment(Root);
+	
 
 	SetRoot(Root);
 
@@ -39,14 +32,9 @@ void APlayerWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Create Animation
-	{
-		Weapon_One_Renderer->CreateAnimation("Weapon_Idle", "GreatSword", { 0.125f }, {5, 6}, true);
-		Weapon_One_Renderer->CreateAnimation("Weapon_Attack", "GreatSword", { 0.125f }, { 6, 7, 8, 9 }, false);
+	Weapon_Renderer->CreateAnimation("W_Idle", "GreatSword", 0.125f);
 
-
-		Weapon_One_Renderer->ChangeAnimation("Weapon_Idle");
-	}
+	Weapon_Renderer->ChangeAnimation("W_Idle");
 
 	{
 		State.CreateState("Weapon_Idle");
@@ -59,10 +47,10 @@ void APlayerWeapon::BeginPlay()
 		State.ChangeState("Weapon_Idle");
 	}
 
-
-	Weapon_One_Renderer->SetScale({ 1.0f, 1.0f, 1.0f });
+	Weapon_Renderer->SetAutoSize(2.0f, true);
+	//Weapon_One_Renderer->SetScale({ 1.0f, 1.0f, 1.0f });
 	//Weapon_One_Renderer->SetAutoSize(1.0f, true);
-	Weapon_One_Renderer->SetOrder(ERenderOrder::Weapon_Prev);	
+	//Weapon_One_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
 	//Weapon_One_Renderer->SetSprite("BasicShortSword.png");
 }
 
@@ -120,9 +108,11 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 	SetActorRotation(WeaponRotation);
 }
 
+
+
 void APlayerWeapon::IdleBegin()
 {
-	Weapon_One_Renderer->ChangeAnimation("Weapon_Idle");
+	Weapon_Renderer->ChangeAnimation("W_Idle");
 }
 
 void APlayerWeapon::IdleTick(float _DeltaTime)

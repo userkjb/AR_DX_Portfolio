@@ -30,10 +30,10 @@ private :
 		PlayerToMouseDir = _PlayerToMouseDir;
 	}
 
-	//inline void SetWeaponRotation(FVector _Rot)
-	//{
-	//	WeaponRotation = _Rot;
-	//}
+	inline void SetWeaponRotation(FVector _Rot)
+	{
+		WeaponRotation = _Rot;
+	}
 
 	void GetPlayerToMouseDir();
 
@@ -65,8 +65,6 @@ private :
 
 	UStateManager State;
 
-	USpriteRenderer* Weapon_One_Renderer = nullptr;
-	//USpriteRenderer* Weapon_Two_Renderer = nullptr;
-	USpriteRenderer* Weapon_Effect = nullptr;
+	USpriteRenderer* Weapon_Renderer = nullptr;
 };
 

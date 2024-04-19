@@ -39,9 +39,9 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetAutoSize(Size, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
-	//Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
-	//Weapone->SetPlayerActor(shared_from_this());
+	Weapone->SetPlayerActor(shared_from_this());
 
 }
 
@@ -56,8 +56,8 @@ void APlayer::Tick(float _DeltaTime)
 	PixelCheck(_DeltaTime);
 
 	{
+		// 여기가 문제!!!!
 		PlayerPos = GetActorLocation();
-		//PlayerPos = PlayerRenderer->GetWorldPosition();
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 		FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
 		CulMousPos.Y -= ScreenScale.Y;
@@ -94,9 +94,9 @@ void APlayer::Tick(float _DeltaTime)
 	}
 
 	{
-		//Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
-		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		//Weapone->SetWeaponRotation(WeaponDir);
+		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
+		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
+		Weapone->SetWeaponRotation(WeaponDir);
 	}
 #ifdef _DEBUG
 	// State

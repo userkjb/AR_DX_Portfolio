@@ -110,6 +110,6 @@ private:
 	int DashCountMax = 500; // 2
 
 	FVector WeaponDir = FVector::Zero;
-	//std::shared_ptr<APlayerWeapon> Weapone = nullptr;
+	std::shared_ptr<APlayerWeapon> Weapone = nullptr;
 };
 
