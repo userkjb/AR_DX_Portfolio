@@ -6,13 +6,14 @@ ALasleyStageOne::ALasleyStageOne()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	
-	MapRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	MapRenderer->SetupAttachment(Root);
-	MapRenderer->SetActive(true);
+	CreateMapImage();
+	//MapRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	//MapRenderer->SetupAttachment(Root);
+	//MapRenderer->SetActive(true);
 	
 	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapColRenderer->SetupAttachment(Root);
-	MapColRenderer->SetActive(false);
+	//MapColRenderer->SetActive(false);
 
 	SetRoot(Root);
 
@@ -28,9 +29,9 @@ void ALasleyStageOne::BeginPlay()
 	Super::BeginPlay();
 
 	float Size = UContentsConstValue::AutoSizeValue; // const
-	MapRenderer->SetSprite("StartStage.png");
-	MapRenderer->SetAutoSize(Size, true); // 
-	MapRenderer->SetOrder(ERenderOrder::Map);
+	//MapRenderer->SetSprite("StartStage.png");
+	//MapRenderer->SetAutoSize(Size, true); // 
+	//MapRenderer->SetOrder(ERenderOrder::Map);
 
 	MapColRenderer->SetSprite("StartStageCol.png");
 	MapColRenderer->SetAutoSize(Size, true); // 
@@ -43,16 +44,16 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 
 	if (true == IsDown('O'))
 	{
-		if (true == MapRenderer->IsActive() && false == MapColRenderer->IsActive())
-		{
-			MapRenderer->SetActive(false);
-			MapColRenderer->SetActive(true);
-		}
-		else
-		{
-			MapRenderer->SetActive(true);
-			MapColRenderer->SetActive(false);
-		}
+		//if (true == MapRenderer->IsActive() && false == MapColRenderer->IsActive())
+		//{
+		//	MapRenderer->SetActive(false);
+		//	MapColRenderer->SetActive(true);
+		//}
+		//else
+		//{
+		//	MapRenderer->SetActive(true);
+		//	MapColRenderer->SetActive(false);
+		//}
 	}
 
 	
@@ -75,4 +76,9 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 	{
 		AddActorLocation(FVector::Right * 100.0f * _DeltaTime);
 	}
+}
+
+void ALasleyStageOne::CreateMapImage()
+{
+
 }

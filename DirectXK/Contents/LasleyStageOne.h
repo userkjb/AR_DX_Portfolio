@@ -25,7 +25,9 @@ protected:
 
 private:
 	UDefaultSceneComponent* Root = nullptr;
-	USpriteRenderer* MapRenderer = nullptr;
+	//USpriteRenderer* MapRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
+
+	void CreateMapImage();
 };
 
