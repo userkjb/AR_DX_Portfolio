@@ -101,6 +101,8 @@ void ATestGameMode::BeginPlay()
 		}
 
 		UEngineSprite::CreateCutting("Map4X(64).png", 12, 4);
+
+		UEngineSprite::CreateCutting("DarkDesert_Sprite.png", 10, 5);
 	}
 
 	{

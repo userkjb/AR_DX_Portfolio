@@ -215,7 +215,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	ImGui::Text(std::format("Index : {} {}", Index.iX(), Index.iY()).c_str());
 
 
-	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
+	//std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
+	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("DarkDesert_Sprite.png");
 
 
 	// 다이렉트 디바이스랑
@@ -259,7 +260,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		std::string Text = std::to_string(i);
 
 		// 줄바꿈을 자동으로 해준다.
-		if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), { 64, 64 }, UV0, UV1))
+		if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), { 64, 64 }, UV0, UV1)) // 출력 사이즈.
 		{
 			SelectSpriteIndex = i;
 		}
