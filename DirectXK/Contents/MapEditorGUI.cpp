@@ -207,8 +207,22 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			
 			// 가져운 데이터를 기반으로 그리기.
 			
-			int a = 0;
+			size_t ImageXSize = TileData[0].size();
+			size_t ImageYSize = TileData.size();
 
+			TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+
+
+			int a = 0;
+			for (size_t y = 0; y < ImageYSize; y++)
+			{
+				for (size_t x = 0; x < ImageXSize; x++)
+				{
+					int ix = static_cast<int>(x);
+					int iy = static_cast<int>(y);
+					TileRenderer->SetTile(ix, iy, TileData[iy][ix]);
+				}
+			}
 		}
 	}
 
