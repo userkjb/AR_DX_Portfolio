@@ -5,12 +5,6 @@
 #include "TileMap.h"
 #include <EngineCore/Camera.h>
 
-#include <xmllite.h>
-#include <Shlwapi.h>
-
-#pragma comment(lib, "shlwapi.lib")
-#pragma comment(lib, "xmllite.lib")
-
 MapEditorGUI::MapEditorGUI()
 {
 
@@ -118,6 +112,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 	ImGui::InputFloat2("TileSize", &InputTileSize.X);
 	ImGui::InputInt2("Height and Width", InputHWValue);
+	ImGui::InputText("Data File Name", name, IM_ARRAYSIZE(name));
 
 	// 타일 크기 지정
 	// 타일 개수 x
@@ -148,16 +143,32 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		ImGui::Text(std::format("Create Image : {}", Str_CreateImage).c_str());
 	}
 
-	// Save
+	// Save (맵 데이터 저장)
 	{
-		if (true == ImGui::Button("Data"))
+		if (true == ImGui::Button("Data Save"))
 		{
-			TileData = TileRenderer->GetTileMapData();
-		}
+			std::vector<std::vector<int>> TileData = TileRenderer->GetTileMapData();
 
-		// File Save
-		//UEngineDirectory Dir;
-		//Dir.MoveToSearchChild("Config\\TileData");
+			if (0 == TileData.size())
+			{
+				// 맵을 만들지 않았음.
+			}
+			else
+			{
+				UEngineDirectory Dir;
+				Dir.MoveToSearchChild("Config");
+				Dir.Move("TileMapData");
+
+				//std::vector<std::vector<int>> TileData_Test = { {4,3, 2}, {5,6, 7}, {7,6, 7} };
+
+				UEngineSerializer Ser;
+				Ser << TileData;
+
+				UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+				File.Open(EIOOpenMode::Write, EIODataType::Binary);
+				File.Save(Ser);
+			}		
+		}
 	}
 
 	// Save Data To Create
@@ -165,7 +176,23 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		if (true == ImGui::Button("DataToCreate"))
 		{
 			// File Load
-			//-------------------------------------
+			UEngineDirectory Dir;
+			Dir.MoveToSearchChild("Config");
+			Dir.Move("TileMapData");
+
+			std::vector<std::vector<int>> TileData;
+			UEngineSerializer Ser;
+
+			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+			File.Load(Ser);
+
+			Ser >> TileData; // 가져온 데이터를 넣음.
+			
+			// 가져운 데이터를 기반으로 그리기.
+			
+			int a = 0;
+
 
 		}
 	}
@@ -238,41 +265,6 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	//ImGui::SetCursorPos({ 1500, 1500 });
 	//ImGui::TextUnformatted("hello");
 	
-	{
-		if (true == ImGui::Button("Data Save Test"))
-		{
-			UEngineDirectory Dir;
-			Dir.MoveToSearchChild("Config");
-			Dir.Move("TileMapData");
-
-			std::vector<std::vector<int>> TileData = { {4,3, 2}, {5,6, 7}, {7,6, 7} };
-
-			UEngineSerializer Ser;
-			Ser << TileData;
-
-			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
-			File.Open(EIOOpenMode::Write, EIODataType::Binary);
-			File.Save(Ser);
-		}
-
-		if (true == ImGui::Button("Data Load Test"))
-		{
-			UEngineDirectory Dir;
-			Dir.MoveToSearchChild("Config");
-			Dir.Move("TileMapData");
-
-			std::vector<std::vector<int>> TileData;
-			UEngineSerializer Ser;
-
-			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
-			File.Open(EIOOpenMode::Read, EIODataType::Binary);
-			File.Load(Ser);
-
-			Ser >> TileData;
-
-			int a = 0;
-		}
-	}
 
 	ImGui::EndChild();
 }

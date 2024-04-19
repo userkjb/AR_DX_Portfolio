@@ -37,6 +37,7 @@ private:
 	std::string Str_CreateImage = "";
 	bool IsCreateImage = false;
 
-	std::vector<std::vector<int>> TileData;
+	char name[128] = "";
+	//std::vector<std::vector<int>> TileData;
 };
 
