@@ -110,7 +110,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	UTileRenderer* TileRenderer = Ptr->TileMap->TileRenderer;
 
 
-	ImGui::InputFloat2("TileSize", &InputTileSize.X);
+	ImGui::InputFloat2("TileSize", &InputTileSize.X); // 스프라이트 타일의 Size를 가져온다.
 	ImGui::InputInt2("Height and Width", InputHWValue);
 	ImGui::InputText("Data File Name", name, IM_ARRAYSIZE(name));
 
@@ -122,7 +122,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	{
 		if (true == ImGui::Button("Create"))
 		{
-			if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f)
+			if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f || InputHWValue[0] == 0 || InputHWValue[1] == 0)
 			{
 				IsCreateImage = false;
 			}
@@ -268,34 +268,3 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 
 	ImGui::EndChild();
 }
-
-//bool MapEditorGUI::FileExists(const wchar_t* _FileName)
-//{
-//	return PathFileExists(_FileName) != false;
-//}
-
-//void MapEditorGUI::CreateXmlFile(const wchar_t* _FileName)
-//{
-//	IStream* pFileStream = nullptr;
-//	HRESULT hr = SHCreateStreamOnFileW(_FileName, STGM_READ, &pFileStream);
-//
-//	//IXmlWriter* pWirter;
-//
-//	if (FAILED(hr))
-//	{
-//		MsgBoxAssert("Failed to create file stream: " + hr);
-//		//std::cerr << "Failed to create file stream: " << hr << std::endl;
-//		return;
-//	}
-//
-//	//IXmlReader* pReader;
-//	//IXmlWriter* pWriter;
-//	//hr = CreateXmlWriter(__uuidof(IXmlWriter), (void**)&pWriter, nullptr); // Error
-//	//if (FAILED(hr))
-//	//{
-//	//	MsgBoxAssert("Failed to create XML reader: : " + hr);
-//	//	//std::cerr << "Failed to create XML reader: " << hr << std::endl;
-//	//	pFileStream->Release();
-//	//	return;
-//	//}
-//}
