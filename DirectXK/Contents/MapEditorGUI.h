@@ -38,6 +38,5 @@ private:
 	bool IsCreateImage = false;
 
 	char name[128] = "";
-	//std::vector<std::vector<int>> TileData;
 };
 
