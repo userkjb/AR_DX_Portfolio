@@ -114,6 +114,9 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	ImGui::InputInt2("Height and Width", InputHWValue);
 	ImGui::InputText("Data File Name", name, IM_ARRAYSIZE(name));
 
+	std::string FileName(name);
+	FileName += ".png";
+
 	// 타일 크기 지정
 	// 타일 개수 x
 	// 타일 개수 y를 
@@ -122,13 +125,22 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	{
 		if (true == ImGui::Button("Create"))
 		{
-			if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f || InputHWValue[0] == 0 || InputHWValue[1] == 0)
+			if (InputTileSize.X == 0.0f || InputTileSize.Y == 0.0f)
+			{
+				IsCreateImage = false;
+			}
+			else if (InputHWValue[0] == 0 || InputHWValue[1] == 0)
+			{
+				IsCreateImage = false;
+			}
+			else if (5 > FileName.size())
 			{
 				IsCreateImage = false;
 			}
 			else
 			{
-				TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				//TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				TileRenderer->CreateTileMap(FileName, { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
 				IsCreateImage = true;
 			}
 		}
