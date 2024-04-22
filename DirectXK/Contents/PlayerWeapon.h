@@ -47,6 +47,9 @@ private :
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleEnd();
+	void SwingBegin();
+	void SwingTick(float _DeltaTime);
+	void SwingEnd();
 
 	/// <summary>
 	/// Player에서 Weapon을 생성 후 해당 함수를 이용해서 Player Actor를 넘겨준다.
@@ -57,6 +60,8 @@ private :
 		PlayerActor = _APlayer;
 	}
 
+	//========================================================
+
 	std::shared_ptr<APlayer> PlayerActor = nullptr;
 
 	UDefaultSceneComponent* Root = nullptr;
@@ -66,5 +71,8 @@ private :
 	UStateManager State;
 
 	USpriteRenderer* Weapon_Renderer = nullptr;
+
+	bool b_Attack = false;
+	FVector CurAngle = { 0.0f, 0.0f, 45.0f };
 };
 

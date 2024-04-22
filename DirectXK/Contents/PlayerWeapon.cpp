@@ -21,6 +21,8 @@ APlayerWeapon::APlayerWeapon()
 
 	SetRoot(Root);
 
+	//Weapon_Renderer->SetDir(EEngineDir::Right);
+
 	InputOn();
 }
 
@@ -32,17 +34,27 @@ void APlayerWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Weapon_Renderer->CreateAnimation("W_Idle", "GreatSword", 0.125f);
+	{
+		Weapon_Renderer->CreateAnimation("W_Idle", "GreatSword_Idle", 0.125f);
+		Weapon_Renderer->CreateAnimation("W_FX", "GreatSword_FX", 0.125f);
+		Weapon_Renderer->CreateAnimation("W_Swing", "GreatSword", 0.125f, false);
 
-	Weapon_Renderer->ChangeAnimation("W_Idle");
+		Weapon_Renderer->ChangeAnimation("W_Idle");
+	}
 
 	{
 		State.CreateState("Weapon_Idle");
+		State.CreateState("Weapon_Swing");
 
 		State.SetFunction("Weapon_Idle",
 			std::bind(&APlayerWeapon::IdleBegin, this),
 			std::bind(&APlayerWeapon::IdleTick, this, std::placeholders::_1),
 			std::bind(&APlayerWeapon::IdleEnd, this));
+		State.SetFunction("Weapon_Swing",
+			std::bind(&APlayerWeapon::SwingBegin, this),
+			std::bind(&APlayerWeapon::SwingTick, this, std::placeholders::_1),
+			std::bind(&APlayerWeapon::SwingEnd, this));
+
 
 		State.ChangeState("Weapon_Idle");
 	}
@@ -105,22 +117,71 @@ void APlayerWeapon::AttackState(float _DeltaTime)
 
 void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 {
+	//FVector CalRotation = FVector::Zero;
+	//CalRotation.Z = 기본 각도 + 변하는 각도.
 	SetActorRotation(WeaponRotation);
 }
 
 
-
+#pragma region Idle
 void APlayerWeapon::IdleBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Idle");
+	if (EEngineDir::Right == Weapon_Renderer->GetDir())
+	{
+		int a = 0;
+	}
+	else if (EEngineDir::Left == Weapon_Renderer->GetDir())
+	{
+		int a = 0;
+	}
+	else
+	{
+		int a = 0;
+	}
 }
 
 void APlayerWeapon::IdleTick(float _DeltaTime)
 {
-	int a = 0;
+	if (true == IsDown(VK_LBUTTON))
+	{
+		State.ChangeState("Weapon_Swing");
+		return;
+	}
 }
 
 void APlayerWeapon::IdleEnd()
 {
-	int a = 0;
+	
 }
+#pragma endregion
+
+#pragma region Swing
+void APlayerWeapon::SwingBegin()
+{
+	Weapon_Renderer->ChangeAnimation("W_Swing");
+}
+
+void APlayerWeapon::SwingTick(float _DeltaTime)
+{
+	if (true == Weapon_Renderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("Weapon_Idle");
+		return;
+	}
+}
+
+void APlayerWeapon::SwingEnd()
+{
+	if (false == b_Attack)
+	{
+		b_Attack = true;
+		
+	}
+	else
+	{
+		b_Attack = false;
+	}
+	//Weapon_Renderer->SetRotationDeg(WeaponAngle);
+}
+#pragma endregion
