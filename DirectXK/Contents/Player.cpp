@@ -70,20 +70,19 @@ void APlayer::Tick(float _DeltaTime)
 		float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
 		Rot *= UEngineMath::RToD;
 		WeaponDir.Z = Rot;
-		////
 	}
+
 #ifdef _DEBUG
 		t_DeBugFunction(_DeltaTime);
 #endif
 
 	{
-		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
+		// 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
+		Weapone->SetActorLocation(PlayerPos);
 		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
 		Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
+		Weapone->SetPlayerDir(ActorDir);
 	}
-#ifdef _DEBUG
-	
-#endif
 }
 
 void APlayer::CreateAnimation()
