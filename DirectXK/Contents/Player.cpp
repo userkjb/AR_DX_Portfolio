@@ -136,7 +136,7 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 
 	std::string StateName = State.GetCurStateName();
 	//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
-	//std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
+	std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
 	std::string Msg3 = std::format("Player_World Scale : {}\n", PlayerScale.ToString());
 	//std::string Msg4 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
 	//std::string Msg5 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
@@ -147,7 +147,7 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//std::string Msg10 = std::format("CalVectors : {}\n", CalVectors.ToString());
 
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	//UEngineDebugMsgWindow::PushMsg(Msg2);
+	UEngineDebugMsgWindow::PushMsg(Msg2);
 	UEngineDebugMsgWindow::PushMsg(Msg3);
 	//UEngineDebugMsgWindow::PushMsg(Msg4);
 	//UEngineDebugMsgWindow::PushMsg(Msg5);

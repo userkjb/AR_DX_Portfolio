@@ -37,6 +37,7 @@ void APlayer::StateInit()
 
 void APlayer::PlayerMouseDir()
 {
+	// 플레이어 좌우 변경.
 	if (PlayerToMouseDir.X < 0.0f)
 	{
 		PlayerRenderer->SetDir(EEngineDir::Left);

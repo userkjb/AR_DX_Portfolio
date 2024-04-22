@@ -22,8 +22,6 @@ APlayerWeapon::APlayerWeapon()
 
 	SetRoot(Root);
 
-	//Weapon_Renderer->SetDir(EEngineDir::Right);
-
 	InputOn();
 }
 
@@ -108,15 +106,14 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 
 	if (PlayerDir == EEngineDir::Left)
 	{
-
+		Weapon_Renderer->SetDir(EEngineDir::Left);
 	}
 	else if (PlayerDir == EEngineDir::Right)
 	{
-		
+		Weapon_Renderer->SetDir(EEngineDir::Right);
 	}
 
 	FVector F_Vector = CurRotation + WeaponRotation;
-	//SetActorRotation(WeaponRotation);
 	SetActorRotation(F_Vector);
 }
 
@@ -146,14 +143,14 @@ void APlayerWeapon::IdleEnd()
 void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
-	/*if (false == b_Attack)
+	if (false == b_Attack)
 	{
-		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
+		//Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
 	}
 	else
 	{
-		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);		
-	}*/
+		//Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
+	}
 }
 
 void APlayerWeapon::SwingTick(float _DeltaTime)
@@ -182,6 +179,9 @@ void APlayerWeapon::SwingEnd()
 void APlayerWeapon::t_DebugFunction(float _DeltaTime)
 {
 	FVector Scale = GetActorScale3D();
+	FVector LocalRenderScale = Weapon_Renderer->GetLocalScale();
+	FVector WorldRenderScale = Weapon_Renderer->GetWorldScale();
+
 
 	std::string s_PlayerDir = "";
 	if (PlayerDir == EEngineDir::Left)
@@ -193,9 +193,14 @@ void APlayerWeapon::t_DebugFunction(float _DeltaTime)
 		s_PlayerDir = "Right";
 	}
 
-	std::string Msg1 = std::format("Weapon Scale : {}\n", Scale.ToString());
+	std::string Msg1 = std::format("Weapon Actor Scale : {}\n", Scale.ToString());
 	UEngineDebugMsgWindow::PushMsg(Msg1);
 
-	std::string Msg2 = std::format("W Player Dir: {}\n", s_PlayerDir);
+	std::string Msg2 = std::format("Weapon L_Render Scale : {}\n", LocalRenderScale.ToString());
 	UEngineDebugMsgWindow::PushMsg(Msg2);
+	std::string Msg3 = std::format("Weapon W_Render Scale : {}\n", WorldRenderScale.ToString());
+	UEngineDebugMsgWindow::PushMsg(Msg3);
+
+	std::string Msg4 = std::format("Weapon PlayerDir: {}\n", s_PlayerDir);
+	UEngineDebugMsgWindow::PushMsg(Msg4);
 }

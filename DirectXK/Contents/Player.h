@@ -51,6 +51,10 @@ private:
 	void CreateAnimation();
 	void StateInit();
 	void PlayerMouseDir();
+	/// <summary>
+	/// 대쉬 함수
+	/// </summary>
+	/// <param name="_DeltaTime"></param>
 	void DashCountTime(float _DeltaTime);
 	void t_DeBugFunction(float _DeltaTime);
 

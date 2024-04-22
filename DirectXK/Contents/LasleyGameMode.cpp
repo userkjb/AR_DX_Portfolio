@@ -106,11 +106,11 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 
 	FVector PlayerPos = Player->GetPlayerPos();
 #ifdef _DEBUG
-	FVector CameraPos = Camera->GetActorLocation();
+	//FVector CameraPos = Camera->GetActorLocation();
 	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
-	std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
+	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	UEngineDebugMsgWindow::PushMsg(Msg2);
+	//UEngineDebugMsgWindow::PushMsg(Msg2);
 #endif
 	
 	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
