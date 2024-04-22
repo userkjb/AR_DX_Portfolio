@@ -10,6 +10,7 @@ enum class ERenderOrder
 	Weapon_Next,
 	Boss,
 	BossSkill,
+	Weapon_FX,
 	MapObject,
 };
 
