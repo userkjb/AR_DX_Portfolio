@@ -66,6 +66,10 @@ bool URenderUnit::Render(float _DeltaTime)
 	// Draw
 	Mesh->IndexedDraw();
 
+	BaseValue;
+
+	Resources->ResetAllShaderResources();
+
 	return true;
 }
 
