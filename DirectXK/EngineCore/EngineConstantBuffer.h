@@ -1,7 +1,10 @@
 #pragma once
 #include <EnginePlatform/EngineResources.h>
+#include <map>
+
 #include "EngineBuffer.h"
 #include "EngineShader.h"
+#include "EngineEnums.h"
 
 class UEngineConstantBufferSetter;
 // Ό³Έν :
@@ -71,5 +74,7 @@ private:
 	void ResCreate(UINT _ByteSize);
 
 	void Setting(EShaderType _Type, UINT _Slot);
+	void Reset(EShaderType _Type, UINT _Slot);
+
 };
 

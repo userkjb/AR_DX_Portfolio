@@ -20,6 +20,12 @@ void UEngineConstantBufferSetter::Setting()
 	Res->Setting(Type, Slot);
 }
 
+void UEngineConstantBufferSetter::Reset()
+{
+	Res->Reset(Type, Slot);
+}
+
+
 void UEngineTextureSetter::Setting()
 {
 #ifdef _DEBUG
@@ -32,6 +38,19 @@ void UEngineTextureSetter::Setting()
 	Res->Setting(Type, Slot);
 }
 
+void UEngineTextureSetter::Reset()
+{
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 텍스처를 세팅해주지 않았습니다.");
+	}
+#endif
+
+	Res->Reset(Type, Slot);
+}
+
+
 void UEngineSamplerSetter::Setting()
 {
 #ifdef _DEBUG
@@ -43,6 +62,19 @@ void UEngineSamplerSetter::Setting()
 
 	Res->Setting(Type, Slot);
 }
+
+void UEngineSamplerSetter::Reset()
+{
+#ifdef _DEBUG
+	if (nullptr == Res)
+	{
+		MsgBoxAssert(GetName() + " 샘플러를 세팅해주지 않았습니다.");
+	}
+#endif
+
+	Res->Reset(Type, Slot);
+}
+
 
 ///
 
@@ -127,6 +159,7 @@ void UEngineShaderResources::ShaderResourcesCheck(EShaderType _Type, std::string
 		{
 			ResDesc.Name;
 			UEngineSamplerSetter& NewSetter = Samplers[_Type][UpperName];
+			NewSetter.SetName(ResDesc.Name);
 			NewSetter.Type = _Type;
 			NewSetter.Slot = ResDesc.BindPoint;
 			break;
@@ -153,6 +186,7 @@ void UEngineShaderResources::SettingConstantBuffer(std::string_view _Name, const
 		MsgBoxAssert("존재하지도 않는 상수버퍼에 세팅하려고 했습니다." + UpperName);
 		return;
 	}
+
 
 	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
 	{
@@ -220,6 +254,42 @@ void UEngineShaderResources::SettingAllShaderResources()
 		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
 		{
 			Setter.second.Setting();
+		}
+	}
+
+
+}
+
+
+void UEngineShaderResources::ResetAllShaderResources()
+{
+	for (std::pair<const EShaderType, std::map<std::string, UEngineConstantBufferSetter>>& Pair : ConstantBuffers)
+	{
+		std::map<std::string, UEngineConstantBufferSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineConstantBufferSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineTextureSetter>>& Pair : Textures)
+	{
+		std::map<std::string, UEngineTextureSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineTextureSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
+		}
+	}
+
+	for (std::pair<const EShaderType, std::map<std::string, UEngineSamplerSetter>>& Pair : Samplers)
+	{
+		std::map<std::string, UEngineSamplerSetter>& ResMap = Pair.second;
+
+		for (std::pair<const std::string, UEngineSamplerSetter>& Setter : ResMap)
+		{
+			Setter.second.Reset();
 		}
 	}
 
