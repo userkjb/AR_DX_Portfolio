@@ -107,7 +107,7 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 	//FVector CalRotation = FVector::Zero;
 	//CalRotation.Z = 기본 각도 + 변하는 각도.
 	FVector CurRotation = FVector::Zero;
-	if (b_Attack == false)
+	if (b_WeaponUpDownDir == false)
 	{
 		CurRotation.Z = 90.0f;
 	}
@@ -156,17 +156,30 @@ void APlayerWeapon::IdleEnd()
 void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
-	if (false == b_Attack)
+	
+	Weapon_FX->SetActive(true);
+	Weapon_FX->ChangeAnimation("G_S_Attack");
+
+	FVector RotationValue_FX = FVector::Zero;
+	if (EEngineDir::Right == Weapon_Renderer->GetDir())
 	{
-		//Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
+		RotationValue_FX.Z = -90.0f;
+		Weapon_FX->SetRotationDeg(WeaponRotation + RotationValue_FX);
+	}
+	else if (EEngineDir::Left == Weapon_Renderer->GetDir())
+	{
+		RotationValue_FX.Z = -90.0f;
+		Weapon_FX->SetRotationDeg(WeaponRotation + RotationValue_FX);
+	}
+	
+	if (false == b_WeaponUpDownDir)
+	{
+		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
 	}
 	else
 	{
-		//Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
+		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
 	}
-	Weapon_FX->SetActive(true);
-	Weapon_FX->ChangeAnimation("G_S_Attack");
-	Weapon_FX->SetRotationDeg(WeaponRotation);
 }
 
 void APlayerWeapon::SwingTick(float _DeltaTime)
@@ -187,13 +200,13 @@ void APlayerWeapon::SwingTick(float _DeltaTime)
 
 void APlayerWeapon::SwingEnd()
 {
-	if (false == b_Attack)
+	if (false == b_WeaponUpDownDir)
 	{
-		b_Attack = true;
+		b_WeaponUpDownDir = true;
 	}
 	else
 	{
-		b_Attack = false;
+		b_WeaponUpDownDir = false;
 	}
 }
 #pragma endregion

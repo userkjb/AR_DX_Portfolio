@@ -75,11 +75,12 @@ private :
 	FVector WeaponRotation = FVector::Zero;
 
 	UStateManager State;
+	
 
 	USpriteRenderer* Weapon_Renderer = nullptr;
 	USpriteRenderer* Weapon_FX = nullptr;
 
-	bool b_Attack = false;
+	bool b_WeaponUpDownDir = false;
 	FVector CurAngle = { 0.0f, 0.0f, 45.0f };
 	EEngineDir PlayerDir = EEngineDir::MAX;
 };
