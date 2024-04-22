@@ -6,6 +6,7 @@
 #include <EngineCore/TileRenderer.h>
 #include <EngineBase/EngineSerializer.h>
 #include <EngineCore/Image.h>
+#include <EngineCore/BlurEffect.h>
 
 ATestGameMode::ATestGameMode()
 {
@@ -87,6 +88,11 @@ void ATestGameMode::BeginPlay()
 		}
 	}*/
 	// End Save Data Ex
+
+	// 블러 Effect 사용 예제
+	{
+		GetWorld()->GetLastTarget()->AddEffect<UBlurEffect>();
+	}
 
 	{
 		UEngineDirectory Dir;
