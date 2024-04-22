@@ -13,6 +13,9 @@
     <Filter Include="Target">
       <UniqueIdentifier>{bd3c7419-c521-4db6-b40d-5938eca6c466}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{e799ba7a-25aa-44d0-bdf8-9e19e2ae307c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineVertex.hlsli">
@@ -41,6 +44,8 @@
     <FxCompile Include="TargetCopyShader.fx">
       <Filter>Target</Filter>
     </FxCompile>
-    <FxCompile Include="BlurEffectShader.fx" />
+    <FxCompile Include="BlurEffectShader.fx">
+      <Filter>Effect</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
