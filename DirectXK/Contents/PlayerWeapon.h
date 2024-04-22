@@ -37,7 +37,8 @@ private :
 
 	void GetPlayerToMouseDir();
 
-	void AttackState(float _DeltaTime);
+	void t_DebugFunction(float _DeltaTime);
+	
 	/// <summary>
 	/// 무기 회전
 	/// </summary>
@@ -74,5 +75,6 @@ private :
 
 	bool b_Attack = false;
 	FVector CurAngle = { 0.0f, 0.0f, 45.0f };
+	EEngineDir PlayerDir = EEngineDir::MAX;
 };
 

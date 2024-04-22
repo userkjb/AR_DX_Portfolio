@@ -71,15 +71,15 @@ void APlayer::Tick(float _DeltaTime)
 		Rot *= UEngineMath::RToD;
 		WeaponDir.Z = Rot;
 		////
+	}
 #ifdef _DEBUG
 		t_DeBugFunction(_DeltaTime);
 #endif
-	}
 
 	{
 		Weapone->SetActorLocation(PlayerPos); // 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
 		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		Weapone->SetWeaponRotation(WeaponDir);
+		Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
 	}
 #ifdef _DEBUG
 	
@@ -119,6 +119,7 @@ void APlayer::DashCountTime(float _DeltaTime)
 void APlayer::t_DeBugFunction(float _DeltaTime)
 {
 	PlayerPos = GetActorLocation();
+	FVector PlayerScale = GetActorScale3D();
 	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 	float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
 
@@ -136,23 +137,25 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 
 	std::string StateName = State.GetCurStateName();
 	//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
-	std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
-	std::string Msg3 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
+	//std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
+	std::string Msg3 = std::format("Player_World Scale : {}\n", PlayerScale.ToString());
 	//std::string Msg4 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
-	//std::string Msg5 = std::format("Leng : {}\n", Leng.ToString());
-	//std::string Msg6 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
-	//std::string Msg7 = std::format("Leng : {}\n", Leng.ToString());
-	std::string Msg8 = std::format("Rot : {}\n", Rot);
-	//std::string Msg9 = std::format("CalVectors : {}\n", CalVectors.ToString());
+	//std::string Msg5 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
+	//std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
+	//std::string Msg7 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
+	//std::string Msg8 = std::format("Leng : {}\n", Leng.ToString());
+	//std::string Msg9 = std::format("Rot : {}\n", Rot);
+	//std::string Msg10 = std::format("CalVectors : {}\n", CalVectors.ToString());
 
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	UEngineDebugMsgWindow::PushMsg(Msg2);
+	//UEngineDebugMsgWindow::PushMsg(Msg2);
 	UEngineDebugMsgWindow::PushMsg(Msg3);
 	//UEngineDebugMsgWindow::PushMsg(Msg4);
 	//UEngineDebugMsgWindow::PushMsg(Msg5);
 	//UEngineDebugMsgWindow::PushMsg(Msg6);
 	//UEngineDebugMsgWindow::PushMsg(Msg7);
-	UEngineDebugMsgWindow::PushMsg(Msg8);
+	//UEngineDebugMsgWindow::PushMsg(Msg8);
 	//UEngineDebugMsgWindow::PushMsg(Msg9);
+	//UEngineDebugMsgWindow::PushMsg(Msg10);
 	UEngineDebugMsgWindow::PushMsg(StateName);
 }

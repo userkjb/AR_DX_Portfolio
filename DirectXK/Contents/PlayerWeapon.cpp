@@ -17,6 +17,7 @@ APlayerWeapon::APlayerWeapon()
 	Weapon_Renderer->SetPivot(EPivot::BOT);
 	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
 	Weapon_Renderer->SetupAttachment(Root);
+	Weapon_Renderer->SetDir(EEngineDir::Right);
 	
 
 	SetRoot(Root);
@@ -73,22 +74,10 @@ void APlayerWeapon::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 	GetPlayerToMouseDir();
 
-
-	//if (true == IsDown(VK_LBUTTON))
-	if (true == IsDown('Z'))
-	{
-		AttackState(_DeltaTime);
-	}
-
-
-
 	WeaponRotControll(_DeltaTime);
 
 #ifdef _DEBUG
-	FVector Scale = GetActorScale3D();
-
-	std::string Msg1 = std::format("Scale : {}\n", Scale.ToString());
-	UEngineDebugMsgWindow::PushMsg(Msg1);
+	t_DebugFunction(_DeltaTime);
 #endif	
 }
 
@@ -103,23 +92,24 @@ void APlayerWeapon::GetPlayerToMouseDir()
 	PlayerToMouseDir = PlayerActor->GetPlayerToMouseDir();
 }
 
-void APlayerWeapon::AttackState(float _DeltaTime)
-{
-	//float4 x = PlayerToMouseDir;
-
-	FVector Scale = GetActorScale3D();
-	Scale.X *= -1.0f;
-	Scale.Y *= -1.0f;
-	SetActorScale3D(Scale);
-
-	int a = 0;
-}
-
 void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 {
 	//FVector CalRotation = FVector::Zero;
 	//CalRotation.Z = 기본 각도 + 변하는 각도.
-	SetActorRotation(WeaponRotation);
+	FVector CurRotation = FVector::Zero;
+	if (b_Attack == false)
+	{
+		CurRotation.Z = 90.0f;
+	}
+	else
+	{
+		CurRotation.Z = -90.0f;
+	}
+
+
+
+	//SetActorRotation(WeaponRotation);
+	SetActorRotation(CurRotation);
 }
 
 
@@ -127,18 +117,6 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 void APlayerWeapon::IdleBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Idle");
-	if (EEngineDir::Right == Weapon_Renderer->GetDir())
-	{
-		int a = 0;
-	}
-	else if (EEngineDir::Left == Weapon_Renderer->GetDir())
-	{
-		int a = 0;
-	}
-	else
-	{
-		int a = 0;
-	}
 }
 
 void APlayerWeapon::IdleTick(float _DeltaTime)
@@ -160,6 +138,14 @@ void APlayerWeapon::IdleEnd()
 void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
+	if (false == b_Attack)
+	{
+		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
+	}
+	else
+	{
+		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);		
+	}
 }
 
 void APlayerWeapon::SwingTick(float _DeltaTime)
@@ -176,12 +162,19 @@ void APlayerWeapon::SwingEnd()
 	if (false == b_Attack)
 	{
 		b_Attack = true;
-		
 	}
 	else
 	{
 		b_Attack = false;
 	}
-	//Weapon_Renderer->SetRotationDeg(WeaponAngle);
 }
 #pragma endregion
+
+
+void APlayerWeapon::t_DebugFunction(float _DeltaTime)
+{
+	FVector Scale = GetActorScale3D();
+
+	std::string Msg1 = std::format("Weapon Scale : {}\n", Scale.ToString());
+	UEngineDebugMsgWindow::PushMsg(Msg1);
+}
