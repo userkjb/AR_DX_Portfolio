@@ -8,6 +8,36 @@
 
 // 랜더타겟 => 그 이미지를 편집하고 그리고 복사하는 기능을 가진 애. UWindowImage
 
+// 효과를 준다 => 그린다.
+class UEngineRenderTarget;
+class UEffect : public URenderUnit
+{
+	friend UEngineRenderTarget;
+
+public:
+	UEffect()
+	{
+		SetMesh("FullRect");
+	}
+
+	virtual void Init() = 0;
+	// EffectTarget 효과를 주고 싶은 타겟
+	virtual void Effect(std::shared_ptr<UEngineRenderTarget> EffectTarget) = 0;
+
+	bool IsActive()
+	{
+		return IsActiveValue;
+	}
+
+	void Active(bool _IsActive)
+	{
+		IsActiveValue = _IsActive;
+	}
+
+private:
+	bool IsActiveValue = true;
+};
+
 class ULevel;
 class UEngineTexture;
 class UEngineGraphicDevice;
