@@ -204,10 +204,9 @@ void APlayer::JumpEnd()
 // 잔상 3개.
 void APlayer::DashBegin()
 {
-	//AddActorLocation(PlayerToMouseDir * DashPower); // test
-	DashCount--;
+	DashCount--; // 대쉬 카운터 -1.
 	//DashVector = FVector::Zero;
-	DashDir = PlayerToMouseDir;
+	DashDir = PlayerToMouseDir; // 대쉬 방향은 Player기준 마우스 방향.
 	PlayerRenderer->ChangeAnimation("Run");
 }
 
@@ -215,11 +214,13 @@ void APlayer::DashTick(float _DeltaTime)
 {
 	DashTime += _DeltaTime;
 
-	//DashVector = DashDir * DashPower * _DeltaTime;
-	//MoveUpdate(_DeltaTime);
-	AddActorLocation(DashDir * DashPower * _DeltaTime);
 
-	if (true == IsDown('A') || true == IsDown('D'))
+	FVector MoveVector = DashDir * DashPower * _DeltaTime;
+	MoveVector.Z = 0.0f;
+	AddActorLocation(MoveVector);
+	
+
+	if (true == IsPress('A') || true == IsPress('D'))
 	{
 		State.ChangeState("Run");
 		return;

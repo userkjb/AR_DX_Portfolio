@@ -40,7 +40,9 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	//Weapone->Weapon_Renderer->SetDir(EEngineDir::Right);
 	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	//Weapone->SetActorScale3D({2.0f, 2.0f, 2.0f});
 	Weapone->SetPlayerActor(shared_from_this());
 
 }
@@ -61,40 +63,16 @@ void APlayer::Tick(float _DeltaTime)
 		float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
 
 		FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
-		//CulMousPos.Y -= ScreenScale.Y;
-		//CulMousPos.Y *= -1.0f;
 		
-		//float4 Leng = CulMousPos - PlayerPos;
 		float4 Leng = MousePosWorld - PlayerPos;
 		PlayerToMouseDir = Leng.Normalize3DReturn();
 
-		////
-		// 라디안 각도.
-		//float Rot = atan2((CulMousPos.Y - PlayerPos.Y), (CulMousPos.X - PlayerPos.X));
 		float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
-		Rot *= UEngineMath::RToD; // 디그리( 0 ~ 180)
+		Rot *= UEngineMath::RToD;
 		WeaponDir.Z = Rot;
 		////
 #ifdef _DEBUG
-		//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
-		std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
-		std::string Msg3 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
-		//std::string Msg4 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
-		//std::string Msg5 = std::format("Leng : {}\n", Leng.ToString());
-		//std::string Msg6 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
-		//std::string Msg7 = std::format("Leng : {}\n", Leng.ToString());
-		std::string Msg8 = std::format("Rot : {}\n", Rot);
-		//std::string Msg9 = std::format("CalVectors : {}\n", CalVectors.ToString());
-
-		//UEngineDebugMsgWindow::PushMsg(Msg1);
-		UEngineDebugMsgWindow::PushMsg(Msg2);
-		UEngineDebugMsgWindow::PushMsg(Msg3);
-		//UEngineDebugMsgWindow::PushMsg(Msg4);
-		//UEngineDebugMsgWindow::PushMsg(Msg5);
-		//UEngineDebugMsgWindow::PushMsg(Msg6);
-		//UEngineDebugMsgWindow::PushMsg(Msg7);
-		UEngineDebugMsgWindow::PushMsg(Msg8);
-		//UEngineDebugMsgWindow::PushMsg(Msg9);
+		t_DeBugFunction(_DeltaTime);
 #endif
 	}
 
@@ -104,11 +82,7 @@ void APlayer::Tick(float _DeltaTime)
 		Weapone->SetWeaponRotation(WeaponDir);
 	}
 #ifdef _DEBUG
-	// State
-	{
-		std::string StateName = State.GetCurStateName();
-		UEngineDebugMsgWindow::PushMsg(StateName);
-	}
+	
 #endif
 }
 
@@ -140,4 +114,45 @@ void APlayer::DashCountTime(float _DeltaTime)
 
 	UEngineDebugMsgWindow::PushMsg(Msg1);
 #endif
+}
+
+void APlayer::t_DeBugFunction(float _DeltaTime)
+{
+	PlayerPos = GetActorLocation();
+	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
+	float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
+
+	FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
+	//CulMousPos.Y -= ScreenScale.Y;
+	//CulMousPos.Y *= -1.0f;
+
+	//float4 Leng = CulMousPos - PlayerPos;
+	float4 Leng = MousePosWorld - PlayerPos;
+	PlayerToMouseDir = Leng.Normalize3DReturn();
+
+	float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
+	Rot *= UEngineMath::RToD; // 디그리( 0 ~ 180)
+	WeaponDir.Z = Rot;
+
+	std::string StateName = State.GetCurStateName();
+	//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
+	std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
+	std::string Msg3 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
+	//std::string Msg4 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
+	//std::string Msg5 = std::format("Leng : {}\n", Leng.ToString());
+	//std::string Msg6 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
+	//std::string Msg7 = std::format("Leng : {}\n", Leng.ToString());
+	std::string Msg8 = std::format("Rot : {}\n", Rot);
+	//std::string Msg9 = std::format("CalVectors : {}\n", CalVectors.ToString());
+
+	//UEngineDebugMsgWindow::PushMsg(Msg1);
+	UEngineDebugMsgWindow::PushMsg(Msg2);
+	UEngineDebugMsgWindow::PushMsg(Msg3);
+	//UEngineDebugMsgWindow::PushMsg(Msg4);
+	//UEngineDebugMsgWindow::PushMsg(Msg5);
+	//UEngineDebugMsgWindow::PushMsg(Msg6);
+	//UEngineDebugMsgWindow::PushMsg(Msg7);
+	UEngineDebugMsgWindow::PushMsg(Msg8);
+	//UEngineDebugMsgWindow::PushMsg(Msg9);
+	UEngineDebugMsgWindow::PushMsg(StateName);
 }

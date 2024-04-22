@@ -139,7 +139,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Player
 	{
-		float4 TexScale = UContentsConstValue::MapTexScale;
+		//float4 TexScale = UContentsConstValue::MapTexScale;
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
 		Player->SetActorLocation({ 1040.0f,  400.0f, 0.0f });
 	}

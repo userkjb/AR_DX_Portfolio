@@ -52,6 +52,7 @@ private:
 	void StateInit();
 	void PlayerMouseDir();
 	void DashCountTime(float _DeltaTime);
+	void t_DeBugFunction(float _DeltaTime);
 
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
