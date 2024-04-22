@@ -93,7 +93,7 @@ void ALasleyStageOne::CreateMapImage()
 	std::string FileName = "";
 	UEngineSerializer Ser;
 
-	UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+	UEngineFile File = Dir.GetPathFromFile("DarkStage_1.Data");
 	File.Open(EIOOpenMode::Read, EIODataType::Binary);
 	File.Load(Ser);
 
@@ -105,7 +105,9 @@ void ALasleyStageOne::CreateMapImage()
 	size_t ImageXSize = TileData[0].size();
 	size_t ImageYSize = TileData.size();
 
-	TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+	//TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+	TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+
 	for (size_t y = 0; y < ImageYSize; y++)
 	{
 		for (size_t x = 0; x < ImageXSize; x++)

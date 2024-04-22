@@ -139,7 +139,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			//}
 			else
 			{
-				TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				//TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
 				//TileRenderer->CreateTileMap(FileName, { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
 				IsCreateImage = true;
 			}
@@ -178,7 +179,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 				Ser << FileName;
 				Ser << TileData;
 
-				UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+				UEngineFile File = Dir.GetPathFromFile("DarkStage_2.Data");
 				File.Open(EIOOpenMode::Write, EIODataType::Binary);
 				File.Save(Ser);
 				File.Close();
@@ -199,7 +200,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			std::string FileName = "";
 			UEngineSerializer Ser;
 
-			UEngineFile File = Dir.GetPathFromFile("SaveData.Data");
+			UEngineFile File = Dir.GetPathFromFile("DarkStage_2.Data");
 			File.Open(EIOOpenMode::Read, EIODataType::Binary);
 			File.Load(Ser);
 
@@ -212,7 +213,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			size_t ImageXSize = TileData[0].size();
 			size_t ImageYSize = TileData.size();
 
-			TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+			//TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+			TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
 
 			for (size_t y = 0; y < ImageYSize; y++)
 			{
@@ -232,8 +234,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	ImGui::Text(std::format("Index : {} {}", Index.iX(), Index.iY()).c_str());
 
 
-	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
-	//std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("DarkDesert_Sprite.png");
+	//std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
+	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("DarkDesert_Sprite.png");
 
 
 	// 다이렉트 디바이스랑
