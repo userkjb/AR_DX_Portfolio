@@ -41,5 +41,6 @@
     <FxCompile Include="TargetCopyShader.fx">
       <Filter>Target</Filter>
     </FxCompile>
+    <FxCompile Include="BlurEffectShader.fx" />
   </ItemGroup>
 </Project>
