@@ -116,18 +116,22 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 		CurRotation.Z = -90.0f;
 	}
 
-	if (PlayerDir == EEngineDir::Left)
+	FVector CurPosition = FVector::Zero;
+	if (PlayerDir == EEngineDir::Right)
 	{
-		Weapon_Renderer->SetDir(EEngineDir::Left);
-	}
-	else if (PlayerDir == EEngineDir::Right)
-	{
+		CurPosition.X = 50.0f;
+		Weapon_Renderer->SetPosition(CurPosition);
 		Weapon_Renderer->SetDir(EEngineDir::Right);
+	}
+	else if (PlayerDir == EEngineDir::Left)
+	{
+		CurPosition.X = -50.0f;
+		Weapon_Renderer->SetPosition(CurPosition);
+		Weapon_Renderer->SetDir(EEngineDir::Left);
 	}
 
 	FVector F_Vector = CurRotation + WeaponRotation;
 	Weapon_Renderer->SetRotationDeg(F_Vector);
-	//SetActorRotation(F_Vector);
 }
 
 
@@ -158,6 +162,8 @@ void APlayerWeapon::SwingBegin()
 	Weapon_Renderer->ChangeAnimation("W_Swing");
 	
 	Weapon_FX->SetActive(true);
+	// 이펙트는 그 자리에 남아 있어야 함.
+	Weapon_FX->SetPosition(Weapon_Renderer->GetLocalPosition() * 1.5f);
 	Weapon_FX->ChangeAnimation("G_S_Attack");
 
 	FVector RotationValue_FX = FVector::Zero;
