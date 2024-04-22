@@ -106,10 +106,18 @@ void APlayerWeapon::WeaponRotControll(float _DeltaTime)
 		CurRotation.Z = -90.0f;
 	}
 
+	if (PlayerDir == EEngineDir::Left)
+	{
 
+	}
+	else if (PlayerDir == EEngineDir::Right)
+	{
+		
+	}
 
+	FVector F_Vector = CurRotation + WeaponRotation;
 	//SetActorRotation(WeaponRotation);
-	SetActorRotation(CurRotation);
+	SetActorRotation(F_Vector);
 }
 
 
@@ -138,14 +146,14 @@ void APlayerWeapon::IdleEnd()
 void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
-	if (false == b_Attack)
+	/*if (false == b_Attack)
 	{
 		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
 	}
 	else
 	{
 		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);		
-	}
+	}*/
 }
 
 void APlayerWeapon::SwingTick(float _DeltaTime)
@@ -175,6 +183,19 @@ void APlayerWeapon::t_DebugFunction(float _DeltaTime)
 {
 	FVector Scale = GetActorScale3D();
 
+	std::string s_PlayerDir = "";
+	if (PlayerDir == EEngineDir::Left)
+	{
+		s_PlayerDir = "Left";
+	}
+	else if (PlayerDir == EEngineDir::Right)
+	{
+		s_PlayerDir = "Right";
+	}
+
 	std::string Msg1 = std::format("Weapon Scale : {}\n", Scale.ToString());
 	UEngineDebugMsgWindow::PushMsg(Msg1);
+
+	std::string Msg2 = std::format("W Player Dir: {}\n", s_PlayerDir);
+	UEngineDebugMsgWindow::PushMsg(Msg2);
 }
