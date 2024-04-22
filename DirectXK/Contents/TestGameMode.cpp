@@ -91,7 +91,12 @@ void ATestGameMode::BeginPlay()
 
 	// 블러 Effect 사용 예제
 	{
-		GetWorld()->GetLastTarget()->AddEffect<UBlurEffect>();
+		//GetWorld()->GetLastTarget()->AddEffect<UBlurEffect>();
+	}
+
+	// 카메라 별 푸스트 프로세스 예제.
+	{
+		GetWorld()->GetMainCamera()->GetCameraTarget()->AddEffect<UBlurEffect>();
 	}
 
 	{
