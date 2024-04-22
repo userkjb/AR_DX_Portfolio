@@ -170,6 +170,7 @@
     <ClInclude Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\DirectXTex.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="ActorComponent.h" />
+    <ClInclude Include="BlurEffect.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DefaultSceneComponent.h" />
@@ -230,6 +231,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="ActorComponent.cpp" />
+    <ClCompile Include="BlurEffect.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DefaultSceneComponent.cpp" />

@@ -85,6 +85,9 @@
     <Filter Include="Object\Component\Rendering\Contents">
       <UniqueIdentifier>{5a9ed8ef-d540-4993-8015-fd401c73a3db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Rendering\Contents">
+      <UniqueIdentifier>{e7f868ad-3384-4447-a0b6-b9d8081572bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="BlurEffect.cpp">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -408,6 +414,9 @@
     </ClInclude>
     <ClInclude Include="Widget.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="BlurEffect.h">
+      <Filter>Object\Rendering\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
