@@ -52,11 +52,11 @@ ImagePSOutPut BlurEffect_PS(ImageVSOutPut _Input)
     {
         for (int X = 0; X < GAUX; ++X)
         {
-            ResultColor += Sampling(Image, CurUV);
-            ResultColor *= Gau[Y][X];
+            // float4 Color = Sampling(Image, CurUV);
+            ResultColor.rgba += Image.Sample(Image_Sampler, CurUV.xy) * Gau[Y][X];
             CurUV.x += PixelUV.x;
         }
-        CurUV.x += StartUV.x;
+        CurUV.x = StartUV.x;
         CurUV.y += PixelUV.y;
     }
     
