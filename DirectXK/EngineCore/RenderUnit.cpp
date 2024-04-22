@@ -1,9 +1,11 @@
 #include "PreCompile.h"
 #include "RenderUnit.h"
+#include "EngineCore.h"
 
 URenderUnit::URenderUnit()
 {
 	Resources = std::make_shared<UEngineShaderResources>();
+
 }
 
 URenderUnit::~URenderUnit()
@@ -86,6 +88,12 @@ void URenderUnit::SetMesh(std::string_view _Name)
 
 void URenderUnit::SetMaterial(std::string_view _Name)
 {
+	float4 ScreenScale = GEngine->EngineWindow.GetWindowScale();
+
+	BaseValue.ScreenX = ScreenScale.X;
+	BaseValue.ScreenY = ScreenScale.Y;
+
+
 	Material = UEngineMaterial::FindRes(_Name);
 
 	if (nullptr == Material)
@@ -102,6 +110,12 @@ void URenderUnit::SetMaterial(std::string_view _Name)
 	Resources->Reset();
 	ResCopy(Material->GetVertexShader().get());
 	ResCopy(Material->GetPixelShader().get());
+
+
+	if (true == Resources->IsConstantBuffer("FBaseRenderValue"))
+	{
+		Resources->SettingConstantBuffer("FBaseRenderValue", BaseValue);
+	}
 
 	MaterialSettingEnd();
 }
@@ -170,8 +184,7 @@ void URenderUnit::ResCopy(UEngineShader* _Shader)
 
 }
 
-//
-//void URenderUnit::RenderingTransformUpdate(std::shared_ptr<UCamera> _Camera)
-//{
-//	Transform.CalculateViewAndProjection(_Camera->GetView(), _Camera->GetProjection());
-//}
+void URenderUnit::Update(float _DeltaTime)
+{
+	BaseValue.AccTime += _DeltaTime;
+}
