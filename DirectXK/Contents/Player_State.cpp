@@ -55,11 +55,19 @@ void APlayer::IdleBegin()
 {
 	PlayerRenderer->ChangeAnimation("Idle");
 	RunVector = FVector::Zero;
+	ActorState = EPlayerState::Idle;
 }
 
 void APlayer::IdleTick(float _DeltaTime)
 {
-	PlayerMouseDir();
+	{
+		PlayerMouseDir(); // 캐릭터 좌우.
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
 	
 	if (true == IsPress('A') || true == IsPress('D'))
 	{
@@ -78,8 +86,8 @@ void APlayer::IdleTick(float _DeltaTime)
 	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
 		// 대쉬
-		State.ChangeState("Dash");
-		return;
+		//State.ChangeState("Dash");
+		//return;
 	}
 
 	// 하단 이동
@@ -88,7 +96,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		//
 	}
 
-	MoveUpdate(_DeltaTime);
+	//MoveUpdate(_DeltaTime);
 }
 
 void APlayer::IdleEnd()
@@ -102,11 +110,18 @@ void APlayer::RunBegin()
 {
 	PlayerRenderer->ChangeAnimation("Run");
 	RunVector = FVector::Zero;
+	ActorState = EPlayerState::Run;
 }
 
 void APlayer::RunTick(float _DeltaTime)
 {
-	PlayerMouseDir();
+	{
+		PlayerMouseDir(); // 캐릭터 좌우.
+		// 중력.
+		// 중력에 대한 픽셀 충돌.
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
 
 	if (true == IsFree('A') && true == IsFree('D'))
 	{
@@ -131,11 +146,9 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
-		State.ChangeState("Dash");
-		return;
+		//State.ChangeState("Dash");
+		//return;
 	}
-
-	MoveUpdate(_DeltaTime);
 }
 
 void APlayer::RunEnd()
@@ -149,6 +162,7 @@ void APlayer::JumpBegin()
 	PlayerRenderer->ChangeAnimation("Jump");
 	JumpVector = JumpPower;
 	JumpTime = 0.0f;
+	ActorState = EPlayerState::Jump;
 }
 
 void APlayer::JumpTick(float _DeltaTime)
@@ -174,7 +188,7 @@ void APlayer::JumpTick(float _DeltaTime)
 		RunVector = FVector::Zero;
 	}
 
-	MoveUpdate(_DeltaTime);	
+	//MoveUpdate(_DeltaTime);
 
 	if (JumpTime >= 0.1f)
 	{
@@ -206,9 +220,14 @@ void APlayer::JumpEnd()
 void APlayer::DashBegin()
 {
 	DashCount--; // 대쉬 카운터 -1.
-	//DashVector = FVector::Zero;
+
 	DashDir = PlayerToMouseDir; // 대쉬 방향은 Player기준 마우스 방향.
 	PlayerRenderer->ChangeAnimation("Run");
+
+	DashVector = FVector::Zero;
+	DashVector = DashDir * DashPower;
+	int a = 0;
+	ActorState = EPlayerState::Dash;
 }
 
 void APlayer::DashTick(float _DeltaTime)
@@ -216,9 +235,12 @@ void APlayer::DashTick(float _DeltaTime)
 	DashTime += _DeltaTime;
 
 
-	FVector MoveVector = DashDir * DashPower * _DeltaTime;
-	MoveVector.Z = 0.0f;
-	AddActorLocation(MoveVector);
+	//FVector MoveVector = DashDir * DashPower * _DeltaTime;
+	//MoveVector.Z = 0.0f;
+	//AddActorLocation(MoveVector);
+	DashVector.Z = 0.0f;
+	//MoveUpdate(_DeltaTime);
+	DashVector = DashVector * DashSlowPower * _DeltaTime;
 	
 
 	if (true == IsPress('A') || true == IsPress('D'))
@@ -242,11 +264,11 @@ void APlayer::DashEnd()
 }
 #pragma endregion
 
-
 #pragma region Die
 void APlayer::DieBegin()
 {
 	PlayerRenderer->ChangeAnimation("Die");
+	ActorState = EPlayerState::Die;
 }
 
 void APlayer::DieTick(float _DeltaTime)
@@ -260,15 +282,15 @@ void APlayer::DieEnd()
 
 
 
-void APlayer::MoveUpdate(float _DeltaTime)
-{
-	Gravity(_DeltaTime); // 중력
-
-
-	CalVector(); // Vector 최종 계산
-
-	CalMoveVector(_DeltaTime); // 움직이기.
-}
+//void APlayer::MoveUpdate(float _DeltaTime)
+//{
+//	Gravity(_DeltaTime); // 중력
+//
+//
+//	CalVector(); // Vector 최종 계산
+//
+//	CalMoveVector(_DeltaTime); // 움직이기.
+//}
 
 void APlayer::CalVector()
 {
@@ -276,7 +298,7 @@ void APlayer::CalVector()
 	CalVectors += RunVector;
 	CalVectors += JumpVector;
 	CalVectors += GravityVector;
-	//CalVectors += DashVector;
+	CalVectors += DashVector;
 
 	CalVectors + JumpVector;
 }
@@ -294,11 +316,6 @@ void APlayer::Gravity(float _DeltaTime)
 	}
 }
 
-void APlayer::CalMoveVector(float _DeltaTime)
-{
-	AddActorLocation(CalVectors * _DeltaTime);
-}
-
 void APlayer::PixelCheck(float _DeltaTime)
 {
 	// ALasleyGameMode::LevelStart 에서 MapTex 과 MapTexScale 값을 넣음.
@@ -314,17 +331,38 @@ void APlayer::PixelCheck(float _DeltaTime)
 	float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
 	
 	V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
-	
 	V_PlayerPos /= Size;
 
-	Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
-	if (Color != Color8Bit::Black) // 공중
+	switch (ActorState)
 	{
-		IsGround = false;
+	case EPlayerState::Idle:
+	{
+		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		if (Color == Color8Bit::Black)
+		{
+			GravityVector = FVector::Zero;
+		}
+		break;
 	}
-	else // 땅에 닿으면,
+	default:
 	{
-		IsGround = true;
+		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		if (Color != Color8Bit::Black) // 공중
+		{
+			IsGround = false;
+		}
+		else // 땅에 닿으면,
+		{
+			IsGround = true;
+		}
+		break;
+	}
 	}
 }
 
+
+void APlayer::CalMoveVector(float _DeltaTime)
+{
+	AddActorLocation(CalVectors * _DeltaTime);
+	int a = 0;
+}

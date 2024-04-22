@@ -74,7 +74,7 @@ private:
 	void DieTick(float _DeltaTime);
 	void DieEnd();
 
-	void MoveUpdate(float _DeltaTime);
+	//void MoveUpdate(float _DeltaTime);
 	void CalVector();
 	void Gravity(float _DeltaTime);
 	void CalMoveVector(float _DeltaTime);
@@ -86,13 +86,14 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
 	UCollision* Collision = nullptr;
+	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;
 
 	float4 PlayerToMouseDir = float4::Zero;
 
-	FVector CalVectors = FVector::Zero;	
+	FVector CalVectors = FVector::Zero;
 	FVector RunVector = FVector::Zero;
 	const float RunSpeed = 400.0f;
 	FVector JumpVector = FVector::Zero;
@@ -100,11 +101,14 @@ private:
 	bool GUI_Gravity = true;
 	FVector GravityVector = FVector::Zero;
 	const FVector GravityPower = FVector::Down * 1500.0f;
-	//FVector DashVector = FVector::Zero;
-	const float DashPower = 750.0f;
+	
+	FVector DashVector = FVector::Zero;
+	const float DashPower = 1000.0f;
+	const float DashSlowPower = -1000.0f;
 	float DashTime = 0.0f;
 	float4 DashDir = float4::Zero;
 
+	FVector DashSpectrumPos = FVector::Zero; // ¿‹ªÛ
 	const float DashCountUp = 3.0f; // 3√ 
 	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;

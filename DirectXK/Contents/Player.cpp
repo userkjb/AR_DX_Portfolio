@@ -55,7 +55,7 @@ void APlayer::Tick(float _DeltaTime)
 
 	DashCountTime(_DeltaTime);
 
-	PixelCheck(_DeltaTime);
+	//PixelCheck(_DeltaTime);
 
 	{
 		PlayerPos = GetActorLocation();
@@ -144,7 +144,11 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//std::string Msg7 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
 	//std::string Msg8 = std::format("Leng : {}\n", Leng.ToString());
 	//std::string Msg9 = std::format("Rot : {}\n", Rot);
-	//std::string Msg10 = std::format("CalVectors : {}\n", CalVectors.ToString());
+	std::string CalVectorsMsg = std::format("CalVectors : {}\n", CalVectors.ToString());
+	std::string RunVectorMsg = std::format("RunVector : {}\n", RunVector.ToString());
+	std::string JumpVectorMsg = std::format("JumpVector : {}\n", JumpVector.ToString());
+	std::string GravityVectorMsg = std::format("GravityVector : {}\n", GravityVector.ToString());
+	std::string DashVectorMsg = std::format("DashVector : {}\n", DashVector.ToString());
 
 	//UEngineDebugMsgWindow::PushMsg(Msg1);
 	UEngineDebugMsgWindow::PushMsg(Msg2);
@@ -155,6 +159,10 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(Msg7);
 	//UEngineDebugMsgWindow::PushMsg(Msg8);
 	//UEngineDebugMsgWindow::PushMsg(Msg9);
-	//UEngineDebugMsgWindow::PushMsg(Msg10);
+	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
+	UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
+	UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
+	UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);
+	UEngineDebugMsgWindow::PushMsg(DashVectorMsg);
 	UEngineDebugMsgWindow::PushMsg(StateName);
 }

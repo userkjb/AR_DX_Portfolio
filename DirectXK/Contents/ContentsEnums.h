@@ -20,3 +20,12 @@ enum class ECollisionOrder
 	Player,
 	Monster,
 };
+
+enum class EPlayerState
+{
+	Idle,
+	Run,
+	Jump,
+	Dash,
+	Die,
+};
