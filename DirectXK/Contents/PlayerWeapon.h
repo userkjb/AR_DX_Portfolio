@@ -35,6 +35,11 @@ private :
 		WeaponRotation = _Rot;
 	}
 
+	inline void SetPlayerDir(EEngineDir _PlayerDir)
+	{
+		PlayerDir = _PlayerDir;
+	}
+
 	void GetPlayerToMouseDir();
 
 	void t_DebugFunction(float _DeltaTime);
