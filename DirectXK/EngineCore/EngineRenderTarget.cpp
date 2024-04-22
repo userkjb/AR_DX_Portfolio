@@ -99,7 +99,7 @@ void UEngineRenderTarget::Effect(float _DeltaTime)
 			continue;
 		}
 
-		//EffectPtr->Update(_DeltaTime);
+		EffectPtr->Update(_DeltaTime);
 		EffectPtr->Effect(shared_from_this());
 	}
 }
