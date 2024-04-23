@@ -54,7 +54,7 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(Msg8);
 	//UEngineDebugMsgWindow::PushMsg(Msg9);
 	//UEngineDebugMsgWindow::PushMsg(DashCountMsg);
-	//UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
+	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
 	//UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);

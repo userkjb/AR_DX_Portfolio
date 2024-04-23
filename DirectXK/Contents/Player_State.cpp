@@ -8,6 +8,7 @@ void APlayer::StateInit()
 	State.CreateState("Idle");
 	State.CreateState("Run");
 	State.CreateState("Jump");
+	State.CreateState("Jumping");
 	State.CreateState("Dash");
 	State.CreateState("Die");
 
@@ -23,6 +24,10 @@ void APlayer::StateInit()
 		std::bind(&APlayer::JumpBegin, this),
 		std::bind(&APlayer::JumpTick, this, std::placeholders::_1),
 		std::bind(&APlayer::JumpEnd, this));
+	State.SetFunction("Jumping",
+		std::bind(&APlayer::JumpingBegin, this),
+		std::bind(&APlayer::JumpingTick, this, std::placeholders::_1),
+		std::bind(&APlayer::JumpingEnd, this));
 	State.SetFunction("Dash",
 		std::bind(&APlayer::DashBegin, this),
 		std::bind(&APlayer::DashTick, this, std::placeholders::_1),
@@ -162,14 +167,21 @@ void APlayer::JumpBegin()
 {
 	PlayerRenderer->ChangeAnimation("Jump");
 	JumpVector = JumpPower;
-	JumpTime = 0.0f;
 	ActorState = EPlayerState::Jump;
+	JumpTime = 0.0f;
 }
 
 void APlayer::JumpTick(float _DeltaTime)
 {
+	{
+		PlayerMouseDir(); // 캐릭터 좌우.
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
 	JumpTime += _DeltaTime;
-	PlayerMouseDir();
 
 	if (true == IsPress('A'))
 	{
@@ -189,29 +201,67 @@ void APlayer::JumpTick(float _DeltaTime)
 		RunVector = FVector::Zero;
 	}
 
-	//MoveUpdate(_DeltaTime);
-
-	if (JumpTime >= 0.1f)
+	// 0.008
+	if (JumpTime >= 0.05f)
 	{
-		if (true == IsGround)
-		{
-			JumpVector = FVector::Zero;
-
-			if (true == IsPress('A') || true == IsPress('D'))
-			{
-				State.ChangeState("Run");
-				return;
-			}
-			else
-			{
-				State.ChangeState("Idle");
-				return;
-			}
-		}
+		State.ChangeState("Jumping");
+		return;
 	}
 }
 
 void APlayer::JumpEnd()
+{
+}
+
+#pragma endregion
+
+#pragma region Jumping
+void APlayer::JumpingBegin()
+{
+	PlayerRenderer->ChangeAnimation("Jump");
+	JumpVector = JumpPower;
+	ActorState = EPlayerState::Jumping;
+	JumpTime = 0.0f;
+	IsGround = false;
+}
+
+void APlayer::JumpingTick(float _DeltaTime)
+{
+	{
+		PlayerMouseDir(); // 캐릭터 좌우.
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
+
+	if (true == IsPress('A'))
+	{
+		RunVector = FVector::Left * RunSpeed;
+	}
+	if (true == IsPress('D'))
+	{
+		RunVector = FVector::Right * RunSpeed;
+	}
+
+	if (true == IsUp('A'))
+	{
+		RunVector = FVector::Zero;
+	}
+	if (true == IsUp('D'))
+	{
+		RunVector = FVector::Zero;
+	}
+
+	if (true == IsGround)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+}
+
+void APlayer::JumpingEnd()
 {
 }
 #pragma endregion
@@ -302,6 +352,7 @@ void APlayer::CalVector()
 	CalVectors += DashVector;
 
 	CalVectors + JumpVector;
+	CalVectors + DashVector;
 }
 
 void APlayer::Gravity(float _DeltaTime)
@@ -377,11 +428,11 @@ void APlayer::PixelCheck(float _DeltaTime)
 
 		if (true == IsPress('A'))
 		{
-			V_PlayerRunPos_1.X -= 30.0f;
+			V_PlayerRunPos_1.X -= 8.0f;
 		}
 		else if (true == IsPress('D'))
 		{
-			V_PlayerRunPos_1.X += 30.0f;
+			V_PlayerRunPos_1.X += 8.0f;
 
 		}
 		V_PlayerRunPos_1.Y -= 10.0f;
@@ -398,6 +449,44 @@ void APlayer::PixelCheck(float _DeltaTime)
 		if (Color == Color8Bit::Black)
 		{
 			GravityVector = FVector::Zero;
+		}
+
+		break;
+	}
+	case EPlayerState::Jump:
+	{
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		FVector V_PlayerPos = PlayerPos;
+		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		V_PlayerPos /= Size;
+
+
+		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		if (Color == Color8Bit::Black) // 공중
+		{
+			GravityVector = FVector::Zero;
+		}
+
+		break;
+	}
+	case EPlayerState::Jumping:
+	{
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		FVector V_PlayerPos = PlayerPos;
+		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		V_PlayerPos /= Size;
+
+
+		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		if (Color == Color8Bit::Black)
+		{
+			GravityVector = FVector::Zero;
+			JumpVector = FVector::Zero;
+			IsGround = true;
 		}
 
 		break;

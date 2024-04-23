@@ -69,6 +69,9 @@ private:
 	void JumpBegin();
 	void JumpTick(float _DeltaTime);
 	void JumpEnd();
+	void JumpingBegin();
+	void JumpingTick(float _DeltaTime);
+	void JumpingEnd();
 	void DashBegin();
 	void DashTick(float _DeltaTime);
 	void DashEnd();

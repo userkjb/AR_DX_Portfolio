@@ -26,6 +26,7 @@ enum class EPlayerState
 	Idle,
 	Run,
 	Jump,
+	Jumping,
 	Dash,
 	Die,
 };
