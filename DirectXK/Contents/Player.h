@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/StateManager.h>
+#include <queue>
 
 class USpriteRenderer;
 class UDefaultSceneComponent;
@@ -56,6 +57,7 @@ private:
 	/// </summary>
 	/// <param name="_DeltaTime"></param>
 	void DashCountTime(float _DeltaTime);
+	void DashSpectrumCalPos(float _DeltaTime);
 	void t_DeBugFunction(float _DeltaTime);
 
 	void IdleBegin();
@@ -85,6 +87,8 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
+	USpriteRenderer* TestRenderer_1 = nullptr;
+	USpriteRenderer* TestRenderer_2 = nullptr;
 	UCollision* Collision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;
@@ -108,7 +112,9 @@ private:
 	float DashTime = 0.0f;
 	float4 DashDir = float4::Zero;
 
-	FVector DashSpectrumPos = FVector::Zero; // ¿‹ªÛ
+	//FVector DashSpectrumPos = FVector::Zero; // ¿‹ªÛ
+	std::queue<FVector> DashSpectrumPos;
+	float DashSpectrumPosSaveTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
 	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
