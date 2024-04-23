@@ -8,17 +8,24 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	FVector PlayerScale = GetActorScale3D();
 	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 	float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
-
 	FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
 	//CulMousPos.Y -= ScreenScale.Y;
 	//CulMousPos.Y *= -1.0f;
-
 	//float4 Leng = CulMousPos - PlayerPos;
 	float4 Leng = MousePosWorld - PlayerPos;
 	//PlayerToMouseDir = Leng.Normalize3DReturn();
-
 	FVector TesetRenserLOne = TestRenderer_1->GetLocalPosition();
 	FVector TesetRenserWOne = TestRenderer_1->GetWorldPosition();
+	std::string s_IsWall = "";
+	std::string s_IsHill = "";
+	if (true == IsWall)
+		s_IsWall = "True";
+	else
+		s_IsWall = "False";
+	if (true == IsHill)
+		s_IsHill = "True";
+	else
+		s_IsHill = "False";
 
 	
 	std::string StateName = State.GetCurStateName(); // 현재 상태.
@@ -55,6 +62,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(Msg9);
 	//UEngineDebugMsgWindow::PushMsg(DashCountMsg);
 	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
+	UEngineDebugMsgWindow::PushMsg(s_IsWall);
+	UEngineDebugMsgWindow::PushMsg(s_IsHill);
 	//UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);
