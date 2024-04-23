@@ -87,6 +87,8 @@ private:
 	void PixelCheck(float _DeltaTime);
 
 	bool IsGround = false;
+	bool IsWall = false;
+	bool IsHill = false;
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;

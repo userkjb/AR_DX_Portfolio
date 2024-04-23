@@ -137,11 +137,34 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		RunVector = FVector::Left * RunSpeed;
+		if (true == IsHill)
+		{
+			RunVector = (FVector::Left + FVector::Up) * RunSpeed;
+			
+		}
+		else if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Left * RunSpeed;
+		}
 	}
 	if (true == IsPress('D'))
 	{
-		RunVector = FVector::Right * RunSpeed;
+		if (true == IsHill)
+		{
+			RunVector = (FVector::Right + FVector::Up) * RunSpeed;
+		}
+		else if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Right * RunSpeed;
+		}
 	}
 
 	if (true == IsDown(VK_SPACE) || true == IsDown('W'))
@@ -159,6 +182,7 @@ void APlayer::RunTick(float _DeltaTime)
 
 void APlayer::RunEnd()
 {
+	RunVector = FVector::Zero;
 }
 #pragma endregion
 
@@ -263,6 +287,7 @@ void APlayer::JumpingTick(float _DeltaTime)
 
 void APlayer::JumpingEnd()
 {
+	IsGround = false;
 }
 #pragma endregion
 
@@ -423,34 +448,78 @@ void APlayer::PixelCheck(float _DeltaTime)
 
 		FVector V_PlayerRunPos_1 = FVector::Zero;
 		FVector V_PlayerRunPos_2 = FVector::Zero;
+		FVector V_PlayerRunPos_3 = FVector::Zero;
+		FVector V_PlayerRunPos_4 = FVector::Zero;
 		V_PlayerRunPos_1 = V_PlayerPos;
 		V_PlayerRunPos_2 = V_PlayerPos;
+		V_PlayerRunPos_3 = V_PlayerPos;
+		V_PlayerRunPos_4 = V_PlayerPos;
 
 		if (true == IsPress('A'))
 		{
 			V_PlayerRunPos_1.X -= 8.0f;
+			V_PlayerRunPos_1.Y -= 8.0f;
+
+			V_PlayerRunPos_2.X -= 7.0f;
+			V_PlayerRunPos_2.Y -= 8.0f;
+
+			V_PlayerRunPos_3.X -= 7.0f;
+			V_PlayerRunPos_3.Y -= 7.0f;
+
+			V_PlayerRunPos_4.X -= 8.0f;
+			V_PlayerRunPos_4.Y -= 7.0f;
 		}
-		else if (true == IsPress('D'))
+		if (true == IsPress('D'))
 		{
 			V_PlayerRunPos_1.X += 8.0f;
+			V_PlayerRunPos_1.Y -= 8.0f;
 
+			V_PlayerRunPos_2.X += 7.0f;
+			V_PlayerRunPos_2.Y -= 8.0f;
+
+			V_PlayerRunPos_3.X += 7.0f;
+			V_PlayerRunPos_3.Y -= 7.0f;
+
+			V_PlayerRunPos_4.X += 8.0f;
+			V_PlayerRunPos_4.Y -= 7.0f;
 		}
-		V_PlayerRunPos_1.Y -= 10.0f;
-		V_PlayerRunPos_2.Y -= 20.0f;
 
 		Color8Bit PlayerRunColor_1 = Tex->GetColor(V_PlayerRunPos_1, Color8Bit::Black);
 		Color8Bit PlayerRunColor_2 = Tex->GetColor(V_PlayerRunPos_2, Color8Bit::Black);
-		if (PlayerRunColor_1 == Color8Bit::Black)
+		Color8Bit PlayerRunColor_3 = Tex->GetColor(V_PlayerRunPos_3, Color8Bit::Black);
+		Color8Bit PlayerRunColor_4 = Tex->GetColor(V_PlayerRunPos_4, Color8Bit::Black);
+
+		if (PlayerRunColor_1 == Color8Bit::Black &&
+			PlayerRunColor_2 == Color8Bit::Black &&
+			PlayerRunColor_3 == Color8Bit::Black &&
+			PlayerRunColor_4 == Color8Bit::Black)
 		{
-			RunVector = FVector::Zero;
+			IsWall = true;
 		}
+		else
+		{
+			IsWall = false;
+		}
+
+		if (PlayerRunColor_1 == Color8Bit::Red ||
+			PlayerRunColor_2 == Color8Bit::Red ||
+			PlayerRunColor_3 == Color8Bit::Red ||
+			PlayerRunColor_4 == Color8Bit::Red)
+		{
+			IsHill = true;
+		}
+		else
+		{
+			IsHill = false;
+		}
+		
+
 
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
 		if (Color == Color8Bit::Black)
 		{
 			GravityVector = FVector::Zero;
 		}
-
 		break;
 	}
 	case EPlayerState::Jump:
