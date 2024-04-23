@@ -12,6 +12,14 @@ APlayer::APlayer()
 	PlayerRenderer->SetPivot(EPivot::BOT);
 	PlayerRenderer->SetupAttachment(Root);
 
+	TestRenderer_1 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	TestRenderer_1->SetPivot(EPivot::BOT);
+	TestRenderer_1->SetupAttachment(Root);
+
+	TestRenderer_2 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	TestRenderer_2->SetPivot(EPivot::BOT);
+	TestRenderer_2->SetupAttachment(Root);
+
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
 	Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
@@ -39,6 +47,15 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetAutoSize(Size, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
+	TestRenderer_1->SetAutoSize(Size, true);
+	TestRenderer_1->SetOrder(ERenderOrder::Player);
+	TestRenderer_1->SetSprite("TestPointImage.png");
+	TestRenderer_1->SetActive(true);
+	TestRenderer_2->SetAutoSize(Size, true);
+	TestRenderer_2->SetOrder(ERenderOrder::Player);
+	TestRenderer_2->SetSprite("TestPointImage.png");
+	TestRenderer_2->SetActive(false);
+
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 	//Weapone->Weapon_Renderer->SetDir(EEngineDir::Right);
 	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
@@ -54,6 +71,7 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DashCountTime(_DeltaTime);
+	DashSpectrumCalPos(_DeltaTime);
 
 	//PixelCheck(_DeltaTime);
 
@@ -107,62 +125,15 @@ void APlayer::DashCountTime(float _DeltaTime)
 		DashCount++;
 		DashCreationTime = 0.0f;
 	}
-
-#ifdef _DEBUG
-	std::string Msg1 = std::format("DashCount : {}\n", DashCount);
-
-	UEngineDebugMsgWindow::PushMsg(Msg1);
-#endif
 }
 
-void APlayer::t_DeBugFunction(float _DeltaTime)
+void APlayer::DashSpectrumCalPos(float _DeltaTime)
 {
-	PlayerPos = GetActorLocation();
-	FVector PlayerScale = GetActorScale3D();
-	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
-	float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
+	DashSpectrumPosSaveTime += _DeltaTime;
 
-	FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
-	//CulMousPos.Y -= ScreenScale.Y;
-	//CulMousPos.Y *= -1.0f;
-
-	//float4 Leng = CulMousPos - PlayerPos;
-	float4 Leng = MousePosWorld - PlayerPos;
-	PlayerToMouseDir = Leng.Normalize3DReturn();
-
-	float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
-	Rot *= UEngineMath::RToD; // 디그리( 0 ~ 180)
-	WeaponDir.Z = Rot;
-
-	std::string StateName = State.GetCurStateName();
-	//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
-	std::string Msg2 = std::format("Player_World Pos : {}\n", PlayerPos.ToString());
-	std::string Msg3 = std::format("Player_World Scale : {}\n", PlayerScale.ToString());
-	//std::string Msg4 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
-	//std::string Msg5 = std::format("Mouses_World Pos : {}\n", MousePosWorld.ToString());
-	//std::string Msg6 = std::format("Leng : {}\n", Leng.ToString());
-	//std::string Msg7 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
-	//std::string Msg8 = std::format("Leng : {}\n", Leng.ToString());
-	//std::string Msg9 = std::format("Rot : {}\n", Rot);
-	std::string CalVectorsMsg = std::format("CalVectors : {}\n", CalVectors.ToString());
-	std::string RunVectorMsg = std::format("RunVector : {}\n", RunVector.ToString());
-	std::string JumpVectorMsg = std::format("JumpVector : {}\n", JumpVector.ToString());
-	std::string GravityVectorMsg = std::format("GravityVector : {}\n", GravityVector.ToString());
-	std::string DashVectorMsg = std::format("DashVector : {}\n", DashVector.ToString());
-
-	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	UEngineDebugMsgWindow::PushMsg(Msg2);
-	UEngineDebugMsgWindow::PushMsg(Msg3);
-	//UEngineDebugMsgWindow::PushMsg(Msg4);
-	//UEngineDebugMsgWindow::PushMsg(Msg5);
-	//UEngineDebugMsgWindow::PushMsg(Msg6);
-	//UEngineDebugMsgWindow::PushMsg(Msg7);
-	//UEngineDebugMsgWindow::PushMsg(Msg8);
-	//UEngineDebugMsgWindow::PushMsg(Msg9);
-	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
-	UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
-	UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
-	UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);
-	UEngineDebugMsgWindow::PushMsg(DashVectorMsg);
-	UEngineDebugMsgWindow::PushMsg(StateName);
+	if (State.GetCurStateName() == "Dash")
+	{
+		int a = 0; // 타는 것 확인.
+	}
 }
+
