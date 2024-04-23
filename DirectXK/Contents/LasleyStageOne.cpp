@@ -93,7 +93,7 @@ void ALasleyStageOne::CreateMapImage()
 	std::string FileName = "";
 	UEngineSerializer Ser;
 
-	UEngineFile File = Dir.GetPathFromFile("DarkStage_1.Data");
+	UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
 	File.Open(EIOOpenMode::Read, EIODataType::Binary);
 	File.Load(Ser);
 

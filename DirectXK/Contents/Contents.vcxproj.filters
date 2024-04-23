@@ -138,6 +138,9 @@
     <ClCompile Include="LasleyStageGUI.cpp">
       <Filter>Level\03_LasleyLevel\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Player_Debug.cpp">
+      <Filter>Level\00_GameStart\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
