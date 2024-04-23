@@ -235,7 +235,7 @@ void APlayerWeapon::t_DebugFunction(float _DeltaTime)
 		s_PlayerDir = "Right";
 	}
 
-	std::string Msg1 = std::format("Weapon Actor Scale : {}\n", Scale.ToString());
+	/*std::string Msg1 = std::format("Weapon Actor Scale : {}\n", Scale.ToString());
 	UEngineDebugMsgWindow::PushMsg(Msg1);
 
 	std::string Msg2 = std::format("Weapon L_Render Scale : {}\n", LocalRenderScale.ToString());
@@ -244,5 +244,5 @@ void APlayerWeapon::t_DebugFunction(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(Msg3);
 
 	std::string Msg4 = std::format("Weapon PlayerDir: {}\n", s_PlayerDir);
-	UEngineDebugMsgWindow::PushMsg(Msg4);
+	UEngineDebugMsgWindow::PushMsg(Msg4);*/
 }

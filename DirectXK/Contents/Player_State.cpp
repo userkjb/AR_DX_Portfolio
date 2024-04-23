@@ -101,7 +101,7 @@ void APlayer::IdleTick(float _DeltaTime)
 
 void APlayer::IdleEnd()
 {
-	int a = 0;
+	
 }
 #pragma endregion
 
@@ -117,8 +117,9 @@ void APlayer::RunTick(float _DeltaTime)
 {
 	{
 		PlayerMouseDir(); // 캐릭터 좌우.
-		// 중력.
-		// 중력에 대한 픽셀 충돌.
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
 		CalVector(); // Vector 최종 계산
 		CalMoveVector(_DeltaTime); // 움직이기.
 	}
@@ -326,26 +327,90 @@ void APlayer::PixelCheck(float _DeltaTime)
 		return;
 	}
 
-	FVector V_PlayerPos = PlayerPos;
-	float Size = UContentsConstValue::AutoSizeValue; // const
-	float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
-	
-	V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
-	V_PlayerPos /= Size;
+	//float Size = UContentsConstValue::AutoSizeValue; // const
+	//float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+	//
+	//FVector V_PlayerPos = PlayerPos;
+	//V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+	//V_PlayerPos /= Size;
 
 	switch (ActorState)
 	{
 	case EPlayerState::Idle:
 	{
+		{
+			if (true == TestRenderer_2->IsActive())
+			{
+				TestRenderer_2->SetActive(false);
+			}
+		}
+
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		FVector V_PlayerPos = PlayerPos;
+		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		V_PlayerPos /= Size;
+
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
 		if (Color == Color8Bit::Black)
 		{
 			GravityVector = FVector::Zero;
 		}
+
+		break;
+	}
+	case EPlayerState::Run:
+	{
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		FVector V_PlayerPos = PlayerPos;
+		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		V_PlayerPos /= Size;
+
+
+		FVector V_PlayerRunPos_1 = FVector::Zero;
+		FVector V_PlayerRunPos_2 = FVector::Zero;
+		V_PlayerRunPos_1 = V_PlayerPos;
+		V_PlayerRunPos_2 = V_PlayerPos;
+
+		if (true == IsPress('A'))
+		{
+			V_PlayerRunPos_1.X -= 30.0f;
+		}
+		else if (true == IsPress('D'))
+		{
+			V_PlayerRunPos_1.X += 30.0f;
+
+		}
+		V_PlayerRunPos_1.Y -= 10.0f;
+		V_PlayerRunPos_2.Y -= 20.0f;
+
+		Color8Bit PlayerRunColor_1 = Tex->GetColor(V_PlayerRunPos_1, Color8Bit::Black);
+		Color8Bit PlayerRunColor_2 = Tex->GetColor(V_PlayerRunPos_2, Color8Bit::Black);
+		if (PlayerRunColor_1 == Color8Bit::Black)
+		{
+			RunVector = FVector::Zero;
+		}
+
+		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		if (Color == Color8Bit::Black)
+		{
+			GravityVector = FVector::Zero;
+		}
+
 		break;
 	}
 	default:
 	{
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		FVector V_PlayerPos = PlayerPos;
+		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		V_PlayerPos /= Size;
+
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
 		if (Color != Color8Bit::Black) // 공중
 		{

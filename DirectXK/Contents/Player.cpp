@@ -50,7 +50,7 @@ void APlayer::BeginPlay()
 	TestRenderer_1->SetAutoSize(Size, true);
 	TestRenderer_1->SetOrder(ERenderOrder::Player);
 	TestRenderer_1->SetSprite("TestPointImage.png");
-	TestRenderer_1->SetActive(true);
+	TestRenderer_1->SetActive(false);
 	TestRenderer_2->SetAutoSize(Size, true);
 	TestRenderer_2->SetOrder(ERenderOrder::Player);
 	TestRenderer_2->SetSprite("TestPointImage.png");
