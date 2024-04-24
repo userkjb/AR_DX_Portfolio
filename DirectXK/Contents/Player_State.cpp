@@ -305,6 +305,13 @@ void APlayer::JumpingTick(float _DeltaTime)
 		RunVector = FVector::Zero;
 	}
 
+	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
+	{
+		// ´ë½¬
+		State.ChangeState("Dash");
+		return;
+	}
+
 	if (true == IsGround)
 	{
 		State.ChangeState("Idle");
@@ -332,6 +339,7 @@ void APlayer::DashBegin()
 	ActorState = EPlayerState::Dash;
 
 	RunVector = FVector::Zero;
+	JumpVector = FVector::Zero;
 	GravityVector = FVector::Zero;
 }
 
