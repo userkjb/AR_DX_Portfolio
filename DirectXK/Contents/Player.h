@@ -96,8 +96,6 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
-	//USpriteRenderer* TestRenderer_1 = nullptr;
-	//USpriteRenderer* TestRenderer_2 = nullptr;
 	UCollision* Collision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;

@@ -24,7 +24,7 @@ protected :
 
 private :
 	UDefaultSceneComponent* Root = nullptr;
-	USpriteRenderer* Weapon_FX = nullptr;
+	USpriteRenderer* Weapon_FX_Render = nullptr;
 	UCollision* Collision = nullptr;
 };
 

@@ -4,6 +4,7 @@
 class UDefaultSceneComponent;
 class USpriteRenderer;
 class APlayer;
+class AWeaponFX;
 class APlayerWeapon : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -78,7 +79,8 @@ private :
 	
 
 	USpriteRenderer* Weapon_Renderer = nullptr;
-	USpriteRenderer* Weapon_FX = nullptr;
+	std::shared_ptr<AWeaponFX> WeaponFXActor= nullptr;
+	//USpriteRenderer* Weapon_FX = nullptr;
 
 	bool b_WeaponUpDownDir = false;
 	FVector CurAngle = { 0.0f, 0.0f, 45.0f };

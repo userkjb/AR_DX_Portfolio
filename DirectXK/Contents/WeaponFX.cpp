@@ -6,12 +6,12 @@ AWeaponFX::AWeaponFX()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("WeaponFXRenderer");
 
-	Weapon_FX = CreateDefaultSubObject<USpriteRenderer>("WeaponFXRenderer");
-	Weapon_FX->SetPivot(EPivot::BOT);
-	Weapon_FX->SetOrder(ERenderOrder::Weapon_FX);
-	Weapon_FX->SetupAttachment(Root);
-	Weapon_FX->SetDir(EEngineDir::Right);
-	Weapon_FX->SetActive(false);
+	Weapon_FX_Render = CreateDefaultSubObject<USpriteRenderer>("WeaponFXRenderer");
+	Weapon_FX_Render->SetPivot(EPivot::BOT);
+	Weapon_FX_Render->SetOrder(ERenderOrder::Weapon_FX);
+	Weapon_FX_Render->SetupAttachment(Root);
+	Weapon_FX_Render->SetDir(EEngineDir::Right);
+	Weapon_FX_Render->SetActive(false);
 
 	Collision = CreateDefaultSubObject<UCollision>("WeaponFXCollision");
 	Collision->SetupAttachment(Root);
@@ -32,13 +32,14 @@ void AWeaponFX::BeginPlay()
 	Super::BeginPlay();
 
 	{
-		Weapon_FX->CreateAnimation("G_S_Idle", "GreatSword_FX", 0.125f, false, 2, 2);
-		Weapon_FX->CreateAnimation("G_S_Attack", "GreatSword_FX", 0.125f, false, 0, 2);
+		Weapon_FX_Render->CreateAnimation("G_S_Idle", "GreatSword_FX", 0.125f, false, 2, 2);
+		Weapon_FX_Render->CreateAnimation("G_S_Attack", "GreatSword_FX", 0.125f, false, 0, 2);
 		
-		Weapon_FX->ChangeAnimation("G_S_Idle");
+		Weapon_FX_Render->ChangeAnimation("G_S_Idle");
 	}
 
-	Weapon_FX->SetAutoSize(2.0f, true);
+	Weapon_FX_Render->SetAutoSize(2.0f, true);
+	Collision->SetScale(FVector(100.0f, 100.0f, 100.0f));
 }
 
 void AWeaponFX::Tick(float _DeltaTime)
