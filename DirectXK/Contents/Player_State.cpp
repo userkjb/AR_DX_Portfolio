@@ -419,18 +419,6 @@ void APlayer::DieEnd()
 }
 #pragma endregion
 
-
-
-//void APlayer::MoveUpdate(float _DeltaTime)
-//{
-//	Gravity(_DeltaTime); // 중력
-//
-//
-//	CalVector(); // Vector 최종 계산
-//
-//	CalMoveVector(_DeltaTime); // 움직이기.
-//}
-
 void APlayer::CalVector()
 {
 	CalVectors = FVector::Zero;

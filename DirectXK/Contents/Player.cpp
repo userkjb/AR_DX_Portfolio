@@ -12,14 +12,6 @@ APlayer::APlayer()
 	PlayerRenderer->SetPivot(EPivot::BOT);
 	PlayerRenderer->SetupAttachment(Root);
 
-	//TestRenderer_1 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//TestRenderer_1->SetPivot(EPivot::BOT);
-	//TestRenderer_1->SetupAttachment(Root);
-
-	//TestRenderer_2 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//TestRenderer_2->SetPivot(EPivot::BOT);
-	//TestRenderer_2->SetupAttachment(Root);
-
 	PlayerCollision = CreateDefaultSubObject<UCollision>("Collision");
 	PlayerCollision->SetupAttachment(Root);
 	PlayerCollision->SetScale(FVector(1.0f, 1.0f, 1.0f, 1.0f));
@@ -48,11 +40,7 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
-	//Weapone->Weapon_Renderer->SetDir(EEngineDir::Right);
-	//std::shared_ptr<APlayerWeapon> Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
-	//Weapone->SetActorScale3D({2.0f, 2.0f, 2.0f});
 	Weapone->SetPlayerActor(shared_from_this());
-
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -63,8 +51,6 @@ void APlayer::Tick(float _DeltaTime)
 
 	DashCountTime(_DeltaTime);
 	DashSpectrumCalPos(_DeltaTime);
-
-	//PixelCheck(_DeltaTime);
 
 	{
 		PlayerPos = GetActorLocation();

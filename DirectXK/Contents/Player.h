@@ -79,7 +79,6 @@ private:
 	void DieTick(float _DeltaTime);
 	void DieEnd();
 
-	//void MoveUpdate(float _DeltaTime);
 	void CalVector();
 	void Gravity(float _DeltaTime);
 	void CalMoveVector(float _DeltaTime);
