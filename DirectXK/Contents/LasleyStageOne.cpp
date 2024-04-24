@@ -7,10 +7,6 @@
 ALasleyStageOne::ALasleyStageOne()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-		
-	//MapRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//MapRenderer->SetupAttachment(Root);
-	//MapRenderer->SetActive(true);
 	
 	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapColRenderer->SetupAttachment(Root);
@@ -32,12 +28,9 @@ void ALasleyStageOne::BeginPlay()
 	Super::BeginPlay();
 
 	float Size = UContentsConstValue::AutoSizeValue; // const
-	//MapRenderer->SetSprite("StartStage.png");
-	//MapRenderer->SetAutoSize(Size, true); // 
-	//MapRenderer->SetOrder(ERenderOrder::Map);
 
 	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(Size, true); // 
+	MapColRenderer->SetAutoSize(Size, true); // const Size
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 
 	CreateMapImage();
@@ -59,27 +52,6 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 			//MapRenderer->SetActive(true);
 			MapColRenderer->SetActive(false);
 		}
-	}
-
-	
-	/////
-	float Speed = 100.0f;
-
-	if (true == IsPress('U'))
-	{
-		AddActorLocation(FVector::Up * 100.0f * _DeltaTime);
-	}
-	if (true == IsPress('J'))
-	{
-		AddActorLocation(FVector::Down * 100.0f * _DeltaTime);
-	}
-	if (true == IsPress('H'))
-	{
-		AddActorLocation(FVector::Left * 100.0f * _DeltaTime);
-	}
-	if (true == IsPress('K'))
-	{
-		AddActorLocation(FVector::Right * 100.0f * _DeltaTime);
 	}
 }
 
@@ -106,7 +78,8 @@ void ALasleyStageOne::CreateMapImage()
 	size_t ImageYSize = TileData.size();
 
 	//TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
-	TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+	//TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+	TileRenderer->CreateTileMap(FileName, { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
 
 	for (size_t y = 0; y < ImageYSize; y++)
 	{

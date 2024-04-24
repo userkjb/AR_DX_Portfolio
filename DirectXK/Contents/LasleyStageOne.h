@@ -27,9 +27,11 @@ protected:
 private:
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
-	//USpriteRenderer* MapRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
 
+	/// <summary>
+	/// 타일맵 데이터 읽어서 출력.
+	/// </summary>
 	void CreateMapImage();
 };
 
