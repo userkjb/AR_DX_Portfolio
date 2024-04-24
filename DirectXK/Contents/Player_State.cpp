@@ -208,11 +208,25 @@ void APlayer::JumpTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		RunVector = FVector::Left * RunSpeed;
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Left * RunSpeed;
+		}
 	}
 	if (true == IsPress('D'))
 	{
-		RunVector = FVector::Right * RunSpeed;
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Right * RunSpeed;
+		}
 	}
 
 	if (true == IsUp('A'))
@@ -261,11 +275,25 @@ void APlayer::JumpingTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		RunVector = FVector::Left * RunSpeed;
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Left * RunSpeed;
+		}
 	}
 	if (true == IsPress('D'))
 	{
-		RunVector = FVector::Right * RunSpeed;
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Right * RunSpeed;
+		}
 	}
 
 	if (true == IsUp('A'))
@@ -291,7 +319,7 @@ void APlayer::JumpingEnd()
 #pragma endregion
 
 #pragma region Dash
-// 잔상 3개.
+// 잔상 2~3개.
 void APlayer::DashBegin()
 {
 	DashCount--; // 대쉬 카운터 -1.
