@@ -19,14 +19,7 @@ APlayerWeapon::APlayerWeapon()
 	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
 	Weapon_Renderer->SetupAttachment(Root);
 	Weapon_Renderer->SetDir(EEngineDir::Right);
-
-	//Weapon_FX = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
-	//Weapon_FX->SetPivot(EPivot::BOT);
-	//Weapon_FX->SetOrder(ERenderOrder::Weapon_FX);
-	//Weapon_FX->SetupAttachment(Root);
-	//Weapon_FX->SetDir(EEngineDir::Right);
-	//Weapon_FX->SetActive(false);
-	
+		
 	SetRoot(Root);
 
 	InputOn();
@@ -46,11 +39,6 @@ void APlayerWeapon::BeginPlay()
 		Weapon_Renderer->CreateAnimation("W_Swing", "GreatSword", 0.125f, false);
 
 		Weapon_Renderer->ChangeAnimation("W_Idle");
-	}
-	{
-		//Weapon_FX->CreateAnimation("G_S_Idle", "GreatSword_FX", 0.125f, false, 2, 2);
-		//Weapon_FX->CreateAnimation("G_S_Attack", "GreatSword_FX", 0.125f, false, 0, 2);
-		//Weapon_FX->ChangeAnimation("G_S_Idle");
 	}
 
 	{
@@ -74,11 +62,6 @@ void APlayerWeapon::BeginPlay()
 		WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
 	}
 	Weapon_Renderer->SetAutoSize(2.0f, true);
-	//Weapon_FX->SetAutoSize(2.0f, true);
-	//Weapon_One_Renderer->SetScale({ 1.0f, 1.0f, 1.0f });
-	//Weapon_One_Renderer->SetAutoSize(1.0f, true);
-	//Weapon_One_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
-	//Weapon_One_Renderer->SetSprite("BasicShortSword.png");
 }
 
 void APlayerWeapon::Tick(float _DeltaTime)
@@ -165,22 +148,6 @@ void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
 	
-	//Weapon_FX->SetActive(true);
-	//// 이펙트는 그 자리에 남아 있어야 함.
-	//Weapon_FX->SetPosition(Weapon_Renderer->GetLocalPosition() * 1.5f);
-	//Weapon_FX->ChangeAnimation("G_S_Attack");
-
-	//FVector RotationValue_FX = FVector::Zero;
-	//if (EEngineDir::Right == Weapon_Renderer->GetDir())
-	//{
-	//	RotationValue_FX.Z = -90.0f;
-	//	Weapon_FX->SetRotationDeg(WeaponRotation + RotationValue_FX);
-	//}
-	//else if (EEngineDir::Left == Weapon_Renderer->GetDir())
-	//{
-	//	RotationValue_FX.Z = -90.0f;
-	//	Weapon_FX->SetRotationDeg(WeaponRotation + RotationValue_FX);
-	//}
 	FVector WeaponCollisionPos = FVector::Zero;
 	FVector WeaponCollisionRot = WeaponRotation;
 	WeaponCollisionPos = GetActorLocation();
@@ -205,15 +172,8 @@ void APlayerWeapon::SwingBegin()
 
 void APlayerWeapon::SwingTick(float _DeltaTime)
 {
-	//if (true == Weapon_FX->IsCurAnimationEnd())
-	//{
-	//	Weapon_FX->ChangeAnimation("G_S_Idle");
-	//	Weapon_FX->SetActive(false);
-	//}
 	if (true == Weapon_Renderer->IsCurAnimationEnd())
 	{
-		//Weapon_FX->ChangeAnimation("G_S_Idle");
-		//Weapon_FX->SetActive(false);
 		State.ChangeState("Weapon_Idle");
 		return;
 	}

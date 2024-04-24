@@ -79,7 +79,6 @@ private :
 	
 	USpriteRenderer* Weapon_Renderer = nullptr;
 	std::shared_ptr<AWeaponFX> WeaponFXActor= nullptr;
-	//USpriteRenderer* Weapon_FX = nullptr;
 	const float Range = 100.0f; // 무기 사거리.
 
 	bool b_WeaponUpDownDir = false;

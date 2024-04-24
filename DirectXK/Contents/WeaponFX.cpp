@@ -18,7 +18,7 @@ AWeaponFX::AWeaponFX()
 	//Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
 	// 콜리전은 무조건 오더를 지정해줘야 한다.
 	Weapon_FX_Collision->SetCollisionGroup(ECollisionOrder::WeaponFX);
-	Weapon_FX_Collision->SetCollisionType(ECollisionType::Rect);
+	Weapon_FX_Collision->SetCollisionType(ECollisionType::RotRect);
 
 	SetRoot(Root);
 }

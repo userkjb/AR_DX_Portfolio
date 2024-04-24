@@ -25,7 +25,7 @@ APlayer::APlayer()
 	PlayerCollision->SetScale(FVector(1.0f, 1.0f, 1.0f, 1.0f));
 	// 콜리전은 무조건 오더를 지정해줘야 한다.
 	PlayerCollision->SetCollisionGroup(ECollisionOrder::Player);
-	PlayerCollision->SetCollisionType(ECollisionType::Rect);
+	PlayerCollision->SetCollisionType(ECollisionType::RotRect);
 
 	SetRoot(Root);
 
