@@ -224,6 +224,10 @@ void APlayer::PixelCheck(float _DeltaTime)
 		if (PlayerHeadColor == Color8Bit::Black)
 		{
 			JumpVector -= JumpVector;
+			if (JumpVector.Y <= 0.0f)
+			{
+				JumpVector = FVector::Zero;
+			}
 			//GravityVector = FVector::Zero;
 		}
 
