@@ -141,6 +141,9 @@
     <ClCompile Include="Player_Debug.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Player_PixelCheck.cpp">
+      <Filter>Level\00_GameStart\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

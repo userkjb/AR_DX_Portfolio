@@ -19,13 +19,13 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	std::string s_IsWall = "";
 	std::string s_IsHill = "";
 	if (true == IsWall)
-		s_IsWall = "True";
+		s_IsWall = "Wall : True";
 	else
-		s_IsWall = "False";
+		s_IsWall = "Wall : False";
 	if (true == IsHill)
-		s_IsHill = "True";
+		s_IsHill = "Hill : True";
 	else
-		s_IsHill = "False";
+		s_IsHill = "Hill : False";
 
 	
 	std::string StateName = State.GetCurStateName(); // 현재 상태.

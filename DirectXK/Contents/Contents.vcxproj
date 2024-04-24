@@ -211,6 +211,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
     <ClCompile Include="Player_Debug.cpp" />
+    <ClCompile Include="Player_PixelCheck.cpp" />
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="Tentacle.cpp" />
     <ClCompile Include="TestActor.cpp" />
