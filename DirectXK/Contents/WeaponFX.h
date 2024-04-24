@@ -3,10 +3,12 @@
 
 //class APlayerWeapon;
 class UDefaultSceneComponent;
+class APlayerWeapon;
 class AWeaponFX : public AActor
 {
 	GENERATED_BODY(AActor)
 
+	friend APlayerWeapon;
 public :
 	// constructer destructer
 	AWeaponFX();
@@ -25,6 +27,7 @@ protected :
 private :
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* Weapon_FX_Render = nullptr;
-	UCollision* Collision = nullptr;
+	UCollision* Weapon_FX_Collision = nullptr;
+	FVector CreateFX_Pos = FVector::Zero;
 };
 

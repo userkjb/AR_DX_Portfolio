@@ -20,12 +20,12 @@ APlayer::APlayer()
 	//TestRenderer_2->SetPivot(EPivot::BOT);
 	//TestRenderer_2->SetupAttachment(Root);
 
-	Collision = CreateDefaultSubObject<UCollision>("Collision");
-	Collision->SetupAttachment(Root);
-	Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
+	PlayerCollision = CreateDefaultSubObject<UCollision>("Collision");
+	PlayerCollision->SetupAttachment(Root);
+	PlayerCollision->SetScale(FVector(1.0f, 1.0f, 1.0f, 1.0f));
 	// 콜리전은 무조건 오더를 지정해줘야 한다.
-	Collision->SetCollisionGroup(ECollisionOrder::Player);
-	Collision->SetCollisionType(ECollisionType::Rect);
+	PlayerCollision->SetCollisionGroup(ECollisionOrder::Player);
+	PlayerCollision->SetCollisionType(ECollisionType::Rect);
 
 	SetRoot(Root);
 

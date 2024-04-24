@@ -27,7 +27,12 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	else
 		s_IsHill = "Hill : False";
 
+	FVector V_PlayerColPos_W = PlayerCollision->GetWorldPosition();
+	FVector V_PlayerColPos_L = PlayerCollision->GetLocalPosition();
 	
+
+
+
 	std::string StateName = State.GetCurStateName(); // 현재 상태.
 	//std::string Msg1 = std::format("Screen : {}\n", ScreenScale.ToString());
 	std::string Player_World_Pos = std::format("Player_World Pos : {}\n", T_PlayerPos.ToString());
@@ -48,6 +53,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//std::string T_Render_W = std::format("T_Render_W : {}\n", TesetRenserWOne.ToString());
 	std::string T_PlayerPoint_1 = std::format("T_Render_L1 : {}\n", V_Test_PlayerPoint_1.ToString());
 	std::string T_PlayerPoint_2 = std::format("T_Render_L2 : {}\n", V_Test_PlayerPoint_2.ToString());
+	std::string str_PlayerCollisionPos_W = std::format("Player Col Pos W : {}\n", V_PlayerColPos_W.ToString());
+	std::string str_PlayerCollisionPos_L = std::format("Player Col Pos L : {}\n", V_PlayerColPos_L.ToString());
 
 
 	UEngineDebugMsgWindow::PushMsg(StateName);
@@ -72,4 +79,6 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(DashVectorMsg);
+	UEngineDebugMsgWindow::PushMsg(str_PlayerCollisionPos_W);
+	UEngineDebugMsgWindow::PushMsg(str_PlayerCollisionPos_L);
 }

@@ -96,7 +96,7 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
-	UCollision* Collision = nullptr;
+	UCollision* PlayerCollision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;
 	EEngineDir ActorDir = EEngineDir::MAX;

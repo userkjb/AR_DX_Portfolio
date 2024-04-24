@@ -26,9 +26,7 @@ APlayerWeapon::APlayerWeapon()
 	//Weapon_FX->SetupAttachment(Root);
 	//Weapon_FX->SetDir(EEngineDir::Right);
 	//Weapon_FX->SetActive(false);
-	//WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
 	
-
 	SetRoot(Root);
 
 	InputOn();
@@ -72,6 +70,9 @@ void APlayerWeapon::BeginPlay()
 		State.ChangeState("Weapon_Idle");
 	}
 
+	{
+		WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
+	}
 	Weapon_Renderer->SetAutoSize(2.0f, true);
 	//Weapon_FX->SetAutoSize(2.0f, true);
 	//Weapon_One_Renderer->SetScale({ 1.0f, 1.0f, 1.0f });
@@ -180,7 +181,18 @@ void APlayerWeapon::SwingBegin()
 	//	RotationValue_FX.Z = -90.0f;
 	//	Weapon_FX->SetRotationDeg(WeaponRotation + RotationValue_FX);
 	//}
-	
+	FVector WeaponCollisionPos = FVector::Zero;
+	FVector WeaponCollisionRot = WeaponRotation;
+	WeaponCollisionPos = GetActorLocation();
+	WeaponCollisionPos += PlayerToMouseDir * Range;
+	WeaponCollisionPos.Z = 0.0f;
+	WeaponCollisionPos.W = 1.0f;
+	WeaponFXActor->SetActorLocation(WeaponCollisionPos);
+	WeaponCollisionRot.Z -= 90.0f;
+	WeaponFXActor->Weapon_FX_Render->SetRotationDeg(WeaponCollisionRot);
+	WeaponFXActor->Weapon_FX_Render->ChangeAnimation("G_S_Attack");
+	WeaponFXActor->Weapon_FX_Render->SetActive(true);
+
 	if (false == b_WeaponUpDownDir)
 	{
 		Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Prev);
@@ -217,6 +229,8 @@ void APlayerWeapon::SwingEnd()
 	{
 		b_WeaponUpDownDir = false;
 	}
+	WeaponFXActor->Weapon_FX_Render->ChangeAnimation("G_S_Idle");
+	WeaponFXActor->Weapon_FX_Render->SetActive(false);
 }
 #pragma endregion
 
