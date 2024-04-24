@@ -91,8 +91,8 @@ void APlayer::IdleTick(float _DeltaTime)
 	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
 		// 대쉬
-		//State.ChangeState("Dash");
-		//return;
+		State.ChangeState("Dash");
+		return;
 	}
 
 	// 하단 이동
@@ -174,8 +174,8 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
 	{
-		//State.ChangeState("Dash");
-		//return;
+		State.ChangeState("Dash");
+		return;
 	}
 }
 
@@ -327,35 +327,62 @@ void APlayer::DashBegin()
 	DashDir = PlayerToMouseDir; // 대쉬 방향은 Player기준 마우스 방향.
 	PlayerRenderer->ChangeAnimation("Run");
 
-	DashVector = FVector::Zero;
-	DashVector = DashDir * DashPower;
-	int a = 0;
+	DashVector = FVector::Zero; // 대쉬 방향.
+	DashVector = DashDir * DashPower; // 대쉬 방향 * 대쉬 속도.
 	ActorState = EPlayerState::Dash;
+
+	RunVector = FVector::Zero;
+	GravityVector = FVector::Zero;
 }
 
 void APlayer::DashTick(float _DeltaTime)
 {
-	DashTime += _DeltaTime;
-
-
-	//FVector MoveVector = DashDir * DashPower * _DeltaTime;
-	//MoveVector.Z = 0.0f;
-	//AddActorLocation(MoveVector);
-	DashVector.Z = 0.0f;
-	//MoveUpdate(_DeltaTime);
-	DashVector = DashVector * DashSlowPower * _DeltaTime;
-	
-
-	if (true == IsPress('A') || true == IsPress('D'))
 	{
-		State.ChangeState("Run");
-		return;
+		PlayerMouseDir(); // 캐릭터 좌우.
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
 	}
 
-	if (DashTime >= 0.5f)
+	DashTime += _DeltaTime;
+
+	if (true == IsPress('A'))
 	{
-		State.ChangeState("Idle");
-		return;
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Left * RunSpeed;
+		}
+	}
+	if (true == IsPress('D'))
+	{
+		if (true == IsWall)
+		{
+			RunVector = FVector::Zero;
+		}
+		else
+		{
+			RunVector = FVector::Right * RunSpeed;
+		}
+	}
+
+	if (DashTime >= 0.25f)
+	{
+		if (true == IsPress('A') || true == IsPress('D'))
+		{
+			State.ChangeState("Run");
+			return;
+		}
+		if (true == IsFree('A') || true == IsFree('D'))
+		{
+			State.ChangeState("Idle");
+			return;
+		}
 	}
 }
 
@@ -363,7 +390,8 @@ void APlayer::DashEnd()
 {
 	DashTime = 0.0f;
 	DashDir = float4::Zero;
-	//DashVector = FVector::Zero;
+	DashVector = FVector::Zero;
+	GravityVector = FVector::Zero;
 }
 #pragma endregion
 

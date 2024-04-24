@@ -43,6 +43,11 @@ void APlayer::PixelCheck(float _DeltaTime)
 		if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
+			IsGround = true;
+		}
+		else
+		{
+			IsGround = false;
 		}
 
 		break;
@@ -115,6 +120,11 @@ void APlayer::PixelCheck(float _DeltaTime)
 		if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
+			IsGround = true;
+		}
+		else
+		{
+			IsGround = false;
 		}
 		break;
 	}
@@ -244,7 +254,7 @@ void APlayer::PixelCheck(float _DeltaTime)
 
 		break;
 	}
-	default:
+	case EPlayerState::Dash:
 	{
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
@@ -253,15 +263,79 @@ void APlayer::PixelCheck(float _DeltaTime)
 		V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
 		V_PlayerPos /= Size;
 
+		FVector V_PlayerRunPos_1 = FVector::Zero;
+		FVector V_PlayerRunPos_2 = FVector::Zero;
+		FVector V_PlayerRunPos_3 = FVector::Zero;
+		FVector V_PlayerRunPos_4 = FVector::Zero;
+
+		V_PlayerRunPos_1 = V_PlayerPos;
+		V_PlayerRunPos_2 = V_PlayerPos;
+		V_PlayerRunPos_3 = V_PlayerPos;
+		V_PlayerRunPos_4 = V_PlayerPos;
+
+		// 우측 하단
+		V_PlayerRunPos_1.X -= 8.0f;
+		V_PlayerRunPos_1.Y -= 1.0f;
+
+		// 우측 상단
+		V_PlayerRunPos_2.X -= 8.0f;
+		V_PlayerRunPos_2.Y -= 16.0f;
+
+		// 좌측 상단
+		V_PlayerRunPos_3.X += 8.0f;
+		V_PlayerRunPos_3.Y -= 16.0f;
+
+		// 좌측 하단
+		V_PlayerRunPos_4.X += 8.0f;
+		V_PlayerRunPos_4.Y -= 1.0f;
+
+
+		Color8Bit Color_1 = Tex->GetColor(V_PlayerRunPos_1, Color8Bit::Black);
+		Color8Bit Color_2 = Tex->GetColor(V_PlayerRunPos_2, Color8Bit::Black);
+		Color8Bit Color_3 = Tex->GetColor(V_PlayerRunPos_3, Color8Bit::Black);
+		Color8Bit Color_4 = Tex->GetColor(V_PlayerRunPos_4, Color8Bit::Black);
+
+		if (Color_1 == Color8Bit::Black ||
+			Color_2 == Color8Bit::Black ||
+			Color_3 == Color8Bit::Black ||
+			Color_4 == Color8Bit::Black)
+		{
+			DashVector = FVector::Zero;
+			RunVector = FVector::Zero;
+		}
+		
+
+		// 바닥 체크.
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
-		if (Color != Color8Bit::Black) // 공중
+		//if (Color == Color8Bit::Black)
+		if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
+		{
+			GravityVector = FVector::Zero;
+			IsGround = true;
+		}
+		else
 		{
 			IsGround = false;
 		}
-		else // 땅에 닿으면,
-		{
-			IsGround = true;
-		}
+	}
+	default:
+	{
+		//float Size = UContentsConstValue::AutoSizeValue; // const
+		//float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
+
+		//FVector V_PlayerPos = PlayerPos;
+		//V_PlayerPos.Y = MapColSize.Y - PlayerPos.Y;
+		//V_PlayerPos /= Size;
+
+		//Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
+		//if (Color != Color8Bit::Black) // 공중
+		//{
+		//	IsGround = false;
+		//}
+		//else // 땅에 닿으면,
+		//{
+		//	IsGround = true;
+		//}
 		break;
 	}
 	}

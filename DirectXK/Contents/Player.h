@@ -110,7 +110,7 @@ private:
 	FVector RunVector = FVector::Zero;
 	const float RunSpeed = 400.0f;
 	FVector JumpVector = FVector::Zero;
-	const FVector JumpPower = FVector::Up * 1000.0f;
+	const FVector JumpPower = FVector::Up * 500.0f;
 	bool GUI_Gravity = true;
 	FVector GravityVector = FVector::Zero;
 	const FVector GravityPower = FVector::Down * 1500.0f;
@@ -122,7 +122,7 @@ private:
 	float4 DashDir = float4::Zero;
 
 	//FVector DashSpectrumPos = FVector::Zero; // ¿‹ªÛ
-	std::queue<FVector> DashSpectrumPos;
+	std::queue<FVector> DashSpectrumPos; // ¿‹ªÛ ¿ßƒ° ¿˙¿Â Queue
 	float DashSpectrumPosSaveTime = 0.0f;
 	const float DashCountUp = 3.0f; // 3√ 
 	float DashCreationTime = 0.0f;
