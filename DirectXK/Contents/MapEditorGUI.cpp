@@ -16,6 +16,8 @@ MapEditorGUI::~MapEditorGUI()
 
 void MapEditorGUI::Init()
 {
+	InputTileSize.X = 64.0f;
+	InputTileSize.Y = 64.0f;
 }
 
 void MapEditorGUI::Tick(ULevel* _Level, float _DeltaTime)
@@ -113,9 +115,13 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	ImGui::InputFloat2("TileSize", &InputTileSize.X); // 스프라이트 타일의 Size를 가져온다.
 	ImGui::InputInt2("Height and Width", InputHWValue);
 	ImGui::InputText("Data File Name", name, IM_ARRAYSIZE(name));
+	ImGui::InputText("Save File Name", SaveFileName, IM_ARRAYSIZE(SaveFileName));
 
 	std::string FileName(name);
 	FileName += ".png";
+
+	std::string SaveFileName(SaveFileName);
+	SaveFileName += ".Data";
 
 	// 타일 크기 지정
 	// 타일 개수 x
@@ -179,7 +185,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 				Ser << FileName;
 				Ser << TileData;
 
-				UEngineFile File = Dir.GetPathFromFile("DarkStage_2.Data");
+				UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
 				File.Open(EIOOpenMode::Write, EIODataType::Binary);
 				File.Save(Ser);
 				File.Close();
@@ -200,7 +206,7 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			std::string FileName = "";
 			UEngineSerializer Ser;
 
-			UEngineFile File = Dir.GetPathFromFile("DarkStage_2.Data");
+			UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
 			File.Open(EIOOpenMode::Read, EIODataType::Binary);
 			File.Load(Ser);
 

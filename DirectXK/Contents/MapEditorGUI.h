@@ -37,6 +37,7 @@ private:
 	std::string Str_CreateImage = "";
 	bool IsCreateImage = false;
 
-	char name[128] = "";
+	char name[128] = "DarkDesert_Sprite";
+	char SaveFileName[128] = "";
 };
 

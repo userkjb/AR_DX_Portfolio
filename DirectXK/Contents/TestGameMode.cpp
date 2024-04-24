@@ -96,7 +96,7 @@ void ATestGameMode::BeginPlay()
 
 	// 카메라 별 푸스트 프로세스 예제.
 	{
-		GetWorld()->GetMainCamera()->GetCameraTarget()->AddEffect<UBlurEffect>();
+		//GetWorld()->GetMainCamera()->GetCameraTarget()->AddEffect<UBlurEffect>();
 	}
 
 	{
