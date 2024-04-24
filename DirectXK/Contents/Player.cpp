@@ -12,13 +12,13 @@ APlayer::APlayer()
 	PlayerRenderer->SetPivot(EPivot::BOT);
 	PlayerRenderer->SetupAttachment(Root);
 
-	TestRenderer_1 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	TestRenderer_1->SetPivot(EPivot::BOT);
-	TestRenderer_1->SetupAttachment(Root);
+	//TestRenderer_1 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	//TestRenderer_1->SetPivot(EPivot::BOT);
+	//TestRenderer_1->SetupAttachment(Root);
 
-	TestRenderer_2 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	TestRenderer_2->SetPivot(EPivot::BOT);
-	TestRenderer_2->SetupAttachment(Root);
+	//TestRenderer_2 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	//TestRenderer_2->SetPivot(EPivot::BOT);
+	//TestRenderer_2->SetupAttachment(Root);
 
 	Collision = CreateDefaultSubObject<UCollision>("Collision");
 	Collision->SetupAttachment(Root);
@@ -46,15 +46,6 @@ void APlayer::BeginPlay()
 	float Size = UContentsConstValue::AutoSizeValue; // const
 	PlayerRenderer->SetAutoSize(Size, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
-
-	TestRenderer_1->SetAutoSize(Size, true);
-	TestRenderer_1->SetOrder(ERenderOrder::Player);
-	TestRenderer_1->SetSprite("TestPointImage.png");
-	TestRenderer_1->SetActive(false);
-	TestRenderer_2->SetAutoSize(Size, true);
-	TestRenderer_2->SetOrder(ERenderOrder::Player);
-	TestRenderer_2->SetSprite("TestPointImage.png");
-	TestRenderer_2->SetActive(false);
 
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 	//Weapone->Weapon_Renderer->SetDir(EEngineDir::Right);

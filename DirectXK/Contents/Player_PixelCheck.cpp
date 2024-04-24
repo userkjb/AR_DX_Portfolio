@@ -24,12 +24,12 @@ void APlayer::PixelCheck(float _DeltaTime)
 	{
 	case EPlayerState::Idle:
 	{
-		{
-			if (true == TestRenderer_2->IsActive())
-			{
-				TestRenderer_2->SetActive(false);
-			}
-		}
+		//{
+		//	if (true == TestRenderer_2->IsActive())
+		//	{
+		//		TestRenderer_2->SetActive(false);
+		//	}
+		//}
 
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		float4 MapColSize = UContentsConstValue::MapTexScale * Size; // const
@@ -39,7 +39,8 @@ void APlayer::PixelCheck(float _DeltaTime)
 		V_PlayerPos /= Size;
 
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
-		if (Color == Color8Bit::Black)
+		//if (Color == Color8Bit::Black)
+		if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
 		}
@@ -58,11 +59,9 @@ void APlayer::PixelCheck(float _DeltaTime)
 
 		FVector V_PlayerRunPos_1 = FVector::Zero;
 		FVector V_PlayerRunPos_2 = FVector::Zero;
-		FVector TestPoint = FVector::Zero;
 
 		V_PlayerRunPos_1 = V_PlayerPos;
 		V_PlayerRunPos_2 = V_PlayerPos;
-		TestPoint = V_PlayerPos;
 
 		if (true == IsPress('A'))
 		{
@@ -70,7 +69,7 @@ void APlayer::PixelCheck(float _DeltaTime)
 			V_PlayerRunPos_1.Y -= 8.0f;
 
 			V_PlayerRunPos_2.X -= 8.0f;
-			V_PlayerRunPos_2.Y -= 2.0f;
+			V_PlayerRunPos_2.Y -= 1.0f;
 		}
 		if (true == IsPress('D'))
 		{
@@ -78,17 +77,20 @@ void APlayer::PixelCheck(float _DeltaTime)
 			V_PlayerRunPos_1.Y -= 8.0f;
 
 			V_PlayerRunPos_2.X += 8.0f;
-			V_PlayerRunPos_2.Y -= 2.0f;
+			V_PlayerRunPos_2.Y -= 1.0f;
 		}
+
+#ifdef _DEBUG
+		{
+			V_Test_PlayerPoint_1 = V_PlayerRunPos_1;
+			V_Test_PlayerPoint_2 = V_PlayerRunPos_2;
+		}
+#endif
 
 		Color8Bit PlayerRunColor_1 = Tex->GetColor(V_PlayerRunPos_1, Color8Bit::Black);
-		Color8Bit PlayerRunColor_2 = Tex->GetColor(V_PlayerRunPos_2, Color8Bit::Black);
+		Color8Bit PlayerRunColor_2 = Tex->GetColor(V_PlayerRunPos_2, Color8Bit::Red);
 
-		if (PlayerRunColor_2 == Color8Bit::Black)
-		{
-			int a = 0;
-		}
-
+		// 둘 다 Black 이면 벽.
 		if (PlayerRunColor_1 == Color8Bit::Black && PlayerRunColor_2 == Color8Bit::Black)
 		{
 			IsWall = true;
@@ -98,7 +100,9 @@ void APlayer::PixelCheck(float _DeltaTime)
 			IsWall = false;
 		}
 
-		if (PlayerRunColor_1 != Color8Bit::Black && PlayerRunColor_2 == Color8Bit::Black)
+		// 몸통 Point 가 Black 이 아니고
+		// 바닥 Point 만 Black 인 경우.
+		if (PlayerRunColor_1 != Color8Bit::Black && PlayerRunColor_2 == Color8Bit::Red)
 		{
 			IsHill = true;
 		}
@@ -108,7 +112,7 @@ void APlayer::PixelCheck(float _DeltaTime)
 		}
 
 		Color8Bit Color = Tex->GetColor(V_PlayerPos, Color8Bit::Black);
-		if (Color == Color8Bit::Black || Color == Color8Bit::Blue)
+		if (Color == Color8Bit::Black || Color == Color8Bit::Magenta || Color == Color8Bit::Red)
 		{
 			GravityVector = FVector::Zero;
 		}

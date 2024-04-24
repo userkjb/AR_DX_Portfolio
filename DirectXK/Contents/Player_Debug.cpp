@@ -14,8 +14,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//float4 Leng = CulMousPos - PlayerPos;
 	float4 Leng = MousePosWorld - PlayerPos;
 	//PlayerToMouseDir = Leng.Normalize3DReturn();
-	FVector TesetRenserLOne = TestRenderer_1->GetLocalPosition();
-	FVector TesetRenserWOne = TestRenderer_1->GetWorldPosition();
+	//FVector TesetRenserLOne = TestRenderer_1->GetLocalPosition();
+	//FVector TesetRenserWOne = TestRenderer_1->GetWorldPosition();
 	std::string s_IsWall = "";
 	std::string s_IsHill = "";
 	if (true == IsWall)
@@ -44,8 +44,10 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	std::string JumpVectorMsg = std::format("JumpVector : {}\n", JumpVector.ToString());
 	std::string GravityVectorMsg = std::format("GravityVector : {}\n", GravityVector.ToString());
 	std::string DashVectorMsg = std::format("DashVector : {}\n", DashVector.ToString());
-	std::string T_Render_L = std::format("T_Render_L : {}\n", TesetRenserLOne.ToString());
-	std::string T_Render_W = std::format("T_Render_W : {}\n", TesetRenserWOne.ToString());
+	//std::string T_Render_L = std::format("T_Render_L : {}\n", TesetRenserLOne.ToString());
+	//std::string T_Render_W = std::format("T_Render_W : {}\n", TesetRenserWOne.ToString());
+	std::string T_PlayerPoint_1 = std::format("T_Render_L1 : {}\n", V_Test_PlayerPoint_1.ToString());
+	std::string T_PlayerPoint_2 = std::format("T_Render_L2 : {}\n", V_Test_PlayerPoint_2.ToString());
 
 
 	UEngineDebugMsgWindow::PushMsg(StateName);
@@ -53,8 +55,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(Msg2);
 	//UEngineDebugMsgWindow::PushMsg(Msg3);
 	UEngineDebugMsgWindow::PushMsg(Msg4);
-	UEngineDebugMsgWindow::PushMsg(T_Render_L);
-	UEngineDebugMsgWindow::PushMsg(T_Render_W);
+	//UEngineDebugMsgWindow::PushMsg(T_Render_L);
+	//UEngineDebugMsgWindow::PushMsg(T_Render_W);
 	//UEngineDebugMsgWindow::PushMsg(Msg5);
 	//UEngineDebugMsgWindow::PushMsg(Msg6);
 	//UEngineDebugMsgWindow::PushMsg(Msg7);
@@ -64,6 +66,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
 	UEngineDebugMsgWindow::PushMsg(s_IsWall);
 	UEngineDebugMsgWindow::PushMsg(s_IsHill);
+	UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_1);
+	UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_2);
 	//UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);

@@ -137,9 +137,13 @@ void APlayer::RunTick(float _DeltaTime)
 
 	if (true == IsPress('A'))
 	{
-		if (true == IsWall && false == IsHill)
+		if (true == IsWall)
 		{
 			RunVector = FVector::Zero;
+		}
+		else if (true == IsHill)
+		{
+			RunVector = (FVector::Left + FVector::Up) * RunSpeed;
 		}
 		else
 		{
@@ -148,16 +152,18 @@ void APlayer::RunTick(float _DeltaTime)
 	}
 	if (true == IsPress('D'))
 	{
-		if (true == IsWall && false == IsHill)
+		if (true == IsWall)
 		{
 			RunVector = FVector::Zero;
+		}
+		else if (true == IsHill)
+		{
+			RunVector = (FVector::Right + FVector::Up) * RunSpeed;
 		}
 		else
 		{
 			RunVector = FVector::Right * RunSpeed;
 		}
-		
-		//RunVector = (FVector::Right + FVector::Up) * RunSpeed;
 	}
 
 	if (true == IsDown(VK_SPACE) || true == IsDown('W'))

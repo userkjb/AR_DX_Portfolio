@@ -89,11 +89,15 @@ private:
 	bool IsGround = false;
 	bool IsWall = false;
 	bool IsHill = false;
+#ifdef _DEBUG
+	FVector V_Test_PlayerPoint_1 = FVector::Zero;
+	FVector V_Test_PlayerPoint_2 = FVector::Zero;
+#endif
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
-	USpriteRenderer* TestRenderer_1 = nullptr;
-	USpriteRenderer* TestRenderer_2 = nullptr;
+	//USpriteRenderer* TestRenderer_1 = nullptr;
+	//USpriteRenderer* TestRenderer_2 = nullptr;
 	UCollision* Collision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;
