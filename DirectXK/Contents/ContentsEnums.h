@@ -19,6 +19,7 @@ enum class ECollisionOrder
 {
 	Player,
 	Monster,
+	WeaponFX,
 };
 
 enum class EPlayerState

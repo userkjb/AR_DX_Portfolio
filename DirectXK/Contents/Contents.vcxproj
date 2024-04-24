@@ -193,6 +193,10 @@
     </ClInclude>
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TownGameMode.h" />
+    <ClInclude Include="WeaponFX.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
@@ -229,6 +233,10 @@
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TownGameMode.cpp" />
+    <ClCompile Include="WeaponFX.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

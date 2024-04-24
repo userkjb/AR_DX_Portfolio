@@ -144,6 +144,9 @@
     <ClCompile Include="Player_PixelCheck.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponFX.cpp">
+      <Filter>Level\00_GameStart\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="LasleyStageGUI.h">
       <Filter>Level\03_LasleyLevel\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponFX.h">
+      <Filter>Level\00_GameStart\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
