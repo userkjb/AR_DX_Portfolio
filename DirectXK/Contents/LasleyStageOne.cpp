@@ -17,12 +17,12 @@ ALasleyStageOne::ALasleyStageOne()
 	StageDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	StageDoor->SetupAttachment(Root);
 
-	LeftMap = CreateDefaultSubObject<UCollision>("StartMapCollision");
-	LeftMap->SetupAttachment(Root);
-	LeftMap->SetScale(FVector{ 64.0, 280.0, 1.0f });
-	LeftMap->SetCollisionGroup(ECollisionOrder::NextMap);
-	LeftMap->SetCollisionType(ECollisionType::RotRect);
-	LeftMap->SetPosition(FVector{ -608.0f, -250.0f, 0.0f });
+	LeftMapCol = CreateDefaultSubObject<UCollision>("StartMapCollision");
+	LeftMapCol->SetupAttachment(Root);
+	LeftMapCol->SetScale(FVector{ 64.0, 280.0, 1.0f });
+	LeftMapCol->SetCollisionGroup(ECollisionOrder::NextMap);
+	LeftMapCol->SetCollisionType(ECollisionType::RotRect);
+	LeftMapCol->SetPosition(FVector{ -608.0f, -250.0f, 0.0f });
 
 	SetRoot(Root);
 
@@ -55,6 +55,8 @@ void ALasleyStageOne::BeginPlay()
 void ALasleyStageOne::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	CollisionCheck(_DeltaTime);
 
 	if (true == IsDown('O'))
 	{
@@ -116,4 +118,14 @@ void ALasleyStageOne::CreateAnimation()
 	StageDoor->CreateAnimation("StartDoor", "Stage_Start_Door", 0.125f, false);
 
 	StageDoor->ChangeAnimation("StartDoor");
+}
+
+void ALasleyStageOne::CollisionCheck(float _DeltaTime)
+{
+	LeftMapCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			FVector PlayerLocation = _Collison->GetActor()->GetActorLocation();
+			int a = 0;
+		}
+	);
 }
