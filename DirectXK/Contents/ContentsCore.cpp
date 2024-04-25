@@ -27,6 +27,17 @@ void UContentsCore::Initialize()
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
 	}
 
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\MouseCursor");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+	}
+
 	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
 	//GEngine->ChangeLevel("PlayLevel");
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");

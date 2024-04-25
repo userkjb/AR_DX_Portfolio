@@ -20,6 +20,9 @@ APlayer::APlayer()
 	PlayerCollision->SetCollisionGroup(ECollisionOrder::Player);
 	PlayerCollision->SetCollisionType(ECollisionType::RotRect);
 
+	MouseRendere = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MouseRendere->SetupAttachment(Root);
+
 	SetRoot(Root);
 
 	InputOn();
@@ -42,6 +45,10 @@ void APlayer::BeginPlay()
 
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
 	Weapone->SetPlayerActor(shared_from_this());
+
+	MouseRendere->SetSprite("ShootingCursor2.png");
+	MouseRendere->SetAutoSize(Size, true);
+	MouseRendere->SetOrder(ERenderOrder::Mouse);
 }
 
 void APlayer::Tick(float _DeltaTime)
@@ -66,6 +73,19 @@ void APlayer::Tick(float _DeltaTime)
 		float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
 		Rot *= UEngineMath::RToD;
 		WeaponDir.Z = Rot;
+
+		
+	}
+	
+	// Ä¿¼­
+	{
+		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
+		float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
+		MousePosWorld.Z = 1.0f;
+
+		FVector MousePosition = MousePosWorld - PlayerPos;
+
+		MouseRendere->SetPosition(MousePosition);
 	}
 
 #ifdef _DEBUG

@@ -86,6 +86,7 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* PlayerRenderer = nullptr;
+	USpriteRenderer* MouseRendere = nullptr;
 	UCollision* PlayerCollision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;

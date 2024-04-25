@@ -13,6 +13,7 @@ enum class ERenderOrder
 	BossSkill,
 	Weapon_FX,
 	MapObject,
+	Mouse,
 };
 
 
