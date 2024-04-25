@@ -6,6 +6,7 @@ enum class ERenderOrder
 	Map,
 	MapCol,
 	Weapon_Prev,
+	StageDoor,
 	Player,
 	Weapon_Next,
 	Boss,

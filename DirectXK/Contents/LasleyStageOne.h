@@ -28,10 +28,13 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
+	USpriteRenderer* StageDoor = nullptr; // 스테이지 입장 했을 때 큰 문.
 
 	/// <summary>
 	/// 타일맵 데이터 읽어서 출력.
 	/// </summary>
 	void CreateMapImage();
+	
+	void CreateAnimation();
 };
 

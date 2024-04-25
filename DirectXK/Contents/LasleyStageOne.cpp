@@ -14,6 +14,9 @@ ALasleyStageOne::ALasleyStageOne()
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
+	StageDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	StageDoor->SetupAttachment(Root);
+
 	SetRoot(Root);
 
 	InputOn(); // test
@@ -27,11 +30,17 @@ void ALasleyStageOne::BeginPlay()
 {
 	Super::BeginPlay();
 
-	float Size = UContentsConstValue::AutoSizeValue; // const
+	float CSize = UContentsConstValue::AutoSizeValue; // const
 
 	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(Size, true); // const Size
+	MapColRenderer->SetAutoSize(CSize, true); // const Size
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
+
+	StageDoor->SetAutoSize(CSize, true);
+	StageDoor->SetOrder(ERenderOrder::StageDoor);
+	StageDoor->SetPosition({ 380.0f, 18.0f, 0.0f });
+
+	CreateAnimation();
 
 	CreateMapImage();
 }
@@ -93,4 +102,11 @@ void ALasleyStageOne::CreateMapImage()
 
 	TileRenderer->SetOrder(ERenderOrder::Map);
 	TileRenderer->SetPosition({ 0.0, 0.0, -10.0f });
+}
+
+void ALasleyStageOne::CreateAnimation()
+{
+	StageDoor->CreateAnimation("StartDoor", "Stage_Start_Door", 0.125f, false);
+
+	StageDoor->ChangeAnimation("StartDoor");
 }
