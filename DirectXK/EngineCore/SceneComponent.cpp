@@ -12,25 +12,15 @@ USceneComponent::~USceneComponent()
 void USceneComponent::SetupAttachment(USceneComponent* _Parent)
 {
 	SetParent(_Parent);
+	ComponentParent = _Parent;
 }
 
 bool USceneComponent::IsActive()
 {
-	if (false == UActorComponent::IsActive())
+	if (nullptr != ComponentParent)
 	{
-		return false;
+		return ComponentParent->IsActive() && UActorComponent::IsActive();
 	}
-
-	if (nullptr != Parent)
-	{
-		USceneComponent* ParentPtr = dynamic_cast<USceneComponent*>(Parent);
-
-		if (false == ParentPtr->IsActive())
-		{
-			return false;
-		}
-	}
-
 
 	return UActorComponent::IsActive();
 }

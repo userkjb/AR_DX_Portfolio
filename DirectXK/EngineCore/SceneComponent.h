@@ -23,6 +23,6 @@ public:
 protected:
 
 private:
-
+	USceneComponent* ComponentParent = nullptr;
 };
 
