@@ -50,6 +50,18 @@ void ALasleyGameMode::BeginPlay()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\LasleyStage");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Image\\PlayerActor");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
@@ -105,14 +117,7 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 
 
 	FVector PlayerPos = Player->GetPlayerPos();
-#ifdef _DEBUG
-	//FVector CameraPos = Camera->GetActorLocation();
-	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
-	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
-	//UEngineDebugMsgWindow::PushMsg(Msg1);
-	//UEngineDebugMsgWindow::PushMsg(Msg2);
-#endif
-	
+		
 	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
 	{
 		if (FreeCamera)
@@ -124,10 +129,20 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 			FreeCamera = true;
 		}
 	}
-	if (!FreeCamera)
+	if (!FreeCamera) // false
 	{
 		Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
 	}
+
+
+
+#ifdef _DEBUG
+	//FVector CameraPos = Camera->GetActorLocation();
+	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
+	//std::string Msg2 = std::format("Level Camera Pos : {}\n", CameraPos.ToString());
+	//UEngineDebugMsgWindow::PushMsg(Msg1);
+	//UEngineDebugMsgWindow::PushMsg(Msg2);
+#endif
 }
 
 void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
