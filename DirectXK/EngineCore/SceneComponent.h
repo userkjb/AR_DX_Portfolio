@@ -18,6 +18,8 @@ public:
 
 	void SetupAttachment(USceneComponent* _Parent);
 
+	bool IsActive() override;
+
 protected:
 
 private:
