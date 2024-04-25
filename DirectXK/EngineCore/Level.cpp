@@ -44,11 +44,18 @@ void ULevel::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 	for (std::pair<const int, std::list<std::shared_ptr<AActor>>>& TickGroup : Actors)
 	{
+		if (false == GEngine->TimeScales.contains(TickGroup.first))
+		{
+			GEngine->TimeScales[TickGroup.first] = 1.0f;
+		}
+
+		float TimeScale = GEngine->TimeScales[TickGroup.first];
+
 		std::list<std::shared_ptr<AActor>>& GroupActors = TickGroup.second;
 
 		for (std::shared_ptr<AActor> Actor : GroupActors)
 		{
-			Actor->Tick(_DeltaTime);
+			Actor->Tick(_DeltaTime * TimeScale);
 		}
 	}
 }
