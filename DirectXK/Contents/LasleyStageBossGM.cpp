@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "LasleyStageBossGM.h"
 
+#include "Player.h"
 #include "LasleyStageBoss.h"
 
 ALasleyStageBossGM::ALasleyStageBossGM()
@@ -25,6 +26,26 @@ void ALasleyStageBossGM::BeginPlay()
 void ALasleyStageBossGM::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	FVector PlayerPos = Player->GetPlayerPos();
+
+	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
+	{
+		if (FreeCamera)
+		{
+			FreeCamera = false;
+		}
+		else
+		{
+			FreeCamera = true;
+		}
+	}
+	if (!FreeCamera) // false
+	{
+		Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
+	}
+
+
 }
 
 void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
@@ -36,7 +57,8 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 
 	// Player
 	{
-
+		Player = GetWorld()->SpawnActor<APlayer>("Player");
+		Player->SetActorLocation({ 160.0f,  125.0f, 0.0f });
 	}
 
 	{
