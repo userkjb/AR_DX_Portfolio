@@ -47,5 +47,8 @@
     <FxCompile Include="BlurEffectShader.fx">
       <Filter>Effect</Filter>
     </FxCompile>
+    <FxCompile Include="ImageShaderInstanced.fx">
+      <Filter>Effect</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

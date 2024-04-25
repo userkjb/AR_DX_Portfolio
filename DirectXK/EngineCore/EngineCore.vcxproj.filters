@@ -248,6 +248,7 @@
     <ClCompile Include="BlurEffect.cpp">
       <Filter>Object\Rendering\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="EngineStructuredBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -417,6 +418,7 @@
     <ClInclude Include="BlurEffect.h">
       <Filter>Object\Rendering\Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EngineStructuredBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
