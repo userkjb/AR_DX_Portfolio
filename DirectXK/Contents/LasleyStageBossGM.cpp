@@ -14,6 +14,12 @@ ALasleyStageBossGM::~ALasleyStageBossGM()
 void ALasleyStageBossGM::BeginPlay()
 {
 	Super::BeginPlay();
+
+	{
+		Camera = GetWorld()->GetMainCamera();
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
+	}
 }
 
 void ALasleyStageBossGM::Tick(float _DeltaTime)

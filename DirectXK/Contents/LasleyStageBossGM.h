@@ -18,13 +18,6 @@ public:
 	ALasleyStageBossGM& operator=(const ALasleyStageBossGM& _Other) = delete;
 	ALasleyStageBossGM& operator=(ALasleyStageBossGM&& _Other) noexcept = delete;
 
-	void test()
-	{
-		int a = 0;
-	}
-
-	int i_test = 0;
-
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -36,5 +29,7 @@ private :
 	std::shared_ptr<UCamera> Camera;
 	std::shared_ptr<APlayer> Player;
 	std::shared_ptr<ALasleyStageBoss> BossMap;
+
+	bool FreeCamera = false;
 };
 

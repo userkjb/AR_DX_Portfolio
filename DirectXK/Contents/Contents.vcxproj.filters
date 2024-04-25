@@ -64,6 +64,9 @@
     <Filter Include="Level\03_LasleyLevel\GUI">
       <UniqueIdentifier>{9548274b-2df0-4794-acb5-521160a5fc08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\00_GameStart\Struct">
+      <UniqueIdentifier>{4faaac4a-7681-4d71-b7f6-3208530cdbf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -153,6 +156,9 @@
     <ClCompile Include="LasleyStageBoss.cpp">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStruct.cpp">
+      <Filter>Level\00_GameStart\Struct</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -232,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="LasleyStageBoss.h">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStruct.h">
+      <Filter>Level\00_GameStart\Struct</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -183,6 +183,7 @@
     <ClInclude Include="LasleyStageBossGM.h" />
     <ClInclude Include="MapEditorGUI.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerStruct.h" />
     <ClInclude Include="PlayerWeapon.h" />
     <ClInclude Include="Tentacle.h" />
     <ClInclude Include="TestActor.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="LasleyStageBossGM.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerStruct.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
     <ClCompile Include="Player_Debug.cpp" />
     <ClCompile Include="Player_PixelCheck.cpp" />
