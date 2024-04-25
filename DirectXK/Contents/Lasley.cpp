@@ -61,10 +61,10 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
 	LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDoubleDimensionCutter", 0.125f);
 
-	//LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false);
 	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false, 0, 12);
 	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEnd, this));
 
+	// End
 	LasleyRenderer->ChangeAnimation("None");
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 }
