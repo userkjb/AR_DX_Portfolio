@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "Player.h"
+#include "PlayerStruct.h"
 
 
 void APlayer::t_DeBugFunction(float _DeltaTime)
@@ -43,7 +44,7 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//std::string Msg7 = std::format("PlayerToMouseDir : {}\n", PlayerToMouseDir.ToString());
 	//std::string Msg8 = std::format("Leng : {}\n", Leng.ToString());
 	//std::string Msg9 = std::format("Rot : {}\n", Rot);
-	std::string DashCountMsg = std::format("DashCount : {}\n", DashCount);
+	std::string DashCountMsg = std::format("DashCount : {}\n", EPlayerStateValue::DashCount);
 	std::string CalVectorsMsg = std::format("CalVectors : {}\n", CalVectors.ToString());
 	std::string RunVectorMsg = std::format("RunVector : {}\n", RunVector.ToString());
 	std::string JumpVectorMsg = std::format("JumpVector : {}\n", JumpVector.ToString());

@@ -2,6 +2,7 @@
 #include "Player.h"
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
+#include "PlayerStruct.h"
 
 void APlayer::StateInit()
 {
@@ -88,7 +89,7 @@ void APlayer::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
+	if (true == IsDown(VK_RBUTTON) && EPlayerStateValue::DashCount != 0)
 	{
 		// 대쉬
 		State.ChangeState("Dash");
@@ -172,7 +173,7 @@ void APlayer::RunTick(float _DeltaTime)
 		return;
 	}
 
-	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
+	if (true == IsDown(VK_RBUTTON) && EPlayerStateValue::DashCount != 0)
 	{
 		State.ChangeState("Dash");
 		return;
@@ -305,7 +306,7 @@ void APlayer::JumpingTick(float _DeltaTime)
 		RunVector = FVector::Zero;
 	}
 
-	if (true == IsDown(VK_RBUTTON) && DashCount != 0)
+	if (true == IsDown(VK_RBUTTON) && EPlayerStateValue::DashCount != 0)
 	{
 		// 대쉬
 		State.ChangeState("Dash");
@@ -329,7 +330,7 @@ void APlayer::JumpingEnd()
 // 잔상 2~3개.
 void APlayer::DashBegin()
 {
-	DashCount--; // 대쉬 카운터 -1.
+	EPlayerStateValue::DashCount--; // 대쉬 카운터 -1.
 
 	DashDir = PlayerToMouseDir; // 대쉬 방향은 Player기준 마우스 방향.
 	PlayerRenderer->ChangeAnimation("Run");

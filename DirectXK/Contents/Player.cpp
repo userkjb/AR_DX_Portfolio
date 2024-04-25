@@ -3,6 +3,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include "PlayerWeapon.h"
 #include <math.h>
+#include "PlayerStruct.h"
 
 APlayer::APlayer()
 {
@@ -92,14 +93,14 @@ void APlayer::CreateAnimation()
 
 void APlayer::DashCountTime(float _DeltaTime)
 {
-	if (DashCount != DashCountMax)
+	if (EPlayerStateValue::DashCount != EPlayerStateValue::DashCountMax)
 	{
 		DashCreationTime += _DeltaTime;
 	}
 
 	if (DashCreationTime >= DashCountUp)
 	{
-		DashCount++;
+		EPlayerStateValue::DashCount++;
 		DashCreationTime = 0.0f;
 	}
 }

@@ -24,15 +24,6 @@ public:
 	APlayer& operator=(const APlayer& _Other) = delete;
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
-	inline int GetHp() const
-	{
-		return Hp;
-	}
-	inline void SetHp(int _Hp)
-	{
-		Hp = _Hp;
-	}
-
 	inline FVector GetPlayerPos() const
 	{
 		return PlayerPos;
@@ -124,11 +115,6 @@ private:
 	const float DashCountUp = 3.0f; // 3√ 
 	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
-	int Hp = 0;
-	int MaxHp = 0;
-
-	int DashCount = 500; // 2
-	int DashCountMax = 500; // 2
 
 	FVector WeaponDir = FVector::Zero;
 	std::shared_ptr<APlayerWeapon> Weapone = nullptr;
