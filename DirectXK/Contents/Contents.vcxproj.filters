@@ -147,6 +147,12 @@
     <ClCompile Include="WeaponFX.cpp">
       <Filter>Level\00_GameStart\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="LasleyStageBossGM.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="LasleyStageBoss.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -220,6 +226,12 @@
     </ClInclude>
     <ClInclude Include="WeaponFX.h">
       <Filter>Level\00_GameStart\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStageBossGM.h">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStageBoss.h">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

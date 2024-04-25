@@ -10,6 +10,7 @@
 #include <EngineCore/EngineEditorGUI.h>
 #include "ContentsGUI.h"
 #include "MapEditorGUI.h"
+#include "LasleyStageBossGM.h"
 
 UContentsCore::UContentsCore()
 {
@@ -31,6 +32,7 @@ void UContentsCore::Initialize()
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
 	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
+	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 
 	GEngine->ChangeLevel("LasleyLevel");
 }

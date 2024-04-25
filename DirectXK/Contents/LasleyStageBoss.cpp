@@ -1,62 +1,41 @@
 #include "PreCompile.h"
-#include "LasleyStageOne.h"
+#include "LasleyStageBoss.h"
 #include <EngineCore/DefaultSceneComponent.h>
-
 #include <EngineCore/TileRenderer.h>
 
-ALasleyStageOne::ALasleyStageOne()
+ALasleyStageBoss::ALasleyStageBoss()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
-	
+
 	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapColRenderer->SetupAttachment(Root);
 	MapColRenderer->SetActive(false);
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
-	StageDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	StageDoor->SetupAttachment(Root);
-
-	LeftMapCol = CreateDefaultSubObject<UCollision>("StartMapCollision");
-	LeftMapCol->SetupAttachment(Root);
-	LeftMapCol->SetScale(FVector{ 64.0, 280.0, 1.0f });
-	LeftMapCol->SetCollisionGroup(ECollisionOrder::NextMap);
-	LeftMapCol->SetCollisionType(ECollisionType::RotRect);
-	LeftMapCol->SetPosition(FVector{ -608.0f, -250.0f, 0.0f });
-
 	SetRoot(Root);
-
 	InputOn(); // test
 }
 
-ALasleyStageOne::~ALasleyStageOne()
+ALasleyStageBoss::~ALasleyStageBoss()
 {
 }
 
-void ALasleyStageOne::BeginPlay()
+void ALasleyStageBoss::BeginPlay()
 {
 	Super::BeginPlay();
 
 	float CSize = UContentsConstValue::AutoSizeValue; // const
-
-	MapColRenderer->SetSprite("StartStageCol.png");
-	MapColRenderer->SetAutoSize(CSize, true); // const Size
+	MapColRenderer->SetSprite("Boss_Stage_Col.png");
+	MapColRenderer->SetAutoSize(CSize, true);
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
-
-	StageDoor->SetAutoSize(CSize, true);
-	StageDoor->SetOrder(ERenderOrder::StageDoor);
-	StageDoor->SetPosition({ 380.0f, 18.0f, 0.0f });
-
-	CreateAnimation();
 
 	CreateMapImage();
 }
 
-void ALasleyStageOne::Tick(float _DeltaTime)
+void ALasleyStageBoss::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
-
-	CollisionCheck(_DeltaTime);
 
 	if (true == IsDown('O'))
 	{
@@ -73,7 +52,7 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 	}
 }
 
-void ALasleyStageOne::CreateMapImage()
+void ALasleyStageBoss::CreateMapImage()
 {
 	UEngineDirectory Dir;
 	Dir.MoveToSearchChild("Config");
@@ -83,7 +62,7 @@ void ALasleyStageOne::CreateMapImage()
 	std::string FileName = "";
 	UEngineSerializer Ser;
 
-	UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
+	UEngineFile File = Dir.GetPathFromFile("DarkBoss_Stage.Data");
 	File.Open(EIOOpenMode::Read, EIODataType::Binary);
 	File.Load(Ser);
 
@@ -111,22 +90,4 @@ void ALasleyStageOne::CreateMapImage()
 
 	TileRenderer->SetOrder(ERenderOrder::Map);
 	TileRenderer->SetPosition({ 0.0, 0.0, -10.0f });
-}
-
-void ALasleyStageOne::CreateAnimation()
-{
-	StageDoor->CreateAnimation("StartDoor", "Stage_Start_Door", 0.125f, false);
-
-	StageDoor->ChangeAnimation("StartDoor");
-}
-
-void ALasleyStageOne::CollisionCheck(float _DeltaTime)
-{
-	LeftMapCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
-		{
-			//FVector PlayerLocation = _Collison->GetActor()->GetActorLocation();
-			
-			b_LeftMapCol = true;
-		}
-	);
 }

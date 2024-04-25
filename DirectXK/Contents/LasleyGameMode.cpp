@@ -138,7 +138,14 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 	// 플레이어가 다음 스테이지로 넘어가는 Map의 Collision에 충돌 했을 때,
 	// -> 플레이어의 키 입력을 막아야 한다.
 	// -> 화면이 어두워져야 한다.
-	bool IsLeftCol = StageMap_One->IsLeftMapCol();
+	bool IsLeftCol = StageMap_One->IsLeftMapCol(); // 왼쪽 포탈에 충돌 함.
+
+	if (true == IsLeftCol)
+	{
+		int a = 0;
+
+		GEngine->ChangeLevel("LasleyLevelBoss");
+	}
 
 #ifdef _DEBUG
 	//FVector CameraPos = Camera->GetActorLocation();
@@ -199,4 +206,8 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	StageMap_One->Destroy();
+
+	int a = 0;
 }

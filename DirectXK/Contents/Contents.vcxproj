@@ -177,8 +177,10 @@
     <ClInclude Include="GameLogo.h" />
     <ClInclude Include="Lasley.h" />
     <ClInclude Include="LasleyGameMode.h" />
+    <ClInclude Include="LasleyStageBoss.h" />
     <ClInclude Include="LasleyStageGUI.h" />
     <ClInclude Include="LasleyStageOne.h" />
+    <ClInclude Include="LasleyStageBossGM.h" />
     <ClInclude Include="MapEditorGUI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerWeapon.h" />
@@ -209,8 +211,10 @@
     <ClCompile Include="GameLogo.cpp" />
     <ClCompile Include="Lasley.cpp" />
     <ClCompile Include="LasleyGameMode.cpp" />
+    <ClCompile Include="LasleyStageBoss.cpp" />
     <ClCompile Include="LasleyStageGUI.cpp" />
     <ClCompile Include="LasleyStageOne.cpp" />
+    <ClCompile Include="LasleyStageBossGM.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
