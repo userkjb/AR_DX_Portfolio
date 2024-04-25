@@ -29,6 +29,8 @@ private:
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
 	USpriteRenderer* StageDoor = nullptr; // 스테이지 입장 했을 때 큰 문.
+	UCollision* LeftMap = nullptr;
+	UCollision* DownMap = nullptr; // 후추.
 
 	/// <summary>
 	/// 타일맵 데이터 읽어서 출력.

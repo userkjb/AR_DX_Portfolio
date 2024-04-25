@@ -21,6 +21,7 @@ enum class ECollisionOrder
 	Player,
 	Monster,
 	WeaponFX,
+	NextMap,
 };
 
 enum class EPlayerState

@@ -17,6 +17,13 @@ ALasleyStageOne::ALasleyStageOne()
 	StageDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	StageDoor->SetupAttachment(Root);
 
+	LeftMap = CreateDefaultSubObject<UCollision>("StartMapCollision");
+	LeftMap->SetupAttachment(Root);
+	LeftMap->SetScale(FVector{ 64.0, 280.0, 1.0f });
+	LeftMap->SetCollisionGroup(ECollisionOrder::NextMap);
+	LeftMap->SetCollisionType(ECollisionType::RotRect);
+	LeftMap->SetPosition(FVector{ -608.0f, -250.0f, 0.0f });
+
 	SetRoot(Root);
 
 	InputOn(); // test
