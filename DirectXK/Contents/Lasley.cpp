@@ -1,11 +1,19 @@
 #include "PreCompile.h"
 #include "Lasley.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include <EngineBase/EngineRandom.h>
 
 ALasley::ALasley()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
+	
+	{
+		MovePos.assign(12, FVector::Zero);
+		MovePos.push_back(FVector(100.0f, 100.0f));
+		//.....
+	}
+	
 	
 	LasleyRenderer = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleyRenderer->SetupAttachment(Root);
@@ -114,6 +122,7 @@ void ALasley::StateInit()
 #pragma region Summons
 void ALasley::SummonsBegin()
 {
+	int x = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 
 void ALasley::SummonsTick(float _DeltaTime)

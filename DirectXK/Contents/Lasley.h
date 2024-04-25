@@ -63,7 +63,13 @@ private :
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;
 
-	const int Life = 4;
+	int Life = 2;
+	int MaxHp = 40;
+	int Hp = 40;
 	const float MoveSpeed = 500.0f;
+	float MoveTime = 0.0f;
+	std::vector<FVector> MovePos;
 };
 
+// 이동은 한 땅 당 2곳, 총 12 곳 중 렌덤으로 이동한다.
+// 이동 하면서 더스트를 뿌린다.(약 0.5초 마다?)
