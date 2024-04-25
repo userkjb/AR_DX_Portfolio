@@ -32,7 +32,7 @@ public:
 
 	bool IsActive() override
 	{
-		return Actor->IsActive();
+		return UTickObject::IsActive() && Actor->IsActive();
 	}
 
 protected:
