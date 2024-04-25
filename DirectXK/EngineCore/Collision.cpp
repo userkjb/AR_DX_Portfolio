@@ -74,34 +74,42 @@ bool UCollision::Collision(int _TargetGroup,
 
 		if (true == Transform.Collision(ThisType, OtherType, OtherCollision->Transform))
 		{
-			bool IsFirst = false;
 
-			if (false == OtherCheck.contains(CollisionPtr))
+			if (false == FirstCheck.contains(CollisionPtr) && false == OtherCheck.contains(CollisionPtr))
 			{
-				IsFirst = true;
-			}
-			else {
-				IsFirst = false;
-			}
-
-			if (nullptr != _Enter || nullptr != _Exit)
-			{
-				OtherCheck.insert(CollisionPtr);
+				FirstCheck.insert(CollisionPtr);
+				if (nullptr != _Enter)
+				{
+					_Enter(OtherCollision);
+				}
 			}
 
-			if (true == IsFirst && nullptr != _Enter)
+			if (true == OtherCheck.contains(CollisionPtr))
 			{
-				_Enter(OtherCollision);
-			}
-			else if (false == IsFirst && nullptr != _Stay)
-			{
-				_Stay(OtherCollision);
+				if (nullptr != _Stay)
+				{
+					_Stay(OtherCollision);
+				}
 			}
 		}
-		else if (true == OtherCheck.contains(CollisionPtr) && nullptr != _Exit)
+		else if (true == OtherCheck.contains(CollisionPtr) || true == ExitCheck.contains(CollisionPtr))
 		{
 			OtherCheck.erase(CollisionPtr);
-			_Exit(OtherCollision);
+
+			if (false == ExitCheck.contains(CollisionPtr))
+			{
+				ExitCheck.insert(CollisionPtr);
+			}
+
+			if (true == ExitCheck.contains(CollisionPtr))
+			{
+				if (nullptr != _Exit)
+				{
+					_Exit(OtherCollision);
+				}
+				return false;
+			}
+
 		}
 	}
 
@@ -126,6 +134,15 @@ void UCollision::SetOrder(int _Order)
 void UCollision::Tick(float _Delta)
 {
 	Super::Tick(_Delta);
+
+
+	for (UCollision* Col : FirstCheck)
+	{
+		OtherCheck.insert(Col);
+	}
+	FirstCheck.clear();
+	ExitCheck.clear();
+
 	if (false == GEngine->IsDebug)
 	{
 		return;
@@ -148,7 +165,7 @@ void UCollision::Tick(float _Delta)
 		float4x4 PPos;
 
 		PScale.Scale(Scale);
-		PPos.Scale(Pos);
+		PPos.Position(Pos);
 
 		Trans.World = Trans.ScaleMat * Trans.PositionMat * PScale * PPos;
 		Trans.WVP = Trans.World * Trans.View * Trans.Projection;
