@@ -9,9 +9,11 @@ ALasley::ALasley()
 	
 	LasleyRenderer = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleyRenderer->SetupAttachment(Root);
+	LasleyRenderer->SetPivot(EPivot::BOT);
+	LasleyRenderer->SetOrder(ERenderOrder::Boss);
+	LasleyRenderer->SetDir(EEngineDir::Left);
 
-
-	InputOn();
+	InputOn(); // test
 }
 
 ALasley::~ALasley()
@@ -28,8 +30,8 @@ void ALasley::BeginPlay()
 
 	StateInit();
 
-	LasleyRenderer->SetAutoSize(5.0f, true);
-	LasleyRenderer->SetOrder(ERenderOrder::Boss);
+	LasleyRenderer->SetAutoSize(4.0f, true);
+	
 }
 
 void ALasley::Tick(float _DeltaTime)
@@ -92,20 +94,6 @@ void ALasley::StateInit()
 }
 
 
-// --- State ---
-//void ALasley::NoneBegin()
-//{
-//}
-//
-//void ALasley::NoneTick(float _DeltaTime)
-//{
-//	if (true == IsDown('A'))
-//	{
-//		StateChange(ELasleyState::DevilEye);
-//		return;
-//	}
-//}
-
 void ALasley::DevilEyeBegin()
 {
 	LasleyRenderer->ChangeAnimation("DevilEye");
@@ -113,7 +101,7 @@ void ALasley::DevilEyeBegin()
 
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
 		return;
@@ -127,7 +115,7 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("Wake");
 		return;
@@ -141,7 +129,7 @@ void ALasley::WakeBegin()
 
 void ALasley::WakeTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("DemonicBlade");
 		return;
@@ -155,7 +143,7 @@ void ALasley::DemonicBladeBegin()
 
 void ALasley::DemonicBladeTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("DimensionCutter");
 		return;
@@ -169,7 +157,7 @@ void ALasley::DimensionCutterBegin()
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("DoubleDimensionCutter");
 		return;
@@ -183,7 +171,7 @@ void ALasley::DoubleDimensionCutterBegin()
 
 void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("Down");
 		return;
@@ -197,7 +185,7 @@ void ALasley::DownBegin()
 
 void ALasley::DownTick(float _DeltaTime)
 {
-	if (true == IsDown('A'))
+	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
 		return;

@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "LasleyStageBoss.h"
+#include "Lasley.h"
 
 ALasleyStageBossGM::ALasleyStageBossGM()
 {
@@ -42,6 +43,9 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 	}
 	if (!FreeCamera) // false
 	{
+		float4 MapSize = UContentsConstValue::MapTexScale;
+		float4 ScreenSize = GEngine->EngineWindow.GetWindowScale();
+
 		Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
 	}
 
@@ -67,6 +71,11 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 		float4 TexScale = UContentsConstValue::MapTexScale;
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		BossMap->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
+	}
+
+	{
+		std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
+		Lasley->SetActorLocation({300.0f, 125.0f, 0.0f});
 	}
 }
 

@@ -189,18 +189,6 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		//BackGournd->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
 	}
 
-	{
-		//std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
-		//Lasley->SetActorScale3D();
-		//Lasley->SetActorLocation({ 0.0f, 0.0f, 200.0f });
-		// Actor의 위치, 크기는 여기서 Set 해주는 것이 좋다.
-		//float TileSize = UContentsConstValue::TileSize;
-		//float4 TexScale = UContentsConstValue::MapTexScale;
-		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
-		//Lasley->SetActorScale3D(ImageScale);
-		//Lasley->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
-	}
-
 }
 
 void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)

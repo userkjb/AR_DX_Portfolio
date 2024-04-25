@@ -45,5 +45,5 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 
-	GEngine->ChangeLevel("LasleyLevel");
+	GEngine->ChangeLevel("LasleyLevelBoss");
 }

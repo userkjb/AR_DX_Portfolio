@@ -26,4 +26,9 @@ void ContentsGUI::OnGui(ULevel* _Level, float _Delta)
 	{
 		GEngine->ChangeLevel("LasleyLevel");
 	}
+
+	if (true == ImGui::Button("LasleyLevelBoss"))
+	{
+		GEngine->ChangeLevel("LasleyLevelBoss");
+	}
 }

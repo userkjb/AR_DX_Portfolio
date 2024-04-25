@@ -97,7 +97,7 @@ private:
 
 	FVector CalVectors = FVector::Zero;
 	FVector RunVector = FVector::Zero;
-	const float RunSpeed = 400.0f;
+	const float RunSpeed = 500.0f;
 	FVector JumpVector = FVector::Zero;
 	const FVector JumpPower = FVector::Up * 500.0f;
 	bool GUI_Gravity = true;
