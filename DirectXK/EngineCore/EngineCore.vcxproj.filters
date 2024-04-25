@@ -249,6 +249,7 @@
       <Filter>Object\Rendering\Contents</Filter>
     </ClCompile>
     <ClCompile Include="EngineStructuredBuffer.cpp" />
+    <ClCompile Include="InstancingRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -419,6 +420,7 @@
       <Filter>Object\Rendering\Contents</Filter>
     </ClInclude>
     <ClInclude Include="EngineStructuredBuffer.h" />
+    <ClInclude Include="InstancingRender.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
