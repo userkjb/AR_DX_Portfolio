@@ -37,6 +37,9 @@ private :
 	void CreateAnimation();
 	void StateInit();
 
+	void SummonsBegin();
+	void SummonsTick(float _DeltaTime);
+	void SummonsEnd();
 	void DevilEyeBegin();
 	void DevilEyeTick(float _DeltaTime);
 	void IdleBegin();
@@ -52,13 +55,15 @@ private :
 	void DownBegin();
 	void DownTick(float _DeltaTime);
 
-
+	void LasleySummonEnd();
 
 	USpriteRenderer* LasleyRenderer = nullptr;
+	USpriteRenderer* LasleySummonFX = nullptr;
 
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;
 
+	const int Life = 4;
 	const float MoveSpeed = 500.0f;
 };
 

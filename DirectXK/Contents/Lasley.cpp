@@ -13,6 +13,12 @@ ALasley::ALasley()
 	LasleyRenderer->SetOrder(ERenderOrder::Boss);
 	LasleyRenderer->SetDir(EEngineDir::Left);
 
+	LasleySummonFX = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
+	LasleySummonFX->SetupAttachment(Root);
+	LasleySummonFX->SetPivot(EPivot::BOT);
+	LasleySummonFX->SetOrder(ERenderOrder::BossSkill);
+	
+
 	InputOn(); // test
 }
 
@@ -30,8 +36,8 @@ void ALasley::BeginPlay()
 
 	StateInit();
 
-	LasleyRenderer->SetAutoSize(4.0f, true);
-	
+	LasleyRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	LasleySummonFX->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 }
 
 void ALasley::Tick(float _DeltaTime)
@@ -55,12 +61,18 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
 	LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDoubleDimensionCutter", 0.125f);
 
+	//LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false);
+	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false, 0, 12);
+	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEnd, this));
+
 	LasleyRenderer->ChangeAnimation("None");
+	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 }
 
 void ALasley::StateInit()
 {
 	// Create
+	State.CreateState("Summons");
 	State.CreateState("Idle");
 	State.CreateState("Wake");
 
@@ -72,6 +84,12 @@ void ALasley::StateInit()
 	State.CreateState("Down");
 
 	// Set Function
+
+	State.SetFunction("Summons",
+		std::bind(&ALasley::SummonsBegin, this),
+		std::bind(&ALasley::SummonsTick, this, std::placeholders::_1),
+		std::bind(&ALasley::SummonsEnd, this));
+
 	State.SetStartFunction("Idle", std::bind(&ALasley::IdleBegin, this));
 	State.SetUpdateFunction("Idle", std::bind(&ALasley::IdleTick, this, std::placeholders::_1));
 
@@ -93,6 +111,19 @@ void ALasley::StateInit()
 	State.ChangeState("Idle");
 }
 
+#pragma region Summons
+void ALasley::SummonsBegin()
+{
+}
+
+void ALasley::SummonsTick(float _DeltaTime)
+{
+}
+
+void ALasley::SummonsEnd()
+{
+}
+#pragma endregion
 
 void ALasley::DevilEyeBegin()
 {
@@ -190,4 +221,9 @@ void ALasley::DownTick(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+}
+
+void ALasley::LasleySummonEnd()
+{
+	LasleySummonFX->SetActive(false);
 }
