@@ -88,6 +88,12 @@
     <Filter Include="Object\Rendering\Contents">
       <UniqueIdentifier>{e7f868ad-3384-4447-a0b6-b9d8081572bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\UI">
+      <UniqueIdentifier>{7c7c56da-7c60-4e24-985c-7a5dafcc6adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\UI\Contents">
+      <UniqueIdentifier>{582a3933-4d08-4e40-9827-bba5c1f75d09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -240,17 +246,27 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Object\Component\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUnit.cpp">
-      <Filter>Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Widget.cpp" />
-    <ClCompile Include="Image.cpp" />
     <ClCompile Include="BlurEffect.cpp">
       <Filter>Object\Rendering\Contents</Filter>
     </ClCompile>
-    <ClCompile Include="EngineStructuredBuffer.cpp" />
-    <ClCompile Include="InstancingRender.cpp" />
-    <ClCompile Include="SpriteInstancingRender.cpp" />
+    <ClCompile Include="EngineStructuredBuffer.cpp">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Object\UI\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InstancingRender.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteInstancingRender.cpp">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -412,17 +428,27 @@
     <ClInclude Include="Renderer.h">
       <Filter>Object\Component\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="RenderUnit.h">
-      <Filter>Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="Widget.h" />
-    <ClInclude Include="Image.h" />
     <ClInclude Include="BlurEffect.h">
       <Filter>Object\Rendering\Contents</Filter>
     </ClInclude>
-    <ClInclude Include="EngineStructuredBuffer.h" />
-    <ClInclude Include="InstancingRender.h" />
-    <ClInclude Include="SpriteInstancingRender.h" />
+    <ClInclude Include="EngineStructuredBuffer.h">
+      <Filter>Resources\ShaderResources</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="Widget.h">
+      <Filter>Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InstancingRender.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <Filter>Object\Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteInstancingRender.h">
+      <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
