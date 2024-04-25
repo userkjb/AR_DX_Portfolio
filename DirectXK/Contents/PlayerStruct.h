@@ -7,4 +7,5 @@ public:
 	static int Hp;
 	static int DashCount;
 	static int DashCountMax;
+	static int Life;
 };
