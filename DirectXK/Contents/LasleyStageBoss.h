@@ -26,7 +26,28 @@ private :
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
+	USpriteRenderer* MapObject = nullptr; // ¹®
+	UCollision* MapObjectCol = nullptr; // ¹® Col
+	UCollision* BossStageStartCol = nullptr;
+
+	UStateManager State;
+	void LasleyBossStageInBegin();
+	void LasleyBossStageInTick(float _DeltaTime);
+	void LasleyBossStageInExit();
+	void LasleyBossStageStartBegin();
+	void LasleyBossStageStartTick(float _DeltaTime);
+	void LasleyBossStageStartExit();
+	void LasleyBossStageIngBegin();
+	void LasleyBossStageIngTick(float _DeltaTime);
+	void LasleyBossStageIngExit();
+	void LasleyBossStageEndBegin();
+	void LasleyBossStageEndTick(float _DeltaTime);
+	void LasleyBossStageEndExit();
 
 	void CreateMapImage();
+	void StateInit();
+	void CreateAnimation();
+
+	void StageStartCollisionCheck(float _DeltaTime);
 };
 

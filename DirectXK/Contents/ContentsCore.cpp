@@ -38,6 +38,18 @@ void UContentsCore::Initialize()
 		}
 	}
 
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\MapObject");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
 	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
 	//GEngine->ChangeLevel("PlayLevel");
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
@@ -45,5 +57,5 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 
-	GEngine->ChangeLevel("LasleyLevel");
+	GEngine->ChangeLevel("LasleyLevelBoss");
 }

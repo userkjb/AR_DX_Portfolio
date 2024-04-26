@@ -13,6 +13,25 @@ ALasleyStageBoss::ALasleyStageBoss()
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
+	MapObject = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapObject->SetupAttachment(Root);
+	MapObject->SetPivot(EPivot::MAX);
+	MapObject->SetOrder(ERenderOrder::MapObject);
+	MapObject->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	MapObject->SetActive(false);
+
+	MapObjectCol = CreateDefaultSubObject<UCollision>("RendererCol");
+	MapObjectCol->SetupAttachment(MapObject);
+	MapObjectCol->SetCollisionGroup(ECollisionOrder::MapDoor);
+	MapObjectCol->SetCollisionType(ECollisionType::RotRect);
+
+	BossStageStartCol = CreateDefaultSubObject<UCollision>("BossStageStartCol");
+	BossStageStartCol->SetupAttachment(Root);
+	BossStageStartCol->SetCollisionGroup(ECollisionOrder::BossStageStart);
+	BossStageStartCol->SetCollisionType(ECollisionType::RotRect);
+	BossStageStartCol->SetScale(FVector(10.0f, 1000.0f, 10.0f));
+	BossStageStartCol->SetPosition({ -576.0f, 0.0f });
+
 	SetRoot(Root);
 	InputOn(); // test
 }
@@ -31,22 +50,29 @@ void ALasleyStageBoss::BeginPlay()
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
 
 	CreateMapImage();
+	
+	CreateAnimation();
+	StateInit();
+	float Up = (16.0f * 4.0f) * 4.0f;
+	float Right = 30.0f;
+	MapObject->SetPosition({ (-928.0f + Right), (-608.0f + Up) });
+	MapObject->SetRotationDeg({ 1.0f, 1.0f, 90.0f });
 }
 
 void ALasleyStageBoss::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	State.Update(_DeltaTime);
+
 	if (true == IsDown('O'))
 	{
 		if (false == MapColRenderer->IsActive())
 		{
-			//MapRenderer->SetActive(false);
 			MapColRenderer->SetActive(true);
 		}
 		else
 		{
-			//MapRenderer->SetActive(true);
 			MapColRenderer->SetActive(false);
 		}
 	}
@@ -90,4 +116,131 @@ void ALasleyStageBoss::CreateMapImage()
 
 	TileRenderer->SetOrder(ERenderOrder::Map);
 	TileRenderer->SetPosition({ 0.0, 0.0, -10.0f });
+}
+
+void ALasleyStageBoss::StateInit()
+{
+	State.CreateState("LasleyBossStateIn");
+	State.CreateState("LasleyBossStageStart");
+	State.CreateState("LasleyBossStageIng");
+	State.CreateState("LasleyBossStageEnd");
+
+	State.SetFunction("LasleyBossStateIn",
+		std::bind(&ALasleyStageBoss::LasleyBossStageInBegin, this),
+		std::bind(&ALasleyStageBoss::LasleyBossStageInTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBoss::LasleyBossStageInExit, this));
+
+	State.SetFunction("LasleyBossStageStart",
+		std::bind(&ALasleyStageBoss::LasleyBossStageStartBegin, this),
+		std::bind(&ALasleyStageBoss::LasleyBossStageStartTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBoss::LasleyBossStageStartExit, this));
+
+	State.SetFunction("LasleyBossStageIng",
+		std::bind(&ALasleyStageBoss::LasleyBossStageIngBegin, this),
+		std::bind(&ALasleyStageBoss::LasleyBossStageIngTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBoss::LasleyBossStageIngExit, this));
+
+	State.SetFunction("LasleyBossStageEnd",
+		std::bind(&ALasleyStageBoss::LasleyBossStageEndBegin, this),
+		std::bind(&ALasleyStageBoss::LasleyBossStageEndTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBoss::LasleyBossStageEndExit, this));
+
+	State.ChangeState("LasleyBossStateIn");
+}
+
+void ALasleyStageBoss::CreateAnimation()
+{
+	MapObject->CreateAnimation("Stele_CloseDoor", "Stele", 0.125f, false, 0, 8);
+	MapObject->CreateAnimation("Stele_IdleDoor", "Stele", 0.125f, true, 8, 15);
+	MapObject->CreateAnimation("Stele_OpenDoor", "Stele", 0.125f, false, 16, 23);
+
+	MapObject->ChangeAnimation("Stele_CloseDoor");
+}
+
+
+#pragma region LasleyBossStageIn
+void ALasleyStageBoss::LasleyBossStageInBegin()
+{
+	if (true == MapObject->IsActive())
+	{
+		MapObject->SetActive(false);
+	}
+}
+
+void ALasleyStageBoss::LasleyBossStageInTick(float _DeltaTime)
+{
+	// 플레이어가 일정 거리 앞으로 가면, 다음 상태로 전환.
+	StageStartCollisionCheck(_DeltaTime);
+}
+
+void ALasleyStageBoss::LasleyBossStageInExit()
+{
+	BossStageStartCol->SetActive(false);
+}
+#pragma endregion
+
+#pragma region LasleyBossStageStart
+void ALasleyStageBoss::LasleyBossStageStartBegin()
+{
+	MapObject->ChangeAnimation("Stele_CloseDoor");
+}
+
+void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
+{
+	if (true == IsDown('T'))
+	{
+		State.ChangeState("LasleyBossStageIng");
+		return;
+	}
+}
+
+void ALasleyStageBoss::LasleyBossStageStartExit()
+{
+}
+#pragma endregion
+
+#pragma region LasleyBossStageIng
+void ALasleyStageBoss::LasleyBossStageIngBegin()
+{
+	MapObject->ChangeAnimation("Stele_IdleDoor");
+}
+
+void ALasleyStageBoss::LasleyBossStageIngTick(float _DeltaTime)
+{
+	if (true == IsDown('T'))
+	{
+		State.ChangeState("LasleyBossStageEnd");
+		return;
+	}
+}
+
+void ALasleyStageBoss::LasleyBossStageIngExit()
+{
+}
+#pragma endregion
+
+#pragma region LasleyBossStageEnd
+void ALasleyStageBoss::LasleyBossStageEndBegin()
+{
+	MapObject->ChangeAnimation("Stele_OpenDoor");
+}
+
+void ALasleyStageBoss::LasleyBossStageEndTick(float _DeltaTime)
+{
+}
+
+void ALasleyStageBoss::LasleyBossStageEndExit()
+{
+}
+#pragma endregion
+
+
+void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
+{
+	BossStageStartCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			State.ChangeState("LasleyBossStageStart");
+			return;
+		});
+
 }

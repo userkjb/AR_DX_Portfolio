@@ -23,6 +23,8 @@ enum class ECollisionOrder
 	Monster,
 	WeaponFX,
 	NextMap,
+	BossStageStart,
+	MapDoor,
 };
 
 enum class EPlayerState
