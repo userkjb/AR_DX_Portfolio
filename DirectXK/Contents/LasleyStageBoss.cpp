@@ -15,17 +15,29 @@ ALasleyStageBoss::ALasleyStageBoss()
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
-	MapObject = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	MapObject->SetupAttachment(Root);
-	MapObject->SetPivot(EPivot::MAX);
-	MapObject->SetOrder(ERenderOrder::MapObject);
-	MapObject->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-	MapObject->SetActive(false);
+	MapObjectLeftDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapObjectLeftDoor->SetupAttachment(Root);
+	MapObjectLeftDoor->SetPivot(EPivot::MAX);
+	MapObjectLeftDoor->SetOrder(ERenderOrder::MapObject);
+	MapObjectLeftDoor->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	MapObjectLeftDoor->SetActive(false);
 
-	MapObjectCol = CreateDefaultSubObject<UCollision>("RendererCol");
-	MapObjectCol->SetupAttachment(Root);
-	MapObjectCol->SetCollisionGroup(ECollisionOrder::MapDoor);
-	MapObjectCol->SetCollisionType(ECollisionType::RotRect);
+	MapObjectRightDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapObjectRightDoor->SetupAttachment(Root);
+	MapObjectRightDoor->SetPivot(EPivot::MAX);
+	MapObjectRightDoor->SetOrder(ERenderOrder::MapObject);
+	MapObjectRightDoor->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	MapObjectRightDoor->SetActive(false);
+
+	MapObjectLeftDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
+	MapObjectLeftDoorCol->SetupAttachment(Root);
+	MapObjectLeftDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
+	MapObjectLeftDoorCol->SetCollisionType(ECollisionType::RotRect);
+
+	MapObjectRightDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
+	MapObjectRightDoorCol->SetupAttachment(Root);
+	MapObjectRightDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
+	MapObjectRightDoorCol->SetCollisionType(ECollisionType::RotRect);
 
 	// 보스전 시작을 위한 Collision
 	BossStageStartCol = CreateDefaultSubObject<UCollision>("BossStageStartCol");
@@ -57,14 +69,18 @@ void ALasleyStageBoss::BeginPlay()
 	CreateAnimation();
 	StateInit();
 	float Up = (16.0f * 4.0f) * 4.0f;
-	float Right = 30.0f;
-	MapObject->SetPosition({ (-928.0f + Right), (-608.0f + Up) });
-	MapObject->SetRotationDeg({ 1.0f, 1.0f, 90.0f });
+	MapObjectLeftDoor->SetPosition({ (-928.0f + 30.0f), (-608.0f + Up) });
+	MapObjectLeftDoor->SetRotationDeg({ 1.0f, 1.0f, 90.0f });
+	MapObjectRightDoor->SetPosition({ (928.0f - 30.0f), (-608.0f + Up) });
+	MapObjectRightDoor->SetRotationDeg({ 1.0f, 1.0f, -90.0f });
 
-	FVector MapObjectScale = MapObject->GetWorldScale();
+	FVector MapObjectScale = MapObjectLeftDoor->GetWorldScale();
 	
-	MapObjectCol->SetScale({ MapObjectScale.Y, MapObjectScale.X});
-	MapObjectCol->SetPosition({ (-928.0f + Right), (-608.0f + Up) });
+	MapObjectLeftDoorCol->SetScale({ MapObjectScale.Y, MapObjectScale.X});
+	MapObjectLeftDoorCol->SetPosition({ (-928.0f + 30.0f), (-608.0f + Up) });
+
+	MapObjectRightDoorCol->SetScale({ MapObjectScale.Y, MapObjectScale.X });
+	MapObjectRightDoorCol->SetPosition({ (928.0f - 30.0f), (-608.0f + Up) });
 }
 
 void ALasleyStageBoss::Tick(float _DeltaTime)
@@ -158,21 +174,29 @@ void ALasleyStageBoss::StateInit()
 
 void ALasleyStageBoss::CreateAnimation()
 {
-	MapObject->SetSprite("Stele");
-	MapObject->CreateAnimation("Stele_CloseDoor", "Stele", 0.125f, false, 0, 8);
-	MapObject->CreateAnimation("Stele_IdleDoor", "Stele", 0.125f, true, 8, 15);
-	MapObject->CreateAnimation("Stele_OpenDoor", "Stele", 0.125f, false, 16, 23);
+	MapObjectLeftDoor->SetSprite("Stele");
+	MapObjectLeftDoor->CreateAnimation("Stele_CloseLeftDoor", "Stele", 0.125f, false, 0, 8);
+	MapObjectLeftDoor->CreateAnimation("Stele_IdleLeftDoor", "Stele", 0.125f, true, 8, 15);
+	MapObjectLeftDoor->CreateAnimation("Stele_OpenLeftDoor", "Stele", 0.125f, false, 16, 23);
 
-	MapObject->ChangeAnimation("Stele_CloseDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
+
+	MapObjectRightDoor->SetSprite("Stele");
+	MapObjectRightDoor->CreateAnimation("Stele_CloseRightDoor", "Stele", 0.125f, false, 0, 8);
+	MapObjectRightDoor->CreateAnimation("Stele_IdleRightDoor", "Stele", 0.125f, true, 8, 15);
+	MapObjectRightDoor->CreateAnimation("Stele_OpenRightDoor", "Stele", 0.125f, false, 16, 23);
+
+	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
 }
 
 
 #pragma region LasleyBossStageIn
 void ALasleyStageBoss::LasleyBossStageInBegin()
 {
-	if (true == MapObject->IsActive())
+	if (true == MapObjectLeftDoor->IsActive() && true == MapObjectRightDoor->IsActive())
 	{
-		MapObject->SetActive(false);
+		MapObjectLeftDoor->SetActive(false);
+		MapObjectRightDoor->SetActive(false);
 	}
 }
 
@@ -192,11 +216,13 @@ void ALasleyStageBoss::LasleyBossStageInExit()
 #pragma region LasleyBossStageStart
 void ALasleyStageBoss::LasleyBossStageStartBegin()
 {
-	if (false == MapObject->IsActive())
+	if (false == MapObjectLeftDoor->IsActive() && false == MapObjectRightDoor->IsActive())
 	{
-		MapObject->SetActive(true);
+		MapObjectLeftDoor->SetActive(true);
+		MapObjectRightDoor->SetActive(true);
 	}
-	MapObject->ChangeAnimation("Stele_CloseDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
+	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
 }
 
 void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
@@ -218,7 +244,8 @@ void ALasleyStageBoss::LasleyBossStageStartExit()
 #pragma region LasleyBossStageIng
 void ALasleyStageBoss::LasleyBossStageIngBegin()
 {
-	MapObject->ChangeAnimation("Stele_IdleDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_IdleLeftDoor");
+	MapObjectRightDoor->ChangeAnimation("Stele_IdleRightDoor");
 }
 
 void ALasleyStageBoss::LasleyBossStageIngTick(float _DeltaTime)
@@ -239,7 +266,8 @@ void ALasleyStageBoss::LasleyBossStageIngExit()
 #pragma region LasleyBossStageEnd
 void ALasleyStageBoss::LasleyBossStageEndBegin()
 {
-	MapObject->ChangeAnimation("Stele_OpenDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_OpenLeftDoor");
+	MapObjectRightDoor->ChangeAnimation("Stele_OpenRightDoor");
 }
 
 void ALasleyStageBoss::LasleyBossStageEndTick(float _DeltaTime)
@@ -263,10 +291,23 @@ void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
 
 void ALasleyStageBoss::PlayerStageOutCollisionCheck(float _DeltaTime)
 {
-	MapObjectCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	MapObjectLeftDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
 		{
 			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
 			if (true == IsPress('A') || true == IsDown('A') || true == IsUp('A'))
+			{
+				SendMapInDoor(Player, 0.0f);
+			}
+			else
+			{
+				SendMapInDoor(Player, 1.0f);
+			}
+		});
+
+	MapObjectRightDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			if (true == IsPress('D') || true == IsDown('D') || true == IsUp('D'))
 			{
 				SendMapInDoor(Player, 0.0f);
 			}
