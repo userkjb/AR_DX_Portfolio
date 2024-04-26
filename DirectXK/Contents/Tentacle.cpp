@@ -17,8 +17,9 @@ void ATentacle::BeginPlay()
 	Super::BeginPlay();
 
 	TentacleRenderer->CreateAnimation("Tentacle_Start", "LasleyTentacle", { 0.125f }, { 0, 1 }, false);
-	TentacleRenderer->CreateAnimation("Tentacle_Tick", "LasleyTentacle", { 0.125f }, { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }, true);
-	TentacleRenderer->CreateAnimation("Tentacle_End", "LasleyTentacle", { 0.125f }, { 14, 15, 16, 17, 18, 19, 20, 21, 22 }, false);
+	//TentacleRenderer->CreateAnimation("Tentacle_Tick", "LasleyTentacle", { 0.125f }, { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 }, true);
+	TentacleRenderer->CreateAnimation("Tentacle_Tick", "LasleyTentacle", 0.125f, true, 2, 13);
+	TentacleRenderer->CreateAnimation("Tentacle_End", "LasleyTentacle", 0.125f, false, 14, 22);
 
 	TentacleRenderer->ChangeAnimation("Tentacle_Start");
 	TentacleRenderer->SetActive(false);
