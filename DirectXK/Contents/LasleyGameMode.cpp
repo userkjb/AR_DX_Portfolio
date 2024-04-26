@@ -179,6 +179,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		StageMap_One->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
 	}
 
+	// Back Ground Image
 	{
 		//std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
 		//float TileSize = UContentsConstValue::TileSize; // 64.0f 

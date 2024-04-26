@@ -159,6 +159,9 @@
     <ClCompile Include="PlayerStruct.cpp">
       <Filter>Level\00_GameStart\Struct</Filter>
     </ClCompile>
+    <ClCompile Include="Lasley_State.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

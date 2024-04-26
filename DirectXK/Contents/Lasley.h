@@ -55,7 +55,7 @@ private :
 	void DownBegin();
 	void DownTick(float _DeltaTime);
 
-	void LasleySummonEnd();
+	void LasleySummonEndCallBack();
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 	USpriteRenderer* LasleySummonFX = nullptr;

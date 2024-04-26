@@ -216,6 +216,7 @@
     <ClCompile Include="LasleyStageGUI.cpp" />
     <ClCompile Include="LasleyStageOne.cpp" />
     <ClCompile Include="LasleyStageBossGM.cpp" />
+    <ClCompile Include="Lasley_State.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerStruct.cpp" />
