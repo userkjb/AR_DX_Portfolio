@@ -176,22 +176,24 @@ void ALasleyStageBoss::LasleyBossStageInTick(float _DeltaTime)
 void ALasleyStageBoss::LasleyBossStageInExit()
 {
 	BossStageStartCol->SetActive(false);
+	BossStageStart = true;
 }
 #pragma endregion
 
 #pragma region LasleyBossStageStart
 void ALasleyStageBoss::LasleyBossStageStartBegin()
 {
+	if (false == MapObject->IsActive())
+	{
+		MapObject->SetActive(true);
+	}
 	MapObject->ChangeAnimation("Stele_CloseDoor");
 }
 
 void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
 {
-	if (true == IsDown('T'))
-	{
-		State.ChangeState("LasleyBossStageIng");
-		return;
-	}
+	// 카메라가 라슬리에 포커스를 둬야 함.
+
 }
 
 void ALasleyStageBoss::LasleyBossStageStartExit()

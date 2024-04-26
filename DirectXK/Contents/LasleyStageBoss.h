@@ -18,6 +18,15 @@ public:
 	ALasleyStageBoss& operator=(const ALasleyStageBoss& _Other) = delete;
 	ALasleyStageBoss& operator=(ALasleyStageBoss&& _Other) noexcept = delete;
 
+	/// <summary>
+	/// 보스전 시작함?
+	/// </summary>
+	/// <returns></returns>
+	inline bool IsBossStageStart() const
+	{
+		return BossStageStart;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -31,6 +40,9 @@ private :
 	UCollision* BossStageStartCol = nullptr;
 
 	UStateManager State;
+
+	bool BossStageStart = false;
+
 	void LasleyBossStageInBegin();
 	void LasleyBossStageInTick(float _DeltaTime);
 	void LasleyBossStageInExit();
