@@ -34,6 +34,11 @@ public:
 		return PlayerToMouseDir;
 	}
 
+	inline void RecvMapInDoor(float _RunX)
+	{
+		RecvVector.X = _RunX;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -109,6 +114,8 @@ private:
 	const float DashSlowPower = -1000.0f;
 	float DashTime = 0.0f;
 	float4 DashDir = float4::Zero;
+
+	FVector RecvVector = FVector::One;
 
 	//FVector DashSpectrumPos = FVector::Zero; // ¿‹ªÛ
 	std::queue<FVector> DashSpectrumPos; // ¿‹ªÛ ¿ßƒ° ¿˙¿Â Queue

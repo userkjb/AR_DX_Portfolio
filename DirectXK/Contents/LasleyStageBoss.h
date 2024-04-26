@@ -61,5 +61,6 @@ private :
 	void CreateAnimation();
 
 	void StageStartCollisionCheck(float _DeltaTime);
+	void PlayerStageOutCollisionCheck(float _DeltaTime);
 };
 

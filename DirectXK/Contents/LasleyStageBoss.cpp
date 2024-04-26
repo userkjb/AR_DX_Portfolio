@@ -3,6 +3,8 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/TileRenderer.h>
 
+#include "Player.h"
+
 ALasleyStageBoss::ALasleyStageBoss()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
@@ -21,10 +23,11 @@ ALasleyStageBoss::ALasleyStageBoss()
 	MapObject->SetActive(false);
 
 	MapObjectCol = CreateDefaultSubObject<UCollision>("RendererCol");
-	MapObjectCol->SetupAttachment(MapObject);
+	MapObjectCol->SetupAttachment(Root);
 	MapObjectCol->SetCollisionGroup(ECollisionOrder::MapDoor);
 	MapObjectCol->SetCollisionType(ECollisionType::RotRect);
 
+	// 보스전 시작을 위한 Collision
 	BossStageStartCol = CreateDefaultSubObject<UCollision>("BossStageStartCol");
 	BossStageStartCol->SetupAttachment(Root);
 	BossStageStartCol->SetCollisionGroup(ECollisionOrder::BossStageStart);
@@ -57,6 +60,11 @@ void ALasleyStageBoss::BeginPlay()
 	float Right = 30.0f;
 	MapObject->SetPosition({ (-928.0f + Right), (-608.0f + Up) });
 	MapObject->SetRotationDeg({ 1.0f, 1.0f, 90.0f });
+
+	FVector MapObjectScale = MapObject->GetWorldScale();
+	
+	MapObjectCol->SetScale({ MapObjectScale.Y, MapObjectScale.X});
+	MapObjectCol->SetPosition({ (-928.0f + Right), (-608.0f + Up) });
 }
 
 void ALasleyStageBoss::Tick(float _DeltaTime)
@@ -194,7 +202,12 @@ void ALasleyStageBoss::LasleyBossStageStartBegin()
 void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
 {
 	// 카메라가 라슬리에 포커스를 둬야 함.
-
+	// test
+	if (true == IsDown('T'))
+	{
+		State.ChangeState("LasleyBossStageIng");
+		return;
+	}
 }
 
 void ALasleyStageBoss::LasleyBossStageStartExit()
@@ -215,6 +228,7 @@ void ALasleyStageBoss::LasleyBossStageIngTick(float _DeltaTime)
 		State.ChangeState("LasleyBossStageEnd");
 		return;
 	}
+	PlayerStageOutCollisionCheck(_DeltaTime);
 }
 
 void ALasleyStageBoss::LasleyBossStageIngExit()
@@ -245,5 +259,20 @@ void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
 			State.ChangeState("LasleyBossStageStart");
 			return;
 		});
+}
 
+void ALasleyStageBoss::PlayerStageOutCollisionCheck(float _DeltaTime)
+{
+	MapObjectCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			if (true == IsPress('A') || true == IsDown('A'))
+			{
+				Player->RecvMapInDoor(0.0f);
+			}
+			else
+			{
+				Player->RecvMapInDoor(1.0f);
+			}
+		});
 }

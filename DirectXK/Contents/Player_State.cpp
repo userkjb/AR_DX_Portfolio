@@ -430,6 +430,9 @@ void APlayer::CalVector()
 
 	CalVectors + JumpVector;
 	CalVectors + DashVector;
+
+	// 맵에서 만들어진 벽과 충돌 했을 경우 계산.
+	CalVectors *= RecvVector;
 }
 
 void APlayer::Gravity(float _DeltaTime)
