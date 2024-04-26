@@ -23,10 +23,14 @@ public :
 	//	return State;
 	//}
 
-	//inline void SetState(ELasleyState _State)
-	//{
-	//	StateChange(_State);
-	//}
+	inline void SetState(std::string_view _ChangeState)
+	{
+		State.ChangeState(_ChangeState);
+	}
+	inline std::string GetCurLasleyState()
+	{
+		return State.GetCurStateName();
+	}
 
 protected :
 	void BeginPlay() override;
@@ -58,7 +62,8 @@ private :
 	void LasleySummonEndCallBack();
 
 	USpriteRenderer* LasleyRenderer = nullptr;
-	USpriteRenderer* LasleySummonFX = nullptr;
+	USpriteRenderer* LasleyDemonSword = nullptr;
+	USpriteRenderer* LasleySummonFX = nullptr; // 맨 처음 칼 잡았을 때. FX
 
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;

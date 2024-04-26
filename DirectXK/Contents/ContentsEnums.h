@@ -9,6 +9,7 @@ enum class ERenderOrder
 	StageDoor,
 	Player,
 	Weapon_Next,
+	BossSubObject,
 	Boss,
 	BossSkill,
 	Weapon_FX,

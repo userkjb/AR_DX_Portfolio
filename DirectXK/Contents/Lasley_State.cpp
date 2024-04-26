@@ -41,17 +41,23 @@ void ALasley::StateInit()
 
 
 	// Change
-	State.ChangeState("Idle");
+	State.ChangeState("Summons");
 }
 
 #pragma region Summons
 void ALasley::SummonsBegin()
 {
-	int x = UEngineRandom::MainRandom.RandomInt(1, 12);
+	
 }
 
 void ALasley::SummonsTick(float _DeltaTime)
 {
+	FVector MoveDemonSword = FVector::Zero;
+	float MovePower = 300.0f;
+
+	MoveDemonSword += FVector::Down * MovePower * _DeltaTime;
+
+	LasleyDemonSword->AddPosition(MoveDemonSword);
 }
 
 void ALasley::SummonsEnd()
@@ -61,6 +67,7 @@ void ALasley::SummonsEnd()
 void ALasley::LasleySummonEndCallBack()
 {
 	LasleySummonFX->SetActive(false);
+	//int x = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 #pragma endregion
 

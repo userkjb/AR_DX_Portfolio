@@ -28,6 +28,8 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	LevelState.Update(_DeltaTime);
+
 	FVector PlayerPos = Player->GetPlayerPos();
 
 	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
@@ -48,8 +50,6 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 
 		Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
 	}
-
-
 }
 
 void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
@@ -74,12 +74,125 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 	}
 
 	{
-		std::shared_ptr<ALasley> Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
-		Lasley->SetActorLocation({300.0f, 125.0f, 0.0f});
+		Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
+		FVector MapSize = BossMap->GetActorLocation();
+		Lasley->SetActorLocation({MapSize.X, 125.0f, 0.0f});
 	}
+
+	LevelStateInit();
 }
 
 void ALasleyStageBossGM::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+}
+
+void ALasleyStageBossGM::LevelStateInit()
+{
+	LevelState.CreateState("InStage");
+	LevelState.CreateState("LasleySummon");
+	LevelState.CreateState("LasleyBattle");
+	{
+		LevelState.CreateState("PlayerDie");
+		LevelState.CreateState("LasleyDie");
+	}
+
+	LevelState.SetFunction("InStage",
+		std::bind(&ALasleyStageBossGM::InStageBegin, this),
+		std::bind(&ALasleyStageBossGM::InStageTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBossGM::InStageExit, this));
+
+	LevelState.SetFunction("LasleySummon",
+		std::bind(&ALasleyStageBossGM::LasleySummonBegin, this),
+		std::bind(&ALasleyStageBossGM::LasleySummonTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBossGM::LasleySummonExit, this));
+
+	LevelState.SetFunction("LasleyBattle",
+		std::bind(&ALasleyStageBossGM::LasleyBattleBegin, this),
+		std::bind(&ALasleyStageBossGM::LasleyBattleTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBossGM::LasleyBattleExit, this));
+
+	LevelState.SetFunction("PlayerDie",
+		std::bind(&ALasleyStageBossGM::PlayerDieBegin, this),
+		std::bind(&ALasleyStageBossGM::PlayerDieTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBossGM::PlayerDieExit, this));
+
+	LevelState.SetFunction("LasleyDie",
+		std::bind(&ALasleyStageBossGM::LasleyDieBegin, this),
+		std::bind(&ALasleyStageBossGM::LasleyDieTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageBossGM::LasleyDieExit, this));
+
+	LevelState.ChangeState("InStage");
+}
+
+
+
+#pragma region InStage
+void ALasleyStageBossGM::InStageBegin()
+{
+	Lasley->SetActive(false);
+}
+
+void ALasleyStageBossGM::InStageTick(float _DeltaTime)
+{
+	if (true == BossMap->IsBossStageStart())
+	{
+		LevelState.ChangeState("LasleySummon");
+		return;
+	}
+}
+
+void ALasleyStageBossGM::InStageExit()
+{
+}
+#pragma endregion
+
+
+void ALasleyStageBossGM::LasleySummonBegin()
+{
+	Lasley->SetActive(true);
+}
+
+void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
+{
+}
+
+void ALasleyStageBossGM::LasleySummonExit()
+{
+}
+
+void ALasleyStageBossGM::LasleyBattleBegin()
+{
+}
+
+void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
+{
+}
+
+void ALasleyStageBossGM::LasleyBattleExit()
+{
+}
+
+void ALasleyStageBossGM::PlayerDieBegin()
+{
+}
+
+void ALasleyStageBossGM::PlayerDieTick(float _DeltaTime)
+{
+}
+
+void ALasleyStageBossGM::PlayerDieExit()
+{
+}
+
+void ALasleyStageBossGM::LasleyDieBegin()
+{
+}
+
+void ALasleyStageBossGM::LasleyDieTick(float _DeltaTime)
+{
+}
+
+void ALasleyStageBossGM::LasleyDieExit()
+{
 }
