@@ -3,6 +3,7 @@
 
 class UDefaultSceneComponent;
 class UTileRenderer;
+class APlayer;
 class ALasleyStageBoss : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -62,5 +63,6 @@ private :
 
 	void StageStartCollisionCheck(float _DeltaTime);
 	void PlayerStageOutCollisionCheck(float _DeltaTime);
+	void SendMapInDoor(APlayer* _Player, float _SendFloatValue);
 };
 

@@ -266,13 +266,18 @@ void ALasleyStageBoss::PlayerStageOutCollisionCheck(float _DeltaTime)
 	MapObjectCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
 		{
 			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
-			if (true == IsPress('A') || true == IsDown('A'))
+			if (true == IsPress('A') || true == IsDown('A') || true == IsUp('A'))
 			{
-				Player->RecvMapInDoor(0.0f);
+				SendMapInDoor(Player, 0.0f);
 			}
 			else
 			{
-				Player->RecvMapInDoor(1.0f);
+				SendMapInDoor(Player, 1.0f);
 			}
 		});
+}
+
+void ALasleyStageBoss::SendMapInDoor(APlayer* _Player, float _SendFloatValue)
+{
+	_Player->RecvMapInDoor(_SendFloatValue);
 }
