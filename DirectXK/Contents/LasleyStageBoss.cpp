@@ -150,6 +150,7 @@ void ALasleyStageBoss::StateInit()
 
 void ALasleyStageBoss::CreateAnimation()
 {
+	MapObject->SetSprite("Stele");
 	MapObject->CreateAnimation("Stele_CloseDoor", "Stele", 0.125f, false, 0, 8);
 	MapObject->CreateAnimation("Stele_IdleDoor", "Stele", 0.125f, true, 8, 15);
 	MapObject->CreateAnimation("Stele_OpenDoor", "Stele", 0.125f, false, 16, 23);
