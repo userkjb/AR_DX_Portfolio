@@ -33,11 +33,13 @@ ALasleyStageBoss::ALasleyStageBoss()
 	MapObjectLeftDoorCol->SetupAttachment(Root);
 	MapObjectLeftDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
 	MapObjectLeftDoorCol->SetCollisionType(ECollisionType::RotRect);
+	MapObjectLeftDoorCol->SetActive(false);
 
 	MapObjectRightDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
 	MapObjectRightDoorCol->SetupAttachment(Root);
 	MapObjectRightDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
 	MapObjectRightDoorCol->SetCollisionType(ECollisionType::RotRect);
+	MapObjectRightDoorCol->SetActive(false);
 
 	// 보스전 시작을 위한 Collision
 	BossStageStartCol = CreateDefaultSubObject<UCollision>("BossStageStartCol");
@@ -197,6 +199,8 @@ void ALasleyStageBoss::LasleyBossStageInBegin()
 	{
 		MapObjectLeftDoor->SetActive(false);
 		MapObjectRightDoor->SetActive(false);
+		MapObjectLeftDoorCol->SetActive(false);
+		MapObjectRightDoorCol->SetActive(false);
 	}
 }
 
@@ -220,6 +224,8 @@ void ALasleyStageBoss::LasleyBossStageStartBegin()
 	{
 		MapObjectLeftDoor->SetActive(true);
 		MapObjectRightDoor->SetActive(true);
+		MapObjectLeftDoorCol->SetActive(true);
+		MapObjectRightDoorCol->SetActive(true);
 	}
 	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
 	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
@@ -272,6 +278,16 @@ void ALasleyStageBoss::LasleyBossStageEndBegin()
 
 void ALasleyStageBoss::LasleyBossStageEndTick(float _DeltaTime)
 {
+	if (MapObjectLeftDoor->IsCurAnimationEnd())
+	{
+		MapObjectLeftDoor->SetActive(false);
+		MapObjectLeftDoorCol->SetActive(false);
+	}
+	if (MapObjectRightDoor->IsCurAnimationEnd())
+	{
+		MapObjectRightDoor->SetActive(false);
+		MapObjectRightDoorCol->SetActive(false);
+	}
 }
 
 void ALasleyStageBoss::LasleyBossStageEndExit()
@@ -280,6 +296,9 @@ void ALasleyStageBoss::LasleyBossStageEndExit()
 #pragma endregion
 
 
+
+
+// Collision
 void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
 {
 	BossStageStartCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
