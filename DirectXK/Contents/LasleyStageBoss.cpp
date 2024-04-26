@@ -91,6 +91,7 @@ void ALasleyStageBoss::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
+#ifdef _DEBUG
 	if (true == IsDown('O'))
 	{
 		if (false == MapColRenderer->IsActive())
@@ -102,6 +103,7 @@ void ALasleyStageBoss::Tick(float _DeltaTime)
 			MapColRenderer->SetActive(false);
 		}
 	}
+#endif
 }
 
 void ALasleyStageBoss::CreateMapImage()
