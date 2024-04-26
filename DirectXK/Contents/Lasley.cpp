@@ -21,6 +21,12 @@ ALasley::ALasley()
 	LasleyRenderer->SetOrder(ERenderOrder::Boss);
 	LasleyRenderer->SetDir(EEngineDir::Left);
 
+	LasleyCollision = CreateDefaultSubObject<UCollision>("LasleyCollision");
+	LasleyCollision->SetupAttachment(Root);
+	LasleyCollision->SetCollisionGroup(ECollisionOrder::Boss);
+	LasleyCollision->SetCollisionType(ECollisionType::RotRect);
+	//LasleyCollision->SetScale();
+
 	LasleyDemonSword = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleyDemonSword->SetupAttachment(Root);
 	LasleyDemonSword->SetOrder(ERenderOrder::BossSubObject);

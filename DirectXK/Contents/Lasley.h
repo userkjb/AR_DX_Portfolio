@@ -64,6 +64,7 @@ private :
 	USpriteRenderer* LasleyRenderer = nullptr;
 	USpriteRenderer* LasleyDemonSword = nullptr;
 	USpriteRenderer* LasleySummonFX = nullptr; // 맨 처음 칼 잡았을 때. FX
+	UCollision* LasleyCollision = nullptr;
 
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;
