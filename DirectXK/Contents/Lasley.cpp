@@ -82,9 +82,12 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("DemonicBlade", "LasleyDemonicBlade", 0.125f);
 	LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
 	LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDoubleDimensionCutter", 0.125f);
-	LasleyRenderer->CreateAnimation("DevilEye", "LasleyDevilEye", 0.125f);
+
 	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true);
 	LasleyRenderer->CreateAnimation("LasleyDemonicBlade", "LasleyDemonicBlade.png", 0.0625f, true, 0, 18);
+	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f);
+	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 0.0625f, true);
+
 
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
 
@@ -93,7 +96,8 @@ void ALasley::CreateAnimation()
 
 	// End
 	//LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter");
-	LasleyRenderer->ChangeAnimation("LasleyDemonicBlade"); // test
+	LasleyRenderer->ChangeAnimation("LasleyDimensionCutter"); // test
+
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");
 }

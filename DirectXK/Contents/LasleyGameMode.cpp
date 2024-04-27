@@ -48,6 +48,7 @@ void ALasleyGameMode::BeginPlay()
 
 		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 5);
 		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
+		UEngineSprite::CreateCutting("LasleyDimensionCutter.png", 5, 5);
 	}
 
 	{
