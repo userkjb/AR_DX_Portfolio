@@ -74,19 +74,21 @@ void ALasley::CreateAnimation()
 {
 	LasleyRenderer->CreateAnimation("Summons", "LasleyDown", 0.125f, false, 9, 9);
 	// State
-	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle", 0.125f);
+	//LasleyRenderer->CreateAnimation("Idle", "LasleyIdle", 0.125f);
+	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle.png", 0.125f, true, 0, 23); // Pivot MAX
 	LasleyRenderer->CreateAnimation("Wake", "LasleyWake", 0.125f);
 	LasleyRenderer->CreateAnimation("Down", "LasleyDown", 0.125f);
 
 	// Skill
-	LasleyRenderer->CreateAnimation("DemonicBlade", "LasleyDemonicBlade", 0.125f);
-	LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
-	LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDoubleDimensionCutter", 0.125f);
+	//LasleyRenderer->CreateAnimation("DemonicBlade", "LasleyDemonicBlade", 0.125f);
+	//LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
+	//LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDimensionCutter", 0.125f);
 
-	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true);
-	LasleyRenderer->CreateAnimation("LasleyDemonicBlade", "LasleyDemonicBlade.png", 0.0625f, true, 0, 18);
-	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f);
+	LasleyRenderer->CreateAnimation("LasleyDemonicBlade", "LasleyDemonicBlade.png", 0.0625f, true, 0, 18); // 공란 때문에 범위 지정.
+	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f, true); // Pivot BOT
 	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 0.0625f, true);
+	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true, 0, 28);
+
 
 
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
@@ -96,7 +98,8 @@ void ALasley::CreateAnimation()
 
 	// End
 	//LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter");
-	LasleyRenderer->ChangeAnimation("LasleyDimensionCutter"); // test
+
+	LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter"); // test
 
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");

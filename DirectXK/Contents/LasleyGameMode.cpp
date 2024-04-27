@@ -46,9 +46,10 @@ void ALasleyGameMode::BeginPlay()
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 
-		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 5);
-		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
+		UEngineSprite::CreateCutting("LasleyIdle.png", 5, 5);
 		UEngineSprite::CreateCutting("LasleyDimensionCutter.png", 5, 5);
+		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 6);
+		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
 	}
 
 	{
