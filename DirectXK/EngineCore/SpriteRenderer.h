@@ -146,7 +146,7 @@ private:
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
-	//FVertexUV VertexUVValue;
+	FVertexUV VertexUVValue;
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 };
