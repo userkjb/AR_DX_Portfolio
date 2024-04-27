@@ -29,7 +29,7 @@ cbuffer FTransform : register(b10)
     float4x4 WVP;
 };
 
-struct FTransform 
+struct FTransform
 {
     float4 LocalScale;
     float4 LocalRotation;

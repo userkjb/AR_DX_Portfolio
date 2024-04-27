@@ -83,6 +83,7 @@ void UImage::MaterialSettingEnd()
 	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
+	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue); // FVertexUV ¼³Á¤.
 }
 
 void UImage::Tick(float _DeltaTime)

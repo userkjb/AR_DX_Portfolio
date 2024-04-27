@@ -43,7 +43,7 @@ void UEngineCore::EngineStart(HINSTANCE _Inst)
 
 	EngineWindow.Open(EngineOption.WindowTitle);
 	// 디바이스 초기화전에 크기가 다정해지면 해상도가 이미 결정 된거에요.
-	// EngineOption.WindowScale 해상도2
+	// EngineOption.WindowScale 해상도
 	// 해상도는 윈도우 크기와 관련이 없습니다.
 	EngineWindow.SetWindowScale(EngineOption.WindowScale);
 	EngineDevice.Initialize(EngineWindow, EngineOption.ClearColor);

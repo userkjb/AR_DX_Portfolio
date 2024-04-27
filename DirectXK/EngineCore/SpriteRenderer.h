@@ -116,20 +116,14 @@ public:
 		CurAnimation = nullptr;
 	}
 
-	inline int GetCurAnimationFrame() const
+	/// <summary>
+	/// UV Plus 인터페이스
+	/// </summary>
+	/// <param name="_UVPlus"></param>
+	void SetVertexUVPlus(float4 _UVPlus)
 	{
-		if (nullptr == CurAnimation)
-		{
-			MsgBoxAssert("애니메이션이 지정되지 않았습니다.")
-		}
-
-		return CurAnimation->CurFrame;
+		VertexUVValue.PlusUV = _UVPlus;
 	}
-
-	//void SetVertexUVPlus(float4 _UVPlus)
-	//{
-	//	VertexUVValue.PlusUV = _UVPlus;
-	//}
 
 protected:
 	void Tick(float _DeltaTime) override;
@@ -146,7 +140,7 @@ private:
 	std::shared_ptr<USpriteAnimation> CurAnimation = nullptr;
 	ETextureSampling SamplingValue = ETextureSampling::POINT;
 
-	//FVertexUV VertexUVValue;
+	FVertexUV VertexUVValue;
 	FResultColorValue ColorData;
 	FCuttingData CuttingDataValue;
 };

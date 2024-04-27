@@ -48,7 +48,7 @@
       <Filter>Effect</Filter>
     </FxCompile>
     <FxCompile Include="ImageShaderInstanced.fx">
-      <Filter>Effect</Filter>
+      <Filter>2D</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

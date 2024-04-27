@@ -99,7 +99,7 @@ void USpriteRenderer::MaterialSettingEnd()
 	CurTexture = nullptr;
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
-	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue);
+	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue); // FVertexUV ¼³Á¤.
 }
 
 
