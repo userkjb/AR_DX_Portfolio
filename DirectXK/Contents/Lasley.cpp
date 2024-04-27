@@ -86,7 +86,6 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true);
 
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
-	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");
 
 	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false, 0, 12);
 	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEndCallBack, this));
@@ -94,4 +93,5 @@ void ALasley::CreateAnimation()
 	// End
 	LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter");
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
+	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");
 }
