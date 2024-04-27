@@ -45,7 +45,9 @@ void ALasleyGameMode::BeginPlay()
 			std::string Name = Directorys[i].GetFolderName();
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
+
 		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 5);
+		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
 	}
 
 	{
