@@ -99,6 +99,7 @@ void USpriteRenderer::MaterialSettingEnd()
 	CurTexture = nullptr;
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
+	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue);
 }
 
 
@@ -214,6 +215,22 @@ void USpriteRenderer::SetSpriteInfo(const FSpriteInfo& _Info)
 			if (0 > Scale.X)
 			{
 				Scale.X = -Scale.X;
+			}
+			break;
+		}
+		case EEngineDir::Up:
+		{
+			if (0 > Scale.Y)
+			{
+				Scale.Y = -Scale.Y;
+			}
+			break;
+		}
+		case EEngineDir::Down:
+		{
+			if (0 < Scale.Y)
+			{
+				Scale.Y = -Scale.Y;
 			}
 			break;
 		}
