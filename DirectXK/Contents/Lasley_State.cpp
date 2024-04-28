@@ -58,6 +58,12 @@ void ALasley::SummonsTick(float _DeltaTime)
 	MoveDemonSword += FVector::Down * MovePower * _DeltaTime;
 
 	LasleyDemonSword->AddPosition(MoveDemonSword);
+
+	{
+		std::string LasleyDemonSword_Str = std::format("DemonSword L Pos : {}\n", LasleyDemonSword->GetLocalPosition().ToString());
+
+		LasleyStageGUI::PushMsg(LasleyDemonSword_Str);
+	}
 }
 
 void ALasley::SummonsEnd()

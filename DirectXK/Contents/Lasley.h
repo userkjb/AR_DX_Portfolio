@@ -1,12 +1,16 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/StateManager.h>
+#include "LasleyStageGUI.h"
 
 class USpriteRenderer;
 class ALasley : public AActor
 {
 	GENERATED_BODY(AActor)
 
+#ifdef _DEBUG
+	friend LasleyStageGUI;
+#endif
 public :
 	// constrcuter destructer
 	ALasley();

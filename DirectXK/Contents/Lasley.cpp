@@ -97,9 +97,7 @@ void ALasley::CreateAnimation()
 	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEndCallBack, this));
 
 	// End
-	//LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter");
-
-	LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter"); // test
+	LasleyRenderer->ChangeAnimation("Summons");
 
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");
