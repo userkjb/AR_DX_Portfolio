@@ -47,27 +47,46 @@ void ALasley::StateInit()
 #pragma region Summons
 void ALasley::SummonsBegin()
 {
-	
+	SummonTime = 0.0f;
 }
 
 void ALasley::SummonsTick(float _DeltaTime)
 {
-	FVector MoveDemonSword = FVector::Zero;
-	float MovePower = 300.0f;
+	// 그냥 내려오는 것 방지.
+	if(true == LasleyRenderer->IsActive())
+	{
+		FVector MoveDemonSword = FVector::Zero;
+		MoveDemonSword += FVector::Down * MovePower * _DeltaTime;
 
-	MoveDemonSword += FVector::Down * MovePower * _DeltaTime;
+		if (52.0f >= LasleyDemonSword->GetLocalPosition().Y)
+		{
+			SummonTime += _DeltaTime;
+			if (1.0f <= SummonTime)
+			{
+				State.ChangeState("Idle");
+				return;
+			}
+		}
+		else
+		{
+			LasleyDemonSword->AddPosition(MoveDemonSword);
+		}
+	}
 
-	LasleyDemonSword->AddPosition(MoveDemonSword);
-
+#ifdef _DEBUG
 	{
 		std::string LasleyDemonSword_Str = std::format("DemonSword L Pos : {}\n", LasleyDemonSword->GetLocalPosition().ToString());
 
 		LasleyStageGUI::PushMsg(LasleyDemonSword_Str);
 	}
+#endif
 }
 
 void ALasley::SummonsEnd()
 {
+	SummonTime = 0.0f;
+	LasleyDemonSword->SetActive(false);
+	LasleySummonFX->SetActive(true);
 }
 
 void ALasley::LasleySummonEndCallBack()
@@ -76,6 +95,25 @@ void ALasley::LasleySummonEndCallBack()
 	//int x = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 #pragma endregion
+
+
+#pragma region Idle
+void ALasley::IdleBegin()
+{
+	LasleyRenderer->ChangeAnimation("Idle");
+	LasleyRenderer->SetPivot(EPivot::MAX);
+}
+
+void ALasley::IdleTick(float _DeltaTime)
+{
+	if (true == IsDown('X'))
+	{
+		State.ChangeState("Wake");
+		return;
+	}
+}
+#pragma endregion
+
 
 #pragma region DevilEye
 void ALasley::DevilEyeBegin()
@@ -93,28 +131,11 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 }
 #pragma endregion
 
-
-#pragma region Idle
-void ALasley::IdleBegin()
-{
-	LasleyRenderer->ChangeAnimation("Idle");
-}
-
-void ALasley::IdleTick(float _DeltaTime)
-{
-	if (true == IsDown('X'))
-	{
-		State.ChangeState("Wake");
-		return;
-	}
-}
-#pragma endregion
-
-
 #pragma region Wake
 void ALasley::WakeBegin()
 {
 	LasleyRenderer->ChangeAnimation("Wake");
+	LasleyRenderer->SetPivot(EPivot::BOT);
 }
 
 void ALasley::WakeTick(float _DeltaTime)

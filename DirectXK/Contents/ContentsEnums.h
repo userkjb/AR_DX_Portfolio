@@ -3,13 +3,13 @@
 enum class ERenderOrder
 {
 	BackGroundImage,
+	BossSubObject,
 	Map,
 	MapCol,
 	Weapon_Prev,
 	StageDoor,
 	Player,
 	Weapon_Next,
-	BossSubObject,
 	Boss,
 	BossSkill,
 	Weapon_FX,

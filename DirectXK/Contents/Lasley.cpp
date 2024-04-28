@@ -93,7 +93,7 @@ void ALasley::CreateAnimation()
 
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
 
-	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.125f, false, 0, 12);
+	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.0625f, false, 0, 12);
 	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEndCallBack, this));
 
 	// End
