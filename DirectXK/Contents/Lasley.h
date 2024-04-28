@@ -52,6 +52,7 @@ private :
 	void DevilEyeTick(float _DeltaTime);
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
+	void IdleExit();
 	void WakeBegin();
 	void WakeTick(float _DeltaTime);
 	void DemonicBladeBegin();
@@ -77,7 +78,7 @@ private :
 	const float RotationPower = 0.0f;
 	float SummonTime = 0.0f;
 
-	int Life = 2;
+	int Life = 2; // 부활 횟수
 	int MaxHp = 40;
 	int Hp = 40;
 	const float MoveSpeed = 500.0f;
@@ -85,5 +86,10 @@ private :
 	std::vector<FVector> MovePos;
 };
 
+// 처음 시작 패턴은 같음.
+// 1. LasleyDevilEye 시전.
+// 2. 오른쪽 상단으로 가서 LasleyDoubleDimensionCutter 시전.
+// 이 다음 랜덤임.
+// 
 // 이동은 한 땅 당 2곳, 총 12 곳 중 렌덤으로 이동한다.
 // 이동 하면서 더스트를 뿌린다.(약 0.5초 마다?)

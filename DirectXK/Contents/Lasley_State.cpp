@@ -23,8 +23,11 @@ void ALasley::StateInit()
 		std::bind(&ALasley::SummonsTick, this, std::placeholders::_1),
 		std::bind(&ALasley::SummonsEnd, this));
 
-	State.SetStartFunction("Idle", std::bind(&ALasley::IdleBegin, this));
-	State.SetUpdateFunction("Idle", std::bind(&ALasley::IdleTick, this, std::placeholders::_1));
+	State.SetFunction("Idle",
+		std::bind(&ALasley::IdleBegin, this),
+		std::bind(&ALasley::IdleTick, this, std::placeholders::_1),
+		std::bind(&ALasley::IdleExit, this));
+
 
 	State.SetStartFunction("DevilEye", std::bind(&ALasley::DevilEyeBegin, this));
 	State.SetUpdateFunction("DevilEye", std::bind(&ALasley::DevilEyeTick, this, std::placeholders::_1));
@@ -92,7 +95,6 @@ void ALasley::SummonsEnd()
 void ALasley::LasleySummonEndCallBack()
 {
 	LasleySummonFX->SetActive(false);
-	//int x = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 #pragma endregion
 
@@ -106,11 +108,20 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
+	// 보스전 시작을 알리면,
 	if (true == IsDown('X'))
 	{
-		State.ChangeState("Wake");
+		State.ChangeState("DevilEye");
 		return;
 	}
+
+
+
+	//int Pattern = UEngineRandom::MainRandom.RandomInt(1, 12);
+}
+
+void ALasley::IdleExit()
+{
 }
 #pragma endregion
 
@@ -118,11 +129,14 @@ void ALasley::IdleTick(float _DeltaTime)
 #pragma region DevilEye
 void ALasley::DevilEyeBegin()
 {
-	LasleyRenderer->ChangeAnimation("DevilEye");
+	LasleyRenderer->ChangeAnimation("LasleyDevilEye");
+	LasleyRenderer->SetPivot(EPivot::BOT);
 }
 
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
+	// Tentacle 소환.
+
 	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
