@@ -37,7 +37,7 @@ ALasley::ALasley()
 	LasleySummonFX = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleySummonFX->SetupAttachment(Root);
 	LasleySummonFX->SetPivot(EPivot::BOT);
-	LasleySummonFX->SetOrder(ERenderOrder::BossSkill);
+	LasleySummonFX->SetOrder(ERenderOrder::BossBodyFX);
 	LasleySummonFX->SetActive(false);
 	
 

@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Lasley.h"
 #include <EngineBase/EngineRandom.h>
+#include "DimensionSlash.h"
 
 void ALasley::StateInit()
 {
@@ -79,8 +80,10 @@ void ALasley::SummonsTick(float _DeltaTime)
 #ifdef _DEBUG
 	{
 		std::string LasleyDemonSword_Str = std::format("DemonSword L Pos : {}\n", LasleyDemonSword->GetLocalPosition().ToString());
-
+		std::string LasleyState = "Summons";
+		
 		LasleyStageGUI::PushMsg(LasleyDemonSword_Str);
+		LasleyStageGUI::PushMsg(LasleyState);
 	}
 #endif
 }
@@ -116,7 +119,20 @@ void ALasley::IdleTick(float _DeltaTime)
 	}
 
 
+	// Slash Test
+	if (true == IsDown('Y'))
+	{
+		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+		Slash->SetActorLocation({100.0f, 100.0f});
+	}
 
+
+#ifdef _DEBUG
+	{
+		std::string LasleyState = "Idle";
+		LasleyStageGUI::PushMsg(LasleyState);
+	}
+#endif
 	//int Pattern = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 
@@ -142,6 +158,13 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 		State.ChangeState("Idle");
 		return;
 	}
+
+#ifdef _DEBUG
+	{
+		std::string LasleyState = "DevilEye";
+		LasleyStageGUI::PushMsg(LasleyState);
+	}
+#endif
 }
 #pragma endregion
 

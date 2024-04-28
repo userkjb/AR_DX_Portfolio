@@ -165,6 +165,9 @@
     <ClCompile Include="WeaponFX.cpp">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="DimensionSlash.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="PlayerWeapon.h">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="DimensionSlash.h">
+      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
