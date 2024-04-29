@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "DevilChurchWarlock.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "WarlockBlackSphere.h"
 
 ADevilChurchWarlock::ADevilChurchWarlock()
 {
@@ -10,6 +11,8 @@ ADevilChurchWarlock::ADevilChurchWarlock()
 	WarlockRenderer = CreateDefaultSubObject<USpriteRenderer>("Render");
 	WarlockRenderer->SetupAttachment(Root);
 	WarlockRenderer->SetOrder(ERenderOrder::Enemy);
+
+	InputOn(); // test
 }
 
 ADevilChurchWarlock::~ADevilChurchWarlock()
@@ -37,8 +40,8 @@ void ADevilChurchWarlock::Tick(float _DeltaTime)
 
 void ADevilChurchWarlock::CreateAnimtaion()
 {
-	WarlockRenderer->CreateAnimation("WarlockIdle", "DevilChurchWarlock.png", 0.125f, false, 0, 16);
-	WarlockRenderer->CreateAnimation("WarlockSkill", "DevilChurchWarlock.png", 0.125f, true, 17, 23);
+	WarlockRenderer->CreateAnimation("WarlockIdle", "DevilChurchWarlock.png", 0.0625f, false, 0, 16);
+	WarlockRenderer->CreateAnimation("WarlockSkill", "DevilChurchWarlock.png", 0.0625f, true, 17, 23);
 
 	WarlockRenderer->ChangeAnimation("WarlockIdle");
 }
@@ -98,6 +101,12 @@ void ADevilChurchWarlock::AttackBegin()
 void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 {
 	// 备眉 积己.
+	if(true == IsDown('K'))
+	{
+		std::shared_ptr<AWarlockBlackSphere> BlackSphere = GetWorld()->SpawnActor<AWarlockBlackSphere>("BlackSphere");
+		BlackSphere->SummonBlackSphere();
+		BlackSphere->SetSummonBlackSpherePos(FVector(100.0f, 100.0f));
+	}
 
 	// 妮府傈.
 	int a = 0;
