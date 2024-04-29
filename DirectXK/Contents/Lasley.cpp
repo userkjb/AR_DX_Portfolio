@@ -68,6 +68,20 @@ void ALasley::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+
+#ifdef _DEBUG
+	if (true == IsDown('I'))
+	{
+		if (LasleyRenderer->GetDir() == EEngineDir::Right)
+		{
+			LasleyRenderer->SetDir(EEngineDir::Left);
+		}
+		else if (LasleyRenderer->GetDir() == EEngineDir::Left)
+		{
+			LasleyRenderer->SetDir(EEngineDir::Right);
+		}
+	}
+#endif
 }
 
 void ALasley::CreateAnimation()

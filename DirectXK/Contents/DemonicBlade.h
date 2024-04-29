@@ -26,6 +26,26 @@ public:
 		Lasley_Large = _Large;
 	}
 
+	inline void SetLasleyDir(EEngineDir _Dir)
+	{
+		Dir = _Dir;
+	}
+
+	inline void SetDemonicBladeActive(bool _Active)
+	{
+		DemonicBladeRenderer->SetActive(_Active);
+	}
+
+	inline void SetDemonicBladeStart()
+	{
+		State.ChangeState("Create");
+	}
+
+	inline void SetDemonicBladePos(FVector _Pos)
+	{
+		StartPos = _Pos;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -44,6 +64,8 @@ private :
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DemonicBladeRenderer = nullptr;
 	UStateManager State;
+	EEngineDir Dir = EEngineDir::MAX;
+	FVector StartPos = FVector::Zero;
 	bool Lasley_Large = false;
 };
 

@@ -52,6 +52,8 @@ void ALasleyGameMode::BeginPlay()
 		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
 		UEngineSprite::CreateCutting("DimensionSlashBack.png", 9, 3);
 		UEngineSprite::CreateCutting("DimensionSlashFront.png", 6, 2);
+		UEngineSprite::CreateCutting("LasleyDemonicBladeFX.png", 8, 1);
+		UEngineSprite::CreateCutting("LasleyDemonicBladeDisappearFX.png", 3, 3);
 	}
 
 	{

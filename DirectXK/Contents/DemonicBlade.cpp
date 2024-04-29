@@ -9,6 +9,9 @@ ADemonicBlade::ADemonicBlade()
 
 	DemonicBladeRenderer = CreateDefaultSubObject<USpriteRenderer>("Render");
 	DemonicBladeRenderer->SetupAttachment(Root);
+	DemonicBladeRenderer->SetPivot(EPivot::BOT);
+	DemonicBladeRenderer->SetOrder(ERenderOrder::BossSkill_B);
+	DemonicBladeRenderer->SetActive(false);
 }
 
 ADemonicBlade::~ADemonicBlade()
@@ -19,7 +22,10 @@ void ADemonicBlade::BeginPlay()
 {
 	Super::BeginPlay();
 
+	CreateAnimation();
 	InitState();
+
+	DemonicBladeRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 }
 
 void ADemonicBlade::Tick(float _DeltaTime)
@@ -31,6 +37,7 @@ void ADemonicBlade::Tick(float _DeltaTime)
 
 void ADemonicBlade::InitState()
 {
+	State.CreateState("None");
 	State.CreateState("Create"); // 생성 및 이동
 	State.CreateState("Disappear"); // 소멸
 
@@ -45,25 +52,55 @@ void ADemonicBlade::InitState()
 		std::bind(&ADemonicBlade::DisappearExit, this));
 
 
-	State.ChangeState("Create");
+	State.ChangeState("None");
 }
 
 void ADemonicBlade::CreateAnimation()
 {
+	DemonicBladeRenderer->CreateAnimation("CreateDemonicBlade", "LasleyDemonicBladeFX.png", 0.0625f, true);
+	DemonicBladeRenderer->CreateAnimation("DisappearDemonicBlade", "LasleyDemonicBladeDisappearFX.png", 0.0625f, false);
+
+
+	DemonicBladeRenderer->ChangeAnimation("CreateDemonicBlade");
 }
 
 
 void ADemonicBlade::CreateBegin()
 {
+	if (false == Lasley_Large)
+	{
+		DemonicBladeRenderer->SetPosition(StartPos);
+		DemonicBladeRenderer->SetDir(Dir);
+		DemonicBladeRenderer->ChangeAnimation("CreateDemonicBlade");
+	}
+	else
+	{
+
+	}
 }
 
 void ADemonicBlade::CreateTick(float _DeltaTime)
 {
+	float Speed = 500.0f;
+	FVector MoveBlade = FVector::Zero;
+	// 벽에 닿으면,
+	if (Dir == EEngineDir::Right)
+	{
+		MoveBlade = FVector::Right * Speed * _DeltaTime;
+	}
+	else if (Dir == EEngineDir::Left)
+	{
+		MoveBlade = FVector::Left * Speed * _DeltaTime;
+	}
+	AddActorLocation(MoveBlade);
 }
 
 void ADemonicBlade::CreateExit()
 {
 }
+
+
+
 
 void ADemonicBlade::DisappearBegin()
 {

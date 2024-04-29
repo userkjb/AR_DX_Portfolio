@@ -170,7 +170,7 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 	// double slash ÆÐÅÏ.
 	if (true == IsDown('X'))
 	{
-		State.ChangeState("Idle");
+		State.ChangeState("DemonicBlade");
 		return;
 	}
 
@@ -218,7 +218,8 @@ void ALasley::WakeExit()
 #pragma region DemonicBlade
 void ALasley::DemonicBladeBegin()
 {
-	LasleyRenderer->ChangeAnimation("DemonicBlade");
+	LasleyRenderer->ChangeAnimation("LasleyDemonicBlade");
+	LasleyRenderer->SetPivot(EPivot::MAX);
 }
 
 void ALasley::DemonicBladeTick(float _DeltaTime)
@@ -231,13 +232,36 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 
 	if (true == IsDown('Y'))
 	{
-		std::shared_ptr<ADemonicBlade> Tentacle = GetWorld()->SpawnActor<ADemonicBlade>("Tentacle");
+		std::shared_ptr<ADemonicBlade> DemonicBlade = GetWorld()->SpawnActor<ADemonicBlade>("DemonicBlade");
+		
+		if (LasleyRenderer->GetDir() == EEngineDir::Left)
+		{
+			DemonicBlade->SetLasleyDir(EEngineDir::Left);
+			FVector SetPos = GetActorLocation();
+			SetPos.X -= 56.0f * 4.0f;
+			DemonicBlade->SetDemonicBladePos(SetPos);
+			DemonicBlade->SetDemonicBladeActive(true);
+			DemonicBlade->SetDemonicBladeStart();
+		}
+		else if (LasleyRenderer->GetDir() == EEngineDir::Right)
+		{
+			DemonicBlade->SetLasleyDir(EEngineDir::Right);
+			FVector SetPos = GetActorLocation();
+			SetPos.X += 56.0f * 4.0f;
+			DemonicBlade->SetDemonicBladePos(SetPos);	
+			DemonicBlade->SetDemonicBladeActive(true);
+			DemonicBlade->SetDemonicBladeStart();
+		}
 	}
 
 #ifdef _DEBUG
 	{
+		FVector FLasleyPos = GetActorLocation();
 		std::string LasleyState = "Lasley DemonicBlade";
+		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+
 		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
 	}
 #endif
 }
