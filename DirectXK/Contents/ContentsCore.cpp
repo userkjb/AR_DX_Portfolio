@@ -1,13 +1,13 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
 #include <EngineCore/EngineSprite.h>
+#include <EngineCore/EngineEditorGUI.h>
+#include <EngineCore/EngineFont.h>
 
 #include "TestGameMode.h"
 #include "GameStartGameMode.h"
 #include "TitleGameMode.h"
 #include "LasleyGameMode.h"
-
-#include <EngineCore/EngineEditorGUI.h>
 #include "ContentsGUI.h"
 #include "MapEditorGUI.h"
 #include "LasleyStageBossGM.h"
@@ -25,6 +25,11 @@ void UContentsCore::Initialize()
 	{
 		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
+	}
+
+	// Text Ãâ·Â Test
+	{
+		UEngineFont::Load("±Ã¼­");
 	}
 
 	{

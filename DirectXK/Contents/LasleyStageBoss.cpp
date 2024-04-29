@@ -2,6 +2,7 @@
 #include "LasleyStageBoss.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/TileRenderer.h>
+#include "MyWidget.h"
 
 #include "Player.h"
 #include "Lasley.h"
@@ -61,6 +62,9 @@ ALasleyStageBoss::~ALasleyStageBoss()
 void ALasleyStageBoss::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Text Ãâ·Â test
+	//MyWidget* Widget = CreateWidget<MyWidget>(GetWorld(), "Test");
 
 	float CSize = UContentsConstValue::AutoSizeValue; // const
 	MapColRenderer->SetSprite("Boss_Stage_Col.png");
