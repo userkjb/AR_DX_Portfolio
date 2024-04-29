@@ -3,6 +3,7 @@
 #include <EngineBase/EngineRandom.h>
 #include "Tentacle.h"
 #include "DimensionSlash.h"
+#include "DemonicBlade.h"
 
 void ALasley::StateInit()
 {
@@ -175,7 +176,7 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 
 #ifdef _DEBUG
 	{
-		std::string LasleyState = "DevilEye";
+		std::string LasleyState = "Lasley DevilEye";
 		LasleyStageGUI::PushMsg(LasleyState);
 	}
 #endif
@@ -199,7 +200,15 @@ void ALasley::WakeTick(float _DeltaTime)
 		State.ChangeState("DemonicBlade");
 		return;
 	}
+
+#ifdef _DEBUG
+	{
+		std::string LasleyState = "Lasley Wake";
+		LasleyStageGUI::PushMsg(LasleyState);
+	}
+#endif
 }
+
 void ALasley::WakeExit()
 {
 }
@@ -219,6 +228,18 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 		State.ChangeState("DimensionCutter");
 		return;
 	}
+
+	if (true == IsDown('Y'))
+	{
+		std::shared_ptr<ADemonicBlade> Tentacle = GetWorld()->SpawnActor<ADemonicBlade>("Tentacle");
+	}
+
+#ifdef _DEBUG
+	{
+		std::string LasleyState = "Lasley DemonicBlade";
+		LasleyStageGUI::PushMsg(LasleyState);
+	}
+#endif
 }
 #pragma endregion
 

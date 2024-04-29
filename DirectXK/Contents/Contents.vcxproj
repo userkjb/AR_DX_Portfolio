@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DemonicBlade.h" />
     <ClInclude Include="DimensionSlash.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="ContentsConstValue.h" />
@@ -203,6 +204,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DemonicBlade.cpp" />
     <ClCompile Include="DimensionSlash.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="ContentsConstValue.cpp" />

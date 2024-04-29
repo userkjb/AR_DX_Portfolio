@@ -39,6 +39,5 @@ private :
 	USpriteRenderer* DimensionSlashRenderer_F = nullptr;
 	UCollision* SlashCollision = nullptr;
 	UStateManager State;
-
 };
 

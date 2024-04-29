@@ -171,6 +171,9 @@
     <ClCompile Include="DimensionSlash.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="DemonicBlade.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -255,6 +258,9 @@
       <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClInclude>
     <ClInclude Include="DimensionSlash.h">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonicBlade.h">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClInclude>
   </ItemGroup>
