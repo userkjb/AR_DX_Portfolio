@@ -236,6 +236,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 		
 		if (LasleyRenderer->GetDir() == EEngineDir::Left)
 		{
+			DemonicBlade->SetLasleyLarge(false);
 			DemonicBlade->SetLasleyDir(EEngineDir::Left);
 			FVector SetPos = GetActorLocation();
 			SetPos.X -= 56.0f * 4.0f;
@@ -245,6 +246,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 		}
 		else if (LasleyRenderer->GetDir() == EEngineDir::Right)
 		{
+			DemonicBlade->SetLasleyLarge(false);
 			DemonicBlade->SetLasleyDir(EEngineDir::Right);
 			FVector SetPos = GetActorLocation();
 			SetPos.X += 56.0f * 4.0f;
