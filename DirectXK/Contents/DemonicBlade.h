@@ -61,8 +61,11 @@ private :
 	void DisappearTick(float _DeltaTime);
 	void DisappearExit();
 
+	void CollisionCheck(float _DeltaTime);
+
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DemonicBladeRenderer = nullptr;
+	UCollision* DemonicBladeCollision = nullptr;
 	UStateManager State;
 	EEngineDir Dir = EEngineDir::MAX;
 	FVector StartPos = FVector::Zero;

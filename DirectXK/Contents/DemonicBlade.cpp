@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "DemonicBlade.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "PlayerStruct.h"
 
 ADemonicBlade::ADemonicBlade()
 {
@@ -12,6 +13,12 @@ ADemonicBlade::ADemonicBlade()
 	DemonicBladeRenderer->SetPivot(EPivot::BOT);
 	DemonicBladeRenderer->SetOrder(ERenderOrder::BossSkill_B);
 	DemonicBladeRenderer->SetActive(false);
+
+	DemonicBladeCollision = CreateDefaultSubObject<UCollision>("Collision");
+	DemonicBladeCollision->SetupAttachment(Root);
+	DemonicBladeCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
+	DemonicBladeCollision->SetCollisionType(ECollisionType::RotRect);
+	DemonicBladeCollision->SetScale(FVector(108.0f, 212.0f));
 }
 
 ADemonicBlade::~ADemonicBlade()
@@ -72,8 +79,12 @@ void ADemonicBlade::CreateBegin()
 		DemonicBladeRenderer->SetPosition(StartPos);
 		DemonicBladeRenderer->SetDir(Dir);
 		DemonicBladeRenderer->ChangeAnimation("CreateDemonicBlade");
+
+		FVector StartPosition = StartPos;
+		StartPosition.Y += 106.0f;
+		DemonicBladeCollision->SetPosition(StartPosition);
 	}
-	else
+	else // 레이지 상태면!
 	{
 
 	}
@@ -83,7 +94,6 @@ void ADemonicBlade::CreateTick(float _DeltaTime)
 {
 	float Speed = 500.0f;
 	FVector MoveBlade = FVector::Zero;
-	// 벽에 닿으면,
 	if (Dir == EEngineDir::Right)
 	{
 		MoveBlade = FVector::Right * Speed * _DeltaTime;
@@ -93,6 +103,9 @@ void ADemonicBlade::CreateTick(float _DeltaTime)
 		MoveBlade = FVector::Left * Speed * _DeltaTime;
 	}
 	AddActorLocation(MoveBlade);
+	
+	// 벽 체크
+	CollisionCheck(_DeltaTime);
 }
 
 void ADemonicBlade::CreateExit()
@@ -104,12 +117,34 @@ void ADemonicBlade::CreateExit()
 
 void ADemonicBlade::DisappearBegin()
 {
+	DemonicBladeRenderer->ChangeAnimation("DisappearDemonicBlade");
 }
 
 void ADemonicBlade::DisappearTick(float _DeltaTime)
 {
+	FVector MoveVector = FVector::Zero;
+	AddActorLocation(MoveVector); // 그 자리에 멈추고.
+
+	if (true == DemonicBladeRenderer->IsCurAnimationEnd())
+	{
+		DemonicBladeRenderer->SetActive(false);
+		DemonicBladeCollision->SetActive(false);
+		Destroy();
+	}
 }
 
 void ADemonicBlade::DisappearExit()
 {
+}
+
+void ADemonicBlade::CollisionCheck(float _DeltaTime)
+{
+	DemonicBladeCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			//APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			EPlayerStateValue::Hp -= 10;
+		});
+
+	// 벽.
+	
 }
