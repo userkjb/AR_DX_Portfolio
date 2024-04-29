@@ -37,8 +37,8 @@ void ADevilChurchWarlock::Tick(float _DeltaTime)
 
 void ADevilChurchWarlock::CreateAnimtaion()
 {
-	WarlockRenderer->CreateAnimation("WarlockIdle", "DevilChurchWarlock.png", 0.125f, false, 0, 14);
-	WarlockRenderer->CreateAnimation("WarlockSkill", "DevilChurchWarlock.png", 0.125f, true, 15, 23);
+	WarlockRenderer->CreateAnimation("WarlockIdle", "DevilChurchWarlock.png", 0.125f, false, 0, 16);
+	WarlockRenderer->CreateAnimation("WarlockSkill", "DevilChurchWarlock.png", 0.125f, true, 17, 23);
 
 	WarlockRenderer->ChangeAnimation("WarlockIdle");
 }
@@ -67,32 +67,46 @@ void ADevilChurchWarlock::StateInit()
 }
 
 
-
+#pragma region Summon
 void ADevilChurchWarlock::SummonBegin()
 {
-	int a = 0;
+	WarlockRenderer->ChangeAnimation("WarlockIdle");
+	WarlockRenderer->SetPosition(SummonPos);
 }
 
 void ADevilChurchWarlock::SummonTick(float _DeltaTime)
 {
-	int a = 0;
+	if (true == WarlockRenderer->IsCurAnimationEnd())
+	{
+		State.ChangeState("WarlockAttack");
+		return;
+	}
 }
 
 void ADevilChurchWarlock::SummonExit()
 {
 }
+#pragma endregion
 
+
+#pragma region Attack
 void ADevilChurchWarlock::AttackBegin()
 {
+	WarlockRenderer->ChangeAnimation("WarlockSkill");
 }
 
 void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 {
+	// 备眉 积己.
+
+	// 妮府傈.
+	int a = 0;
 }
 
 void ADevilChurchWarlock::AttackExit()
 {
 }
+#pragma endregion
 
 void ADevilChurchWarlock::DieBegin()
 {

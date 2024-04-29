@@ -18,6 +18,11 @@ public:
 	ADevilChurchWarlock& operator=(const ADevilChurchWarlock& _Other) = delete;
 	ADevilChurchWarlock& operator=(ADevilChurchWarlock&& _Other) noexcept = delete;
 
+	inline void SetPosition(FVector _Pos)
+	{
+		SummonPos = _Pos;
+	}
+
 	inline void SummonWarlock()
 	{
 		State.ChangeState("WarlockSummon");
@@ -47,5 +52,8 @@ private :
 	USpriteRenderer* WarlockRenderer = nullptr;
 
 	UStateManager State;
+	FVector SummonPos = FVector::Zero;
+
+	int Hp = 40;
 };
 

@@ -203,6 +203,7 @@
     </ClInclude>
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TownGameMode.h" />
+    <ClInclude Include="WarlockBlackSphere.h" />
     <ClInclude Include="WeaponFX.h">
       <SubType>
       </SubType>
@@ -254,6 +255,7 @@
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TownGameMode.cpp" />
+    <ClCompile Include="WarlockBlackSphere.cpp" />
     <ClCompile Include="WeaponFX.cpp">
       <SubType>
       </SubType>

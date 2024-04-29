@@ -356,6 +356,7 @@ void ALasley::DownTick(float _DeltaTime)
 	if(true == IsDown('Y'))
 	{
 		std::shared_ptr<ADevilChurchWarlock> Warlock = GetWorld()->SpawnActor<ADevilChurchWarlock>("Slash");
+		Warlock->SetPosition(SummonPos[0]);
 		Warlock->SummonWarlock();
 	}
 

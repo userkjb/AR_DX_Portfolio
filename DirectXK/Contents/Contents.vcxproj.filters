@@ -186,6 +186,9 @@
     <ClCompile Include="DevilChurchWarlock.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
     </ClCompile>
+    <ClCompile Include="WarlockBlackSphere.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -279,6 +282,9 @@
       <Filter>Level\00_GameStart\Widget</Filter>
     </ClInclude>
     <ClInclude Include="DevilChurchWarlock.h">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
+    </ClInclude>
+    <ClInclude Include="WarlockBlackSphere.h">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
     </ClInclude>
   </ItemGroup>
