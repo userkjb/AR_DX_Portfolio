@@ -46,9 +46,6 @@
     <Filter Include="Level\03_LasleyLevel\GameMode">
       <UniqueIdentifier>{3e67d197-8c73-4163-9e2d-b700f79194f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03_LasleyLevel\Actor\Boss">
-      <UniqueIdentifier>{bd463087-5fd4-41d2-892e-c69e9ab1529d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\03_LasleyLevel\GameMode\Map Actor">
       <UniqueIdentifier>{763ab9f9-8d8d-49b8-838c-b7411c2a6885}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,12 @@
     </Filter>
     <Filter Include="Level\00_GameStart\Actor\Player\Struct">
       <UniqueIdentifier>{4faaac4a-7681-4d71-b7f6-3208530cdbf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Lasley">
+      <UniqueIdentifier>{bd463087-5fd4-41d2-892e-c69e9ab1529d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Lasley\Skill">
+      <UniqueIdentifier>{0cdd2316-92c4-453c-ba90-0ca57a54e6e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,13 +112,10 @@
       <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClCompile>
     <ClCompile Include="Lasley.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley</Filter>
     </ClCompile>
     <ClCompile Include="LasleySkill.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
-    </ClCompile>
-    <ClCompile Include="Tentacle.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley</Filter>
     </ClCompile>
     <ClCompile Include="LasleyStageOne.cpp">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
@@ -145,7 +145,7 @@
       <Filter>Level\00_GameStart\Actor\Player\Struct</Filter>
     </ClCompile>
     <ClCompile Include="Lasley_State.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
@@ -165,8 +165,11 @@
     <ClCompile Include="WeaponFX.cpp">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Tentacle.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
+    </ClCompile>
     <ClCompile Include="DimensionSlash.cpp">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,13 +210,10 @@
       <Filter>Level\03_LasleyLevel\GameMode</Filter>
     </ClInclude>
     <ClInclude Include="LasleySkill.h">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley</Filter>
     </ClInclude>
     <ClInclude Include="Lasley.h">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="Tentacle.h">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley</Filter>
     </ClInclude>
     <ClInclude Include="LasleyStageOne.h">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
@@ -251,8 +251,11 @@
     <ClInclude Include="PlayerWeapon.h">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
     </ClInclude>
+    <ClInclude Include="Tentacle.h">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
+    </ClInclude>
     <ClInclude Include="DimensionSlash.h">
-      <Filter>Level\03_LasleyLevel\Actor\Boss</Filter>
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

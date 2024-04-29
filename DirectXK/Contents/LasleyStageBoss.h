@@ -4,6 +4,7 @@
 class UDefaultSceneComponent;
 class UTileRenderer;
 class APlayer;
+class ALasley;
 class ALasleyStageBoss : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -28,6 +29,15 @@ public:
 		return BossStageStart;
 	}
 
+	/// <summary>
+	/// ALasleyStageBossGM::Tick 에서 Lasley를 넘겨 줌.
+	/// </summary>
+	/// <param name="_Lasley"></param>
+	inline void SendLasley(std::shared_ptr<ALasley> _Lasley)
+	{
+		Lasley = _Lasley;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -43,7 +53,7 @@ private :
 	USpriteRenderer* MapObjectRightDoor = nullptr; // 문
 	UCollision* MapObjectRightDoorCol = nullptr; // 문 Col
 
-
+	std::shared_ptr<ALasley> Lasley = nullptr;
 
 	UStateManager State;
 
@@ -69,5 +79,6 @@ private :
 	void StageStartCollisionCheck(float _DeltaTime);
 	void PlayerStageOutCollisionCheck(float _DeltaTime);
 	void SendMapInDoor(APlayer* _Player, float _SendFloatValue);
+	
 };
 

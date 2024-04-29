@@ -32,6 +32,11 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 
 	FVector PlayerPos = Player->GetPlayerPos();
 
+	// 맵에 라슬리를 알려줘야 함
+	{
+		BossMap->SendLasley(Lasley);
+	}
+
 	if (true == UEngineInput::IsDown(0x30)) // 키보드 0
 	{
 		if (FreeCamera)

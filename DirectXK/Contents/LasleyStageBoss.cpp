@@ -4,6 +4,7 @@
 #include <EngineCore/TileRenderer.h>
 
 #include "Player.h"
+#include "Lasley.h"
 
 ALasleyStageBoss::ALasleyStageBoss()
 {
@@ -238,6 +239,13 @@ void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
 	// 카메라가 라슬리에 포커스를 둬야 함.
 	// test
 	if (true == IsDown('T'))
+	{
+		State.ChangeState("LasleyBossStageIng");
+		return;
+	}
+
+	std::string x = Lasley->GetCurLasleyState();
+	if (x == "Idle")
 	{
 		State.ChangeState("LasleyBossStageIng");
 		return;
