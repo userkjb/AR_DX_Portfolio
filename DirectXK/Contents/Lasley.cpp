@@ -13,6 +13,15 @@ ALasley::ALasley()
 		MovePos.push_back(FVector(100.0f, 100.0f));
 		//.....
 	}
+
+	// 사도 소환 위치 설정.
+	{
+		SummonPos.assign(4, FVector::Zero);
+		MovePos.push_back(FVector(530.0f, 830.0f));
+		MovePos.push_back(FVector(530.0f, 430.0f));
+		MovePos.push_back(FVector(1300.0f, 830.0f));
+		MovePos.push_back(FVector(1300.0f, 430.0f));
+	}
 	
 	
 	LasleyRenderer = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");

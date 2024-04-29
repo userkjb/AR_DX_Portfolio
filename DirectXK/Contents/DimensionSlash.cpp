@@ -57,8 +57,6 @@ void ADimensionSlash::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 
-
-
 #ifdef _DEBUG
 	{
 		FVector LocalPos = DimensionSlashRenderer_B->GetLocalPosition();

@@ -86,7 +86,9 @@ private :
 	int Hp = 40;
 	const float MoveSpeed = 500.0f;
 	float MoveTime = 0.0f;
+	float DownTime = 0.0f;
 	std::vector<FVector> MovePos;
+	std::vector<FVector> SummonPos;
 };
 
 // 처음 시작 패턴은 같음.

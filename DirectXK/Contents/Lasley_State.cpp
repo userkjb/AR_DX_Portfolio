@@ -39,12 +39,16 @@ void ALasley::StateInit()
 
 	State.SetStartFunction("Wake", std::bind(&ALasley::WakeBegin, this));
 	State.SetUpdateFunction("Wake", std::bind(&ALasley::WakeTick, this, std::placeholders::_1));
+	
 	State.SetStartFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeBegin, this));
 	State.SetUpdateFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeTick, this, std::placeholders::_1));
+	
 	State.SetStartFunction("DimensionCutter", std::bind(&ALasley::DimensionCutterBegin, this));
 	State.SetUpdateFunction("DimensionCutter", std::bind(&ALasley::DimensionCutterTick, this, std::placeholders::_1));
+	
 	State.SetStartFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterBegin, this));
 	State.SetUpdateFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterTick, this, std::placeholders::_1));
+	
 	State.SetStartFunction("Down", std::bind(&ALasley::DownBegin, this));
 	State.SetUpdateFunction("Down", std::bind(&ALasley::DownTick, this, std::placeholders::_1));
 
@@ -80,6 +84,12 @@ void ALasley::SummonsTick(float _DeltaTime)
 		{
 			LasleyDemonSword->AddPosition(MoveDemonSword);
 		}
+	}
+
+	if (0 <= Hp)
+	{
+		State.ChangeState("Down");
+		return;
 	}
 
 #ifdef _DEBUG
@@ -305,10 +315,13 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 void ALasley::DownBegin()
 {
 	LasleyRenderer->ChangeAnimation("Down");
+	DownTime = 0.0f;
 }
 
 void ALasley::DownTick(float _DeltaTime)
 {
+	DownTime += _DeltaTime;
+
 	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
