@@ -29,16 +29,15 @@ private :
 	void CreateBegin();
 	void CreateTick(float _DeltaTime);
 	void CreateExit();
-	void AttackBegin();
-	void AttackTick(float _DeltaTime);
-	void AttackExit();
 
 	void FrameCallBack();
+
+	void CollisionCallBack(float _DeltaTime);
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DimensionSlashRenderer_B = nullptr;
 	USpriteRenderer* DimensionSlashRenderer_F = nullptr;
-	//UCollision* SlashCollision = nullptr;
+	UCollision* SlashCollision = nullptr;
 	UStateManager State;
 
 };
