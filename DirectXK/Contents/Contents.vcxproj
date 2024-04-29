@@ -184,6 +184,10 @@
     <ClInclude Include="LasleyStageOne.h" />
     <ClInclude Include="LasleyStageBossGM.h" />
     <ClInclude Include="MapEditorGUI.h" />
+    <ClInclude Include="MyWidget.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerStruct.h" />
     <ClInclude Include="PlayerWeapon.h" />
@@ -222,6 +226,10 @@
     <ClCompile Include="LasleyStageBossGM.cpp" />
     <ClCompile Include="Lasley_State.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
+    <ClCompile Include="MyWidget.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerStruct.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />

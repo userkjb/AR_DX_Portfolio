@@ -100,6 +100,12 @@
     <Filter Include="ThirdParty\FW1FontWrapper\Release">
       <UniqueIdentifier>{b5d61499-dee0-423a-bdd2-08ea88168f1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Font">
+      <UniqueIdentifier>{77a45dc5-9492-4554-958f-8733d2b7ec4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\FW1FontWrapper\Ine">
+      <UniqueIdentifier>{e206f955-da9f-4e6f-a20c-4677fa0d3aba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp">
@@ -272,6 +278,12 @@
     </ClCompile>
     <ClCompile Include="SpriteInstancingRender.cpp">
       <Filter>Object\Component\Rendering\Contents</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineFont.cpp">
+      <Filter>Resources\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="TextWidget.cpp">
+      <Filter>Object\UI\Contents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,6 +467,15 @@
     <ClInclude Include="SpriteInstancingRender.h">
       <Filter>Object\Component\Rendering\Contents</Filter>
     </ClInclude>
+    <ClInclude Include="EngineFont.h">
+      <Filter>Resources\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\FW1FontWrapper\Ine\FW1FontWrapper.h">
+      <Filter>ThirdParty\FW1FontWrapper\Ine</Filter>
+    </ClInclude>
+    <ClInclude Include="TextWidget.h">
+      <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Debug\DirectXTex.lib">
@@ -463,18 +484,14 @@
     <CopyFileToFolders Include="..\..\ThirdPartyProject\DirectXTex\DirectXTex\Bin\Desktop_2022\x64\Release\DirectXTex.lib">
       <Filter>ThirdParty\DirectXTex\Release</Filter>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb">
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll">
       <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
-    </None>
-    <None Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib">
       <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib">
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb">
       <Filter>ThirdParty\FW1FontWrapper\Release</Filter>
-    </Library>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

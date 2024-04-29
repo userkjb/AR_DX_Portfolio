@@ -185,6 +185,7 @@
     <ClInclude Include="EngineEditorGUI.h" />
     <ClInclude Include="EngineEditorWindow.h" />
     <ClInclude Include="EngineEnums.h" />
+    <ClInclude Include="EngineFont.h" />
     <ClInclude Include="EngineGraphicDevice.h" />
     <ClInclude Include="EngineIndexBuffer.h" />
     <ClInclude Include="EngineInputLayOut.h" />
@@ -226,8 +227,13 @@
     <ClInclude Include="SpriteInstancingRender.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="ThirdParty\FW1FontWrapper\Ine\FW1FontWrapper.h" />
     <ClInclude Include="TickObject.h" />
     <ClInclude Include="TileRenderer.h" />
+    <ClInclude Include="TextWidget.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WorldObject.h" />
   </ItemGroup>
@@ -247,6 +253,7 @@
     <ClCompile Include="EngineDebugMsgWindow.cpp" />
     <ClCompile Include="EngineEditorGUI.cpp" />
     <ClCompile Include="EngineEditorWindow.cpp" />
+    <ClCompile Include="EngineFont.cpp" />
     <ClCompile Include="EngineGraphicDevice.cpp" />
     <ClCompile Include="EngineGraphicDevice_Resources.cpp" />
     <ClCompile Include="EngineIndexBuffer.cpp" />
@@ -295,6 +302,10 @@
     <ClCompile Include="TickObject.cpp" />
     <ClCompile Include="EngineSampler.cpp" />
     <ClCompile Include="TileRenderer.cpp" />
+    <ClCompile Include="TextWidget.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
@@ -315,11 +326,17 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll" />
-    <None Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb" />
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.pdb">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib" />
+    <CopyFileToFolders Include="ThirdParty\FW1FontWrapper\Release\FW1FontWrapper.lib">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
