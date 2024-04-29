@@ -146,5 +146,9 @@ void ADemonicBlade::CollisionCheck(float _DeltaTime)
 		});
 
 	// º®.
-	
+	DemonicBladeCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			State.ChangeState("Disappear");
+			return;
+		});
 }
