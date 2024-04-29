@@ -76,6 +76,9 @@
     <Filter Include="Level\00_GameStart\Widget">
       <UniqueIdentifier>{893341b8-bf1e-48e1-9068-2e97755a1319}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Lasley\SummonActor">
+      <UniqueIdentifier>{729dadb1-15ae-4cc9-a468-52998ce36826}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -180,6 +183,9 @@
     <ClCompile Include="MyWidget.cpp">
       <Filter>Level\00_GameStart\Widget</Filter>
     </ClCompile>
+    <ClCompile Include="DevilChurchWarlock.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -271,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="MyWidget.h">
       <Filter>Level\00_GameStart\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="DevilChurchWarlock.h">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
