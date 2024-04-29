@@ -104,8 +104,8 @@ void ALasley::CreateAnimation()
 	// State
 	//LasleyRenderer->CreateAnimation("Idle", "LasleyIdle", 0.125f);
 	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle.png", 0.125f, true, 0, 23); // Pivot MAX
-	LasleyRenderer->CreateAnimation("Wake", "LasleyWake", 0.125f);
-	LasleyRenderer->CreateAnimation("Down", "LasleyDown", 0.125f);
+	LasleyRenderer->CreateAnimation("Wake", "LasleyWake", 0.125f, false);
+	LasleyRenderer->CreateAnimation("Down", "LasleyDown", 0.125f, false);
 
 	// Skill
 	//LasleyRenderer->CreateAnimation("DemonicBlade", "LasleyDemonicBlade", 0.125f);

@@ -4,6 +4,7 @@
 #include "Tentacle.h"
 #include "DimensionSlash.h"
 #include "DemonicBlade.h"
+#include "DevilChurchWarlock.h"
 
 void ALasley::StateInit()
 {
@@ -42,15 +43,19 @@ void ALasley::StateInit()
 	
 	State.SetStartFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeBegin, this));
 	State.SetUpdateFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeTick, this, std::placeholders::_1));
-	
-	State.SetStartFunction("DimensionCutter", std::bind(&ALasley::DimensionCutterBegin, this));
-	State.SetUpdateFunction("DimensionCutter", std::bind(&ALasley::DimensionCutterTick, this, std::placeholders::_1));
+
+	State.SetFunction("DimensionCutter",
+		std::bind(&ALasley::DimensionCutterBegin, this),
+		std::bind(&ALasley::DimensionCutterTick, this, std::placeholders::_1),
+		std::bind(&ALasley::DimensionCutterExit, this));
 	
 	State.SetStartFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterBegin, this));
 	State.SetUpdateFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterTick, this, std::placeholders::_1));
 	
-	State.SetStartFunction("Down", std::bind(&ALasley::DownBegin, this));
-	State.SetUpdateFunction("Down", std::bind(&ALasley::DownTick, this, std::placeholders::_1));
+	State.SetFunction("Down",
+		std::bind(&ALasley::DownBegin, this),
+		std::bind(&ALasley::DownTick, this, std::placeholders::_1),
+		std::bind(&ALasley::DownExit, this));
 
 
 	// Change
@@ -86,7 +91,7 @@ void ALasley::SummonsTick(float _DeltaTime)
 		}
 	}
 
-	if (0 <= Hp)
+	if (0 >= Hp)
 	{
 		State.ChangeState("Down");
 		return;
@@ -282,7 +287,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 #pragma region DimensionCutter
 void ALasley::DimensionCutterBegin()
 {
-	LasleyRenderer->ChangeAnimation("DimensionCutter");
+	LasleyRenderer->ChangeAnimation("LasleyDimensionCutter");
 }
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
@@ -292,13 +297,27 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 		State.ChangeState("DoubleDimensionCutter");
 		return;
 	}
+
+#ifdef _DEBUG
+	{
+		FVector FLasleyPos = GetActorLocation();
+		std::string LasleyState = "Lasley Dimension Cutter";
+		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+
+		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
+	}
+#endif
+}
+void ALasley::DimensionCutterExit()
+{
 }
 #pragma endregion
 
 #pragma region DoubleDimensionCutter
 void ALasley::DoubleDimensionCutterBegin()
 {
-	LasleyRenderer->ChangeAnimation("DoubleDimensionCutter");
+	LasleyRenderer->ChangeAnimation("LasleyDoubleDimensionCutter");
 }
 
 void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
@@ -308,6 +327,17 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 		State.ChangeState("Down");
 		return;
 	}
+
+#ifdef _DEBUG
+	{
+		FVector FLasleyPos = GetActorLocation();
+		std::string LasleyState = "Lasley Double Dimension Cutter";
+		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+
+		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
+	}
+#endif
 }
 #pragma endregion
 
@@ -315,6 +345,7 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 void ALasley::DownBegin()
 {
 	LasleyRenderer->ChangeAnimation("Down");
+	LasleyRenderer->SetPivot(EPivot::BOT);
 	DownTime = 0.0f;
 }
 
@@ -322,11 +353,33 @@ void ALasley::DownTick(float _DeltaTime)
 {
 	DownTime += _DeltaTime;
 
+	if(true == IsDown('Y'))
+	{
+		std::shared_ptr<ADevilChurchWarlock> Warlock = GetWorld()->SpawnActor<ADevilChurchWarlock>("Slash");
+		Warlock->SummonWarlock();
+	}
+
+
+
 	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
 		return;
 	}
+
+#ifdef _DEBUG
+	{
+		FVector FLasleyPos = GetActorLocation();
+		std::string LasleyState = "Lasley Down";
+		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+
+		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
+	}
+#endif
+}
+void ALasley::DownExit()
+{
 }
 #pragma endregion
 

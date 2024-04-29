@@ -61,10 +61,12 @@ private :
 	void DemonicBladeTick(float _DeltaTime);
 	void DimensionCutterBegin();
 	void DimensionCutterTick(float _DeltaTime);
+	void DimensionCutterExit();
 	void DoubleDimensionCutterBegin();
 	void DoubleDimensionCutterTick(float _DeltaTime);
 	void DownBegin();
 	void DownTick(float _DeltaTime);
+	void DownExit();
 
 	void LasleySummonEndCallBack();
 
@@ -87,6 +89,7 @@ private :
 	const float MoveSpeed = 500.0f;
 	float MoveTime = 0.0f;
 	float DownTime = 0.0f;
+	int WarlockCount = 0;
 	std::vector<FVector> MovePos;
 	std::vector<FVector> SummonPos;
 };
