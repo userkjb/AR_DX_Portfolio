@@ -17,10 +17,11 @@ ADimensionSlash::ADimensionSlash()
 	DimensionSlashRenderer_B->SetPosition(FVector(200.0f, 200.0f));
 	DimensionSlashRenderer_B->SetActive(true);
 
-	//DimensionSlashRenderer_F = CreateDefaultSubObject<USpriteRenderer>("SlashRenderer");
-	//DimensionSlashRenderer_F->SetupAttachment(Root);
-	//DimensionSlashRenderer_F->SetOrder(ERenderOrder::BossSkill_F);
-	//DimensionSlashRenderer_F->SetActive(false);
+	DimensionSlashRenderer_F = CreateDefaultSubObject<USpriteRenderer>("SlashRenderer");
+	DimensionSlashRenderer_F->SetupAttachment(Root);
+	DimensionSlashRenderer_F->SetOrder(ERenderOrder::BossSkill_F);
+	DimensionSlashRenderer_F->SetPosition(FVector(200.0f, 200.0f));
+	DimensionSlashRenderer_F->SetActive(false);
 
 
 	//SlashCollision = CreateDefaultSubObject<UCollision>("SlashCollision");
@@ -43,8 +44,7 @@ void ADimensionSlash::BeginPlay()
 	InitState();
 
 	DimensionSlashRenderer_B->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-	//DimensionSlashRenderer_B->SetAutoSize(10.0f, true);
-	//DimensionSlashRenderer_F->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	DimensionSlashRenderer_F->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 }
 
 void ADimensionSlash::Tick(float _DeltaTime)
@@ -90,22 +90,19 @@ void ADimensionSlash::Tick(float _DeltaTime)
 
 void ADimensionSlash::CreateAnimation()
 {
-	DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack", "DimensionSlashBack.png", 0.125f, true, 0, 26);
-	//DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack_S", "DimensionSlashBack.png", 0.125f, true, 0, 8);
-	//DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack_I", "DimensionSlashBack.png", 0.125f, true, 9, 17);
-	//DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack_E", "DimensionSlashBack.png", 0.125f, true, 18, 26);
+	DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack", "DimensionSlashBack.png", 0.125f, false);
 
-	//DimensionSlashRenderer_F->CreateAnimation("DimensionSlashFront", "DimensionSlashFront.png", 0.125f, false);
+	DimensionSlashRenderer_F->CreateAnimation("DimensionSlashFront", "DimensionSlashFront.png", 0.125f, false);
 
 
 	DimensionSlashRenderer_B->ChangeAnimation("DimensionSlashBack");
-	//DimensionSlashRenderer_F->ChangeAnimation("DimensionSlashFront");
+	DimensionSlashRenderer_F->ChangeAnimation("DimensionSlashFront");
 }
 
 void ADimensionSlash::InitState()
 {
 	State.CreateState("Create");
-	State.CreateState("Attack");
+	//State.CreateState("Attack");
 	//State.CreateState("Disppear");
 
 	State.SetFunction("Create",
@@ -113,10 +110,10 @@ void ADimensionSlash::InitState()
 		std::bind(&ADimensionSlash::CreateTick, this, std::placeholders::_1),
 		std::bind(&ADimensionSlash::CreateExit, this));
 
-	State.SetFunction("Attack",
-		std::bind(&ADimensionSlash::AttackBegin, this),
-		std::bind(&ADimensionSlash::AttackTick, this, std::placeholders::_1),
-		std::bind(&ADimensionSlash::AttackExit, this));
+	//State.SetFunction("Attack",
+	//	std::bind(&ADimensionSlash::AttackBegin, this),
+	//	std::bind(&ADimensionSlash::AttackTick, this, std::placeholders::_1),
+	//	std::bind(&ADimensionSlash::AttackExit, this));
 
 
 
@@ -131,20 +128,28 @@ void ADimensionSlash::CreateBegin()
 	{
 		DimensionSlashRenderer_B->SetActive(true);
 	}
-	//DimensionSlashRenderer_F->SetActive(true);
+	/*DimensionSlashRenderer_F->SetActive(true);*/
 
 	DimensionSlashRenderer_B->ChangeAnimation("DimensionSlashBack");
-	//DimensionSlashRenderer_F->ChangeAnimation("DimensionSlashFront");
+	DimensionSlashRenderer_F->ChangeAnimation("DimensionSlashFront");
 }
 
 void ADimensionSlash::CreateTick(float _DeltaTime)
 {
 	int a = 0;
-	DimensionSlashRenderer_B->SetFrameCallback("DimensionSlashBack", 4, std::bind(&ADimensionSlash::FrameCallBack, this));
+	DimensionSlashRenderer_B->SetFrameCallback("DimensionSlashBack", 12, std::bind(&ADimensionSlash::FrameCallBack, this));
+	if (true == DimensionSlashRenderer_F->IsCurAnimationEnd())
+	{
+		int a = 0; // 여기 안탄 이유는 Super 미 선언 때문이였고.
+		DimensionSlashRenderer_F->SetActive(false);
+	}
 	if (true == DimensionSlashRenderer_B->IsCurAnimationEnd())
 	{
 		int a = 0; // 여기 안탄 이유는 Super 미 선언 때문이였고.
+		DimensionSlashRenderer_B->SetActive(false);
+		Destroy();
 	}
+
 }
 
 void ADimensionSlash::CreateExit()
@@ -155,6 +160,7 @@ void ADimensionSlash::CreateExit()
 void ADimensionSlash::FrameCallBack()
 {
 	int a = 0; // USpriteRenderer를 전방선언 하니 이건 탐.
+	DimensionSlashRenderer_F->SetActive(true);
 }
 #pragma endregion
 

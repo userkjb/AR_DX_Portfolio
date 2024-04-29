@@ -1,6 +1,5 @@
 #pragma once
 #include <EngineCore/Actor.h>
-//#include <EngineCore/SpriteRenderer.h>
 
 class USpriteRenderer;
 class UDefaultSceneComponent;
@@ -38,7 +37,7 @@ private :
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DimensionSlashRenderer_B = nullptr;
-	//USpriteRenderer* DimensionSlashRenderer_F = nullptr;
+	USpriteRenderer* DimensionSlashRenderer_F = nullptr;
 	//UCollision* SlashCollision = nullptr;
 	UStateManager State;
 
