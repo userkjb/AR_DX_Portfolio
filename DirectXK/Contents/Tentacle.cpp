@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Tentacle.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "PlayerStruct.h"
 
 ATentacle::ATentacle()
 {
@@ -13,6 +14,13 @@ ATentacle::ATentacle()
 	TentacleRenderer->SetOrder(ERenderOrder::BossSkill_B);
 	TentacleRenderer->SetPosition(FVector(100.0f, 100.0f));
 	TentacleRenderer->SetActive(false);
+
+	TentacleCollision = CreateDefaultSubObject<UCollision>("TentacleCollision");
+	TentacleCollision->SetupAttachment(Root);
+	TentacleCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
+	TentacleCollision->SetCollisionType(ECollisionType::RotRect);
+	TentacleCollision->SetPosition(TentacleRenderer->GetLocalPosition());
+	TentacleCollision->SetScale(ThisScale);
 }
 
 ATentacle::~ATentacle()
@@ -122,6 +130,7 @@ void ATentacle::EndTick(float _DeltaTime)
 {
 	if (true == TentacleRenderer->IsCurAnimationEnd())
 	{
+		TentacleCollision->SetActive(false);
 		TentacleRenderer->SetActive(false);
 		Destroy();
 	}
@@ -130,4 +139,15 @@ void ATentacle::EndTick(float _DeltaTime)
 void ATentacle::EndExit()
 {
 	//TentacleRenderer->SetActive(false);
+}
+
+
+void ATentacle::CollisionCheck(float _DeltaTime)
+{
+	
+	TentacleCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			//APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			EPlayerStateValue::Hp -= 10;
+		});
 }

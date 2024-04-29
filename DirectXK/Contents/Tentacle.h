@@ -35,9 +35,13 @@ private:
 	void EndTick(float _DeltaTime);
 	void EndExit();
 
+	void CollisionCheck(float _DeltaTime);
+
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* TentacleRenderer = nullptr;
+	UCollision* TentacleCollision = nullptr;
 	UStateManager State;
+	FVector ThisScale = FVector(64.0f, 120.0f);
 	float LifeTime = 0.0f;
 };
 
