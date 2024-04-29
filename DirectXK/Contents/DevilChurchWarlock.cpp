@@ -12,6 +12,11 @@ ADevilChurchWarlock::ADevilChurchWarlock()
 	WarlockRenderer->SetupAttachment(Root);
 	WarlockRenderer->SetOrder(ERenderOrder::Enemy);
 
+	WarlockCollision = CreateDefaultSubObject<UCollision>("Collision");
+	WarlockCollision->SetupAttachment(Root);
+	WarlockCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
+	WarlockCollision->SetCollisionType(ECollisionType::RotRect);
+
 	InputOn(); // test
 }
 
@@ -109,7 +114,7 @@ void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 	}
 
 	// ÄÝ¸®Àü.
-	int a = 0;
+	CollisionCheck(_DeltaTime);
 }
 
 void ADevilChurchWarlock::AttackExit()
@@ -127,4 +132,14 @@ void ADevilChurchWarlock::DieTick(float _DeltaTime)
 
 void ADevilChurchWarlock::DieExit()
 {
+}
+
+
+
+void ADevilChurchWarlock::CollisionCheck(float _DeltaTime)
+{
+	WarlockCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			Hp -= 5;
+		});
 }

@@ -47,9 +47,11 @@ private :
 	void DieTick(float _DeltaTime);
 	void DieExit();
 	
+	void CollisionCheck(float _DeltaTime);
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* WarlockRenderer = nullptr;
+	UCollision* WarlockCollision = nullptr;
 
 	UStateManager State;
 	FVector SummonPos = FVector::Zero;
