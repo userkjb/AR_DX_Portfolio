@@ -25,6 +25,7 @@ enum class ECollisionOrder
 	Player,
 	Monster,
 	Boss,
+	BossSkill,
 	WeaponFX,
 	NextMap,
 	BossStageStart,

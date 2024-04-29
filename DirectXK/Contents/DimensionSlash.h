@@ -1,7 +1,9 @@
 #pragma once
 #include <EngineCore/Actor.h>
-#include <EngineCore/SpriteRenderer.h>
+//#include <EngineCore/SpriteRenderer.h>
 
+class USpriteRenderer;
+class UDefaultSceneComponent;
 class ADimensionSlash : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -28,11 +30,16 @@ private :
 	void CreateBegin();
 	void CreateTick(float _DeltaTime);
 	void CreateExit();
+	void AttackBegin();
+	void AttackTick(float _DeltaTime);
+	void AttackExit();
 
 	void FrameCallBack();
 
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* DimensionSlashRenderer_B = nullptr;
-	USpriteRenderer* DimensionSlashRenderer_F = nullptr;
+	//USpriteRenderer* DimensionSlashRenderer_F = nullptr;
+	//UCollision* SlashCollision = nullptr;
 	UStateManager State;
 
 };

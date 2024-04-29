@@ -29,9 +29,12 @@ void ALasley::StateInit()
 		std::bind(&ALasley::IdleTick, this, std::placeholders::_1),
 		std::bind(&ALasley::IdleExit, this));
 
+	State.SetFunction("DevilEye",
+		std::bind(&ALasley::DevilEyeBegin, this),
+		std::bind(&ALasley::DevilEyeTick, this, std::placeholders::_1),
+		std::bind(&ALasley::DevilEyeExit, this));
 
-	State.SetStartFunction("DevilEye", std::bind(&ALasley::DevilEyeBegin, this));
-	State.SetUpdateFunction("DevilEye", std::bind(&ALasley::DevilEyeTick, this, std::placeholders::_1));
+
 	State.SetStartFunction("Wake", std::bind(&ALasley::WakeBegin, this));
 	State.SetUpdateFunction("Wake", std::bind(&ALasley::WakeTick, this, std::placeholders::_1));
 	State.SetStartFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeBegin, this));
@@ -111,9 +114,10 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
-	// 보스전 시작을 알리면,
+	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
 	if (true == IsDown('X'))
 	{
+		// 정해진 첫 번째 패턴 DevilEye
 		State.ChangeState("DevilEye");
 		return;
 	}
@@ -123,13 +127,15 @@ void ALasley::IdleTick(float _DeltaTime)
 	if (true == IsDown('Y'))
 	{
 		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
-		Slash->SetActorLocation({100.0f, 100.0f});
+		Slash->SetActive(true);
+		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
+		//Slash->SetActorLocation({100.0f, 100.0f});
 	}
 
 
 #ifdef _DEBUG
 	{
-		std::string LasleyState = "Idle";
+		std::string LasleyState = "Lasley Idle";
 		LasleyStageGUI::PushMsg(LasleyState);
 	}
 #endif
@@ -153,6 +159,9 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 {
 	// Tentacle 소환.
 
+	// 정해진 두 번째 패턴.
+	// 오른쪽 상단으로 이동해서
+	// double slash 패턴.
 	if (true == IsDown('X'))
 	{
 		State.ChangeState("Idle");
@@ -165,6 +174,9 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 		LasleyStageGUI::PushMsg(LasleyState);
 	}
 #endif
+}
+void ALasley::DevilEyeExit()
+{
 }
 #pragma endregion
 
@@ -182,6 +194,9 @@ void ALasley::WakeTick(float _DeltaTime)
 		State.ChangeState("DemonicBlade");
 		return;
 	}
+}
+void ALasley::WakeExit()
+{
 }
 #pragma endregion
 

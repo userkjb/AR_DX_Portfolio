@@ -8,7 +8,7 @@ ALasley::ALasley()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 	
-	{
+	{// 불 소환 위치 설정.
 		MovePos.assign(12, FVector::Zero);
 		MovePos.push_back(FVector(100.0f, 100.0f));
 		//.....

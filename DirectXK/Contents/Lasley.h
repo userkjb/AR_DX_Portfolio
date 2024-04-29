@@ -50,11 +50,13 @@ private :
 	void SummonsEnd();
 	void DevilEyeBegin();
 	void DevilEyeTick(float _DeltaTime);
+	void DevilEyeExit();
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleExit();
 	void WakeBegin();
 	void WakeTick(float _DeltaTime);
+	void WakeExit();
 	void DemonicBladeBegin();
 	void DemonicBladeTick(float _DeltaTime);
 	void DimensionCutterBegin();
