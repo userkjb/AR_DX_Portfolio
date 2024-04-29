@@ -1,7 +1,8 @@
 #pragma once
 #include <EngineCore/Actor.h>
-#include <EngineCore/SpriteRenderer.h>
 
+class USpriteRenderer;
+class UDefaultSceneComponent;
 class ATentacle : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -26,14 +27,15 @@ private:
 
 	void StartBegin();
 	void StartTick(float _DeltaTime);
-	void StartEnd();
+	void StartExit();
 	void TickBegin();
 	void TickTick(float _DeltaTime);
-	void TickEnd();
+	void TickExit();
 	void EndBegin();
 	void EndTick(float _DeltaTime);
-	void EndEnd();
+	void EndExit();
 
+	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* TentacleRenderer = nullptr;
 	UStateManager State;
 	float LifeTime = 0.0f;

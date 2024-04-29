@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Lasley.h"
 #include <EngineBase/EngineRandom.h>
+#include "Tentacle.h"
 #include "DimensionSlash.h"
 
 void ALasley::StateInit()
@@ -158,6 +159,10 @@ void ALasley::DevilEyeBegin()
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
 	// Tentacle 소환.
+	if (true == IsDown('Y'))
+	{
+		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+	}
 
 	// 정해진 두 번째 패턴.
 	// 오른쪽 상단으로 이동해서
