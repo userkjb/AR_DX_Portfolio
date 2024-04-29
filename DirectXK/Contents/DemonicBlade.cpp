@@ -66,6 +66,8 @@ void ADemonicBlade::CreateAnimation()
 {
 	DemonicBladeRenderer->CreateAnimation("CreateDemonicBlade", "LasleyDemonicBladeFX.png", 0.0625f, true);
 	DemonicBladeRenderer->CreateAnimation("DisappearDemonicBlade", "LasleyDemonicBladeDisappearFX.png", 0.0625f, false);
+	DemonicBladeRenderer->CreateAnimation("LargeDemonicBlade", "LasleyLargeDemonicBladeFX.png", 0.0625f, true);
+	DemonicBladeRenderer->CreateAnimation("LargeDemonicBladeDisappear", "LasleyLargeDemonicBladeDisappearFX.png", 0.0625f, true);
 
 
 	DemonicBladeRenderer->ChangeAnimation("CreateDemonicBlade");
@@ -86,7 +88,13 @@ void ADemonicBlade::CreateBegin()
 	}
 	else // 레이지 상태면!
 	{
+		DemonicBladeRenderer->SetPosition(StartPos);
+		DemonicBladeRenderer->SetDir(Dir);
+		DemonicBladeRenderer->ChangeAnimation("LargeDemonicBlade");
 
+		FVector StartPosition = StartPos;
+		StartPosition.Y += 106.0f;
+		DemonicBladeCollision->SetPosition(StartPosition);
 	}
 }
 
@@ -117,7 +125,14 @@ void ADemonicBlade::CreateExit()
 
 void ADemonicBlade::DisappearBegin()
 {
-	DemonicBladeRenderer->ChangeAnimation("DisappearDemonicBlade");
+	if (false == Lasley_Large)
+	{
+		DemonicBladeRenderer->ChangeAnimation("DisappearDemonicBlade");
+	}
+	else
+	{
+		DemonicBladeRenderer->ChangeAnimation("LargeDemonicBladeDisappear");
+	}
 }
 
 void ADemonicBlade::DisappearTick(float _DeltaTime)
