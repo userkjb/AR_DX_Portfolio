@@ -69,6 +69,11 @@ void ALasley::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
+	if (Life == 0 && Hp <= 20)
+	{
+		Large = true;
+	}
+
 #ifdef _DEBUG
 	if (true == IsDown('I'))
 	{

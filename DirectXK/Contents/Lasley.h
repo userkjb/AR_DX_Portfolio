@@ -80,6 +80,7 @@ private :
 	const float RotationPower = 0.0f;
 	float SummonTime = 0.0f;
 
+	bool Large = false;
 	int Life = 2; // ºÎÈ° È½¼ö
 	int MaxHp = 40;
 	int Hp = 40;
