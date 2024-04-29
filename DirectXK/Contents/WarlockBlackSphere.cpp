@@ -10,6 +10,11 @@ AWarlockBlackSphere::AWarlockBlackSphere()
 	BlackSphereRenderer = CreateDefaultSubObject<USpriteRenderer>("Render");
 	BlackSphereRenderer->SetupAttachment(Root);
 	BlackSphereRenderer->SetOrder(ERenderOrder::Enemy);
+
+	BlackSphereCollision = CreateDefaultSubObject<UCollision>("Collision");
+	BlackSphereCollision->SetupAttachment(Root);
+	BlackSphereCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
+	BlackSphereCollision->SetCollisionType(ECollisionType::CirCle);
 }
 
 AWarlockBlackSphere::~AWarlockBlackSphere()
@@ -68,6 +73,7 @@ void AWarlockBlackSphere::StateInit()
 void AWarlockBlackSphere::DarkSphereSummonBegin()
 {
 	BlackSphereRenderer->ChangeAnimation("DarkSphereSummon");
+	BlackSphereRenderer->SetPosition(SummonPos);
 }
 
 void AWarlockBlackSphere::DarkSphereSummonTick(float _DeltaTime)
@@ -93,10 +99,18 @@ void AWarlockBlackSphere::DarkSphereAttackBegin()
 
 void AWarlockBlackSphere::DarkSphereAttackTick(float _DeltaTime)
 {
-
+	// ÄÝ¸®Àü.
 }
 
 void AWarlockBlackSphere::DarkSphereAttackExit()
 {
 }
 #pragma endregion
+
+void AWarlockBlackSphere::CollisionCheck(float _DeltaTime)
+{
+	BlackSphereCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			int a = 0;
+		});
+}

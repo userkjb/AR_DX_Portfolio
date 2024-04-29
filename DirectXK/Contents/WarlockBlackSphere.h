@@ -44,9 +44,11 @@ private :
 	void DarkSphereAttackTick(float _DeltaTime);
 	void DarkSphereAttackExit();
 	
+	void CollisionCheck(float _DeltaTime);
 
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* BlackSphereRenderer = nullptr;
+	UCollision* BlackSphereCollision = nullptr;
 	
 	UStateManager State;
 
