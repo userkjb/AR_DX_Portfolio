@@ -51,6 +51,39 @@ ALasleyStageBoss::ALasleyStageBoss()
 	BossStageStartCol->SetScale(FVector(10.0f, 1000.0f, 10.0f));
 	BossStageStartCol->SetPosition({ -576.0f, 0.0f });
 
+	{
+		float4 MapScale = UContentsConstValue::MapTex->GetScale() * UContentsConstValue::AutoSizeValue;
+		MapScale /= 2.0f;
+
+		BladeLeftWall = CreateDefaultSubObject<UCollision>("BladeCol");
+		BladeLeftWall->SetupAttachment(Root);
+		BladeLeftWall->SetCollisionGroup(ECollisionOrder::MapDoor);
+		BladeLeftWall->SetCollisionType(ECollisionType::RotRect);
+		BladeLeftWall->SetScale({ 10.0f, 704.0f });
+		BladeLeftWall->SetPosition({ -(MapScale.X - 125), (128.0f) });
+
+		BladeLeftCliff = CreateDefaultSubObject<UCollision>("BladeCol");
+		BladeLeftCliff->SetupAttachment(Root);
+		BladeLeftCliff->SetCollisionGroup(ECollisionOrder::MapDoor);
+		BladeLeftCliff->SetCollisionType(ECollisionType::RotRect);
+		BladeLeftCliff->SetScale({ 10.0f, 704.0f });
+		BladeLeftCliff->SetPosition({ -(MapScale.X - 773), (128.0f) });
+
+		BladeRightWall = CreateDefaultSubObject<UCollision>("BladeCol");
+		BladeRightWall->SetupAttachment(Root);
+		BladeRightWall->SetCollisionGroup(ECollisionOrder::MapDoor);
+		BladeRightWall->SetCollisionType(ECollisionType::RotRect);
+		BladeRightWall->SetScale({ 10.0f, 704.0f });
+		BladeRightWall->SetPosition({ (MapScale.X - 125), (128.0f) });
+
+		BladeRightCliff = CreateDefaultSubObject<UCollision>("BladeCol");
+		BladeRightCliff->SetupAttachment(Root);
+		BladeRightCliff->SetCollisionGroup(ECollisionOrder::MapDoor);
+		BladeRightCliff->SetCollisionType(ECollisionType::RotRect);
+		BladeRightCliff->SetScale({ 10.0f, 704.0f });
+		BladeRightCliff->SetPosition({ (MapScale.X - 773), (128.0f) });
+	}
+
 	SetRoot(Root);
 	InputOn(); // test
 }
