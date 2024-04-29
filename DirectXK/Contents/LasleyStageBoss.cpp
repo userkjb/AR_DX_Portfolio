@@ -238,12 +238,15 @@ void ALasleyStageBoss::LasleyBossStageStartTick(float _DeltaTime)
 {
 	// 카메라가 라슬리에 포커스를 둬야 함.
 	// test
-	if (true == IsDown('T'))
 	{
-		State.ChangeState("LasleyBossStageIng");
-		return;
+		if (true == IsDown('T'))
+		{
+			State.ChangeState("LasleyBossStageIng");
+			return;
+		}
 	}
 
+	// 라슬리 상태가 Idle 이면 LasleyBossStageIng으로 Map 상태 변경.
 	std::string x = Lasley->GetCurLasleyState();
 	if (x == "Idle")
 	{
