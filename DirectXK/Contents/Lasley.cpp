@@ -13,20 +13,22 @@ ALasley::ALasley()
 		//.....
 	}
 	
-	// 불 소환 위치 설정.
-	//{
-	//	// 시작하자마자.
-	//	TentacleSummonPos[0].push_back(FVector());
+	//불 소환 위치 설정.
+	{
+		// 시작하자마자.
+		// 27
+		std::vector<FVector> FVectorData;
+		FVectorData.push_back(FVector(200.0f, 200.0f));
+		FVectorData.push_back(FVector(300.0f, 300.0f));
 
-	//	// 1페이즈
-	//	TentacleSummonPos[1].push_back(FVector());
+		TentacleSummonPos.push_back(FVectorData);
 
-	//	// 2페이즈
-	//	TentacleSummonPos[2].push_back(FVector());
+		// 1페이즈
 
-	//	// 3페이즈
-	//	TentacleSummonPos[3].push_back(FVector());
-	//}
+		// 2페이즈
+
+		// 3페이즈
+	}
 
 	// 사도 소환 위치 설정.
 	{
@@ -49,6 +51,7 @@ ALasley::ALasley()
 	LasleyCollision->SetCollisionType(ECollisionType::RotRect);
 	//LasleyCollision->SetScale();
 
+	// 소환, 회복 및 부활 할 때 사용할 검.
 	LasleyDemonSword = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleyDemonSword->SetupAttachment(Root);
 	LasleyDemonSword->SetOrder(ERenderOrder::BossSubObject);
@@ -56,6 +59,7 @@ ALasley::ALasley()
 	LasleyDemonSword->SetRotationDeg({ 0.0f, 0.0f, 180.0f });
 	LasleyDemonSword->SetPosition({ 0.0f, 1000.0f });
 
+	// 부활 이펙트
 	LasleySummonFX = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
 	LasleySummonFX->SetupAttachment(Root);
 	LasleySummonFX->SetPivot(EPivot::BOT);
@@ -96,6 +100,11 @@ void ALasley::Tick(float _DeltaTime)
 		Large = true;
 	}
 
+	if (true == b_DoorTentacle)
+	{
+		DoorTentacle(_DeltaTime);
+	}
+
 #ifdef _DEBUG
 	if (true == IsDown('I'))
 	{
@@ -130,8 +139,6 @@ void ALasley::CreateAnimation()
 	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 0.0625f, true);
 	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true, 0, 28);
 
-
-
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
 
 	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.0625f, false, 0, 12);
@@ -139,7 +146,6 @@ void ALasley::CreateAnimation()
 
 	// End
 	LasleyRenderer->ChangeAnimation("Summons");
-
 	LasleySummonFX->ChangeAnimation("LasleySummonFX");
 	LasleyDemonSword->ChangeAnimation("LasleyDemonSword");
 }

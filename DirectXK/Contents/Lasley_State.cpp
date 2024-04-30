@@ -203,15 +203,33 @@ void ALasley::DevilEyeBegin()
 
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
-	// Tentacle 소환.
-	if (true == IsDown('Y'))
+	// 콜백으로 Tentacle 소환
+	if (false == b_DoorTentacle)
 	{
-		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		LasleyRenderer->SetFrameCallback("LasleyDevilEye", 8, [=]()
+			{
+				b_DoorTentacle = true;
+			});
 	}
 
-	// 정해진 두 번째 패턴.
-	// 오른쪽 상단으로 이동해서
-	// double slash 패턴.
+
+
+
+	if (true == LasleyRenderer->IsCurAnimationEnd())
+	{
+		int Percentage = UEngineRandom::MainRandom.RandomInt(1, 10);
+		if (Percentage != 1)
+		{
+			State.ChangeState("DemonicBlade");
+			return;
+		}
+		else
+		{
+			// 후 추가.
+		}
+	}
+
+
 	if (true == IsDown('X'))
 	{
 		State.ChangeState("DemonicBlade");
@@ -227,6 +245,32 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 }
 void ALasley::DevilEyeExit()
 {
+}
+
+void ALasley::DoorTentacle(float _DeltaTime)
+{
+	DoorTentacleTime += _DeltaTime;
+
+	if (false == b_DoorTentacleOne)
+	{
+		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle->SetCreatePos(TentacleSummonPos[0][0]);
+		Tentacle->CreateTentacle();
+
+		DoorTentacles.push_back(Tentacle);
+		DoorTentacleTime = 0.0f;
+		b_DoorTentacleOne = true;
+	}
+
+	if (1.0f <= DoorTentacleTime)
+	{
+		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle->SetCreatePos(TentacleSummonPos[0][0]);
+		Tentacle->CreateTentacle();
+
+		DoorTentacles.push_back(Tentacle);
+		DoorTentacleTime = 0.0f;
+	}
 }
 #pragma endregion
 
@@ -282,6 +326,31 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 		State.ChangeState("DimensionCutter");
 		return;
 	}
+
+	// Large 값 적용.
+	{
+		if (Life == 3)
+		{
+			Large = false;
+		}
+		else if (Life == 2)
+		{
+			int Percentage = UEngineRandom::MainRandom.RandomInt(1, 2);
+			if (Percentage == 1)
+			{
+				Large = true;
+			}
+			else
+			{
+				Large = false;
+			}
+		}
+		else if (Life == 1)
+		{
+			Large = true;
+		}
+	}
+	
 
 	if (true == IsDown('Y'))
 	{

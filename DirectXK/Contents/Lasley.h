@@ -5,6 +5,7 @@
 
 class USpriteRenderer;
 class ADevilChurchWarlock;
+class ATentacle;
 class ALasley : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -77,6 +78,7 @@ private :
 	void DieTick(float _DeltaTime);
 
 	void LasleySummonEndCallBack();
+	void DoorTentacle(float _DeltaTime);
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 	USpriteRenderer* LasleyDemonSword = nullptr;
@@ -97,12 +99,16 @@ private :
 	const float MoveSpeed = 500.0f;
 	float MoveTime = 0.0f;
 	float DownTime = 0.0f;
+	float DoorTentacleTime = 0.0f;
 	std::vector<FVector> MovePos;
 	std::vector<std::vector<FVector>> TentacleSummonPos;
 	std::vector<FVector> WarlockSummonPos;
 
 	int WarlockCount = 0;
 	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;
+	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
+	bool b_DoorTentacle = false;
+	bool b_DoorTentacleOne = false;
 };
 
 // 이동 하면서 더스트를 뿌린다.(약 0.5초 마다?)

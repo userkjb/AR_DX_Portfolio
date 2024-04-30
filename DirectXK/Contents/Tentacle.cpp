@@ -48,15 +48,15 @@ void ATentacle::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-
-
 }
 
 void ATentacle::StateInit()
 {
+	State.CreateState("Tentacle_None");
 	State.CreateState("Tentacle_Start");
 	State.CreateState("Tentacle_Tick");
 	State.CreateState("Tentacle_End");
+	State.CreateState("Tentacle_Destroy");
 
 	State.SetFunction("Tentacle_Start",
 		std::bind(&ATentacle::StartBegin, this),
@@ -71,8 +71,11 @@ void ATentacle::StateInit()
 		std::bind(&ATentacle::EndTick, this, std::placeholders::_1),
 		std::bind(&ATentacle::EndExit, this));
 
-	State.ChangeState("Tentacle_Start");
+	State.SetStartFunction("Tentacle_Destroy", std::bind(&ATentacle::DestroyBegin, this));
+
+	State.ChangeState("Tentacle_None");
 }
+
 
 void ATentacle::StartBegin()
 {
@@ -140,6 +143,14 @@ void ATentacle::EndExit()
 {
 	//TentacleRenderer->SetActive(false);
 }
+
+
+void ATentacle::DestroyBegin()
+{
+	Destroy();
+}
+
+
 
 
 void ATentacle::CollisionCheck(float _DeltaTime)

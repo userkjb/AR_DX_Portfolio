@@ -18,6 +18,23 @@ public :
 	ATentacle& operator=(const ATentacle& _Other) = delete;
 	ATentacle& operator=(ATentacle&& _Other) noexcept = delete;
 
+	inline void CreateTentacle()
+	{
+		State.ChangeState("Tentacle_Start");
+		return;
+	}
+
+	inline void SetCreatePos(FVector _Pos)
+	{
+		CreatePos = _Pos;
+	}
+
+	inline void TentacleDestroy()
+	{
+		State.ChangeState("Tentacle_Destroy");
+		return;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -34,6 +51,7 @@ private:
 	void EndBegin();
 	void EndTick(float _DeltaTime);
 	void EndExit();
+	void DestroyBegin();
 
 	void CollisionCheck(float _DeltaTime);
 
@@ -42,6 +60,7 @@ private:
 	UCollision* TentacleCollision = nullptr;
 	UStateManager State;
 	FVector ThisScale = FVector(64.0f, 120.0f);
+	FVector CreatePos = FVector::Zero;
 	float LifeTime = 0.0f;
 };
 
