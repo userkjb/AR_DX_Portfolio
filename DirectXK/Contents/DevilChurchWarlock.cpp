@@ -81,6 +81,8 @@ void ADevilChurchWarlock::SummonBegin()
 {
 	WarlockRenderer->ChangeAnimation("WarlockIdle");
 	WarlockRenderer->SetPosition(SummonPos);
+	WarlockCollision->SetScale(FVector(88.0f, 84.0f));
+	WarlockCollision->SetPosition({ SummonPos.X, (SummonPos.Y + 42.0f) });
 }
 
 void ADevilChurchWarlock::SummonTick(float _DeltaTime)
@@ -161,6 +163,7 @@ void ADevilChurchWarlock::DieBegin()
 
 void ADevilChurchWarlock::DieTick(float _DeltaTime)
 {
+	WarlockCollision->SetActive(false);
 	Destroy();
 }
 
@@ -174,6 +177,6 @@ void ADevilChurchWarlock::CollisionCheck(float _DeltaTime)
 {
 	WarlockCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			Hp -= 5;
+			Hp -= 10;
 		});
 }
