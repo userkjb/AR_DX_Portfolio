@@ -13,7 +13,7 @@ ALasley::ALasley()
 		//.....
 	}
 	
-	//불 소환 위치 설정.
+	// 바닥 불 소환 위치 설정.
 	{
 		// 시작하자마자, 1페이즈
 		// 27
@@ -68,6 +68,58 @@ ALasley::ALasley()
 			TentacleSummonPos.push_back(FVectorData);
 		}
 	}
+	// TentacleSummonPos[0/1/2][FVector]
+
+
+	// 언덕 불 위치
+	{
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue = 158.0f;
+			for (size_t i = 0; i < 10; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 508.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
+		}
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue = 158.0f;
+			for (size_t i = 0; i < 10; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 892.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
+		}
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue = 1118.0f;
+			for (size_t i = 0; i < 10; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 508.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
+		}
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue = 1118.0f;
+			for (size_t i = 0; i < 10; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 892.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
+		}
+	}
+
+
 
 	// 사도 소환 위치 설정.
 	{

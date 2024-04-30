@@ -38,11 +38,6 @@ public :
 		return State.GetCurStateName();
 	}
 
-	inline void TestSetLife(int _Value)
-	{
-		Life = _Value;
-	}
-
 protected :
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -118,6 +113,7 @@ private :
 	bool b_DoorTentacleOne = false;
 	int doorTentacleCount = 0;
 	size_t DoorTentacleCount_2 = 0;
+	int test = 0;
 };
 
 // 이동 하면서 더스트를 뿌린다.(약 0.5초 마다?)

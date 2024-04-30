@@ -158,6 +158,14 @@ void ALasley::IdleTick(float _DeltaTime)
 		//Slash->SetActorLocation({100.0f, 100.0f});
 	}
 
+	if (true == IsDown('N'))
+	{
+		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle->SetCreatePos(TentacleSummonPos[6][test]);
+		Tentacle->SetInfinity(true);
+		Tentacle->CreateTentacle();
+		test++;
+	}
 
 #ifdef _DEBUG
 	{
@@ -329,11 +337,6 @@ void ALasley::DoorTentacle(float _DeltaTime)
 
 		DoorTentacleTime = 0.0f;
 		b_DoorTentacle = false;
-	}
-
-	if (true == IsDown('N'))
-	{
-		TestSetLife(2);
 	}
 }
 #pragma endregion
