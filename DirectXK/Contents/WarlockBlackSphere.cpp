@@ -16,6 +16,7 @@ AWarlockBlackSphere::AWarlockBlackSphere()
 	BlackSphereCollision->SetupAttachment(Root);
 	BlackSphereCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
 	BlackSphereCollision->SetCollisionType(ECollisionType::CirCle);
+	BlackSphereCollision->SetActive(false);
 }
 
 AWarlockBlackSphere::~AWarlockBlackSphere()
@@ -96,6 +97,12 @@ void AWarlockBlackSphere::DarkSphereSummonExit()
 void AWarlockBlackSphere::DarkSphereAttackBegin()
 {
 	BlackSphereRenderer->ChangeAnimation("DarkSphereAttack");
+	if (false == BlackSphereCollision->IsActive())
+	{
+		BlackSphereCollision->SetActive(true);
+	}
+	BlackSphereCollision->SetPosition(SummonPos);
+	BlackSphereCollision->SetScale(FVector(100.0f, 100.0f));
 	WaitingTime = 0.0f;
 }
 
@@ -118,5 +125,11 @@ void AWarlockBlackSphere::CollisionCheck(float _DeltaTime)
 	BlackSphereCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			EPlayerStateValue::Hp -= 5;
+		});
+
+	BlackSphereCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _WCollision)
+		{
+			BlackSphereRenderer->SetActive(false);
+			BlackSphereCollision->SetActive(false);
 		});
 }
