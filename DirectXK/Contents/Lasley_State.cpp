@@ -19,6 +19,7 @@ void ALasley::StateInit()
 	State.CreateState("DoubleDimensionCutter");
 
 	State.CreateState("Down");
+	State.CreateState("Die");
 
 	// Set Function
 
@@ -56,6 +57,9 @@ void ALasley::StateInit()
 		std::bind(&ALasley::DownBegin, this),
 		std::bind(&ALasley::DownTick, this, std::placeholders::_1),
 		std::bind(&ALasley::DownExit, this));
+
+	State.SetStartFunction("Die", std::bind(&ALasley::DieBegin, this));
+	State.SetUpdateFunction("Die", std::bind(&ALasley::DieTick, this, std::placeholders::_1));
 
 
 	// Change
@@ -219,8 +223,12 @@ void ALasley::WakeTick(float _DeltaTime)
 
 #ifdef _DEBUG
 	{
+		FVector FLasleyPos = GetActorLocation();
 		std::string LasleyState = "Lasley Wake";
+		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+
 		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
 	}
 #endif
 }
@@ -368,7 +376,7 @@ void ALasley::DownTick(float _DeltaTime)
 		}
 	}
 
-	
+	// 모든 워록들이 다 죽으면,
 	if (0 != WarlockCount)
 	{
 		if (true == Warlocks[0]->IsDestroy() &&
@@ -379,13 +387,6 @@ void ALasley::DownTick(float _DeltaTime)
 			State.ChangeState("Wake");
 			return;
 		}
-	}
-
-
-	if (true == IsDown('X'))
-	{
-		State.ChangeState("Idle");
-		return;
 	}
 
 #ifdef _DEBUG
@@ -405,4 +406,10 @@ void ALasley::DownExit()
 }
 #pragma endregion
 
+void ALasley::DieBegin()
+{
+}
 
+void ALasley::DieTick(float _DeltaTime)
+{
+}

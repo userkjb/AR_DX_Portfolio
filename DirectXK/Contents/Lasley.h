@@ -68,6 +68,8 @@ private :
 	void DownBegin();
 	void DownTick(float _DeltaTime);
 	void DownExit();
+	void DieBegin();
+	void DieTick(float _DeltaTime);
 
 	void LasleySummonEndCallBack();
 
@@ -79,7 +81,7 @@ private :
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;
 
-	const float MovePower = 300.0f;
+	const float MovePower = 500.0f;
 	const float RotationPower = 0.0f;
 	float SummonTime = 0.0f;
 
