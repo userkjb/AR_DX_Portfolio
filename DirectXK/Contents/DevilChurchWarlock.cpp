@@ -102,28 +102,38 @@ void ADevilChurchWarlock::SummonExit()
 void ADevilChurchWarlock::AttackBegin()
 {
 	WarlockRenderer->ChangeAnimation("WarlockSkill");
+	BlackSphereTime = 0.0f;
 }
 
 void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 {
+	BlackSphereTime += _DeltaTime;
+
 	// 备眉 积己.
-	if(true == IsDown('K'))
+	if(1.0f <= BlackSphereTime)
 	{
-		int PositionX = UEngineRandom::MainRandom.RandomInt(170, 1680);
-		int PositionY = UEngineRandom::MainRandom.RandomInt(170, 1040);
+		int CreateCount = UEngineRandom::MainRandom.RandomInt(1, 3);
+		for (size_t i = 0; i < CreateCount; i++)
+		{
+			int PositionX = UEngineRandom::MainRandom.RandomInt(170, 1680);
+			int PositionY = UEngineRandom::MainRandom.RandomInt(170, 1040);
 
-		std::shared_ptr<AWarlockBlackSphere> BlackSphere = GetWorld()->SpawnActor<AWarlockBlackSphere>("BlackSphere");
-		BlackSphere->SetSummonBlackSpherePos(FVector(PositionX, PositionY));
-		BlackSphere->SummonBlackSphere();
+			std::shared_ptr<AWarlockBlackSphere> BlackSphere = GetWorld()->SpawnActor<AWarlockBlackSphere>("BlackSphere");
+			BlackSphere->SetSummonBlackSpherePos(FVector(PositionX, PositionY));
+			BlackSphere->SummonBlackSphere();
 
-		BlackSpheres.push_back(BlackSphere);
+			BlackSpheres.push_back(BlackSphere);
+		}
+
+		BlackSphereTime = 0.0f;
 	}
 
-	// 妮府傈.
+
+	// 况废 妮府傈.
 	CollisionCheck(_DeltaTime);
 
-	//if (0 <= Hp)
-	if (true == IsDown('P'))
+	//if (true == IsDown('P'))
+	if (0 >= Hp)
 	{
 		State.ChangeState("WarlockDie");
 		return;

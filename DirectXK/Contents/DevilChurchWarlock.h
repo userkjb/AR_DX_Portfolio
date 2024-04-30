@@ -59,5 +59,6 @@ private :
 	FVector SummonPos = FVector::Zero;
 
 	int Hp = 40;
+	float BlackSphereTime = 0.0f;
 };
 
