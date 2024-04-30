@@ -53,5 +53,6 @@ private :
 	UStateManager State;
 
 	FVector SummonPos = FVector::Zero;
+	float WaitingTime = 0.0f;
 };
 

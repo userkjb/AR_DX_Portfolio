@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "DevilChurchWarlock.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include <EngineBase/EngineRandom.h>
 #include "WarlockBlackSphere.h"
 
 ADevilChurchWarlock::ADevilChurchWarlock()
@@ -108,13 +109,25 @@ void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 	// 구체 생성.
 	if(true == IsDown('K'))
 	{
+		int PositionX = UEngineRandom::MainRandom.RandomInt(170, 1680);
+		int PositionY = UEngineRandom::MainRandom.RandomInt(170, 1040);
+
 		std::shared_ptr<AWarlockBlackSphere> BlackSphere = GetWorld()->SpawnActor<AWarlockBlackSphere>("BlackSphere");
+		BlackSphere->SetSummonBlackSpherePos(FVector(PositionX, PositionY));
 		BlackSphere->SummonBlackSphere();
-		BlackSphere->SetSummonBlackSpherePos(FVector(100.0f, 100.0f));
+
+		BlackSpheres.push_back(BlackSphere);
 	}
 
 	// 콜리전.
 	CollisionCheck(_DeltaTime);
+
+	//if (0 <= Hp)
+	if (true == IsDown('P'))
+	{
+		State.ChangeState("WarlockDie");
+		return;
+	}
 }
 
 void ADevilChurchWarlock::AttackExit()
@@ -122,18 +135,29 @@ void ADevilChurchWarlock::AttackExit()
 }
 #pragma endregion
 
+
+#pragma region WarlockDie
 void ADevilChurchWarlock::DieBegin()
 {
+	WarlockRenderer->SetActive(false);
+	// 다크 볼 지우기
+	size_t Count = BlackSpheres.size();
+	for (size_t i = 0; i < Count; i++)
+	{
+		BlackSpheres[i]->Destroy();
+	}
+	BlackSpheres.clear();
 }
 
 void ADevilChurchWarlock::DieTick(float _DeltaTime)
 {
+	Destroy();
 }
 
 void ADevilChurchWarlock::DieExit()
 {
 }
-
+#pragma endregion
 
 
 void ADevilChurchWarlock::CollisionCheck(float _DeltaTime)

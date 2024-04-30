@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "WarlockBlackSphere.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "PlayerStruct.h"
 
 AWarlockBlackSphere::AWarlockBlackSphere()
 {
@@ -95,11 +96,16 @@ void AWarlockBlackSphere::DarkSphereSummonExit()
 void AWarlockBlackSphere::DarkSphereAttackBegin()
 {
 	BlackSphereRenderer->ChangeAnimation("DarkSphereAttack");
+	WaitingTime = 0.0f;
 }
 
 void AWarlockBlackSphere::DarkSphereAttackTick(float _DeltaTime)
 {
+	WaitingTime += _DeltaTime;
+
+
 	// ÄÝ¸®Àü.
+	CollisionCheck(_DeltaTime);
 }
 
 void AWarlockBlackSphere::DarkSphereAttackExit()
@@ -111,6 +117,6 @@ void AWarlockBlackSphere::CollisionCheck(float _DeltaTime)
 {
 	BlackSphereCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			int a = 0;
+			EPlayerStateValue::Hp -= 5;
 		});
 }

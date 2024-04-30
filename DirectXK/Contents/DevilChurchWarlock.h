@@ -3,6 +3,7 @@
 
 class USpriteRenderer;
 class UDefaultSceneComponent;
+class AWarlockBlackSphere;
 class ADevilChurchWarlock : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -52,6 +53,7 @@ private :
 	UDefaultSceneComponent* Root = nullptr;
 	USpriteRenderer* WarlockRenderer = nullptr;
 	UCollision* WarlockCollision = nullptr;
+	std::vector<std::shared_ptr<AWarlockBlackSphere>> BlackSpheres;
 
 	UStateManager State;
 	FVector SummonPos = FVector::Zero;
