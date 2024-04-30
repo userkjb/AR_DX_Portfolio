@@ -201,7 +201,8 @@ void ALasley::DevilEyeExit()
 }
 #pragma endregion
 
-#pragma region Wake
+// ºÎÈ°.
+#pragma region Wake 
 void ALasley::WakeBegin()
 {
 	LasleyRenderer->ChangeAnimation("Wake");
@@ -353,13 +354,32 @@ void ALasley::DownTick(float _DeltaTime)
 {
 	DownTime += _DeltaTime;
 
-	if(true == IsDown('Y'))
+	//if(true == IsDown('Y'))
+	if(2.0f <= DownTime)
 	{
-		std::shared_ptr<ADevilChurchWarlock> Warlock = GetWorld()->SpawnActor<ADevilChurchWarlock>("Slash");
-		Warlock->SetPosition(SummonPos[0]);
-		Warlock->SummonWarlock();
+		int WarlocsDataSize = static_cast<int>(Warlocks.size());
+		if (4 > WarlocsDataSize)
+		{
+			std::shared_ptr<ADevilChurchWarlock> Warlock = GetWorld()->SpawnActor<ADevilChurchWarlock>("Slash");
+			Warlock->SetPosition(SummonPos[WarlockCount]);
+			Warlock->SummonWarlock();
+			Warlocks.push_back(Warlock);
+			WarlockCount++;
+		}
 	}
 
+	
+	if (0 != WarlockCount)
+	{
+		if (true == Warlocks[0]->IsDestroy() &&
+			true == Warlocks[1]->IsDestroy() &&
+			true == Warlocks[2]->IsDestroy() &&
+			true == Warlocks[3]->IsDestroy())
+		{
+			State.ChangeState("Wake");
+			return;
+		}
+	}
 
 
 	if (true == IsDown('X'))
@@ -381,6 +401,7 @@ void ALasley::DownTick(float _DeltaTime)
 }
 void ALasley::DownExit()
 {
+	DownTime = 0.0f;
 }
 #pragma endregion
 

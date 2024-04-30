@@ -4,6 +4,7 @@
 #include "LasleyStageGUI.h"
 
 class USpriteRenderer;
+class ADevilChurchWarlock;
 class ALasley : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -89,9 +90,11 @@ private :
 	const float MoveSpeed = 500.0f;
 	float MoveTime = 0.0f;
 	float DownTime = 0.0f;
-	int WarlockCount = 0;
 	std::vector<FVector> MovePos;
 	std::vector<FVector> SummonPos;
+
+	int WarlockCount = 0;
+	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;
 };
 
 // 처음 시작 패턴은 같음.
