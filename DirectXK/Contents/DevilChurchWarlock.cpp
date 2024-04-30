@@ -112,7 +112,7 @@ void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 	BlackSphereTime += _DeltaTime;
 
 	// 구체 생성.
-	if(1.0f <= BlackSphereTime)
+	if(2.0f <= BlackSphereTime)
 	{
 		int CreateCount = UEngineRandom::MainRandom.RandomInt(1, 3);
 		for (size_t i = 0; i < CreateCount; i++)
