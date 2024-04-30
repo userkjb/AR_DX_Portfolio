@@ -15,32 +15,58 @@ ALasley::ALasley()
 	
 	//불 소환 위치 설정.
 	{
-		// 시작하자마자.
+		// 시작하자마자, 1페이즈
 		// 27
-		std::vector<FVector> FVectorData;
-		float StartValue = 94.0f;
-		for (size_t i = 0; i < 7; i++)
 		{
-			FVectorData.push_back(FVector(StartValue, 188.0f));
-			StartValue += 64.0f;
+			std::vector<FVector> FVectorData;
+			float StartValue = 94.0f;
+			for (size_t i = 0; i < 7; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 188.0f));
+				StartValue += 64.0f;
+			}
+
+			// 542
+			StartValue += 64.0f * 13.0f;
+
+			for (size_t i = 0; i < 7; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 188.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
 		}
 
-		// 542
-		StartValue += 64.0f * 13.0f;
 
-		for (size_t i = 0; i < 7; i++)
+		// 2페이즈 13개
 		{
-			FVectorData.push_back(FVector(StartValue, 188.0f));
+			std::vector<FVector> FVectorData;
+			float StartValue = 542.0f;
+
+			for (size_t i = 0; i < 6; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 188.0f));
+				StartValue += 64.0f;
+			}
+
 			StartValue += 64.0f;
+
+			for (size_t i = 0; i < 6; i++)
+			{
+				FVectorData.push_back(FVector(StartValue, 188.0f));
+				StartValue += 64.0f;
+			}
+
+			TentacleSummonPos.push_back(FVectorData);
 		}
 
-		TentacleSummonPos.push_back(FVectorData);
-
-		// 1페이즈
-
-		// 2페이즈
-
-		// 3페이즈
+		// 중앙
+		{
+			std::vector<FVector> FVectorData;
+			FVectorData.push_back(FVector(926.0f, 188.0f));
+			TentacleSummonPos.push_back(FVectorData);
+		}
 	}
 
 	// 사도 소환 위치 설정.

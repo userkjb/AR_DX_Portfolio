@@ -287,15 +287,54 @@ void ALasley::DoorTentacle(float _DeltaTime)
 		Tentacle_R->SetInfinity(true);
 		Tentacle_R->CreateTentacle();
 
-
 		DoorTentacles.push_back(Tentacle_L);
 		DoorTentacles.push_back(Tentacle_R);
+		
 		DoorTentacleTime = 0.0f;
 
 		doorTentacleCount += 1;
 	}
+	
+	if (1.0f <= DoorTentacleTime && Life == 2 && 5 >= DoorTentacleCount_2)
+	{
+		std::shared_ptr<ATentacle> Tentacle_L = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle_L->SetCreatePos(TentacleSummonPos[1][DoorTentacleCount_2]);
+		Tentacle_L->SetInfinity(true);
+		Tentacle_L->CreateTentacle();
 
-	//if(1.0f <= DoorTentacleTime && )
+		size_t DoorTentacleCount_R = TentacleSummonPos[1].size() - 1;
+		std::shared_ptr<ATentacle> Tentacle_R = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle_R->SetCreatePos(TentacleSummonPos[1][DoorTentacleCount_R - DoorTentacleCount_2]);
+		Tentacle_R->SetInfinity(true);
+		Tentacle_R->CreateTentacle();
+
+		DoorTentacles.push_back(Tentacle_L);
+		DoorTentacles.push_back(Tentacle_R);
+		
+		DoorTentacleTime = 0.0f;
+		
+		DoorTentacleCount_2++;
+	}
+
+	if (1.0f <= DoorTentacleTime && 6 == DoorTentacleCount_2)
+	{
+		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle->SetCreatePos(TentacleSummonPos[2][0]);
+		Tentacle->SetInfinity(true);
+		Tentacle->CreateTentacle();
+
+		DoorTentacles.push_back(Tentacle);
+
+		DoorTentacleCount_2++;
+
+		DoorTentacleTime = 0.0f;
+		b_DoorTentacle = false;
+	}
+
+	if (true == IsDown('N'))
+	{
+		TestSetLife(2);
+	}
 }
 #pragma endregion
 
