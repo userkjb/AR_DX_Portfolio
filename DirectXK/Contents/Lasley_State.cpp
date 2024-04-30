@@ -11,14 +11,14 @@ void ALasley::StateInit()
 	// Create
 	State.CreateState("Summons");
 	State.CreateState("Idle");
-	State.CreateState("Wake");
-
+	State.CreateState("Move");
 	State.CreateState("DevilEye");
 	State.CreateState("DemonicBlade");
 	State.CreateState("DimensionCutter");
 	State.CreateState("DoubleDimensionCutter");
 
 	State.CreateState("Down");
+	State.CreateState("Wake");
 	State.CreateState("Die");
 
 	// Set Function
@@ -32,6 +32,11 @@ void ALasley::StateInit()
 		std::bind(&ALasley::IdleBegin, this),
 		std::bind(&ALasley::IdleTick, this, std::placeholders::_1),
 		std::bind(&ALasley::IdleExit, this));
+
+	State.SetFunction("Move",
+		std::bind(&ALasley::MoveBegin, this),
+		std::bind(&ALasley::MoveTick, this, std::placeholders::_1),
+		std::bind(&ALasley::MoveExit, this));
 
 	State.SetFunction("DevilEye",
 		std::bind(&ALasley::DevilEyeBegin, this),
@@ -160,7 +165,6 @@ void ALasley::IdleTick(float _DeltaTime)
 		LasleyStageGUI::PushMsg(LasleyState);
 	}
 #endif
-	//int Pattern = UEngineRandom::MainRandom.RandomInt(1, 12);
 }
 
 void ALasley::IdleExit()
@@ -168,6 +172,27 @@ void ALasley::IdleExit()
 }
 #pragma endregion
 
+#pragma region Move
+void ALasley::MoveBegin()
+{
+	if (Life == 3)
+	{
+		int MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 10);
+	}
+	else
+	{
+		int MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 8);
+	}
+}
+void ALasley::MoveTick(float _DeltaTime)
+{
+
+}
+void ALasley::MoveExit()
+{
+
+}
+#pragma endregion
 
 #pragma region DevilEye
 void ALasley::DevilEyeBegin()
@@ -211,6 +236,10 @@ void ALasley::WakeBegin()
 {
 	LasleyRenderer->ChangeAnimation("Wake");
 	LasleyRenderer->SetPivot(EPivot::BOT);
+	if (Hp <= 0)
+	{
+		Hp = MaxHp; // ÇÇ È¸º¹.
+	}
 }
 
 void ALasley::WakeTick(float _DeltaTime)
@@ -291,6 +320,9 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 	}
 #endif
 }
+void ALasley::DemonicBladeExit()
+{
+}
 #pragma endregion
 
 #pragma region DimensionCutter
@@ -348,6 +380,9 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 	}
 #endif
 }
+void ALasley::DoubleDimensionCutterExit()
+{
+}
 #pragma endregion
 
 #pragma region Down
@@ -369,7 +404,7 @@ void ALasley::DownTick(float _DeltaTime)
 		if (4 > WarlocsDataSize)
 		{
 			std::shared_ptr<ADevilChurchWarlock> Warlock = GetWorld()->SpawnActor<ADevilChurchWarlock>("Slash");
-			Warlock->SetPosition(SummonPos[WarlockCount]);
+			Warlock->SetPosition(WarlockSummonPos[WarlockCount]);
 			Warlock->SummonWarlock();
 			Warlocks.push_back(Warlock);
 			WarlockCount++;
@@ -406,6 +441,7 @@ void ALasley::DownExit()
 }
 #pragma endregion
 
+#pragma region Die
 void ALasley::DieBegin()
 {
 }
@@ -413,3 +449,4 @@ void ALasley::DieBegin()
 void ALasley::DieTick(float _DeltaTime)
 {
 }
+#pragma endregion

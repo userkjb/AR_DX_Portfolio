@@ -8,17 +8,32 @@ ALasley::ALasley()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 	
-	{// 불 소환 위치 설정.
+	{// 라슬리 이동 위치 설정.
 		//MovePos.push_back(FVector(100.0f, 100.0f));
 		//.....
 	}
+	
+	// 불 소환 위치 설정.
+	//{
+	//	// 시작하자마자.
+	//	TentacleSummonPos[0].push_back(FVector());
+
+	//	// 1페이즈
+	//	TentacleSummonPos[1].push_back(FVector());
+
+	//	// 2페이즈
+	//	TentacleSummonPos[2].push_back(FVector());
+
+	//	// 3페이즈
+	//	TentacleSummonPos[3].push_back(FVector());
+	//}
 
 	// 사도 소환 위치 설정.
 	{
-		SummonPos.push_back(FVector(530.0f, 830.0f));
-		SummonPos.push_back(FVector(530.0f, 430.0f));
-		SummonPos.push_back(FVector(1300.0f, 830.0f));
-		SummonPos.push_back(FVector(1300.0f, 430.0f));
+		WarlockSummonPos.push_back(FVector(530.0f, 830.0f));
+		WarlockSummonPos.push_back(FVector(530.0f, 430.0f));
+		WarlockSummonPos.push_back(FVector(1300.0f, 830.0f));
+		WarlockSummonPos.push_back(FVector(1300.0f, 430.0f));
 	}
 	
 	
