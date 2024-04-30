@@ -18,8 +18,21 @@ ALasley::ALasley()
 		// 시작하자마자.
 		// 27
 		std::vector<FVector> FVectorData;
-		FVectorData.push_back(FVector(200.0f, 200.0f));
-		FVectorData.push_back(FVector(300.0f, 300.0f));
+		float StartValue = 94.0f;
+		for (size_t i = 0; i < 7; i++)
+		{
+			FVectorData.push_back(FVector(StartValue, 188.0f));
+			StartValue += 64.0f;
+		}
+
+		// 542
+		StartValue += 64.0f * 13.0f;
+
+		for (size_t i = 0; i < 7; i++)
+		{
+			FVectorData.push_back(FVector(StartValue, 188.0f));
+			StartValue += 64.0f;
+		}
 
 		TentacleSummonPos.push_back(FVectorData);
 

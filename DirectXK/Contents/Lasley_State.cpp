@@ -253,24 +253,49 @@ void ALasley::DoorTentacle(float _DeltaTime)
 
 	if (false == b_DoorTentacleOne)
 	{
-		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-		Tentacle->SetCreatePos(TentacleSummonPos[0][0]);
-		Tentacle->CreateTentacle();
+		std::shared_ptr<ATentacle> Tentacle_L = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle_L->SetCreatePos(TentacleSummonPos[0][0]);
+		Tentacle_L->SetInfinity(true);
+		Tentacle_L->CreateTentacle();
 
-		DoorTentacles.push_back(Tentacle);
+		size_t DoorTentacleCount_R = TentacleSummonPos[0].size();
+		std::shared_ptr<ATentacle> Tentacle_R = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle_R->SetCreatePos(TentacleSummonPos[0][DoorTentacleCount_R - 1]);
+		Tentacle_R->SetInfinity(true);
+		Tentacle_R->CreateTentacle();
+
+		DoorTentacles.push_back(Tentacle_L);
+		DoorTentacles.push_back(Tentacle_R);
+
 		DoorTentacleTime = 0.0f;
+
 		b_DoorTentacleOne = true;
+		doorTentacleCount += 1;
 	}
 
-	if (1.0f <= DoorTentacleTime)
+	if (1.0f <= DoorTentacleTime && 6 >= doorTentacleCount)
 	{
-		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-		Tentacle->SetCreatePos(TentacleSummonPos[0][0]);
-		Tentacle->CreateTentacle();
+		std::shared_ptr<ATentacle> Tentacle_L = GetWorld()->SpawnActor<ATentacle>("Tentacle");
 
-		DoorTentacles.push_back(Tentacle);
+		Tentacle_L->SetCreatePos(TentacleSummonPos[0][doorTentacleCount]);
+		Tentacle_L->SetInfinity(true);
+		Tentacle_L->CreateTentacle();
+
+		size_t DoorTentacleCount_R = TentacleSummonPos[0].size() -1;
+		std::shared_ptr<ATentacle> Tentacle_R = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+		Tentacle_R->SetCreatePos(TentacleSummonPos[0][DoorTentacleCount_R - doorTentacleCount]);
+		Tentacle_R->SetInfinity(true);
+		Tentacle_R->CreateTentacle();
+
+
+		DoorTentacles.push_back(Tentacle_L);
+		DoorTentacles.push_back(Tentacle_R);
 		DoorTentacleTime = 0.0f;
+
+		doorTentacleCount += 1;
 	}
+
+	//if(1.0f <= DoorTentacleTime && )
 }
 #pragma endregion
 

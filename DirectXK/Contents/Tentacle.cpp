@@ -12,14 +12,14 @@ ATentacle::ATentacle()
 	TentacleRenderer = CreateDefaultSubObject<USpriteRenderer>("TentacleRenderer");
 	TentacleRenderer->SetupAttachment(Root);
 	TentacleRenderer->SetOrder(ERenderOrder::BossSkill_B);
-	TentacleRenderer->SetPosition(FVector(100.0f, 100.0f));
+	//TentacleRenderer->SetPosition(FVector(100.0f, 100.0f));
 	TentacleRenderer->SetActive(false);
 
 	TentacleCollision = CreateDefaultSubObject<UCollision>("TentacleCollision");
 	TentacleCollision->SetupAttachment(Root);
 	TentacleCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
 	TentacleCollision->SetCollisionType(ECollisionType::RotRect);
-	TentacleCollision->SetPosition(TentacleRenderer->GetLocalPosition());
+	//TentacleCollision->SetPosition(TentacleRenderer->GetLocalPosition());
 	TentacleCollision->SetScale(ThisScale);
 }
 
@@ -83,7 +83,9 @@ void ATentacle::StartBegin()
 	{
 		TentacleRenderer->SetActive(true);
 	}
+	TentacleRenderer->SetPosition(CreatePos);
 	TentacleRenderer->ChangeAnimation("Tentacle_Start");
+	TentacleCollision->SetPosition(TentacleRenderer->GetLocalPosition());
 }
 
 void ATentacle::StartTick(float _DeltaTime)
@@ -110,7 +112,7 @@ void ATentacle::TickBegin()
 void ATentacle::TickTick(float _DeltaTime)
 {
 	LifeTime += _DeltaTime;
-	if (LifeTime >= 2.0f)
+	if (LifeTime >= 2.0f && b_Infinity == false)
 	{
 		State.ChangeState("Tentacle_End");
 		return;

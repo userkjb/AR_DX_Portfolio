@@ -29,6 +29,11 @@ public :
 		CreatePos = _Pos;
 	}
 
+	inline void SetInfinity(bool _Value)
+	{
+		b_Infinity = _Value;
+	}
+
 	inline void TentacleDestroy()
 	{
 		State.ChangeState("Tentacle_Destroy");
@@ -62,5 +67,6 @@ private:
 	FVector ThisScale = FVector(64.0f, 120.0f);
 	FVector CreatePos = FVector::Zero;
 	float LifeTime = 0.0f;
+	bool b_Infinity = false;
 };
 

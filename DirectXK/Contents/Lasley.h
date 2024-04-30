@@ -104,11 +104,14 @@ private :
 	std::vector<std::vector<FVector>> TentacleSummonPos;
 	std::vector<FVector> WarlockSummonPos;
 
-	int WarlockCount = 0;
+	int WarlockCount = 0; // 워록 카운트
 	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;
+	
+	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false;
 	bool b_DoorTentacleOne = false;
+	int doorTentacleCount = 0;
 };
 
 // 이동 하면서 더스트를 뿌린다.(약 0.5초 마다?)
