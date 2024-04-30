@@ -96,10 +96,12 @@ void ADemonicBlade::CreateBegin()
 		StartPosition.Y += 106.0f;
 		DemonicBladeCollision->SetPosition(StartPosition);
 	}
+	LifeTime = 0.0f;
 }
 
 void ADemonicBlade::CreateTick(float _DeltaTime)
 {
+	LifeTime += _DeltaTime;
 	float Speed = 500.0f;
 	FVector MoveBlade = FVector::Zero;
 	if (Dir == EEngineDir::Right)
@@ -111,13 +113,20 @@ void ADemonicBlade::CreateTick(float _DeltaTime)
 		MoveBlade = FVector::Left * Speed * _DeltaTime;
 	}
 	AddActorLocation(MoveBlade);
-	
-	// 벽 체크
+
+	// 플레이어 체크
 	CollisionCheck(_DeltaTime);
+
+	if (2 <= LifeTime)
+	{
+		State.ChangeState("Disappear");
+		return;
+	}
 }
 
 void ADemonicBlade::CreateExit()
 {
+	LifeTime = 0.0f;
 }
 
 
@@ -140,6 +149,9 @@ void ADemonicBlade::DisappearTick(float _DeltaTime)
 	FVector MoveVector = FVector::Zero;
 	AddActorLocation(MoveVector); // 그 자리에 멈추고.
 
+	// 플레이어 체크
+	CollisionCheck(_DeltaTime);
+
 	if (true == DemonicBladeRenderer->IsCurAnimationEnd())
 	{
 		DemonicBladeRenderer->SetActive(false);
@@ -161,9 +173,9 @@ void ADemonicBlade::CollisionCheck(float _DeltaTime)
 		});
 
 	// 벽.
-	DemonicBladeCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collison)
-		{
-			State.ChangeState("Disappear");
-			return;
-		});
+	//DemonicBladeCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collison)
+	//	{
+	//		State.ChangeState("Disappear");
+	//		return;
+	//	});
 }

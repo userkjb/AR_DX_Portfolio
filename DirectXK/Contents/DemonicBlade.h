@@ -70,5 +70,6 @@ private :
 	EEngineDir Dir = EEngineDir::MAX;
 	FVector StartPos = FVector::Zero;
 	bool Lasley_Large = false;
+	float LifeTime = 0.0f;
 };
 

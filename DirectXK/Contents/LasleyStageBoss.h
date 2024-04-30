@@ -54,10 +54,10 @@ private :
 	UCollision* MapObjectRightDoorCol = nullptr; // 문 Col
 
 	// Blade 전용 Collision 4개
-	UCollision* BladeLeftWall = nullptr;
-	UCollision* BladeLeftCliff = nullptr;
-	UCollision* BladeRightWall = nullptr;
-	UCollision* BladeRightCliff = nullptr;
+	//UCollision* BladeLeftWall = nullptr;
+	//UCollision* BladeLeftCliff = nullptr;
+	//UCollision* BladeRightWall = nullptr;
+	//UCollision* BladeRightCliff = nullptr;
 
 	std::shared_ptr<ALasley> Lasley = nullptr;
 
