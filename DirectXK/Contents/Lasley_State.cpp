@@ -161,7 +161,7 @@ void ALasley::IdleTick(float _DeltaTime)
 	if (true == IsDown('N'))
 	{
 		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-		Tentacle->SetCreatePos(TentacleSummonPos[6][test]);
+		Tentacle->SetCreatePos(TentacleSummonPos[9][test]);
 		Tentacle->SetInfinity(true);
 		Tentacle->CreateTentacle();
 		test++;

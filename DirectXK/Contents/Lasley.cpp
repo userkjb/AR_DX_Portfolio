@@ -72,6 +72,7 @@ ALasley::ALasley()
 
 
 	// 언덕 불 위치
+	// TentacleSummonPos[3/4/5/6][FVector]
 	{
 		{
 			std::vector<FVector> FVectorData;
@@ -115,6 +116,52 @@ ALasley::ALasley()
 				StartValue += 64.0f;
 			}
 
+			TentacleSummonPos.push_back(FVectorData);
+		}
+	}
+	// TentacleSummonPos[3/4/5/6][FVector]
+
+	// X 자.
+	// TentacleSummonPos[7/8/9][FVector]
+	{
+		// /
+		{ 
+			std::vector<FVector> FVectorData;
+			float StartValue_X = 1054.f;
+			float StartValue_Y = 828.0f;
+			for (size_t i = 0; i < 5; i++)
+			{
+				FVectorData.push_back(FVector(StartValue_X, StartValue_Y));
+				StartValue_X -= 64.0f;
+				StartValue_Y -= 64.0f;
+			}
+			TentacleSummonPos.push_back(FVectorData);
+		}
+		//
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue_X = 1054.f;
+			float StartValue_Y = 572.0f;
+			for (size_t i = 0; i < 5; i++)
+			{
+				FVectorData.push_back(FVector(StartValue_X, StartValue_Y));
+				StartValue_X -= 64.0f;
+				StartValue_Y += 64.0f;
+			}
+			TentacleSummonPos.push_back(FVectorData);
+		}
+		// X
+		{
+			std::vector<FVector> FVectorData;
+			float StartValue_X = 1118.0f;
+			float StartValue_Y = 892.0f;
+			for (size_t i = 0; i < 7; i++)
+			{
+				FVectorData.push_back(FVector(StartValue_X, StartValue_Y));
+				StartValue_X -= 64.0f;
+				StartValue_Y -= 64.0f;
+			}
+			FVectorData.push_back(FVector(1118.0f, 734.0f)); //
 			TentacleSummonPos.push_back(FVectorData);
 		}
 	}
