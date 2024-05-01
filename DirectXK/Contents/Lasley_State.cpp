@@ -105,12 +105,6 @@ void ALasley::SummonsTick(float _DeltaTime)
 		}
 	}
 
-	if (0 >= Hp)
-	{
-		State.ChangeState("Down");
-		return;
-	}
-
 #ifdef _DEBUG
 	{
 		std::string LasleyDemonSword_Str = std::format("DemonSword L Pos : {}\n", LasleyDemonSword->GetLocalPosition().ToString());
@@ -230,6 +224,12 @@ void ALasley::IdleTick(float _DeltaTime)
 	if (1.0f <= IdleTime && PreStateName == "DemonicBlade")
 	{
 		State.ChangeState("Move");
+		return;
+	}
+
+	if (2.0f <= IdleTime && PreStateName == "Wake")
+	{
+		State.ChangeState("DevilEye");
 		return;
 	}
 
@@ -519,9 +519,9 @@ void ALasley::WakeBegin()
 
 void ALasley::WakeTick(float _DeltaTime)
 {
-	if (true == IsDown('X'))
+	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
-		State.ChangeState("DemonicBlade");
+		State.ChangeState("Idle");
 		return;
 	}
 
@@ -539,6 +539,7 @@ void ALasley::WakeTick(float _DeltaTime)
 
 void ALasley::WakeExit()
 {
+	PreStateName = "Wake";
 }
 #pragma endregion
 
@@ -733,13 +734,46 @@ void ALasley::DownBegin()
 	LasleyRenderer->ChangeAnimation("Down");
 	LasleyRenderer->SetPivot(EPivot::BOT);
 	DownTime = 0.0f;
+
+	if (false == LasleyDemonSword->IsActive())
+	{
+		LasleyDemonSword->SetActive(true);
+	}
 }
 
 void ALasley::DownTick(float _DeltaTime)
 {
 	DownTime += _DeltaTime;
 
-	//if(true == IsDown('Y'))
+	// 무기 날아감.
+	if(false == MoveOne)
+	{
+		float DemonSwordMoveSpeed = 700.0f;
+		FVector RotSpeed = FVector(0.0f, 0.0f, 100.0f);
+		FVector Dir = FVector::Zero;
+		if (EEngineDir::Left == LasleyRenderer->GetDir())
+		{
+			Dir = FVector::Right;
+		}
+		else
+		{
+			Dir = FVector::Left;
+		}
+
+		DemonSwordVector = Dir * DemonSwordMoveSpeed * _DeltaTime;
+
+		LasleyDemonSword->AddRotationDeg(RotSpeed);
+		LasleyDemonSword->AddPosition(DemonSwordVector);
+
+
+		float DemonSwordLen = LasleyDemonSword->GetLocalPosition().X;
+		if (1080.0f <= DemonSwordLen)
+		{
+			MoveOne = true;
+		}
+	}
+
+	
 	if(2.0f <= DownTime)
 	{
 		int WarlocsDataSize = static_cast<int>(Warlocks.size());
@@ -761,19 +795,34 @@ void ALasley::DownTick(float _DeltaTime)
 			true == Warlocks[2]->IsDestroy() &&
 			true == Warlocks[3]->IsDestroy())
 		{
-			State.ChangeState("Wake");
-			return;
+			// 무기 되돌아 옴.
+			FVector RotSpeed = FVector(0.0f, 0.0f, 100.0f);
+			LasleyDemonSword->AddRotationDeg(RotSpeed);
+			LasleyDemonSword->AddPosition(-DemonSwordVector);
+			float DemonSwordLen = LasleyDemonSword->GetLocalPosition().X;
+			if (0.0f >= DemonSwordLen)
+			{
+				LasleyDemonSword->SetRotationDeg(FVector(0.0f, 0.0f, 0.0f));
+				LasleyDemonSword->SetPosition(FVector(0.0f, 0.0f, 0.0f));
+				LasleyDemonSword->SetActive(false);
+			
+				State.ChangeState("Wake");
+				return;
+			}
 		}
 	}
 
 #ifdef _DEBUG
 	{
 		FVector FLasleyPos = GetActorLocation();
+		float DemonSwordLen = LasleyDemonSword->GetLocalPosition().X;
 		std::string LasleyState = "Lasley Down";
 		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
+		std::string str_DemonSwordLen = std::format("Sword Len : {}\n", DemonSwordLen);
 
 		LasleyStageGUI::PushMsg(LasleyState);
 		LasleyStageGUI::PushMsg(LasleyPos);
+		LasleyStageGUI::PushMsg(str_DemonSwordLen);
 	}
 #endif
 }
@@ -797,7 +846,11 @@ void ALasley::CollisionCheck(float _DeltaTime)
 {
 	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collison)
 		{
-			Hp -= 5;
+			Hp -= 20;
+			if (0 != Life && 0 >= Hp)
+			{
+				State.ChangeState("Down");
+				return;
+			}
 		});
-
 }

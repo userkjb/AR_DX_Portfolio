@@ -123,7 +123,8 @@ private :
 
 	int WarlockCount = 0; // 워록 카운트
 	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;
-	
+	FVector DemonSwordVector = FVector::Zero;
+	bool MoveOne = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick 트리거.

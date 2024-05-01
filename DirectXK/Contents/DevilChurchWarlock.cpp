@@ -130,7 +130,7 @@ void ADevilChurchWarlock::AttackTick(float _DeltaTime)
 		BlackSphereTime = 0.0f;
 	}
 
-
+	
 	// 워록 콜리전.
 	CollisionCheck(_DeltaTime);
 
@@ -177,6 +177,11 @@ void ADevilChurchWarlock::CollisionCheck(float _DeltaTime)
 {
 	WarlockCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			Hp -= 10;
+			Hp -= 20;
+			if (0 >= Hp)
+			{
+				State.ChangeState("WarlockDie");
+				return;
+			}
 		});
 }
