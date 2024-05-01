@@ -102,7 +102,8 @@ private :
 
 	FVector PlayerPos = FVector::Zero;
 
-	bool Large = false;	
+	bool Large = false;
+	bool MoveBlade = false;
 	int Life = 3; // 부활 횟수
 	int MaxHp = 40;
 	int Hp = 40;
@@ -116,6 +117,7 @@ private :
 	std::vector<FVector> LasleyMovePos;
 	std::vector<std::vector<FVector>> TentacleSummonPos;
 	std::vector<FVector> WarlockSummonPos;
+	FVector MoveVectorPos = FVector::Zero;
 
 	int WarlockCount = 0; // 워록 카운트
 	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;

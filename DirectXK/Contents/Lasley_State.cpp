@@ -164,7 +164,7 @@ void ALasley::IdleTick(float _DeltaTime)
 		return;
 	}
 
-	if (PreStateName == "Move")
+	if (PreStateName == "Move" && false == MoveBlade)
 	{
 		int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
 		if (NorD == 1)
@@ -177,6 +177,11 @@ void ALasley::IdleTick(float _DeltaTime)
 		}
 		return;
 	}
+	else if (PreStateName == "Move" && true == MoveBlade)
+	{
+		State.ChangeState("DemonicBlade");
+		return;
+	}
 
 	if (PreStateName == "DimensionCutter" || PreStateName == "DoubleDimensionCutter")
 	{
@@ -187,14 +192,36 @@ void ALasley::IdleTick(float _DeltaTime)
 		}
 	}
 
-	if (2.0f <= IdleTime && PreStateName == "DevilEye")
+	if (1.0f <= IdleTime && PreStateName == "DevilEye")
 	{
-
-		State.ChangeState("DemonicBlade");
-		return;
+		// 이동 하고 블레이드!
+		if (MoveVectorPos.X == 702.0f)
+		{
+			if (LasleyRenderer->GetDir() == EEngineDir::Right)
+			{
+				MoveBlade = true;
+				State.ChangeState("Move");
+				return;
+			}
+		}
+		else if(MoveVectorPos.X == 1150.0f)
+		{
+			if (LasleyRenderer->GetDir() == EEngineDir::Left)
+			{
+				MoveBlade = true;
+				State.ChangeState("Move");
+				return;
+			}
+		}
+		else
+		{
+			// 제자리에서 블레이드!
+			State.ChangeState("DemonicBlade");
+			return;
+		}
 	}
 
-	if (PreStateName == "DemonicBlade")
+	if (1.0f <= IdleTime && PreStateName == "DemonicBlade")
 	{
 		State.ChangeState("Move");
 		return;
@@ -233,7 +260,7 @@ void ALasley::MoveBegin()
 }
 void ALasley::MoveTick(float _DeltaTime)
 {
-	FVector MoveVectorPos = LasleyMovePos[MovePosNum];
+	MoveVectorPos = LasleyMovePos[MovePosNum];
 	FVector FLasleyPos = GetActorLocation();
 	FVector LengV = MoveVectorPos - FLasleyPos;
 	FVector MoveDir = LengV.Normalize2DReturn();
@@ -591,6 +618,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 void ALasley::DemonicBladeExit()
 {
 	PreStateName = "DemonicBlade";
+	MoveBlade = false;
 }
 #pragma endregion
 
