@@ -275,22 +275,17 @@ void ALasley::CreateAnimation()
 {
 	LasleyRenderer->CreateAnimation("Summons", "LasleyDown", 0.125f, false, 9, 9);
 	// State
-	//LasleyRenderer->CreateAnimation("Idle", "LasleyIdle", 0.125f);
-	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle.png", 0.125f, true, 0, 23); // Pivot MAX
-	LasleyRenderer->CreateAnimation("Wake", "LasleyWake", 0.125f, false);
-	LasleyRenderer->CreateAnimation("Down", "LasleyDown", 0.125f, false);
+	LasleyRenderer->CreateAnimation("Idle", "LasleyIdle.png", 0.0625f, true, 0, 23); // Pivot MAX
+	LasleyRenderer->CreateAnimation("Wake", "LasleyWake", 0.0625f, false);
+	LasleyRenderer->CreateAnimation("Down", "LasleyDown", 0.0625f, false);
 
 	// Skill
-	//LasleyRenderer->CreateAnimation("DemonicBlade", "LasleyDemonicBlade", 0.125f);
-	//LasleyRenderer->CreateAnimation("DimensionCutter", "LasleyDimensionCutter", 0.125f);
-	//LasleyRenderer->CreateAnimation("DoubleDimensionCutter", "LasleyDimensionCutter", 0.125f);
-
 	LasleyRenderer->CreateAnimation("LasleyDemonicBlade", "LasleyDemonicBlade.png", 0.0625f, true, 0, 18); // 공란 때문에 범위 지정.
-	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f, true); // Pivot BOT
-	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 0.0625f, true);
+	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f, false); // Pivot BOT
+	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 1.0625f, true);
 	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true, 0, 28);
 
-	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 0.125f, true);
+	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 1.0625f, true);
 
 	LasleySummonFX->CreateAnimation("LasleySummonFX", "LasleySummonsFX", 0.0625f, false, 0, 12);
 	LasleySummonFX->SetLastFrameCallback("LasleySummonFX", std::bind(&ALasley::LasleySummonEndCallBack, this));

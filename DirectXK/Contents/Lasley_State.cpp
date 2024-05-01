@@ -83,7 +83,7 @@ void ALasley::SummonsTick(float _DeltaTime)
 	if(true == LasleyRenderer->IsActive())
 	{
 		FVector MoveDemonSword = FVector::Zero;
-		MoveDemonSword += FVector::Down * MovePower * _DeltaTime;
+		MoveDemonSword += FVector::Down * SwordSpeed * _DeltaTime;
 
 		if (52.0f >= LasleyDemonSword->GetLocalPosition().Y)
 		{
@@ -122,11 +122,13 @@ void ALasley::SummonsEnd()
 	SummonTime = 0.0f;
 	LasleyDemonSword->SetActive(false);
 	LasleySummonFX->SetActive(true);
+	PreStateName = "Summons";
 }
 
 void ALasley::LasleySummonEndCallBack()
 {
 	LasleySummonFX->SetActive(false);
+	PreStateName = "Summons";
 }
 #pragma endregion
 
@@ -136,27 +138,47 @@ void ALasley::IdleBegin()
 {
 	LasleyRenderer->ChangeAnimation("Idle");
 	LasleyRenderer->SetPivot(EPivot::MAX);
+	IdleTime = 0.0f;
 }
 
 void ALasley::IdleTick(float _DeltaTime)
 {
-	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
-	if (true == IsDown('X'))
+	IdleTime += _DeltaTime;
+
+	if (2.0f <= IdleTime)
 	{
+		// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
 		// 정해진 첫 번째 패턴 DevilEye
-		State.ChangeState("DevilEye");
-		return;
+		if (PreStateName == "Summons")
+		{
+			State.ChangeState("DevilEye");
+			return;
+		}
+
+		if (PreStateName == "DevilEye")
+		{
+			State.ChangeState("Move");
+			return;
+		}
+
+		if (PreStateName == "Move")
+		{
+			//int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
+			int NorD = 1;
+			if (NorD == 1)
+			{
+				State.ChangeState("DimensionCutter");
+			}
+			else
+			{
+				State.ChangeState("DoubleDimensionCutter");
+			}
+			return;
+		}
 	}
+	
 
 
-	// Slash Test
-	if (true == IsDown('Y'))
-	{
-		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
-		Slash->SetActive(true);
-		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
-		//Slash->SetActorLocation({100.0f, 100.0f});
-	}
 
 	if (true == IsDown('N'))
 	{
@@ -177,28 +199,70 @@ void ALasley::IdleTick(float _DeltaTime)
 
 void ALasley::IdleExit()
 {
+	PreStateName = "Idle";
 }
 #pragma endregion
 
 #pragma region Move
 void ALasley::MoveBegin()
 {
-	if (Life == 3)
+	LasleyRenderer->ChangeAnimation("Idle");
+	LasleyRenderer->SetPivot(EPivot::MAX);
+	MovePosNum = 1; // test
+
+	//if (Life == 3)
+	//{
+	//	// 밑 바닥 까지 체크
+	//	MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 10);
+	//}
+	//else
+	//{
+	//	// 밑 바닥 체크 안함.
+	//	MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 8);
+	//}
+	switch (MovePosNum)
 	{
-		int MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 10);
+	case 1:
+	{
+		MoveVectorPos.X = 1620.0f;
+		MoveVectorPos.Y = 830.0f;
+		break;
 	}
-	else
-	{
-		int MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 8);
 	}
 }
 void ALasley::MoveTick(float _DeltaTime)
 {
+	FVector FLasleyPos = GetActorLocation();
+	FVector LengV = MoveVectorPos - FLasleyPos;
+	FVector MoveDir = LengV.Normalize2DReturn();
+	float Leng = std::sqrtf(std::powf(FLasleyPos.X - MoveVectorPos.X, 2) + std::powf(FLasleyPos.Y - MoveVectorPos.Y, 2));
 
+	float4 MoveLasley = MoveDir * MoveSpeed * _DeltaTime;
+
+	AddActorLocation(MoveLasley);
+
+	if (0.5 >= Leng)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+	
+#ifdef _DEBUG
+	{
+		FVector FLasleyPos = GetActorLocation();
+
+		std::string LasleyState = "Lasley Move";
+		std::string LasleyPos = std::format("Lasley Pos : {}\n", FLasleyPos.ToString());
+		std::string LasleyToTarget = std::format("Target Pos Len : {}\n", Leng);
+		LasleyStageGUI::PushMsg(LasleyState);
+		LasleyStageGUI::PushMsg(LasleyPos);
+		LasleyStageGUI::PushMsg(LasleyToTarget);
+	}
+#endif
 }
 void ALasley::MoveExit()
 {
-
+	PreStateName = "Move";
 }
 #pragma endregion
 
@@ -207,6 +271,7 @@ void ALasley::DevilEyeBegin()
 {
 	LasleyRenderer->ChangeAnimation("LasleyDevilEye");
 	LasleyRenderer->SetPivot(EPivot::BOT);
+	DevilEyeTime = 0.0f;
 }
 
 void ALasley::DevilEyeTick(float _DeltaTime)
@@ -220,27 +285,18 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 			});
 	}
 
-
-
+	//if (true == IsDown('N'))
+	//{
+	//	std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+	//	Tentacle->SetCreatePos(TentacleSummonPos[9][test]);
+	//	Tentacle->SetInfinity(true);
+	//	Tentacle->CreateTentacle();
+	//	test++;
+	//}
 
 	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
-		int Percentage = UEngineRandom::MainRandom.RandomInt(1, 10);
-		if (Percentage != 1)
-		{
-			State.ChangeState("DemonicBlade");
-			return;
-		}
-		else
-		{
-			// 후 추가.
-		}
-	}
-
-
-	if (true == IsDown('X'))
-	{
-		State.ChangeState("DemonicBlade");
+		State.ChangeState("Idle");
 		return;
 	}
 
@@ -253,6 +309,7 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 }
 void ALasley::DevilEyeExit()
 {
+	PreStateName = "DevilEye";
 }
 
 void ALasley::DoorTentacle(float _DeltaTime)
@@ -448,6 +505,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 #ifdef _DEBUG
 	{
 		FVector FLasleyPos = GetActorLocation();
+
 		std::string LasleyState = "Lasley DemonicBlade";
 		std::string LasleyPos = std::format("Lasley Pos {}\n", FLasleyPos.ToString());
 
@@ -473,6 +531,20 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 	{
 		State.ChangeState("DoubleDimensionCutter");
 		return;
+	}
+
+
+	//LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 8, [=]()
+	//	{
+	//		int a = 0;
+	//	});
+
+	if (true == IsDown('Y'))
+	{
+		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+		Slash->SetActive(true);
+		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
+		//Slash->SetActorLocation({100.0f, 100.0f});
 	}
 
 #ifdef _DEBUG
@@ -503,6 +575,14 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 	{
 		State.ChangeState("Down");
 		return;
+	}
+
+	if (true == IsDown('Y'))
+	{
+		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+		Slash->SetActive(true);
+		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
+		//Slash->SetActorLocation({100.0f, 100.0f});
 	}
 
 #ifdef _DEBUG

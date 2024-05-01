@@ -32,6 +32,7 @@ public :
 	inline void SetState(std::string_view _ChangeState)
 	{
 		State.ChangeState(_ChangeState);
+		return;
 	}
 	inline std::string GetCurLasleyState()
 	{
@@ -87,20 +88,26 @@ private :
 
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;
+	std::string PreStateName = "";
 
-	const float MovePower = 500.0f;
+	int MovePosNum = 0;
+	const float MoveSpeed = 1500.0f;
+	const float SwordSpeed = 500.0f;
 	const float RotationPower = 0.0f;
-	float SummonTime = 0.0f;
+	FVector MoveVectorPos = FVector::Zero;
 
 	bool Large = false;
+	
 	int Life = 3; // ºÎÈ° È½¼ö
 	int MaxHp = 40;
 	int Hp = 40;
-	const float MoveSpeed = 500.0f;
-	float MoveTime = 0.0f;
+
+	float SummonTime = 0.0f;
+	float IdleTime = 0.0f;
+	float DevilEyeTime = 0.0f;
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
-	std::vector<FVector> MovePos;
+
 	std::vector<std::vector<FVector>> TentacleSummonPos;
 	std::vector<FVector> WarlockSummonPos;
 
@@ -113,6 +120,8 @@ private :
 	bool b_DoorTentacleOne = false;
 	int doorTentacleCount = 0;
 	size_t DoorTentacleCount_2 = 0;
+	
+	//
 	int test = 0;
 };
 
