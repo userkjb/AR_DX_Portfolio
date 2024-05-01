@@ -217,7 +217,6 @@ ALasley::ALasley()
 	LasleyCollision->SetupAttachment(Root);
 	LasleyCollision->SetCollisionGroup(ECollisionOrder::Boss);
 	LasleyCollision->SetCollisionType(ECollisionType::RotRect);
-	//LasleyCollision->SetScale();
 
 	// 소환, 회복 및 부활 할 때 사용할 검.
 	LasleyDemonSword = CreateDefaultSubObject<USpriteRenderer>("LasleyRenderer");
@@ -263,7 +262,9 @@ void ALasley::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
-	if (Life == 0 && Hp <= 20)
+	CollisionCheck(_DeltaTime);
+
+	if (Life != 3 )
 	{
 		Large = true;
 	}

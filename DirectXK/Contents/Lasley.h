@@ -86,6 +86,8 @@ private :
 	void LasleySummonEndCallBack();
 	void DoorTentacle(float _DeltaTime);
 
+	void CollisionCheck(float _DeltaTime);
+
 	USpriteRenderer* LasleyRenderer = nullptr;
 	USpriteRenderer* LasleyDemonSword = nullptr;
 	USpriteRenderer* LasleySummonFX = nullptr; // 맨 처음 칼 잡았을 때. FX

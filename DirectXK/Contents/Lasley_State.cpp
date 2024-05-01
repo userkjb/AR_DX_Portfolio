@@ -792,3 +792,12 @@ void ALasley::DieTick(float _DeltaTime)
 {
 }
 #pragma endregion
+
+void ALasley::CollisionCheck(float _DeltaTime)
+{
+	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			Hp -= 5;
+		});
+
+}
