@@ -270,7 +270,7 @@ void ALasley::MoveTick(float _DeltaTime)
 
 	AddActorLocation(MoveLasley);
 
-	if (5.0f >= Leng)
+	if (10.0f >= Leng)
 	{
 		SetActorLocation(MoveVectorPos);
 

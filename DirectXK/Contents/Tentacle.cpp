@@ -117,6 +117,8 @@ void ATentacle::TickTick(float _DeltaTime)
 		State.ChangeState("Tentacle_End");
 		return;
 	}
+
+	CollisionCheck(_DeltaTime);
 }
 
 void ATentacle::TickExit()
