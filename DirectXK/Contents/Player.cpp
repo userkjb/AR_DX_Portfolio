@@ -68,7 +68,7 @@ void APlayer::Tick(float _DeltaTime)
 		FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
 		
 		float4 Leng = MousePosWorld - PlayerPos;
-		PlayerToMouseDir = Leng.Normalize2DReturn();
+		PlayerToMouseDir = Leng.Normalize2DReturn(); // 플레이어 기준 마우스 방향.
 
 		float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
 		Rot *= UEngineMath::RToD;
