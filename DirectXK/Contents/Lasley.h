@@ -122,8 +122,9 @@ private :
 	
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
-	bool b_DoorTentacle = false;
+	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.
 	bool b_DoorTentacleOne = false;
+	bool b_DevilEye_One = false;
 	int doorTentacleCount = 0;
 	size_t DoorTentacleCount_2 = 0;
 };

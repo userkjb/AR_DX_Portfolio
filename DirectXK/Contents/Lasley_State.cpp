@@ -157,7 +157,7 @@ void ALasley::IdleTick(float _DeltaTime)
 			return;
 		}
 
-		if (PreStateName == "DevilEye" && false == b_DoorTentacle)
+		if (PreStateName == "DevilEye_One")
 		{
 			State.ChangeState("Move");
 			return;
@@ -183,9 +183,9 @@ void ALasley::IdleTick(float _DeltaTime)
 			return;
 		}
 
-		if (PreStateName == "DevilEye" && true == b_DoorTentacle)
+		if (PreStateName == "DevilEye")
 		{
-			State.ChangeState("Move");
+			State.ChangeState("DemonicBlade");
 			return;
 		}
 
@@ -237,6 +237,15 @@ void ALasley::MoveTick(float _DeltaTime)
 	if (5.0f >= Leng)
 	{
 		SetActorLocation(MoveVectorPos);
+
+		if (0 > (FLasleyPos.X - PlayerPos.X))
+		{
+			LasleyRenderer->SetDir(EEngineDir::Right);
+		}
+		else
+		{
+			LasleyRenderer->SetDir(EEngineDir::Left);
+		}
 
 		State.ChangeState("Idle");
 		return;
@@ -357,7 +366,15 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 }
 void ALasley::DevilEyeExit()
 {
-	PreStateName = "DevilEye";
+	if (false == b_DevilEye_One)
+	{
+		PreStateName = "DevilEye_One";
+		b_DevilEye_One = true;
+	}
+	else
+	{
+		PreStateName = "DevilEye";
+	}
 }
 
 void ALasley::DoorTentacle(float _DeltaTime)
