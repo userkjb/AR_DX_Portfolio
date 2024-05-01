@@ -105,9 +105,9 @@ void ADimensionSlash::Tick(float _DeltaTime)
 
 void ADimensionSlash::CreateAnimation()
 {
-	DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack", "DimensionSlashBack.png", 0.125f, false);
+	DimensionSlashRenderer_B->CreateAnimation("DimensionSlashBack", "DimensionSlashBack.png", 0.0625f, false);
 
-	DimensionSlashRenderer_F->CreateAnimation("DimensionSlashFront", "DimensionSlashFront.png", 0.125f, false);
+	DimensionSlashRenderer_F->CreateAnimation("DimensionSlashFront", "DimensionSlashFront.png", 0.0625f, false);
 
 
 	DimensionSlashRenderer_B->ChangeAnimation("DimensionSlashBack");
