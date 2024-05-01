@@ -285,6 +285,9 @@ void ALasley::Tick(float _DeltaTime)
 			LasleyRenderer->SetDir(EEngineDir::Right);
 		}
 	}
+
+	std::string LasleyHP = std::format("LasleyHP : {}\n", Hp);
+	LasleyStageGUI::PushMsg(LasleyHP);
 #endif
 }
 

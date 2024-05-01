@@ -128,6 +128,12 @@ void ALasley::SummonsEnd()
 	LasleyDemonSword->SetActive(false);
 	LasleySummonFX->SetActive(true);
 	PreStateName = "Summons";
+	FVector GetScale = LasleyRenderer->GetLocalScale();
+	LasleyCollision->SetScale(GetScale);
+
+	FVector CulPosValue = LasleyCollision->GetLocalPosition();
+	CulPosValue.Y += 48.0f;
+	LasleyCollision->SetPosition(CulPosValue);
 }
 
 void ALasley::LasleySummonEndCallBack()
