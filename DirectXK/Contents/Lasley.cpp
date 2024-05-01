@@ -161,7 +161,20 @@ ALasley::ALasley()
 				StartValue_X -= 64.0f;
 				StartValue_Y -= 64.0f;
 			}
-			FVectorData.push_back(FVector(1118.0f, 734.0f)); //
+			float NextX = 734.0f;
+			float NextY = 892.0f;
+			for (size_t i = 0; i < 7; i++)
+			{
+				if (NextX == 926.0f && NextY == 700.0f)
+				{
+					NextX += 64.0f;
+					NextY -= 64.0f;
+					continue;
+				}
+				FVectorData.push_back(FVector(NextX, NextY));
+				NextX += 64.0f;
+				NextY -= 64.0f;
+			}
 			TentacleSummonPos.push_back(FVectorData);
 		}
 	}
