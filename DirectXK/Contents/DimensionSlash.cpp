@@ -30,8 +30,8 @@ ADimensionSlash::ADimensionSlash()
 	SlashCollision->SetupAttachment(Root);
 	SlashCollision->SetCollisionGroup(ECollisionOrder::BossSkill);
 	SlashCollision->SetCollisionType(ECollisionType::RotRect);
-	SlashCollision->SetPosition(DimensionSlashRenderer_B->GetLocalPosition());
 	SlashCollision->SetScale(FVector(60.0f, 1032.0f, 1.0f, 1.0f));
+	SlashCollision->SetActive(false);
 }
 
 ADimensionSlash::~ADimensionSlash()
@@ -142,6 +142,8 @@ void ADimensionSlash::CreateBegin()
 	DimensionSlashRenderer_F->SetPosition(PlayerPos);
 	DimensionSlashRenderer_B->SetRotationDeg(RotationV);
 	DimensionSlashRenderer_F->SetRotationDeg(RotationV);
+	SlashCollision->SetPosition(DimensionSlashRenderer_B->GetLocalPosition());
+	SlashCollision->SetRotationDeg(DimensionSlashRenderer_B->GetLocalRotation());
 }
 
 void ADimensionSlash::CreateTick(float _DeltaTime)

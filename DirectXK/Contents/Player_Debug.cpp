@@ -57,8 +57,9 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	std::string str_PlayerCollisionPos_W = std::format("Player Col Pos W : {}\n", V_PlayerColPos_W.ToString());
 	std::string str_PlayerCollisionPos_L = std::format("Player Col Pos L : {}\n", V_PlayerColPos_L.ToString());
 	std::string RecvVectorStr = std::format("Recv Vector : {}\n", RecvVector.ToString());
+	std::string HP = std::format("Player HP : {}\n", EPlayerStateValue::Hp);
 
-
+	UEngineDebugMsgWindow::PushMsg(HP);
 	UEngineDebugMsgWindow::PushMsg(StateName);
 	UEngineDebugMsgWindow::PushMsg(Player_World_Pos);
 	//UEngineDebugMsgWindow::PushMsg(Msg2);

@@ -204,7 +204,8 @@ void ALasley::IdleTick(float _DeltaTime)
 				return;
 			}
 		}
-		else if(MoveVectorPos.X == 1150.0f)
+		
+		if(MoveVectorPos.X == 1150.0f)
 		{
 			if (LasleyRenderer->GetDir() == EEngineDir::Left)
 			{
@@ -213,12 +214,11 @@ void ALasley::IdleTick(float _DeltaTime)
 				return;
 			}
 		}
-		else
-		{
-			// 제자리에서 블레이드!
-			State.ChangeState("DemonicBlade");
-			return;
-		}
+
+
+		// 제자리에서 블레이드!
+		State.ChangeState("DemonicBlade");
+		return;
 	}
 
 	if (1.0f <= IdleTime && PreStateName == "DemonicBlade")
