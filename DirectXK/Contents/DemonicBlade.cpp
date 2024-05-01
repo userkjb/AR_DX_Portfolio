@@ -117,7 +117,7 @@ void ADemonicBlade::CreateTick(float _DeltaTime)
 	// 플레이어 체크
 	CollisionCheck(_DeltaTime);
 
-	if (2 <= LifeTime)
+	if (1.0f <= LifeTime)
 	{
 		State.ChangeState("Disappear");
 		return;

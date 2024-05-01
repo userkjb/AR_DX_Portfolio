@@ -43,12 +43,15 @@ void ALasley::StateInit()
 		std::bind(&ALasley::DevilEyeTick, this, std::placeholders::_1),
 		std::bind(&ALasley::DevilEyeExit, this));
 
+	State.SetFunction("Wake",
+		std::bind(&ALasley::WakeBegin, this),
+		std::bind(&ALasley::WakeTick, this, std::placeholders::_1),
+		std::bind(&ALasley::WakeExit, this));
 
-	State.SetStartFunction("Wake", std::bind(&ALasley::WakeBegin, this));
-	State.SetUpdateFunction("Wake", std::bind(&ALasley::WakeTick, this, std::placeholders::_1));
-	
-	State.SetStartFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeBegin, this));
-	State.SetUpdateFunction("DemonicBlade", std::bind(&ALasley::DemonicBladeTick, this, std::placeholders::_1));
+	State.SetFunction("DemonicBlade",
+		std::bind(&ALasley::DemonicBladeBegin, this),
+		std::bind(&ALasley::DemonicBladeTick, this, std::placeholders::_1),
+		std::bind(&ALasley::DemonicBladeExit, this));
 
 	State.SetFunction("DimensionCutter",
 		std::bind(&ALasley::DimensionCutterBegin, this),
@@ -186,6 +189,12 @@ void ALasley::IdleTick(float _DeltaTime)
 		if (PreStateName == "DevilEye")
 		{
 			State.ChangeState("DemonicBlade");
+			return;
+		}
+
+		if (PreStateName == "DemonicBlade")
+		{
+			State.ChangeState("Move");
 			return;
 		}
 
@@ -510,12 +519,6 @@ void ALasley::DemonicBladeBegin()
 
 void ALasley::DemonicBladeTick(float _DeltaTime)
 {
-	if (true == IsDown('X'))
-	{
-		State.ChangeState("DimensionCutter");
-		return;
-	}
-
 	// Large °ª Àû¿ë.
 	{
 		if (Life == 3)
@@ -539,33 +542,39 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 			Large = true;
 		}
 	}
-	
 
-	if (true == IsDown('Y'))
+	LasleyRenderer->SetFrameCallback("LasleyDemonicBlade", 7, [=]()
+		{
+			std::shared_ptr<ADemonicBlade> DemonicBlade = GetWorld()->SpawnActor<ADemonicBlade>("DemonicBlade");
+
+			if (LasleyRenderer->GetDir() == EEngineDir::Left)
+			{
+				DemonicBlade->SetLasleyLarge(Large);
+				DemonicBlade->SetLasleyDir(EEngineDir::Left);
+				FVector SetPos = GetActorLocation();
+				SetPos.X -= 56.0f * 4.0f;
+				DemonicBlade->SetDemonicBladePos(SetPos);
+				DemonicBlade->SetDemonicBladeActive(true);
+				DemonicBlade->SetDemonicBladeStart();
+			}
+			else if (LasleyRenderer->GetDir() == EEngineDir::Right)
+			{
+				DemonicBlade->SetLasleyLarge(Large);
+				DemonicBlade->SetLasleyDir(EEngineDir::Right);
+				FVector SetPos = GetActorLocation();
+				SetPos.X += 56.0f * 4.0f;
+				DemonicBlade->SetDemonicBladePos(SetPos);
+				DemonicBlade->SetDemonicBladeActive(true);
+				DemonicBlade->SetDemonicBladeStart();
+			}
+		});
+
+	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
-		std::shared_ptr<ADemonicBlade> DemonicBlade = GetWorld()->SpawnActor<ADemonicBlade>("DemonicBlade");
-		
-		if (LasleyRenderer->GetDir() == EEngineDir::Left)
-		{
-			DemonicBlade->SetLasleyLarge(Large);
-			DemonicBlade->SetLasleyDir(EEngineDir::Left);
-			FVector SetPos = GetActorLocation();
-			SetPos.X -= 56.0f * 4.0f;
-			DemonicBlade->SetDemonicBladePos(SetPos);
-			DemonicBlade->SetDemonicBladeActive(true);
-			DemonicBlade->SetDemonicBladeStart();
-		}
-		else if (LasleyRenderer->GetDir() == EEngineDir::Right)
-		{
-			DemonicBlade->SetLasleyLarge(Large);
-			DemonicBlade->SetLasleyDir(EEngineDir::Right);
-			FVector SetPos = GetActorLocation();
-			SetPos.X += 56.0f * 4.0f;
-			DemonicBlade->SetDemonicBladePos(SetPos);	
-			DemonicBlade->SetDemonicBladeActive(true);
-			DemonicBlade->SetDemonicBladeStart();
-		}
+		State.ChangeState("Idle");
+		return;
 	}
+	
 
 #ifdef _DEBUG
 	{
@@ -581,6 +590,7 @@ void ALasley::DemonicBladeTick(float _DeltaTime)
 }
 void ALasley::DemonicBladeExit()
 {
+	PreStateName = "DemonicBlade";
 }
 #pragma endregion
 
