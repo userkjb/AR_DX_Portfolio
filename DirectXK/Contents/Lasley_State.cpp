@@ -346,12 +346,16 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 						Tentacle->CreateTentacle();
 					}
 				}
-				else if (2 == Life)
+				else if (2 == Life) ////
 				{
-					std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-					Tentacle->SetCreatePos(TentacleSummonPos[9][0]);
-					Tentacle->SetInfinity(true);
-					Tentacle->CreateTentacle();
+					size_t SummonCount = TentacleSummonPos[9].size();
+					for (size_t i = 0; i < SummonCount; i++)
+					{
+						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+						Tentacle->SetCreatePos(TentacleSummonPos[9][i]);
+						Tentacle->SetInfinity(false);
+						Tentacle->CreateTentacle();
+					}
 				}
 				else if (1 == Life)
 				{
@@ -370,23 +374,35 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 					}
 
 					{
-						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-						Tentacle->SetCreatePos(TentacleSummonPos[3][CreatePos_1]);
-						Tentacle->SetInfinity(false);
-						Tentacle->CreateTentacle();
+						size_t SummonCout = TentacleSummonPos[CreatePos_1].size();
+						for (size_t i = 0; i < SummonCout; i++)
+						{
+							std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+							Tentacle->SetCreatePos(TentacleSummonPos[CreatePos_1][i]);
+							Tentacle->SetInfinity(false);
+							Tentacle->CreateTentacle();
+						}
 					}
 					{
-						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-						Tentacle->SetCreatePos(TentacleSummonPos[3][CreatePos_2]);
-						Tentacle->SetInfinity(false);
-						Tentacle->CreateTentacle();
+						size_t SummonCout = TentacleSummonPos[CreatePos_1].size();
+						for (size_t i = 0; i < SummonCout; i++)
+						{
+							std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+							Tentacle->SetCreatePos(TentacleSummonPos[CreatePos_2][i]);
+							Tentacle->SetInfinity(false);
+							Tentacle->CreateTentacle();
+						}
 					}
 					{
 						int CreatePos = UEngineRandom::MainRandom.RandomInt(7, 8);
-						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-						Tentacle->SetCreatePos(TentacleSummonPos[CreatePos][0]);
-						Tentacle->SetInfinity(false);
-						Tentacle->CreateTentacle();
+						size_t SummonCout = TentacleSummonPos[CreatePos].size();
+						for (size_t i = 0; i < SummonCout; i++)
+						{
+							std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+							Tentacle->SetCreatePos(TentacleSummonPos[CreatePos][i]);
+							Tentacle->SetInfinity(false);
+							Tentacle->CreateTentacle();
+						}
 					}
 				}
 			});
@@ -488,6 +504,7 @@ void ALasley::DoorTentacle(float _DeltaTime)
 		DoorTentacleCount_2++;
 	}
 
+	// ¸¶Áö¸· Áß¾Ó ºÒ²É
 	if (1.0f <= DoorTentacleTime && 6 == DoorTentacleCount_2)
 	{
 		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
@@ -735,6 +752,7 @@ void ALasley::DownBegin()
 	LasleyRenderer->ChangeAnimation("Down");
 	LasleyRenderer->SetPivot(EPivot::BOT);
 	DownTime = 0.0f;
+	DemonSwordVector = FVector::Zero;
 
 	if (false == LasleyDemonSword->IsActive())
 	{
@@ -769,6 +787,10 @@ void ALasley::DownTick(float _DeltaTime)
 
 		float DemonSwordLen = LasleyDemonSword->GetLocalPosition().X;
 		if (1080.0f <= DemonSwordLen)
+		{
+			MoveOne = true;
+		}
+		else if(-1080.0f >= DemonSwordLen)
 		{
 			MoveOne = true;
 		}
@@ -829,7 +851,10 @@ void ALasley::DownTick(float _DeltaTime)
 }
 void ALasley::DownExit()
 {
+	WarlockCount = 0;
 	DownTime = 0.0f;
+	Warlocks.clear();
+	
 }
 #pragma endregion
 
@@ -885,7 +910,15 @@ void ALasley::CollisionCheck(float _DeltaTime)
 {
 	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collison)
 		{
-			Hp -= 20;
+			if (0 >= Hp)
+			{
+				Hp = 0;
+			}
+			else
+			{
+				Hp -= 20;
+			}
+
 			if (0 != Life && 0 >= Hp)
 			{
 				State.ChangeState("Down");

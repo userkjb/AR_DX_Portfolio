@@ -254,6 +254,10 @@ void ALasley::BeginPlay()
 	LasleyRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 	LasleySummonFX->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 	LasleyDemonSword->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+
+	//{
+	//	Warlocks.reserve(4);
+	//}
 }
 
 void ALasley::Tick(float _DeltaTime)
@@ -287,8 +291,11 @@ void ALasley::Tick(float _DeltaTime)
 		}
 	}
 
-	std::string LasleyHP = std::format("LasleyHP : {}\n", Hp);
+	std::string LasleyHP = std::format("Lasley HP : {}\n", Hp);
+	std::string LasyeyLife = std::format("Lasley Life : {}\n", Life);
+
 	LasleyStageGUI::PushMsg(LasleyHP);
+	LasleyStageGUI::PushMsg(LasyeyLife);
 #endif
 }
 
