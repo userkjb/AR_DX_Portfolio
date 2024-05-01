@@ -115,6 +115,7 @@ private :
 	float DevilEyeTime = 0.0f;
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
+	float DieTime = 0.0f;
 
 	std::vector<FVector> LasleyMovePos;
 	std::vector<std::vector<FVector>> TentacleSummonPos;
@@ -125,6 +126,7 @@ private :
 	std::vector<std::shared_ptr<ADevilChurchWarlock>> Warlocks;
 	FVector DemonSwordVector = FVector::Zero;
 	bool MoveOne = false;
+	bool DieOne = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.

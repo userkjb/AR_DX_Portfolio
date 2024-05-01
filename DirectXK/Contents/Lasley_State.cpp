@@ -515,6 +515,7 @@ void ALasley::WakeBegin()
 	{
 		Hp = MaxHp; // 피 회복.
 	}
+	Life--;
 }
 
 void ALasley::WakeTick(float _DeltaTime)
@@ -835,10 +836,48 @@ void ALasley::DownExit()
 #pragma region Die
 void ALasley::DieBegin()
 {
+	LasleyRenderer->ChangeAnimation("Down");
+	LasleyRenderer->SetPivot(EPivot::BOT);
 }
 
 void ALasley::DieTick(float _DeltaTime)
 {
+	DieTime += _DeltaTime;
+
+	// Down 과 똑같이 무기 날리고.
+	if (false == DieOne)
+	{
+		float DemonSwordMoveSpeed = 700.0f;
+		FVector RotSpeed = FVector(0.0f, 0.0f, 100.0f);
+		FVector Dir = FVector::Zero;
+		if (EEngineDir::Left == LasleyRenderer->GetDir())
+		{
+			Dir = FVector::Right;
+		}
+		else
+		{
+			Dir = FVector::Left;
+		}
+
+		DemonSwordVector = Dir * DemonSwordMoveSpeed * _DeltaTime;
+
+		LasleyDemonSword->AddRotationDeg(RotSpeed);
+		LasleyDemonSword->AddPosition(DemonSwordVector);
+
+
+		float DemonSwordLen = LasleyDemonSword->GetLocalPosition().X;
+		if (1080.0f <= DemonSwordLen)
+		{
+			DieOne = true;
+		}
+	}
+
+
+	if (3.0f <= DieTime)
+	{
+		std::string str = "Clear!!!!";
+		// Levle 에서 작업 진행.
+	}
 }
 #pragma endregion
 
@@ -850,6 +889,12 @@ void ALasley::CollisionCheck(float _DeltaTime)
 			if (0 != Life && 0 >= Hp)
 			{
 				State.ChangeState("Down");
+				return;
+			}
+
+			if (0 == Life && 0 >= Hp)
+			{
+				State.ChangeState("Die");
 				return;
 			}
 		});
