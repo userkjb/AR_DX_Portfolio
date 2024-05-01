@@ -150,54 +150,54 @@ void ALasley::IdleTick(float _DeltaTime)
 {
 	IdleTime += _DeltaTime;
 
-	if (2.0f <= IdleTime)
+	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
+	// 정해진 첫 번째 패턴 DevilEye
+	if (2.0f <= IdleTime && PreStateName == "Summons")
 	{
-		// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
-		// 정해진 첫 번째 패턴 DevilEye
-		if (PreStateName == "Summons")
+		State.ChangeState("DevilEye");
+		return;
+	}
+
+	if (2.0f <= IdleTime && PreStateName == "DevilEye_One")
+	{
+		State.ChangeState("Move");
+		return;
+	}
+
+	if (PreStateName == "Move")
+	{
+		int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
+		if (NorD == 1)
+		{
+			State.ChangeState("DimensionCutter");
+		}
+		else
+		{
+			State.ChangeState("DoubleDimensionCutter");
+		}
+		return;
+	}
+
+	if (PreStateName == "DimensionCutter" || PreStateName == "DoubleDimensionCutter")
+	{
+		if (1.0f <= IdleTime)
 		{
 			State.ChangeState("DevilEye");
 			return;
 		}
+	}
 
-		if (PreStateName == "DevilEye_One")
-		{
-			State.ChangeState("Move");
-			return;
-		}
+	if (2.0f <= IdleTime && PreStateName == "DevilEye")
+	{
 
-		if (PreStateName == "Move")
-		{
-			int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
-			if (NorD == 1)
-			{
-				State.ChangeState("DimensionCutter");
-			}
-			else
-			{
-				State.ChangeState("DoubleDimensionCutter");
-			}
-			return;
-		}
+		State.ChangeState("DemonicBlade");
+		return;
+	}
 
-		if (PreStateName == "DimensionCutter" || PreStateName == "DoubleDimensionCutter")
-		{
-			State.ChangeState("DevilEye");
-			return;
-		}
-
-		if (PreStateName == "DevilEye")
-		{
-			State.ChangeState("DemonicBlade");
-			return;
-		}
-
-		if (PreStateName == "DemonicBlade")
-		{
-			State.ChangeState("Move");
-			return;
-		}
-
+	if (PreStateName == "DemonicBlade")
+	{
+		State.ChangeState("Move");
+		return;
 	}
 
 #ifdef _DEBUG
