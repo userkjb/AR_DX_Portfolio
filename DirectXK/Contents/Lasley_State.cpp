@@ -55,8 +55,10 @@ void ALasley::StateInit()
 		std::bind(&ALasley::DimensionCutterTick, this, std::placeholders::_1),
 		std::bind(&ALasley::DimensionCutterExit, this));
 	
-	State.SetStartFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterBegin, this));
-	State.SetUpdateFunction("DoubleDimensionCutter", std::bind(&ALasley::DoubleDimensionCutterTick, this, std::placeholders::_1));
+	State.SetFunction("DoubleDimensionCutter",
+		std::bind(&ALasley::DoubleDimensionCutterBegin, this),
+		std::bind(&ALasley::DoubleDimensionCutterTick, this, std::placeholders::_1),
+		std::bind(&ALasley::DoubleDimensionCutterExit, this));
 	
 	State.SetFunction("Down",
 		std::bind(&ALasley::DownBegin, this),
@@ -155,7 +157,7 @@ void ALasley::IdleTick(float _DeltaTime)
 			return;
 		}
 
-		if (PreStateName == "DevilEye")
+		if (PreStateName == "DevilEye" && false == b_DoorTentacle)
 		{
 			State.ChangeState("Move");
 			return;
@@ -181,19 +183,12 @@ void ALasley::IdleTick(float _DeltaTime)
 			return;
 		}
 
+		if (PreStateName == "DevilEye" && true == b_DoorTentacle)
+		{
+			State.ChangeState("Move");
+			return;
+		}
 
-	}
-	
-
-
-
-	if (true == IsDown('N'))
-	{
-		std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-		Tentacle->SetCreatePos(TentacleSummonPos[9][test]);
-		Tentacle->SetInfinity(true);
-		Tentacle->CreateTentacle();
-		test++;
 	}
 
 #ifdef _DEBUG
@@ -293,27 +288,64 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 	}
 	else
 	{
-		if (3 == Life)
-		{
-			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
-			Tentacle->SetInfinity(false);
-			Tentacle->CreateTentacle();
-		}
-		else if (2 == Life)
-		{
-			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
-			Tentacle->SetInfinity(true);
-			Tentacle->CreateTentacle();
-		}
-		else if (1 == Life)
-		{
-			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
-			Tentacle->SetInfinity(true);
-			Tentacle->CreateTentacle();
-		}
+		LasleyRenderer->SetFrameCallback("LasleyDevilEye", 8, [=]()
+			{
+				if (3 == Life)
+				{
+					int CreatePos = UEngineRandom::MainRandom.RandomInt(3, 6);
+					size_t SummonCout = TentacleSummonPos[CreatePos].size();
+					for (size_t i = 0; i < SummonCout; i++)
+					{
+						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+						Tentacle->SetCreatePos(TentacleSummonPos[CreatePos][i]);
+						Tentacle->SetInfinity(false);
+						Tentacle->CreateTentacle();
+					}
+				}
+				else if (2 == Life)
+				{
+					std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+					Tentacle->SetCreatePos(TentacleSummonPos[9][0]);
+					Tentacle->SetInfinity(true);
+					Tentacle->CreateTentacle();
+				}
+				else if (1 == Life)
+				{
+					int CreatePos_1 = UEngineRandom::MainRandom.RandomInt(3, 6);
+					int CreatePos_2 = UEngineRandom::MainRandom.RandomInt(3, 6);
+					if (CreatePos_1 == CreatePos_2)
+					{
+						while (true)
+						{
+							CreatePos_2 = UEngineRandom::MainRandom.RandomInt(3, 6);
+							if (CreatePos_1 != CreatePos_2)
+							{
+								break;
+							}
+						}
+					}
+
+					{
+						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+						Tentacle->SetCreatePos(TentacleSummonPos[3][CreatePos_1]);
+						Tentacle->SetInfinity(false);
+						Tentacle->CreateTentacle();
+					}
+					{
+						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+						Tentacle->SetCreatePos(TentacleSummonPos[3][CreatePos_2]);
+						Tentacle->SetInfinity(false);
+						Tentacle->CreateTentacle();
+					}
+					{
+						int CreatePos = UEngineRandom::MainRandom.RandomInt(7, 8);
+						std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+						Tentacle->SetCreatePos(TentacleSummonPos[CreatePos][0]);
+						Tentacle->SetInfinity(false);
+						Tentacle->CreateTentacle();
+					}
+				}
+			});
 	}
 
 
