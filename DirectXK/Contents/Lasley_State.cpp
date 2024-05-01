@@ -163,8 +163,7 @@ void ALasley::IdleTick(float _DeltaTime)
 
 		if (PreStateName == "Move")
 		{
-			//int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
-			int NorD = 1;
+			int NorD = UEngineRandom::MainRandom.RandomInt(1, 2);
 			if (NorD == 1)
 			{
 				State.ChangeState("DimensionCutter");
@@ -175,6 +174,14 @@ void ALasley::IdleTick(float _DeltaTime)
 			}
 			return;
 		}
+
+		if (PreStateName == "DimensionCutter" || PreStateName == "DoubleDimensionCutter")
+		{
+			State.ChangeState("DevilEye");
+			return;
+		}
+
+
 	}
 	
 
@@ -284,15 +291,31 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 				b_DoorTentacle = true;
 			});
 	}
+	else
+	{
+		if (3 == Life)
+		{
+			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
+			Tentacle->SetInfinity(false);
+			Tentacle->CreateTentacle();
+		}
+		else if (2 == Life)
+		{
+			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
+			Tentacle->SetInfinity(true);
+			Tentacle->CreateTentacle();
+		}
+		else if (1 == Life)
+		{
+			std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
+			Tentacle->SetCreatePos(TentacleSummonPos[3][test]);
+			Tentacle->SetInfinity(true);
+			Tentacle->CreateTentacle();
+		}
+	}
 
-	//if (true == IsDown('N'))
-	//{
-	//	std::shared_ptr<ATentacle> Tentacle = GetWorld()->SpawnActor<ATentacle>("Tentacle");
-	//	Tentacle->SetCreatePos(TentacleSummonPos[9][test]);
-	//	Tentacle->SetInfinity(true);
-	//	Tentacle->CreateTentacle();
-	//	test++;
-	//}
 
 	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
@@ -527,7 +550,7 @@ void ALasley::DimensionCutterBegin()
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
 {
-	LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 14, [=]()
+	LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 12, [=]()
 		{
 			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
 			float fSlashRotRan = static_cast<float>(SlashRotRan);
@@ -570,18 +593,35 @@ void ALasley::DoubleDimensionCutterBegin()
 
 void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 {
-	if (true == IsDown('X'))
-	{
-		State.ChangeState("Down");
-		return;
-	}
+	LasleyRenderer->SetFrameCallback("LasleyDoubleDimensionCutter", 12, [=]()
+		{
+			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
+			float fSlashRotRan = static_cast<float>(SlashRotRan);
+			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
+			std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+			Slash->SetActive(true);
+			Slash->SetPos(PlayerPos);
+			Slash->SetDimensionSlashRot(SlashRot);
+			Slash->CreateDimensionSlash();
+		});
 
-	if (true == IsDown('Y'))
+	LasleyRenderer->SetFrameCallback("LasleyDoubleDimensionCutter", 16, [=]()
+		{
+			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
+			float fSlashRotRan = static_cast<float>(SlashRotRan);
+			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
+			std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+			Slash->SetActive(true);
+			Slash->SetPos(PlayerPos);
+			Slash->SetDimensionSlashRot(SlashRot);
+			Slash->CreateDimensionSlash();
+		});
+
+
+	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
-		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
-		Slash->SetActive(true);
-		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
-		//Slash->SetActorLocation({100.0f, 100.0f});
+		State.ChangeState("Idle");
+		return;
 	}
 
 #ifdef _DEBUG
@@ -597,6 +637,7 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 }
 void ALasley::DoubleDimensionCutterExit()
 {
+	PreStateName = "DoubleDimensionCutter";
 }
 #pragma endregion
 
