@@ -210,30 +210,21 @@ void ALasley::MoveBegin()
 {
 	LasleyRenderer->ChangeAnimation("Idle");
 	LasleyRenderer->SetPivot(EPivot::MAX);
-	MovePosNum = 1; // test
 
-	//if (Life == 3)
-	//{
-	//	// ¹Ø ¹Ù´Ú ±îÁö Ã¼Å©
-	//	MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 10);
-	//}
-	//else
-	//{
-	//	// ¹Ø ¹Ù´Ú Ã¼Å© ¾ÈÇÔ.
-	//	MovePosNum = UEngineRandom::MainRandom.RandomInt(1, 8);
-	//}
-	switch (MovePosNum)
+	if (Life == 3)
 	{
-	case 1:
-	{
-		MoveVectorPos.X = 1620.0f;
-		MoveVectorPos.Y = 830.0f;
-		break;
+		// ¹Ø ¹Ù´Ú ±îÁö Ã¼Å©
+		MovePosNum = UEngineRandom::MainRandom.RandomInt(0, 9);
 	}
+	else
+	{
+		// ¹Ø ¹Ù´Ú Ã¼Å© ¾ÈÇÔ.
+		MovePosNum = UEngineRandom::MainRandom.RandomInt(0, 7);
 	}
 }
 void ALasley::MoveTick(float _DeltaTime)
 {
+	FVector MoveVectorPos = LasleyMovePos[MovePosNum];
 	FVector FLasleyPos = GetActorLocation();
 	FVector LengV = MoveVectorPos - FLasleyPos;
 	FVector MoveDir = LengV.Normalize2DReturn();
@@ -243,8 +234,10 @@ void ALasley::MoveTick(float _DeltaTime)
 
 	AddActorLocation(MoveLasley);
 
-	if (0.5 >= Leng)
+	if (5.0f >= Leng)
 	{
+		SetActorLocation(MoveVectorPos);
+
 		State.ChangeState("Idle");
 		return;
 	}

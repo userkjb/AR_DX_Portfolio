@@ -99,7 +99,6 @@ private :
 	const float MoveSpeed = 1500.0f;
 	const float SwordSpeed = 500.0f;
 	const float RotationPower = 0.0f;
-	FVector MoveVectorPos = FVector::Zero;
 
 	FVector PlayerPos = FVector::Zero;
 
@@ -114,6 +113,7 @@ private :
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
 
+	std::vector<FVector> LasleyMovePos;
 	std::vector<std::vector<FVector>> TentacleSummonPos;
 	std::vector<FVector> WarlockSummonPos;
 

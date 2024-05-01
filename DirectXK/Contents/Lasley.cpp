@@ -8,9 +8,26 @@ ALasley::ALasley()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 	
-	{// 라슬리 이동 위치 설정.
-		//MovePos.push_back(FVector(100.0f, 100.0f));
-		//.....
+	// 라슬리 이동 위치 설정.
+	{
+		float calValue = 64.0f;
+		float PositionY_1 = 508.0f - calValue;
+		float PositionY_2 = 892.0f - calValue;
+		float PositionY_3 = 188.0f - calValue;
+		LasleyMovePos.push_back(FVector(190.0f, PositionY_1));
+		LasleyMovePos.push_back(FVector(702.0f, PositionY_1));
+
+		LasleyMovePos.push_back(FVector(190.0f, PositionY_2));
+		LasleyMovePos.push_back(FVector(702.0f, PositionY_2));
+
+		LasleyMovePos.push_back(FVector(1150.0f, PositionY_1));
+		LasleyMovePos.push_back(FVector(1662.0f, PositionY_1));
+
+		LasleyMovePos.push_back(FVector(1150.0f, PositionY_2));
+		LasleyMovePos.push_back(FVector(1662.0f, PositionY_2));
+
+		LasleyMovePos.push_back(FVector(702.0f, PositionY_3));
+		LasleyMovePos.push_back(FVector(1150.0f, PositionY_3));
 	}
 	
 	// 바닥 불 소환 위치 설정.
