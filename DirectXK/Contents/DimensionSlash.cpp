@@ -16,13 +16,13 @@ ADimensionSlash::ADimensionSlash()
 	DimensionSlashRenderer_B->SetupAttachment(Root);
 	DimensionSlashRenderer_B->SetPivot(EPivot::MAX);
 	DimensionSlashRenderer_B->SetOrder(ERenderOrder::BossSkill_B);
-	DimensionSlashRenderer_B->SetPosition(FVector(200.0f, 200.0f));
+	//DimensionSlashRenderer_B->SetPosition(FVector(200.0f, 200.0f));
 	DimensionSlashRenderer_B->SetActive(true);
 
 	DimensionSlashRenderer_F = CreateDefaultSubObject<USpriteRenderer>("SlashRenderer");
 	DimensionSlashRenderer_F->SetupAttachment(Root);
 	DimensionSlashRenderer_F->SetOrder(ERenderOrder::BossSkill_F);
-	DimensionSlashRenderer_F->SetPosition(FVector(200.0f, 200.0f));
+	//DimensionSlashRenderer_F->SetPosition(FVector(200.0f, 200.0f));
 	DimensionSlashRenderer_F->SetActive(false);
 
 
@@ -116,6 +116,7 @@ void ADimensionSlash::CreateAnimation()
 
 void ADimensionSlash::InitState()
 {
+	State.CreateState("None");
 	State.CreateState("Create");
 
 	State.SetFunction("Create",
@@ -123,7 +124,7 @@ void ADimensionSlash::InitState()
 		std::bind(&ADimensionSlash::CreateTick, this, std::placeholders::_1),
 		std::bind(&ADimensionSlash::CreateExit, this));
 
-	State.ChangeState("Create");
+	State.ChangeState("None");
 }
 
 
@@ -137,6 +138,10 @@ void ADimensionSlash::CreateBegin()
 
 	DimensionSlashRenderer_B->ChangeAnimation("DimensionSlashBack");
 	DimensionSlashRenderer_F->ChangeAnimation("DimensionSlashFront");
+	DimensionSlashRenderer_B->SetPosition(PlayerPos);
+	DimensionSlashRenderer_F->SetPosition(PlayerPos);
+	DimensionSlashRenderer_B->SetRotationDeg(RotationV);
+	DimensionSlashRenderer_F->SetRotationDeg(RotationV);
 }
 
 void ADimensionSlash::CreateTick(float _DeltaTime)

@@ -527,24 +527,22 @@ void ALasley::DimensionCutterBegin()
 
 void ALasley::DimensionCutterTick(float _DeltaTime)
 {
-	if (true == IsDown('X'))
+	LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 14, [=]()
+		{
+			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
+			float fSlashRotRan = static_cast<float>(SlashRotRan);
+			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
+			std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
+			Slash->SetActive(true);
+			Slash->SetPos(PlayerPos);
+			Slash->SetDimensionSlashRot(SlashRot);
+			Slash->CreateDimensionSlash();
+		});
+
+	if (true == LasleyRenderer->IsCurAnimationEnd())
 	{
-		State.ChangeState("DoubleDimensionCutter");
+		State.ChangeState("Idle");
 		return;
-	}
-
-
-	//LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 8, [=]()
-	//	{
-	//		int a = 0;
-	//	});
-
-	if (true == IsDown('Y'))
-	{
-		std::shared_ptr<ADimensionSlash> Slash = GetWorld()->SpawnActor<ADimensionSlash>("Slash");
-		Slash->SetActive(true);
-		//Slash->SetActorLocation(FVector(100.0f, 100.0f, 10.0f));
-		//Slash->SetActorLocation({100.0f, 100.0f});
 	}
 
 #ifdef _DEBUG
@@ -560,6 +558,7 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 }
 void ALasley::DimensionCutterExit()
 {
+	PreStateName = "DimensionCutter";
 }
 #pragma endregion
 

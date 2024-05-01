@@ -24,10 +24,10 @@ public :
 	ALasley& operator=(const ALasley& _Other) = delete;
 	ALasley& operator=(ALasley&& _Other) noexcept = delete;
 
-	//inline ELasleyState GetState() const
-	//{
-	//	return State;
-	//}
+	inline std::string GetState() const
+	{
+		return State.GetCurStateName();
+	}
 
 	inline void SetState(std::string_view _ChangeState)
 	{
@@ -37,6 +37,11 @@ public :
 	inline std::string GetCurLasleyState()
 	{
 		return State.GetCurStateName();
+	}
+
+	inline void GMToPlayerPos(FVector _Pos)
+	{
+		PlayerPos = _Pos;
 	}
 
 protected :
@@ -96,8 +101,9 @@ private :
 	const float RotationPower = 0.0f;
 	FVector MoveVectorPos = FVector::Zero;
 
-	bool Large = false;
-	
+	FVector PlayerPos = FVector::Zero;
+
+	bool Large = false;	
 	int Life = 3; // ºÎÈ° È½¼ö
 	int MaxHp = 40;
 	int Hp = 40;

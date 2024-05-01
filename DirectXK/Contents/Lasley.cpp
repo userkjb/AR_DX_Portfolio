@@ -282,7 +282,7 @@ void ALasley::CreateAnimation()
 	// Skill
 	LasleyRenderer->CreateAnimation("LasleyDemonicBlade", "LasleyDemonicBlade.png", 0.0625f, true, 0, 18); // 공란 때문에 범위 지정.
 	LasleyRenderer->CreateAnimation("LasleyDevilEye", "LasleyDevilEye", 0.0625f, false); // Pivot BOT
-	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 1.0625f, true);
+	LasleyRenderer->CreateAnimation("LasleyDimensionCutter", "LasleyDimensionCutter.png", 0.0625f, false);
 	LasleyRenderer->CreateAnimation("LasleyDoubleDimensionCutter", "LasleyDoubleDimensionCutter.png", 0.0625f, true, 0, 28);
 
 	LasleyDemonSword->CreateAnimation("LasleyDemonSword", "LasleyDemonSword", 1.0625f, true);

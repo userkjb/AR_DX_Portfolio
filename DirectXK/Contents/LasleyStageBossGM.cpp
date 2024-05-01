@@ -153,6 +153,7 @@ void ALasleyStageBossGM::InStageExit()
 #pragma endregion
 
 
+#pragma region LasleySummon
 void ALasleyStageBossGM::LasleySummonBegin()
 {
 	Lasley->SetActive(true);
@@ -160,23 +161,33 @@ void ALasleyStageBossGM::LasleySummonBegin()
 
 void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 {
+	std::string LasleyState = Lasley->GetState();
+	if (LasleyState != "Summons")
+	{
+		LevelState.ChangeState("LasleyBattle");
+		return;
+	}
 }
 
 void ALasleyStageBossGM::LasleySummonExit()
 {
 }
+#pragma endregion
 
+#pragma region LasleyBattle
 void ALasleyStageBossGM::LasleyBattleBegin()
 {
 }
 
 void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
 {
+	Lasley->GMToPlayerPos(Player->GetActorLocation());
 }
 
 void ALasleyStageBossGM::LasleyBattleExit()
 {
 }
+#pragma endregion
 
 void ALasleyStageBossGM::PlayerDieBegin()
 {

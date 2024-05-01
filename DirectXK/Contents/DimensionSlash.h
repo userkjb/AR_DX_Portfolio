@@ -18,6 +18,22 @@ public :
 	ADimensionSlash& operator=(const ADimensionSlash& _Other) = delete;
 	ADimensionSlash& operator=(ADimensionSlash&& _Other) noexcept = delete;
 	
+	void SetPos(FVector _Pos)
+	{
+		PlayerPos = _Pos;
+	}
+
+	void CreateDimensionSlash()
+	{
+		State.ChangeState("Create");
+		return;
+	}
+
+	void SetDimensionSlashRot(FVector _Rot)
+	{
+		RotationV = _Rot;
+	}
+
 protected :
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -39,5 +55,9 @@ private :
 	USpriteRenderer* DimensionSlashRenderer_F = nullptr;
 	UCollision* SlashCollision = nullptr;
 	UStateManager State;
+
+
+	FVector PlayerPos = FVector::Zero;
+	FVector RotationV = FVector::Zero;
 };
 
