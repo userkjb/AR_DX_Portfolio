@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "LasleyStageBoss.h"
 #include "Lasley.h"
+#include "BackGround.h"
 
 ALasleyStageBossGM::ALasleyStageBossGM()
 {
@@ -74,6 +75,13 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 		Lasley = GetWorld()->SpawnActor<ALasley>("Lasley");
 		FVector MapSize = BossMap->GetActorLocation();
 		Lasley->SetActorLocation({MapSize.X, 125.0f, 0.0f});
+	}
+
+	{
+		std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
 	LevelStateInit();

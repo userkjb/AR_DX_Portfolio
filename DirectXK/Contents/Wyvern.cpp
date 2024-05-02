@@ -32,6 +32,8 @@ void AWyvern::BeginPlay()
 	CreateAnimation();
 	
 	WyvernRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	
+	InputOn(); // test
 }
 
 void AWyvern::Tick(float _DeltaTime)
