@@ -90,6 +90,10 @@ void ALasleyStageTwoGM::LevelStart(ULevel* _PrevLevel)
 void ALasleyStageTwoGM::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+
+	Player->LevelIsDestroy();
+	Player->Destroy();
+	MapActor->Destroy();
 }
 
 void ALasleyStageTwoGM::InitState()

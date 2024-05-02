@@ -39,6 +39,8 @@ public:
 		RecvVector.X = _RunX;
 	}
 
+	void LevelIsDestroy();
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;

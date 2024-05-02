@@ -44,7 +44,7 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetAutoSize(Size, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
-	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon");
+	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon", EObjectOrder::Player);
 	Weapone->SetPlayerActor(shared_from_this());
 
 	MouseRendere->SetSprite("ShootingCursor2.png");
@@ -135,3 +135,7 @@ void APlayer::DashSpectrumCalPos(float _DeltaTime)
 	}
 }
 
+void APlayer::LevelIsDestroy()
+{
+	Weapone->Destroy();
+}
