@@ -30,6 +30,10 @@ public:
 	{
 		StageIsOne = _Val;
 	}
+	inline bool IsBattleEnd() const
+	{
+		return b_BattleEnd;
+	}
 
 protected:
 	void BeginPlay() override;
@@ -67,5 +71,6 @@ private:
 	bool StageIsOne = true;
 	bool b_RightMapCol = false;
 	bool b_LeftMapCol = false;
+	bool b_BattleEnd = false;
 };
 

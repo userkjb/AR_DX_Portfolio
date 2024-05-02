@@ -131,6 +131,12 @@ void ALasleyStageTwoGM::BattleBegin()
 void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 {
 	CameraMove(_DeltaTime);
+
+	if (true == MapActor->IsBattleEnd())
+	{
+		LevelState.ChangeState("Idle");
+		return;
+	}
 }
 
 void ALasleyStageTwoGM::BattleExit()

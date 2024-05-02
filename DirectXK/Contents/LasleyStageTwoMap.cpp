@@ -230,12 +230,14 @@ void ALasleyStageTwoMap::StageIdleTick(float _DeltaTime)
 		{
 			MapObjectRightDoorCol->SetActive(false);
 			MapObjectRightDoor->SetActive(false);
+			RightNextMapCol->SetActive(true);
 		}
 	);
 	MapObjectLeftDoor->SetLastFrameCallback("Stele_OpenLeftDoor", [=]()
 		{
 			MapObjectLeftDoorCol->SetActive(false);
 			MapObjectLeftDoor->SetActive(false);
+			LeftNextMapCol->SetActive(true);
 		}
 	);
 }
@@ -274,6 +276,7 @@ void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
 	if (true == IsDown('P'))
 	{
 		State.ChangeState("StageIdle");
+		b_BattleEnd = true;
 		return;
 	}
 }
