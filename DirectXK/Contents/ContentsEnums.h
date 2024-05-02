@@ -26,6 +26,7 @@ enum class ECollisionOrder
 {
 	Player,
 	Monster,
+	Monster_Attack,
 	Boss,
 	BossSkill,
 	WeaponFX,

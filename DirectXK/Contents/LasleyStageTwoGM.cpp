@@ -3,6 +3,7 @@
 
 #include "LasleyStageTwoMap.h"
 #include "Player.h"
+#include "Wyvern.h"
 
 ALasleyStageTwoGM::ALasleyStageTwoGM()
 {
@@ -15,6 +16,8 @@ ALasleyStageTwoGM::ALasleyStageTwoGM()
 		std::string Name = Directorys[i].GetFolderName();
 		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 	}
+
+	InputOn(); // test
 }
 
 ALasleyStageTwoGM::~ALasleyStageTwoGM()
@@ -145,6 +148,14 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 	{
 		LevelState.ChangeState("Idle");
 		return;
+	}
+
+	if (true == IsDown('L'))
+	{
+		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
+		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
+		BlackSphere->SetWyvernPos(FVector(SetPosValue.X, SetPosValue.Y));
+		BlackSphere->CreateWyvern();
 	}
 }
 

@@ -6,12 +6,18 @@ AWyvern::AWyvern()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
-
+	
 	WyvernRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	WyvernRenderer->SetupAttachment(Root);
 	WyvernRenderer->SetOrder(ERenderOrder::Enemy);
 
+	WyvernCollision = CreateDefaultSubObject<UCollision>("Renderer");
+	WyvernCollision->SetupAttachment(Root);
+	WyvernCollision->SetCollisionGroup(ECollisionOrder::Monster_Attack);
+	WyvernCollision->SetCollisionType(ECollisionType::RotRect);
+	WyvernCollision->SetScale((FVector(72.f, 74.0f)) * 4.0f);
 
+	InputOn(); // Test
 }
 
 AWyvern::~AWyvern()
@@ -24,7 +30,7 @@ void AWyvern::BeginPlay()
 
 	StateInit();
 	CreateAnimation();
-
+	
 	WyvernRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 }
 
@@ -53,11 +59,18 @@ void AWyvern::StateInit()
 		std::bind(&AWyvern::IdleExit, this));
 
 
-	State.ChangeState("Idle");
+	State.ChangeState("None");
 }
 
 void AWyvern::IdleBegin()
 {
+	WyvernRenderer->SetPosition(InPos);
+	if (false == WyvernRenderer->IsActive())
+	{
+		WyvernRenderer->SetActive(true);
+	}
+
+	WyvernCollision->SetPosition(WyvernRenderer->GetWorldPosition());
 }
 
 void AWyvern::IdleTick(float _DeltaTime)
