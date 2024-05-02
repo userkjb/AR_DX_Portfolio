@@ -275,7 +275,10 @@ void ALasley::Tick(float _DeltaTime)
 
 	if (true == b_DoorTentacle)
 	{
-		DoorTentacle(_DeltaTime);
+		if (State.GetCurStateName() != "Die")
+		{
+			DoorTentacle(_DeltaTime);
+		}
 	}
 
 #ifdef _DEBUG

@@ -517,7 +517,7 @@ void ALasley::DoorTentacle(float _DeltaTime)
 		DoorTentacleCount_2++;
 
 		DoorTentacleTime = 0.0f;
-		b_DoorTentacle = false;
+		//b_DoorTentacle = false;
 	}
 }
 #pragma endregion
@@ -863,6 +863,16 @@ void ALasley::DieBegin()
 {
 	LasleyRenderer->ChangeAnimation("Down");
 	LasleyRenderer->SetPivot(EPivot::BOT);
+
+	if (0 != DoorTentacles.size())
+	{
+		size_t x = DoorTentacles.size();
+		for (size_t i = 0; i < x; i++)
+		{
+			DoorTentacles[i]->Destroy();
+		}
+		DoorTentacles.clear();
+	}
 }
 
 void ALasley::DieTick(float _DeltaTime)
