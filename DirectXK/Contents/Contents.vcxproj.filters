@@ -82,6 +82,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Monster">
       <UniqueIdentifier>{14580e31-ac7a-4035-856e-b01fd4796d55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Monster\Lightning_Ball">
+      <UniqueIdentifier>{bdba1cca-c956-4fc6-8555-2646afa6a6b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -207,6 +210,9 @@
     <ClCompile Include="LasleyStageTwoMap.cpp">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClCompile>
+    <ClCompile Include="LightningBall.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster\Lightning_Ball</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -319,6 +325,9 @@
     </ClInclude>
     <ClInclude Include="LasleyStageTwoMap.h">
       <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningBall.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster\Lightning_Ball</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
