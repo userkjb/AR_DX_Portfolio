@@ -58,7 +58,6 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DashCountTime(_DeltaTime);
-	DashSpectrumCalPos(_DeltaTime);
 
 	{
 		PlayerPos = GetActorLocation();

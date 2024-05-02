@@ -346,6 +346,7 @@ void APlayer::DashBegin()
 
 void APlayer::DashTick(float _DeltaTime)
 {
+	DashSpectrumCalPos(_DeltaTime); // 잔상[준비.]
 	{
 		PlayerMouseDir(); // 캐릭터 좌우.
 		Gravity(_DeltaTime); // 중력.

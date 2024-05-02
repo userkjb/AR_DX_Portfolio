@@ -53,6 +53,10 @@ private:
 	/// </summary>
 	/// <param name="_DeltaTime"></param>
 	void DashCountTime(float _DeltaTime);
+	/// <summary>
+	/// 대쉬 할 때 나오는 잔상 생성 함수.
+	/// </summary>
+	/// <param name="_DeltaTime"></param>
 	void DashSpectrumCalPos(float _DeltaTime);
 	void t_DeBugFunction(float _DeltaTime);
 
