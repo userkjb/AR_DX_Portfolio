@@ -160,6 +160,7 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 		GEngine->ChangeLevel("LasleyLevelBoss");
 	}
 
+	CameraMove();
 #ifdef _DEBUG
 	//FVector CameraPos = Camera->GetActorLocation();
 	//std::string Msg1 = std::format("Level Player Pos : {}\n", PlayerPos.ToString());
@@ -212,4 +213,43 @@ void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
 	StageMap_One->Destroy();
 
 	int a = 0;
+}
+
+void ALasleyGameMode::CameraMove()
+{
+	if (!FreeCamera) // false
+	{
+		float4 MapSize = UContentsConstValue::MapTexScale;
+		float4 GameMapSize = MapSize * UContentsConstValue::AutoSizeValue;
+		//float4 ScreenSize = GEngine->EngineWindow.GetWindowScale();
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		FVector PlayerPos = Player->GetPlayerPos();
+
+		FVector CameraPos = Camera->GetActorLocation();
+
+		CameraPos.X = PlayerPos.X;
+		CameraPos.Y = PlayerPos.Y;
+
+		if (CameraPos.X <= ScreenScaleHalf.X)
+		{
+			CameraPos.X = ScreenScaleHalf.X;
+		}
+		else if (CameraPos.X >= (GameMapSize.X - ScreenScaleHalf.X))
+		{
+			CameraPos.X = (GameMapSize.X - ScreenScaleHalf.X);
+		}
+
+
+		if (CameraPos.Y <= ScreenScaleHalf.Y)
+		{
+			CameraPos.Y = ScreenScaleHalf.Y;
+		}
+		else if (CameraPos.Y >= (GameMapSize.Y - ScreenScaleHalf.Y))
+		{
+			CameraPos.Y = (GameMapSize.Y - ScreenScaleHalf.Y);
+		}
+
+
+		Camera->SetActorLocation({ CameraPos.X, CameraPos.Y, -500.0f });
+	}
 }
