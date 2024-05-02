@@ -72,6 +72,7 @@ void AWeaponFX::SwingBegin()
 	Weapon_FX_Render->ChangeAnimation("G_S_Attack");
 	Weapon_FX_Render->SetPosition(InPosition);
 	Weapon_FX_Render->SetRotationDeg(InRotation);
+	Weapon_FX_Collision->SetScale(InScale);
 	Weapon_FX_Collision->SetPosition(InPosition);
 	Weapon_FX_Collision->SetRotationDeg(InRotation);
 

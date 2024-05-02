@@ -80,6 +80,7 @@ private :
 
 	UStateManager State;
 	
+	USpriteRenderer* Weapon_Image = nullptr;
 	USpriteRenderer* Weapon_Renderer = nullptr;
 	const float Range = 100.0f; // 무기 사거리.
 

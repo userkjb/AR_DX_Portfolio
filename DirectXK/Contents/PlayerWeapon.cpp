@@ -20,6 +20,10 @@ APlayerWeapon::APlayerWeapon()
 	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
 	Weapon_Renderer->SetDir(EEngineDir::Right);
 
+	Weapon_Image = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
+	Weapon_Image->SetupAttachment(Root);
+	Weapon_Image->SetOrder(ERenderOrder::Weapon_Next);
+
 	InputOn();
 }
 
@@ -33,7 +37,9 @@ void APlayerWeapon::BeginPlay()
 	CreateAnimation();
 	StateInit();
 
-
+	Weapon_Image->SetSprite("GreatSword.png");
+	Weapon_Image->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	Weapon_Image->SetActive(false); // test
 	Weapon_Renderer->SetAutoSize(2.0f, true);
 }
 
@@ -152,7 +158,8 @@ void APlayerWeapon::SwingBegin()
 
 	{
 		std::shared_ptr<AWeaponFX> WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
-		WeaponFXActor->SetFXScale(FVector());
+		FVector ImageScale = Weapon_Image->GetLocalScale();
+		WeaponFXActor->SetFXScale(ImageScale);
 		FVector WeaponCollisionPos = FVector::Zero;
 		FVector WeaponCollisionRot = WeaponRotation;
 		WeaponCollisionPos = GetActorLocation();
