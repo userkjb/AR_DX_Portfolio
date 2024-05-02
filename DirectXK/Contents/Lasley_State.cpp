@@ -895,6 +895,10 @@ void ALasley::DieTick(float _DeltaTime)
 		{
 			DieOne = true;
 		}
+		else if (-1080.0f >= DemonSwordLen)
+		{
+			DieOne = true;
+		}
 	}
 
 
