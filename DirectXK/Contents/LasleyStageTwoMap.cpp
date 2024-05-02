@@ -14,22 +14,28 @@ ALasleyStageTwoMap::ALasleyStageTwoMap()
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
-	RightMapCol = CreateDefaultSubObject<UCollision>("Renderer");
-	RightMapCol->SetupAttachment(Root);
-	RightMapCol->SetScale(FVector{ 64.0, 280.0, 1.0f });
-	RightMapCol->SetCollisionGroup(ECollisionOrder::NextMap);
-	RightMapCol->SetCollisionType(ECollisionType::RotRect);
-	RightMapCol->SetPosition(FVector{ 832.0f, -195.0f, 0.0f });
-	RightMapCol->SetActive(false);
+	RightNextMapCol = CreateDefaultSubObject<UCollision>("Renderer");
+	RightNextMapCol->SetupAttachment(Root);
+	RightNextMapCol->SetScale(FVector{ 64.0, 280.0, 1.0f });
+	RightNextMapCol->SetCollisionGroup(ECollisionOrder::NextMap);
+	RightNextMapCol->SetCollisionType(ECollisionType::RotRect);
+	RightNextMapCol->SetPosition(FVector{ 832.0f, -195.0f, 0.0f });
+	RightNextMapCol->SetActive(false);
 
+	LeftNextMapCol = CreateDefaultSubObject<UCollision>("Renderer");
+	LeftNextMapCol->SetupAttachment(Root);
+	LeftNextMapCol->SetScale(FVector{ 64.0, 280.0, 1.0f });
+	LeftNextMapCol->SetCollisionGroup(ECollisionOrder::NextMap);
+	LeftNextMapCol->SetCollisionType(ECollisionType::RotRect);
+	LeftNextMapCol->SetPosition(FVector{ -832.0f, -195.0f, 0.0f });
+	LeftNextMapCol->SetActive(false);
 
-
-	//MapObjectLeftDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
-	//MapObjectLeftDoor->SetupAttachment(Root);
-	//MapObjectLeftDoor->SetPivot(EPivot::MAX);
-	//MapObjectLeftDoor->SetOrder(ERenderOrder::MapObject);
-	//MapObjectLeftDoor->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-	//MapObjectLeftDoor->SetActive(false);
+	MapObjectLeftDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapObjectLeftDoor->SetupAttachment(Root);
+	MapObjectLeftDoor->SetPivot(EPivot::MAX);
+	MapObjectLeftDoor->SetOrder(ERenderOrder::MapObject);
+	MapObjectLeftDoor->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	MapObjectLeftDoor->SetActive(false);
 
 	MapObjectRightDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapObjectRightDoor->SetupAttachment(Root);
@@ -38,11 +44,11 @@ ALasleyStageTwoMap::ALasleyStageTwoMap()
 	MapObjectRightDoor->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 	MapObjectRightDoor->SetActive(false);
 
-	//MapObjectLeftDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
-	//MapObjectLeftDoorCol->SetupAttachment(Root);
-	//MapObjectLeftDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
-	//MapObjectLeftDoorCol->SetCollisionType(ECollisionType::RotRect);
-	//MapObjectLeftDoorCol->SetActive(false);
+	MapObjectLeftDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
+	MapObjectLeftDoorCol->SetupAttachment(Root);
+	MapObjectLeftDoorCol->SetCollisionGroup(ECollisionOrder::MapDoor);
+	MapObjectLeftDoorCol->SetCollisionType(ECollisionType::RotRect);
+	MapObjectLeftDoorCol->SetActive(false);
 
 	MapObjectRightDoorCol = CreateDefaultSubObject<UCollision>("RendererCol");
 	MapObjectRightDoorCol->SetupAttachment(Root);
@@ -73,11 +79,15 @@ void ALasleyStageTwoMap::BeginPlay()
 
 	MapObjectRightDoor->SetPosition(FVector{ 800.0f, -195.0f, 0.0f });
 	MapObjectRightDoor->SetRotationDeg({ 0.0f, 0.0f, -90.0f });
-
+	MapObjectLeftDoor->SetPosition(FVector{ -800.0f, -195.0f, 0.0f });
+	MapObjectLeftDoor->SetRotationDeg({ 0.0f, 0.0f, 90.0f });
 
 	FVector DoorScale = MapObjectRightDoor->GetLocalScale();
 	MapObjectRightDoorCol->SetScale({ DoorScale.Y, DoorScale.X });
 	MapObjectRightDoorCol->SetPosition(MapObjectRightDoor->GetLocalPosition());
+	
+	MapObjectLeftDoorCol->SetScale({ DoorScale.Y, DoorScale.X });
+	MapObjectLeftDoorCol->SetPosition(MapObjectLeftDoor->GetLocalPosition());
 }
 
 void ALasleyStageTwoMap::Tick(float _DeltaTime)
@@ -129,11 +139,18 @@ void ALasleyStageTwoMap::StateInit()
 void ALasleyStageTwoMap::CreateAnimation()
 {
 	MapObjectRightDoor->SetSprite("Stele");
-	MapObjectRightDoor->CreateAnimation("Stele_CloseLeftDoor", "Stele", 0.125f, false, 0, 8);
-	MapObjectRightDoor->CreateAnimation("Stele_IdleLeftDoor", "Stele", 0.125f, true, 8, 15);
-	MapObjectRightDoor->CreateAnimation("Stele_OpenLeftDoor", "Stele", 0.125f, false, 16, 23);
+	MapObjectRightDoor->CreateAnimation("Stele_CloseRightDoor", "Stele", 0.125f, false, 0, 8);
+	MapObjectRightDoor->CreateAnimation("Stele_IdleRightDoor", "Stele", 0.125f, true, 8, 15);
+	MapObjectRightDoor->CreateAnimation("Stele_OpenRightDoor", "Stele", 0.125f, false, 16, 23);
+		
+	MapObjectLeftDoor->SetSprite("Stele");
+	MapObjectLeftDoor->CreateAnimation("Stele_CloseLeftDoor", "Stele", 0.125f, false, 0, 8);
+	MapObjectLeftDoor->CreateAnimation("Stele_IdleLeftDoor", "Stele", 0.125f, true, 8, 15);
+	MapObjectLeftDoor->CreateAnimation("Stele_OpenLeftDoor", "Stele", 0.125f, false, 16, 23);
 
-	MapObjectRightDoor->ChangeAnimation("Stele_CloseLeftDoor");
+
+	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
 }
 
 void ALasleyStageTwoMap::CreateMapImage()
@@ -203,10 +220,24 @@ void ALasleyStageTwoMap::StageInExit()
 
 void ALasleyStageTwoMap::StageIdleBegin()
 {
+	MapObjectRightDoor->ChangeAnimation("Stele_OpenRightDoor");
+	MapObjectLeftDoor->ChangeAnimation("Stele_OpenLeftDoor");
 }
 
 void ALasleyStageTwoMap::StageIdleTick(float _DeltaTime)
 {
+	MapObjectRightDoor->SetLastFrameCallback("Stele_OpenRightDoor", [=]()
+		{
+			MapObjectRightDoorCol->SetActive(false);
+			MapObjectRightDoor->SetActive(false);
+		}
+	);
+	MapObjectLeftDoor->SetLastFrameCallback("Stele_OpenLeftDoor", [=]()
+		{
+			MapObjectLeftDoorCol->SetActive(false);
+			MapObjectLeftDoor->SetActive(false);
+		}
+	);
 }
 
 void ALasleyStageTwoMap::StageIdleExit()
@@ -218,18 +249,33 @@ void ALasleyStageTwoMap::StageIdleExit()
 void ALasleyStageTwoMap::StageBattleBegin()
 {
 	MapObjectRightDoor->SetActive(true);
-	MapObjectRightDoor->ChangeAnimation("Stele_CloseLeftDoor");
+	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
+	MapObjectLeftDoor->SetActive(true);
+	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
 }
 
 void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
 {
-	MapObjectRightDoor->SetLastFrameCallback("Stele_CloseLeftDoor", [=]()
+	MapObjectRightDoor->SetLastFrameCallback("Stele_CloseRightDoor", [=]()
 		{
 			MapObjectRightDoorCol->SetActive(true);
-			MapObjectRightDoor->ChangeAnimation("Stele_IdleLeftDoor");
+			MapObjectRightDoor->ChangeAnimation("Stele_IdleRightDoor");
+		}
+	);
+	MapObjectLeftDoor->SetLastFrameCallback("Stele_CloseLeftDoor", [=]()
+		{
+			MapObjectLeftDoorCol->SetActive(true);
+			MapObjectLeftDoor->ChangeAnimation("Stele_IdleLeftDoor");
 		}
 	);
 
+
+	// test
+	if (true == IsDown('P'))
+	{
+		State.ChangeState("StageIdle");
+		return;
+	}
 }
 
 void ALasleyStageTwoMap::StageBattleExit()
@@ -239,9 +285,15 @@ void ALasleyStageTwoMap::StageBattleExit()
 
 void ALasleyStageTwoMap::CollisionCheck(float _DeltaTime)
 {
-	RightMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	RightNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
 		{
 			b_RightMapCol = true;
+		}
+	);
+
+	LeftNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+		{
+			b_LeftMapCol = true;
 		}
 	);
 }

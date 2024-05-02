@@ -22,6 +22,10 @@ public:
 	{
 		return b_RightMapCol;
 	}
+	inline bool IsLeftMapCol() const
+	{
+		return b_LeftMapCol;
+	}
 	inline void SetIsOne(bool _Val)
 	{
 		StageIsOne = _Val;
@@ -51,16 +55,17 @@ private:
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
-	UCollision* RightMapCol = nullptr;
-	//UCollision* LeftMapCol = nullptr; // 후추
+	UCollision* RightNextMapCol = nullptr;
+	UCollision* LeftNextMapCol = nullptr; // 후추
 	UStateManager State;
 
-	//USpriteRenderer* MapObjectLeftDoor = nullptr; // 문
-	//UCollision* MapObjectLeftDoorCol = nullptr; // 문 Col
+	USpriteRenderer* MapObjectLeftDoor = nullptr; // 문
+	UCollision* MapObjectLeftDoorCol = nullptr; // 문 Col
 	USpriteRenderer* MapObjectRightDoor = nullptr; // 문
 	UCollision* MapObjectRightDoorCol = nullptr; // 문 Col
 
 	bool StageIsOne = true;
 	bool b_RightMapCol = false;
+	bool b_LeftMapCol = false;
 };
 

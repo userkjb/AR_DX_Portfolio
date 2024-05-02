@@ -104,6 +104,11 @@ void ALasleyStageTwoGM::IdleTick(float _DeltaTime)
 		GEngine->ChangeLevel("LasleyLevel");
 	}
 
+	if (true == MapActor->IsLeftMapCol())
+	{
+		GEngine->ChangeLevel("LasleyLevelBoss");
+	}
+
 	if (true == IsOne)
 	{
 		LevelState.ChangeState("Battle");
