@@ -28,6 +28,10 @@ protected:
 private :
 	void InitState();
 
+
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleExit();
 	void BattleBegin();
 	void BattleTick(float _DeltaTime);
 	void BattleExit();
@@ -41,5 +45,6 @@ private :
 	std::shared_ptr<APlayer> Player;
 
 	UStateManager LevelState;
+	bool IsOne = true;
 };
 

@@ -76,6 +76,10 @@ void ALasleyStageTwoGM::InitState()
 	LevelState.CreateState("Idle");
 	LevelState.CreateState("Battle");
 
+	LevelState.SetFunction("Idle",
+		std::bind(&ALasleyStageTwoGM::IdleBegin, this),
+		std::bind(&ALasleyStageTwoGM::IdleTick, this, std::placeholders::_1),
+		std::bind(&ALasleyStageTwoGM::IdleExit, this));
 
 	LevelState.SetFunction("Battle",
 		std::bind(&ALasleyStageTwoGM::BattleBegin, this),
@@ -83,7 +87,34 @@ void ALasleyStageTwoGM::InitState()
 		std::bind(&ALasleyStageTwoGM::BattleExit, this));
 
 
-	LevelState.ChangeState("Battle");
+	LevelState.ChangeState("Idle");
+}
+
+
+void ALasleyStageTwoGM::IdleBegin()
+{
+}
+
+void ALasleyStageTwoGM::IdleTick(float _DeltaTime)
+{
+	CameraMove(_DeltaTime);
+
+	if (true == MapActor->IsRightMapCol())
+	{
+		GEngine->ChangeLevel("LasleyLevel");
+	}
+
+	if (true == IsOne)
+	{
+		LevelState.ChangeState("Battle");
+		return;
+	}
+}
+
+void ALasleyStageTwoGM::IdleExit()
+{
+	IsOne = false;
+	MapActor->SetIsOne(IsOne);
 }
 
 
