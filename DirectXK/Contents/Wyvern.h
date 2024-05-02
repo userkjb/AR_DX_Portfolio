@@ -20,5 +20,15 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	UStateManager State;
+
+	USpriteRenderer* WyvernRenderer = nullptr;
+
+	void CreateAnimation();
+	void StateInit();
+
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleExit();
 };
 

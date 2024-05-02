@@ -3,6 +3,8 @@
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/TileRenderer.h>
 
+#include "Wyvern.h"
+
 ALasleyStageTwoMap::ALasleyStageTwoMap()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
@@ -280,6 +282,11 @@ void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
 		State.ChangeState("StageIdle");
 		b_BattleEnd = true;
 		return;
+	}
+
+	if (true == IsDown('L'))
+	{
+		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
 	}
 }
 
