@@ -79,6 +79,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Lasley\SummonActor">
       <UniqueIdentifier>{729dadb1-15ae-4cc9-a468-52998ce36826}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Monster">
+      <UniqueIdentifier>{14580e31-ac7a-4035-856e-b01fd4796d55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -189,6 +192,21 @@
     <ClCompile Include="WarlockBlackSphere.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
     </ClCompile>
+    <ClCompile Include="LasleyStageTwoGM.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="AbyssGuardian.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ArmoredSkel.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Wyvern.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="LasleyStageTwoMap.cpp">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -286,6 +304,21 @@
     </ClInclude>
     <ClInclude Include="WarlockBlackSphere.h">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\SummonActor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStageTwoGM.h">
+      <Filter>Level\03_LasleyLevel\GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="AbyssGuardian.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmoredSkel.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Wyvern.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyStageTwoMap.h">
+      <Filter>Level\03_LasleyLevel\GameMode\Map Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
