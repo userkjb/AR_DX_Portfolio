@@ -4,6 +4,7 @@ enum class ERenderOrder
 {
 	BackGroundImage,
 	BossSubObject,
+	MapBack,
 	Map,
 	MapCol,
 	Weapon_Prev,

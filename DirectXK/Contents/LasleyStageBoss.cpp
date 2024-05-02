@@ -17,6 +17,10 @@ ALasleyStageBoss::ALasleyStageBoss()
 
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
+	MapBackTileRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapBackTileRenderer->SetupAttachment(Root);
+	MapBackTileRenderer->SetActive(true);
+
 	MapObjectLeftDoor = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	MapObjectLeftDoor->SetupAttachment(Root);
 	MapObjectLeftDoor->SetPivot(EPivot::MAX);
@@ -103,6 +107,10 @@ void ALasleyStageBoss::BeginPlay()
 	MapColRenderer->SetSprite("Boss_Stage_Col.png");
 	MapColRenderer->SetAutoSize(CSize, true);
 	MapColRenderer->SetOrder(ERenderOrder::MapCol);
+
+	MapBackTileRenderer->SetSprite("Boss_Stage_BG.png");
+	MapBackTileRenderer->SetAutoSize(CSize, true);
+	MapBackTileRenderer->SetOrder(ERenderOrder::MapBack);
 
 	CreateMapImage();
 	

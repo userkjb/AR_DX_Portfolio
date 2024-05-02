@@ -46,6 +46,7 @@ private :
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
+	USpriteRenderer* MapBackTileRenderer = nullptr;
 	UCollision* BossStageStartCol = nullptr; // 스테이지 시작을 위한 Col
 	
 	USpriteRenderer* MapObjectLeftDoor = nullptr; // 문
