@@ -8,8 +8,14 @@ ALasleyStageTwoMap::ALasleyStageTwoMap()
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 
+	MapColRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	MapColRenderer->SetupAttachment(Root);
+	MapColRenderer->SetActive(false);
+
 	TileRenderer = CreateDefaultSubObject<UTileRenderer>("Renderer");
 
+
+	InputOn(); // test
 }
 
 ALasleyStageTwoMap::~ALasleyStageTwoMap()
@@ -20,12 +26,30 @@ void ALasleyStageTwoMap::BeginPlay()
 {
 	Super::BeginPlay();
 
+	float CSize = UContentsConstValue::AutoSizeValue; // const
+
+	MapColRenderer->SetSprite("Stage_2_Col.png");
+	MapColRenderer->SetAutoSize(CSize, true); // const Size
+	MapColRenderer->SetOrder(ERenderOrder::MapCol);
+
 	CreateMapImage();
 }
 
 void ALasleyStageTwoMap::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == IsDown('O'))
+	{
+		if (false == MapColRenderer->IsActive())
+		{
+			MapColRenderer->SetActive(true);
+		}
+		else
+		{
+			MapColRenderer->SetActive(false);
+		}
+	}
 }
 
 void ALasleyStageTwoMap::CreateMapImage()

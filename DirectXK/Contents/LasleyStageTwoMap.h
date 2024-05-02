@@ -27,5 +27,6 @@ private:
 
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
+	USpriteRenderer* MapColRenderer = nullptr;
 };
 

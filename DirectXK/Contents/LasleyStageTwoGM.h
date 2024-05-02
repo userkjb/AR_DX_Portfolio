@@ -2,6 +2,7 @@
 #include <EngineCore/GameMode.h>
 
 class ALasleyStageTwoMap;
+class APlayer;
 class ALasleyStageTwoGM : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -31,10 +32,14 @@ private :
 	void BattleTick(float _DeltaTime);
 	void BattleExit();
 
+	void CameraMove(float _DeltaTime);
+
+
 	bool FreeCamera = false;
 	std::shared_ptr<UCamera> Camera;
 	std::shared_ptr<ALasleyStageTwoMap> MapActor;
+	std::shared_ptr<APlayer> Player;
 
-	UStateManager State;
+	UStateManager LevelState;
 };
 
