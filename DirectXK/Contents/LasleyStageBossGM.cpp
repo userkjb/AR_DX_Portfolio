@@ -30,8 +30,6 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 
 	LevelState.Update(_DeltaTime);
 
-	FVector PlayerPos = Player->GetPlayerPos();
-
 	// 맵에 라슬리를 알려줘야 함
 	{
 		BossMap->SendLasley(Lasley);
@@ -48,13 +46,7 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 			FreeCamera = true;
 		}
 	}
-	if (!FreeCamera) // false
-	{
-		float4 MapSize = UContentsConstValue::MapTexScale;
-		float4 ScreenSize = GEngine->EngineWindow.GetWindowScale();
 
-		Camera->SetActorLocation({ PlayerPos.X, PlayerPos.Y, -100.0f });
-	}
 }
 
 void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
@@ -145,6 +137,8 @@ void ALasleyStageBossGM::InStageTick(float _DeltaTime)
 		LevelState.ChangeState("LasleySummon");
 		return;
 	}
+
+	CameraMove();
 }
 
 void ALasleyStageBossGM::InStageExit()
@@ -167,6 +161,8 @@ void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 		LevelState.ChangeState("LasleyBattle");
 		return;
 	}
+
+	CameraMove();
 }
 
 void ALasleyStageBossGM::LasleySummonExit()
@@ -182,6 +178,8 @@ void ALasleyStageBossGM::LasleyBattleBegin()
 void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
 {
 	Lasley->GMToPlayerPos(Player->GetActorLocation());
+
+	CameraMove();
 }
 
 void ALasleyStageBossGM::LasleyBattleExit()
@@ -207,8 +205,49 @@ void ALasleyStageBossGM::LasleyDieBegin()
 
 void ALasleyStageBossGM::LasleyDieTick(float _DeltaTime)
 {
+
+	CameraMove();
 }
 
 void ALasleyStageBossGM::LasleyDieExit()
 {
+}
+
+void ALasleyStageBossGM::CameraMove()
+{
+	if (!FreeCamera) // false
+	{
+		float4 MapSize = UContentsConstValue::MapTexScale;
+		float4 GameMapSize = MapSize * UContentsConstValue::AutoSizeValue;
+		//float4 ScreenSize = GEngine->EngineWindow.GetWindowScale();
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		FVector PlayerPos = Player->GetPlayerPos();
+
+		FVector CameraPos = Camera->GetActorLocation();
+
+		CameraPos.X = PlayerPos.X;
+		CameraPos.Y = PlayerPos.Y;
+
+		if (CameraPos.X <= ScreenScaleHalf.X)
+		{
+			CameraPos.X = ScreenScaleHalf.X;
+		}
+		else if (CameraPos.X >= (GameMapSize.X - ScreenScaleHalf.X))
+		{
+			CameraPos.X = (GameMapSize.X - ScreenScaleHalf.X);
+		}
+
+
+		if (CameraPos.Y <= ScreenScaleHalf.Y)
+		{
+			CameraPos.Y = ScreenScaleHalf.Y;
+		}
+		else if (CameraPos.Y >= (GameMapSize.Y - ScreenScaleHalf.Y))
+		{
+			CameraPos.Y = (GameMapSize.Y - ScreenScaleHalf.Y);
+		}
+		
+
+		Camera->SetActorLocation({ CameraPos.X, CameraPos.Y, -500.0f });
+	}
 }
