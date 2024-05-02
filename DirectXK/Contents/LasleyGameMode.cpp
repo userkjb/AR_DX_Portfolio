@@ -155,8 +155,6 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 
 	if (true == IsLeftCol)
 	{
-		int a = 0;
-
 		GEngine->ChangeLevel("LasleyLevelBoss");
 	}
 
@@ -195,13 +193,10 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Back Ground Image
 	{
-		//std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
-		//float TileSize = UContentsConstValue::TileSize; // 64.0f 
-		//float4 TexScale = UContentsConstValue::MapTexScale;
-		//float4 ImageScale = { TexScale.X * TileSize, TexScale.Y * TileSize, 0.0f };
-
-		//BackGournd->SetActorScale3D(ImageScale);
-		//BackGournd->SetActorLocation({ ImageScale.hX(), -ImageScale.hY(), 500.0f });
+		std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
 }
