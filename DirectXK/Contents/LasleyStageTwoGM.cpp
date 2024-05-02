@@ -4,6 +4,7 @@
 #include "LasleyStageTwoMap.h"
 #include "Player.h"
 #include "Wyvern.h"
+#include "BackGround.h"
 
 ALasleyStageTwoGM::ALasleyStageTwoGM()
 {
@@ -72,6 +73,14 @@ void ALasleyStageTwoGM::LevelStart(ULevel* _PrevLevel)
 		float4 TexScale = UContentsConstValue::MapTexScale;
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		MapActor->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
+	}
+
+	// BG
+	{
+		std::shared_ptr<ABackGround> BackGournd = GetWorld()->SpawnActor<ABackGround>("BackGround");
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
 
