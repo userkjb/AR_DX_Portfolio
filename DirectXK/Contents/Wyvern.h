@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 
-class AWyvern : public AActor
+class AWyvern : public AActor, public std::enable_shared_from_this<AWyvern>
 {
 	GENERATED_BODY(AActor)
 public:
@@ -15,15 +15,26 @@ public:
 	AWyvern& operator=(const AWyvern& _Other) = delete;
 	AWyvern& operator=(AWyvern&& _Other) noexcept = delete;
 
+	inline void SettingPosition()
+	{
+		State.ChangeState("Setting");
+		return;
+	}
+
 	inline void CreateWyvern()
 	{
 		State.ChangeState("Idle");
 		return;
 	}
 
-	inline void SetWyvernPos(FVector _Pos)
+	inline void SetWyvernWorldPos(FVector _Pos)
 	{
-		InPos = _Pos;
+		InActorPos = _Pos;
+	}
+
+	inline void SetWyvernLocalPos(FVector _Pos)
+	{
+		InRenderPos = _Pos;
 	}
 
 protected:
@@ -34,16 +45,17 @@ private:
 	void CreateAnimation();
 	void StateInit();
 
+	void SettingBegin();
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleExit();
 
 
 	UStateManager State;
-
 	USpriteRenderer* WyvernRenderer = nullptr;
 	UCollision* WyvernCollision = nullptr;
 
-	FVector InPos = FVector::Zero;
+	FVector InActorPos = FVector::Zero;
+	FVector InRenderPos = FVector::Zero;
 };
 

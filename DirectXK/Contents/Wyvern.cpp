@@ -53,7 +53,10 @@ void AWyvern::CreateAnimation()
 void AWyvern::StateInit()
 {
 	State.CreateState("None");
+	State.CreateState("Setting");
 	State.CreateState("Idle");
+
+	State.SetStartFunction("Setting", std::bind(&AWyvern::SettingBegin, this));
 
 	State.SetFunction("Idle",
 		std::bind(&AWyvern::IdleBegin, this),
@@ -64,9 +67,16 @@ void AWyvern::StateInit()
 	State.ChangeState("None");
 }
 
+void AWyvern::SettingBegin()
+{
+	SetActorLocation(InActorPos);
+	WyvernRenderer->SetPosition(InRenderPos);
+}
+
+
+
 void AWyvern::IdleBegin()
 {
-	WyvernRenderer->SetPosition(InPos);
 	if (false == WyvernRenderer->IsActive())
 	{
 		WyvernRenderer->SetActive(true);
@@ -78,6 +88,38 @@ void AWyvern::IdleBegin()
 void AWyvern::IdleTick(float _DeltaTime)
 {
 	int a = 0;
+
+	if (true == IsPress('N'))
+	{
+		FVector Value = FVector(-2.0f, 0.0f, 0.0f);
+		AddActorLocation(Value);
+	}
+	if (true == IsPress('M'))
+	{
+		FVector Value = FVector(2.0f, 0.0f, 0.0f);
+		AddActorLocation(Value);
+	}
+	if (true == IsPress('B'))
+	{
+		FVector Value = FVector(0.0f, 0.0f, 1.0f);
+		AddActorRotation(Value);
+		WyvernRenderer->AddRotationDeg(-Value);
+	}
+	if (true == IsPress('H'))
+	{
+		FVector Value = FVector(0.0f, 0.0f, -1.0f);
+		AddActorRotation(Value);
+		WyvernRenderer->AddRotationDeg(-Value);
+	}
+
+	std::string WorldPos = std::format("World Pos : {}", WyvernCollision->GetWorldPosition().ToString());
+	std::string LocalPos = std::format("Local Pos : {}", WyvernCollision->GetLocalPosition().ToString());
+	std::string WorldRot = std::format("World Rot : {}", WyvernCollision->GetWorldRotation().ToString());
+	std::string LocalRot = std::format("Local Rot : {}", WyvernCollision->GetLocalRotation().ToString());
+	UEngineDebugMsgWindow::PushMsg(WorldPos);
+	UEngineDebugMsgWindow::PushMsg(LocalPos);
+	UEngineDebugMsgWindow::PushMsg(WorldRot);
+	UEngineDebugMsgWindow::PushMsg(LocalRot);
 }
 
 void AWyvern::IdleExit()

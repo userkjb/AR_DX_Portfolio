@@ -167,7 +167,9 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 	{
 		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
 		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
-		BlackSphere->SetWyvernPos(FVector(SetPosValue.X, SetPosValue.Y));
+		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
+		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		BlackSphere->SettingPosition();
 		BlackSphere->CreateWyvern();
 	}
 }
