@@ -5,6 +5,7 @@
 AWeaponFX::AWeaponFX()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("WeaponFXRenderer");
+	SetRoot(Root);
 
 	Weapon_FX_Render = CreateDefaultSubObject<USpriteRenderer>("WeaponFXRenderer");
 	Weapon_FX_Render->SetPivot(EPivot::BOT);
@@ -16,11 +17,9 @@ AWeaponFX::AWeaponFX()
 	Weapon_FX_Collision = CreateDefaultSubObject<UCollision>("WeaponFXCollision");
 	Weapon_FX_Collision->SetupAttachment(Root);
 	//Collision->SetScale(FVector(100.0f, 300.0f, 100.0f));
-	// 콜리전은 무조건 오더를 지정해줘야 한다.
 	Weapon_FX_Collision->SetCollisionGroup(ECollisionOrder::WeaponFX);
 	Weapon_FX_Collision->SetCollisionType(ECollisionType::RotRect);
-
-	SetRoot(Root);
+	Weapon_FX_Collision->SetActive(false);
 }
 
 AWeaponFX::~AWeaponFX()
@@ -30,13 +29,9 @@ AWeaponFX::~AWeaponFX()
 void AWeaponFX::BeginPlay()
 {
 	Super::BeginPlay();
-
-	{
-		Weapon_FX_Render->CreateAnimation("G_S_Idle", "GreatSword_FX", 0.125f, false, 2, 2);
-		Weapon_FX_Render->CreateAnimation("G_S_Attack", "GreatSword_FX", 0.125f, false, 0, 2);
-		
-		Weapon_FX_Render->ChangeAnimation("G_S_Attack");
-	}
+	
+	StateInit();
+	CreateAnimation();
 
 	Weapon_FX_Render->SetAutoSize(2.0f, true);
 	Weapon_FX_Collision->SetScale(FVector(10.0f, 10.0f, 10.0f));
@@ -45,4 +40,62 @@ void AWeaponFX::BeginPlay()
 void AWeaponFX::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	State.Update(_DeltaTime);
+}
+
+void AWeaponFX::StateInit()
+{
+	State.CreateState("None");
+	State.CreateState("Swing");
+
+	State.SetFunction("Swing",
+		std::bind(&AWeaponFX::SwingBegin, this),
+		std::bind(&AWeaponFX::SwingTick, this, std::placeholders::_1),
+		std::bind(&AWeaponFX::SwingExit, this));
+
+	State.ChangeState("None");
+}
+
+void AWeaponFX::CreateAnimation()
+{
+	//Weapon_FX_Render->CreateAnimation("G_S_Idle", "GreatSword_FX", 0.125f, false, 2, 2);
+	Weapon_FX_Render->CreateAnimation("G_S_Attack", "GreatSword_FX", 0.125f, false, 0, 2);
+
+	Weapon_FX_Render->ChangeAnimation("G_S_Attack");
+}
+
+
+
+
+void AWeaponFX::SwingBegin()
+{
+	Weapon_FX_Render->ChangeAnimation("G_S_Attack");
+	Weapon_FX_Render->SetPosition(InPosition);
+	Weapon_FX_Render->SetRotationDeg(InRotation);
+	Weapon_FX_Collision->SetPosition(InPosition);
+	Weapon_FX_Collision->SetRotationDeg(InRotation);
+
+	if (false == Weapon_FX_Render->IsActive())
+	{
+		Weapon_FX_Render->SetActive(true);
+	}
+	if (false == Weapon_FX_Collision->IsActive())
+	{
+		Weapon_FX_Collision->SetActive(true);
+	}
+}
+
+void AWeaponFX::SwingTick(float _DeltaTime)
+{
+	if (true == Weapon_FX_Render->IsCurAnimationEnd())
+	{
+		Weapon_FX_Render->SetActive(false);
+		Weapon_FX_Collision->SetActive(false);
+		Destroy();
+	}
+}
+
+void AWeaponFX::SwingExit()
+{
+	
 }

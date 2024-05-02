@@ -41,6 +41,9 @@ private :
 		PlayerDir = _PlayerDir;
 	}
 
+	void CreateAnimation();
+	void StateInit();
+
 	void GetPlayerToMouseDir();
 
 	void t_DebugFunction(float _DeltaTime);
@@ -78,7 +81,6 @@ private :
 	UStateManager State;
 	
 	USpriteRenderer* Weapon_Renderer = nullptr;
-	std::shared_ptr<AWeaponFX> WeaponFXActor= nullptr;
 	const float Range = 100.0f; // 무기 사거리.
 
 	bool b_WeaponUpDownDir = false;

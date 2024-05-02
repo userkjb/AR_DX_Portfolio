@@ -12,15 +12,13 @@
 APlayerWeapon::APlayerWeapon()
 {
 	Root = CreateDefaultSubObject<UDefaultSceneComponent>("WeaponRootRenderer");
+	SetRoot(Root);
 
-	
 	Weapon_Renderer = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
+	Weapon_Renderer->SetupAttachment(Root);
 	Weapon_Renderer->SetPivot(EPivot::BOT);
 	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
-	Weapon_Renderer->SetupAttachment(Root);
 	Weapon_Renderer->SetDir(EEngineDir::Right);
-		
-	SetRoot(Root);
 
 	InputOn();
 }
@@ -32,35 +30,10 @@ APlayerWeapon::~APlayerWeapon()
 void APlayerWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-
-	{
-		Weapon_Renderer->CreateAnimation("W_Idle", "GreatSword_Idle", 0.125f);
-		Weapon_Renderer->CreateAnimation("W_FX", "GreatSword_FX", 0.125f);
-		Weapon_Renderer->CreateAnimation("W_Swing", "GreatSword", 0.125f, false);
-
-		Weapon_Renderer->ChangeAnimation("W_Idle");
-	}
-
-	{
-		State.CreateState("Weapon_Idle");
-		State.CreateState("Weapon_Swing");
-
-		State.SetFunction("Weapon_Idle",
-			std::bind(&APlayerWeapon::IdleBegin, this),
-			std::bind(&APlayerWeapon::IdleTick, this, std::placeholders::_1),
-			std::bind(&APlayerWeapon::IdleEnd, this));
-		State.SetFunction("Weapon_Swing",
-			std::bind(&APlayerWeapon::SwingBegin, this),
-			std::bind(&APlayerWeapon::SwingTick, this, std::placeholders::_1),
-			std::bind(&APlayerWeapon::SwingEnd, this));
+	CreateAnimation();
+	StateInit();
 
 
-		State.ChangeState("Weapon_Idle");
-	}
-
-	{
-		WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
-	}
 	Weapon_Renderer->SetAutoSize(2.0f, true);
 }
 
@@ -76,6 +49,33 @@ void APlayerWeapon::Tick(float _DeltaTime)
 #ifdef _DEBUG
 	t_DebugFunction(_DeltaTime);
 #endif	
+}
+
+void APlayerWeapon::CreateAnimation()
+{
+	Weapon_Renderer->CreateAnimation("W_Idle", "GreatSword_Idle", 0.125f);
+	Weapon_Renderer->CreateAnimation("W_FX", "GreatSword_FX", 0.125f);
+	Weapon_Renderer->CreateAnimation("W_Swing", "GreatSword", 0.125f, false);
+
+	Weapon_Renderer->ChangeAnimation("W_Idle");
+}
+
+void APlayerWeapon::StateInit()
+{
+	State.CreateState("Weapon_Idle");
+	State.CreateState("Weapon_Swing");
+
+	State.SetFunction("Weapon_Idle",
+		std::bind(&APlayerWeapon::IdleBegin, this),
+		std::bind(&APlayerWeapon::IdleTick, this, std::placeholders::_1),
+		std::bind(&APlayerWeapon::IdleEnd, this));
+	State.SetFunction("Weapon_Swing",
+		std::bind(&APlayerWeapon::SwingBegin, this),
+		std::bind(&APlayerWeapon::SwingTick, this, std::placeholders::_1),
+		std::bind(&APlayerWeapon::SwingEnd, this));
+
+
+	State.ChangeState("Weapon_Idle");
 }
 
 void APlayerWeapon::GetPlayerToMouseDir()
@@ -143,22 +143,28 @@ void APlayerWeapon::IdleEnd()
 }
 #pragma endregion
 
+
+
 #pragma region Weapon_Swing
 void APlayerWeapon::SwingBegin()
 {
 	Weapon_Renderer->ChangeAnimation("W_Swing");
-	
-	FVector WeaponCollisionPos = FVector::Zero;
-	FVector WeaponCollisionRot = WeaponRotation;
-	WeaponCollisionPos = GetActorLocation();
-	WeaponCollisionPos += PlayerToMouseDir * Range;
-	WeaponCollisionPos.Z = 0.0f;
-	WeaponCollisionPos.W = 1.0f;
-	WeaponFXActor->SetActorLocation(WeaponCollisionPos);
-	WeaponCollisionRot.Z -= 90.0f;
-	WeaponFXActor->Weapon_FX_Render->SetRotationDeg(WeaponCollisionRot);
-	WeaponFXActor->Weapon_FX_Render->ChangeAnimation("G_S_Attack");
-	WeaponFXActor->Weapon_FX_Render->SetActive(true);
+
+	{
+		std::shared_ptr<AWeaponFX> WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
+		WeaponFXActor->SetFXScale(FVector());
+		FVector WeaponCollisionPos = FVector::Zero;
+		FVector WeaponCollisionRot = WeaponRotation;
+		WeaponCollisionPos = GetActorLocation();
+		WeaponCollisionPos += PlayerToMouseDir * Range;
+		WeaponCollisionPos.Z = 0.0f;
+		WeaponCollisionPos.W = 1.0f;
+		WeaponFXActor->SetCreatePosition(WeaponCollisionPos); // 积己 困摹
+		WeaponCollisionRot.Z -= 90.0f;
+		WeaponFXActor->SetCreateTotation(WeaponCollisionRot); // 积己 阿档
+
+		WeaponFXActor->CreateWeaponFX();
+	}
 
 	if (false == b_WeaponUpDownDir)
 	{
@@ -189,8 +195,6 @@ void APlayerWeapon::SwingEnd()
 	{
 		b_WeaponUpDownDir = false;
 	}
-	WeaponFXActor->Weapon_FX_Render->ChangeAnimation("G_S_Idle");
-	WeaponFXActor->Weapon_FX_Render->SetActive(false);
 }
 #pragma endregion
 
