@@ -54,6 +54,6 @@ private :
 	void LasleyDieTick(float _DeltaTime);
 	void LasleyDieExit();
 
-	void CameraMove();
+	void CameraMove(float _DeltaTime);
 };
 

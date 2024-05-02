@@ -138,7 +138,7 @@ void ALasleyStageBossGM::InStageTick(float _DeltaTime)
 		return;
 	}
 
-	CameraMove();
+	CameraMove(_DeltaTime);
 }
 
 void ALasleyStageBossGM::InStageExit()
@@ -162,7 +162,7 @@ void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 		return;
 	}
 
-	CameraMove();
+	CameraMove(_DeltaTime);
 }
 
 void ALasleyStageBossGM::LasleySummonExit()
@@ -179,7 +179,7 @@ void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
 {
 	Lasley->GMToPlayerPos(Player->GetActorLocation());
 
-	CameraMove();
+	CameraMove(_DeltaTime);
 }
 
 void ALasleyStageBossGM::LasleyBattleExit()
@@ -206,14 +206,14 @@ void ALasleyStageBossGM::LasleyDieBegin()
 void ALasleyStageBossGM::LasleyDieTick(float _DeltaTime)
 {
 
-	CameraMove();
+	CameraMove(_DeltaTime);
 }
 
 void ALasleyStageBossGM::LasleyDieExit()
 {
 }
 
-void ALasleyStageBossGM::CameraMove()
+void ALasleyStageBossGM::CameraMove(float _DeltaTime)
 {
 	if (!FreeCamera) // false
 	{
