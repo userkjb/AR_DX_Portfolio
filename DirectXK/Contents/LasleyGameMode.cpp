@@ -179,8 +179,20 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 	// Player
 	{
 		//float4 TexScale = UContentsConstValue::MapTexScale;
-		Player = GetWorld()->SpawnActor<APlayer>("Player");
-		Player->SetActorLocation({ 1040.0f,  400.0f, 0.0f });
+		Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
+		if (_PrevLevel == nullptr)
+		{
+			Player->SetActorLocation({ 1040.0f,  400.0f, 0.0f });
+		}
+		else
+		{
+			std::string Name = _PrevLevel->GetName();
+			if (Name == "LasleyLevelTwo")
+			{
+				FVector CreatePos = FVector(110.0f, 125.0f);
+				Player->SetActorLocation(CreatePos);
+			}
+		}
 	}
 
 	// Map
@@ -207,6 +219,8 @@ void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 
 	StageMap_One->Destroy();
+	Player->LevelIsDestroy();
+	Player->Destroy();
 
 	int a = 0;
 }
