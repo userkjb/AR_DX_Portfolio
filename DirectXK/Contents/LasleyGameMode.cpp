@@ -155,7 +155,8 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 
 	if (true == IsLeftCol)
 	{
-		GEngine->ChangeLevel("LasleyLevelBoss");
+		//GEngine->ChangeLevel("LasleyLevelBoss");
+		GEngine->ChangeLevel("LasleyLevelTwo");
 	}
 
 	CameraMove();
