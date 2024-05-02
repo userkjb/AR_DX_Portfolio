@@ -203,12 +203,12 @@ void ALasleyStageTwoMap::StageInTick(float _DeltaTime)
 {
 	if (true == StageIsOne)
 	{
-		State.ChangeState("StageIdle");
+		State.ChangeState("StageBattle");
 		return;
 	}
 	else
 	{
-		State.ChangeState("StageBattle");
+		State.ChangeState("StageIdle");
 		return;
 	}
 }
@@ -254,6 +254,8 @@ void ALasleyStageTwoMap::StageBattleBegin()
 	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
 	MapObjectLeftDoor->SetActive(true);
 	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
+
+	// 몬스터 소환.
 }
 
 void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)

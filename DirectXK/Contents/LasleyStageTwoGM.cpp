@@ -111,6 +111,7 @@ void ALasleyStageTwoGM::IdleTick(float _DeltaTime)
 
 	if (true == IsOne)
 	{
+		MapActor->SetIsOne(IsOne);
 		LevelState.ChangeState("Battle");
 		return;
 	}
@@ -119,7 +120,6 @@ void ALasleyStageTwoGM::IdleTick(float _DeltaTime)
 void ALasleyStageTwoGM::IdleExit()
 {
 	IsOne = false;
-	MapActor->SetIsOne(IsOne);
 }
 
 
