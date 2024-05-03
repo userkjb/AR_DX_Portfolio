@@ -2,6 +2,7 @@
 #include "LasleyStageTwoMap.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include <EngineCore/TileRenderer.h>
+#include "Player.h"
 
 ALasleyStageTwoMap::ALasleyStageTwoMap()
 {
@@ -254,8 +255,6 @@ void ALasleyStageTwoMap::StageBattleBegin()
 	MapObjectRightDoor->ChangeAnimation("Stele_CloseRightDoor");
 	MapObjectLeftDoor->SetActive(true);
 	MapObjectLeftDoor->ChangeAnimation("Stele_CloseLeftDoor");
-
-	// 몬스터 소환.
 }
 
 void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
@@ -300,4 +299,37 @@ void ALasleyStageTwoMap::CollisionCheck(float _DeltaTime)
 			b_LeftMapCol = true;
 		}
 	);
+
+	MapObjectLeftDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+			if (true == IsPress('A') || true == IsDown('A') || true == IsUp('A'))
+			{
+				SendMapInDoor(Player, 0.0f);
+			}
+			else
+			{
+				SendMapInDoor(Player, 1.0f);
+			}
+		}
+	);
+
+	MapObjectRightDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+			if (true == IsPress('D') || true == IsDown('D') || true == IsUp('D'))
+			{
+				SendMapInDoor(Player, 0.0f);
+			}
+			else
+			{
+				SendMapInDoor(Player, 1.0f);
+			}
+		}
+	);
+}
+
+void ALasleyStageTwoMap::SendMapInDoor(APlayer* _Player, float _SendFloatValue)
+{
+	_Player->RecvMapInDoor(_SendFloatValue);
 }

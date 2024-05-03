@@ -3,6 +3,7 @@
 
 class UDefaultSceneComponent;
 class UTileRenderer;
+class APlayer;
 class ALasleyStageTwoMap : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -51,12 +52,13 @@ private:
 	void StageBattleExit();
 
 	void CollisionCheck(float _DeltaTime);
+	void SendMapInDoor(APlayer* _Player, float _SendFloatValue);
 
 	UDefaultSceneComponent* Root = nullptr;
 	UTileRenderer* TileRenderer = nullptr;
 	USpriteRenderer* MapColRenderer = nullptr;
-	UCollision* RightNextMapCol = nullptr;
-	UCollision* LeftNextMapCol = nullptr; // 후추
+	UCollision* RightNextMapCol = nullptr; // 스테이지 시작 맵.
+	UCollision* LeftNextMapCol = nullptr; // 보스전.
 	UStateManager State;
 
 	USpriteRenderer* MapObjectLeftDoor = nullptr; // 문
