@@ -169,12 +169,20 @@ void ABasicSkeleton::RunExit()
 	PreState = "Run";
 }
 
+
+
 void ABasicSkeleton::AttackBegin()
 {
+	BasicSkeletonRenderer->ChangeAnimation("Attack");
 }
 
 void ABasicSkeleton::AttackTick(float _DeltaTime)
 {
+	if (true == BasicSkeletonRenderer->IsCurAnimationEnd())
+	{
+		SKState.ChangeState("Idle");
+		return;
+	}
 }
 
 void ABasicSkeleton::AttackExit()
@@ -202,7 +210,8 @@ void ABasicSkeleton::CollisionCheck(float _Time)
 {
 	PlayerCheckCollision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-
+			SKState.ChangeState("Attack");
+			return;
 		}
 	);
 }
