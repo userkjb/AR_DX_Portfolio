@@ -84,6 +84,7 @@ void AWyvern::SettingBegin()
 
 
 
+
 void AWyvern::IdleBegin()
 {
 	if (false == WyvernRenderer->IsActive())
@@ -96,7 +97,7 @@ void AWyvern::IdleBegin()
 
 void AWyvern::IdleTick(float _DeltaTime)
 {
-	
+	CollisionCheck(_DeltaTime);
 
 	if (true == IsPress('N'))
 	{
@@ -121,10 +122,10 @@ void AWyvern::IdleTick(float _DeltaTime)
 		WyvernRenderer->AddRotationDeg(-Value);
 	}
 
-	std::string WorldPos = std::format("World Pos : {}", WyvernCollision->GetWorldPosition().ToString());
-	std::string LocalPos = std::format("Local Pos : {}", WyvernCollision->GetLocalPosition().ToString());
-	std::string WorldRot = std::format("World Rot : {}", WyvernCollision->GetWorldRotation().ToString());
-	std::string LocalRot = std::format("Local Rot : {}", WyvernCollision->GetLocalRotation().ToString());
+	std::string WorldPos = std::format("Wyvern World Pos : {}", WyvernCollision->GetWorldPosition().ToString());
+	std::string LocalPos = std::format("Wyvern Local Pos : {}", WyvernCollision->GetLocalPosition().ToString());
+	std::string WorldRot = std::format("Wyvern World Rot : {}", WyvernCollision->GetWorldRotation().ToString());
+	std::string LocalRot = std::format("Wyvern Local Rot : {}", WyvernCollision->GetLocalRotation().ToString());
 	UEngineDebugMsgWindow::PushMsg(WorldPos);
 	UEngineDebugMsgWindow::PushMsg(LocalPos);
 	UEngineDebugMsgWindow::PushMsg(WorldRot);
@@ -144,10 +145,22 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 	);
 
 
-	PlayerCheck->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+	PlayerCheck->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 
+			FVector PlayerPos = Player->GetActorLocation();
+			FVector WyvernPos = PlayerCheck->GetWorldPosition();
+
+			//float Value = PlayerPos.X - WyvernPos.X;
+			if (WyvernPos.X <= PlayerPos.X)
+			{
+				WyvernRenderer->SetDir(EEngineDir::Right);
+			}
+			else
+			{
+				WyvernRenderer->SetDir(EEngineDir::Left);
+			}
 		}
 	);
 }
