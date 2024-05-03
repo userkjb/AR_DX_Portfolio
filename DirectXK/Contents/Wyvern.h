@@ -49,6 +49,9 @@ private:
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleExit();
+	void AttackBegin();
+	void AttackTick(float _DeltaTime);
+	void AttackExit();
 
 
 	void CollisionCheck(float _DeltaTime);
@@ -60,5 +63,10 @@ private:
 
 	FVector InActorPos = FVector::Zero;
 	FVector InRenderPos = FVector::Zero;
+	
+	bool Attack_Ready = false;
+	bool b_Attack_Down = false;
+	bool b_Attack_Up = false;
+	bool ChangeAnimation_One = false;
 };
 

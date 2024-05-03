@@ -51,6 +51,10 @@ void AWyvern::Tick(float _DeltaTime)
 void AWyvern::CreateAnimation()
 {
 	WyvernRenderer->CreateAnimation("Idle", "Wyvern", 0.0625f, true, 21, 29);
+	WyvernRenderer->CreateAnimation("Attack_Ready", "Wyvern", 0.0625f, false, 0, 8);
+	WyvernRenderer->CreateAnimation("Attack_Down", "Wyvern", 0.0625f, true, 9, 12);
+	WyvernRenderer->CreateAnimation("Attack_Up_One", "Wyvern", 0.0625f, false, 13, 16);
+	WyvernRenderer->CreateAnimation("Attack_Up", "Wyvern", 0.0625f, true, 17, 20);
 
 	WyvernRenderer->ChangeAnimation("Idle");
 }
@@ -60,6 +64,8 @@ void AWyvern::StateInit()
 	State.CreateState("None");
 	State.CreateState("Setting");
 	State.CreateState("Idle");
+	State.CreateState("Attack");
+	State.CreateState("Die");
 
 	State.SetStartFunction("Setting", std::bind(&AWyvern::SettingBegin, this));
 
@@ -68,6 +74,10 @@ void AWyvern::StateInit()
 		std::bind(&AWyvern::IdleTick, this, std::placeholders::_1),
 		std::bind(&AWyvern::IdleExit, this));
 
+	State.SetFunction("Attack",
+		std::bind(&AWyvern::AttackBegin, this),
+		std::bind(&AWyvern::AttackTick, this, std::placeholders::_1),
+		std::bind(&AWyvern::AttackExit, this));
 
 	State.ChangeState("None");
 }
@@ -91,6 +101,8 @@ void AWyvern::IdleBegin()
 		WyvernCollision->SetActive(true);
 		PlayerCheck->SetActive(true);
 	}
+
+	WyvernRenderer->ChangeAnimation("Idle");
 }
 
 void AWyvern::IdleTick(float _DeltaTime)
@@ -134,6 +146,124 @@ void AWyvern::IdleExit()
 {
 }
 
+
+
+void AWyvern::AttackBegin()
+{
+	WyvernRenderer->ChangeAnimation("Attack_Ready");
+	ChangeAnimation_One = false;
+}
+
+void AWyvern::AttackTick(float _DeltaTime)
+{
+	// 공격 준비가 끝나면,
+	WyvernRenderer->SetLastFrameCallback("Attack_Ready", [=]()
+		{
+			// 내려가면서 공격.
+			Attack_Ready = true;
+			WyvernRenderer->ChangeAnimation("Attack_Down");
+		}
+	);
+
+	if (true == Attack_Ready)
+	{
+		FVector Value = FVector(0.0f, 0.0f, 0.25f);
+		if (EEngineDir::Right == WyvernRenderer->GetDir())
+		{
+			AddActorRotation(Value);
+			WyvernRenderer->AddRotationDeg(-Value);
+		}
+		else if (EEngineDir::Left == WyvernRenderer->GetDir())
+		{
+			AddActorRotation(-Value);
+			WyvernRenderer->AddRotationDeg(Value);
+		}
+	}
+
+	WyvernRenderer->SetFrameCallback("Attack_Down", 0, [=]()
+		{
+			// 공격!
+			int a = 0;
+		}
+	);
+	WyvernRenderer->SetFrameCallback("Attack_Down", 2, [=]()
+		{
+			// 공격!
+			b_Attack_Down = true;
+		}
+	);
+
+	if (EEngineDir::Right == WyvernRenderer->GetDir())
+	{
+		if (90.0f <= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Down)
+		{
+			if (false == ChangeAnimation_One)
+			{
+				WyvernRenderer->ChangeAnimation("Attack_Up_One");
+				ChangeAnimation_One = true;
+			}
+		}
+	}
+	else if (EEngineDir::Left == WyvernRenderer->GetDir())
+	{
+		float testz = WyvernCollision->GetWorldRotation().Z;
+		if (90.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Down)
+		{
+			if (false == ChangeAnimation_One)
+			{
+				WyvernRenderer->ChangeAnimation("Attack_Up_One");
+				ChangeAnimation_One = true;
+			}
+		}
+	}
+	
+
+	WyvernRenderer->SetLastFrameCallback("Attack_Up_One", [=]()
+		{
+			WyvernRenderer->ChangeAnimation("Attack_Up");
+			b_Attack_Up = true;
+		}
+	);
+
+	WyvernRenderer->SetFrameCallback("Attack_Up", 0, [=]()
+		{
+			// 공격!
+		}
+	);
+	WyvernRenderer->SetFrameCallback("Attack_Up", 2, [=]()
+		{
+			// 공격!
+		}
+	);
+
+	if (0.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Up)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
+
+
+	std::string ActorRot = std::format("Actor Rot : {}\n", GetActorForwardVector().ToString());
+	std::string WorldPos = std::format("Wyvern World Pos : {}\n", WyvernCollision->GetWorldPosition().ToString());
+	std::string LocalPos = std::format("Wyvern Local Pos : {}\n", WyvernCollision->GetLocalPosition().ToString());
+	std::string WorldRot = std::format("Wyvern World Rot : {}\n", WyvernCollision->GetWorldRotation().ToString());
+	std::string LocalRot = std::format("Wyvern Local Rot : {}\n", WyvernCollision->GetLocalRotation().ToString());
+	
+	UEngineDebugMsgWindow::PushMsg(ActorRot);
+	UEngineDebugMsgWindow::PushMsg(WorldPos);
+	UEngineDebugMsgWindow::PushMsg(LocalPos);
+	UEngineDebugMsgWindow::PushMsg(WorldRot);
+	UEngineDebugMsgWindow::PushMsg(LocalRot);
+}
+
+void AWyvern::AttackExit()
+{
+	Attack_Ready = false;
+	b_Attack_Down = false;
+	b_Attack_Up = false;
+}
+
 void AWyvern::CollisionCheck(float _DeltaTime)
 {
 	WyvernCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
@@ -159,6 +289,9 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 			{
 				WyvernRenderer->SetDir(EEngineDir::Left);
 			}
+
+			State.ChangeState("Attack");
+			return;
 		}
 	);
 }

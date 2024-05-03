@@ -180,16 +180,18 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 
 	if (true == IsDown('L'))
 	{
-		//float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
-		//std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
-		//BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
-		//BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
-		//BlackSphere->SettingPosition();
-		//BlackSphere->CreateWyvern();
+		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
+		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
+		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
+		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		BlackSphere->SettingPosition();
+		BlackSphere->CreateWyvern();
 
-		std::shared_ptr<ABasicSkeleton> BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
-		BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
-		BasicSkeleton->CreateBasicSkeleton();
+		/*{
+			std::shared_ptr<ABasicSkeleton> BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
+			BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
+			BasicSkeleton->CreateBasicSkeleton();
+		}*/
 	}
 }
 
