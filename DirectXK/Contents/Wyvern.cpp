@@ -82,6 +82,12 @@ void AWyvern::StateInit()
 		std::bind(&AWyvern::AttackTick, this, std::placeholders::_1),
 		std::bind(&AWyvern::AttackExit, this));
 
+	State.SetStartFunction("Die", [=]()
+		{
+			Destroy();
+		}
+	);
+
 	State.ChangeState("None");
 }
 
@@ -297,7 +303,12 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 {
 	WyvernCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
-
+			Hp -= 10;
+			if (Hp <= 0)
+			{
+				State.ChangeState("Die");
+				return;
+			}
 		}
 	);
 

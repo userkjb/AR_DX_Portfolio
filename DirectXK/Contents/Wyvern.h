@@ -80,5 +80,7 @@ private:
 	bool b_Attack_Up = false;
 	bool ChangeAnimation_One = false;
 	float AttackDelayTime = 0.0f;
+
+	int Hp = 10;
 };
 
