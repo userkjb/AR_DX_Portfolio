@@ -188,7 +188,7 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 		//BlackSphere->CreateWyvern();
 
 		std::shared_ptr<ABasicSkeleton> BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
-		BasicSkeleton->SetBasicSkeletonPos(FVector(200.0f, 200.0f));
+		BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
 		BasicSkeleton->CreateBasicSkeleton();
 	}
 }

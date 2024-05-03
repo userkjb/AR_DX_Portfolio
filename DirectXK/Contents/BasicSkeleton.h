@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// 생성 위치 설정.
 	/// </summary>
-	/// <param name="_Pos"></param>
+	/// <param name="_Pos">생성 좌표값.</param>
 	inline void SetBasicSkeletonPos(FVector _Pos)
 	{
 		InPos = _Pos;
@@ -26,6 +26,9 @@ public:
 		return;
 	}
 
+	/// <summary>
+	/// BasicSkeleton 생성.
+	/// </summary>
 	inline void CreateBasicSkeleton()
 	{
 		SKState.ChangeState("Idle");
@@ -40,8 +43,6 @@ private :
 	void CreateAnimation();
 	void StateInit();
 
-	void SettingBegin();
-
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleExit();
@@ -55,6 +56,7 @@ private :
 	void DieTick(float _DeltaTime);
 	void DieExit();
 
+	void CollisionCheck(float _Time);
 
 	UStateManager SKState;
 	USpriteRenderer* BasicSkeletonRenderer = nullptr;
@@ -64,5 +66,8 @@ private :
 	const float RumSpeed = 100.0f;
 	FVector InPos = FVector::Zero;
 	FVector MoveVector = FVector::Zero;
+	float PlayerNotCatchTime = 0.0f;
+	float RunTime = 0.0f;
+	std::string PreState = "";
 };
 
