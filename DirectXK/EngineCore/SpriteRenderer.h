@@ -116,6 +116,16 @@ public:
 		CurAnimation = nullptr;
 	}
 
+	inline int GetCurAnimationFrame() const
+	{
+		if (nullptr == CurAnimation)
+		{
+			MsgBoxAssert("애니메이션이 지정되지 않았습니다.")
+		}
+
+		return CurAnimation->CurFrame;
+	}
+
 	/// <summary>
 	/// UV Plus 인터페이스
 	/// </summary>
