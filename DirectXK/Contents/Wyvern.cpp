@@ -2,6 +2,7 @@
 #include "Wyvern.h"
 #include <EngineCore/DefaultSceneComponent.h>
 #include "Player.h"
+#include "LightningBall.h"
 
 AWyvern::AWyvern()
 {
@@ -24,7 +25,9 @@ AWyvern::AWyvern()
 	PlayerCheck->SetCollisionType(ECollisionType::RotRect);
 	PlayerCheck->SetScale((FVector(72.f, 74.0f)) * 8.0f);
 
+#ifdef _DEBUG
 	InputOn(); // Test
+#endif
 }
 
 AWyvern::~AWyvern()
@@ -109,6 +112,16 @@ void AWyvern::IdleTick(float _DeltaTime)
 {
 	CollisionCheck(_DeltaTime);
 
+
+
+	if (true == IsDown('K'))
+	{
+		FVector BallPos = GetActorLocation();
+		std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
+		LightningBall->SettingActorPosition(BallPos);
+		LightningBall->CreateLightningBool();
+	}
+
 	if (true == IsPress('N'))
 	{
 		FVector Value = FVector(-2.0f, 0.0f, 0.0f);
@@ -184,6 +197,7 @@ void AWyvern::AttackTick(float _DeltaTime)
 		{
 			// АјАн!
 			int a = 0;
+			std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
 		}
 	);
 	WyvernRenderer->SetFrameCallback("Attack_Down", 2, [=]()
