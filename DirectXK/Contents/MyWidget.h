@@ -4,6 +4,7 @@
 // Ό³Έν :
 class MyWidget : public UWidget
 {
+	GENERATED_BODY(UWidget)
 public:
 	// constrcuter destructer
 	MyWidget();
@@ -17,6 +18,7 @@ public:
 
 protected:
 	void BeginPlay();
+	void Tick(float _DeltaTime) override;
 
 private:
 

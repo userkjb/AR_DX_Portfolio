@@ -16,6 +16,7 @@ MyWidget::~MyWidget()
 
 void MyWidget::BeginPlay()
 {
+	Super::BeginPlay();
 	// UI를 관리하는 개념의 클래스가 된다.
 	//{
 	//	UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBar");
@@ -43,6 +44,39 @@ void MyWidget::BeginPlay()
 		Image->SetText("하하하ㅏ허ㅏㅣㅁㅇㄴ러ㅏㅣㄴㅁㅇ러ㅏㅣㅁㄴㅇ");
 	}
 
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= 148.0f;
+		ScreenScaleHalf.Y -= 32.0f;
+		UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBarBase");
+		Image->SetupAttachment(this);
+		Image->SetSprite("PlayerLifeBase.png");
+		Image->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		Image->SetAutoSize(4.0f, true);
+	}
+
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= 148.0f;
+		ScreenScaleHalf.Y -= 32.0f;
+
+		UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBar");
+		//Image->SetupAttachment(this);
+		Image->AddToViewPort(2);
+		//Image->SetSprite("LifeBar.png");
+		Image->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
+		//Image->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		Image->SetPosition(FVector(0.0f, 0.0f));
+		Image->SetAutoSize(4.0f, true);
+		Image->SetWidgetScale3D(FVector(100.0f, 100.0f));
+		Image->ChangeAnimation("HpBar");
+	}
+
 
 	AddToViewPort(1);
+}
+
+void MyWidget::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
 }

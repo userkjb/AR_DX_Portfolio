@@ -4,6 +4,7 @@
 #include "PlayerWeapon.h"
 #include <math.h>
 #include "PlayerStruct.h"
+#include "MyWidget.h"
 
 APlayer::APlayer()
 {
@@ -37,6 +38,8 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	MyWidget* Widget = CreateWidget<MyWidget>(GetWorld(), "UIBase");
+	
 	CreateAnimation();
 	StateInit();
 
