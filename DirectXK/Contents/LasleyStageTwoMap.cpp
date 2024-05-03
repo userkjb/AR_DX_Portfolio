@@ -290,13 +290,13 @@ void ALasleyStageTwoMap::StageBattleExit()
 
 void ALasleyStageTwoMap::CollisionCheck(float _DeltaTime)
 {
-	RightNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	RightNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			b_RightMapCol = true;
 		}
 	);
 
-	LeftNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	LeftNextMapCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			b_LeftMapCol = true;
 		}

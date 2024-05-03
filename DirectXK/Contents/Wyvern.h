@@ -51,9 +51,12 @@ private:
 	void IdleExit();
 
 
+	void CollisionCheck(float _DeltaTime);
+
 	UStateManager State;
 	USpriteRenderer* WyvernRenderer = nullptr;
 	UCollision* WyvernCollision = nullptr;
+	UCollision* PlayerCheck = nullptr;
 
 	FVector InActorPos = FVector::Zero;
 	FVector InRenderPos = FVector::Zero;

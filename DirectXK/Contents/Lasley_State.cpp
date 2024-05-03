@@ -922,7 +922,7 @@ void ALasley::DieTick(float _DeltaTime)
 
 void ALasley::CollisionCheck(float _DeltaTime)
 {
-	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collison)
+	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			if (0 >= Hp)
 			{

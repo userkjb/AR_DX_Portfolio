@@ -182,9 +182,9 @@ void ADimensionSlash::FrameCallBack()
 
 void ADimensionSlash::CollisionCallBack(float _DeltaTime)
 {
-	SlashCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	SlashCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			//APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			//APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 			EPlayerStateValue::Hp -= 10;
 		});
 

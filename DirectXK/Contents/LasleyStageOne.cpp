@@ -122,9 +122,9 @@ void ALasleyStageOne::CreateAnimation()
 
 void ALasleyStageOne::CollisionCheck(float _DeltaTime)
 {
-	LeftMapCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	LeftMapCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			//FVector PlayerLocation = _Collison->GetActor()->GetActorLocation();
+			//FVector PlayerLocation = _Collision->GetActor()->GetActorLocation();
 			
 			b_LeftMapCol = true;
 		}

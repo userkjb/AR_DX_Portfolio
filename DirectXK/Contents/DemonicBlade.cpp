@@ -166,14 +166,14 @@ void ADemonicBlade::DisappearExit()
 
 void ADemonicBlade::CollisionCheck(float _DeltaTime)
 {
-	DemonicBladeCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	DemonicBladeCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			//APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			//APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 			EPlayerStateValue::Hp -= 10;
 		});
 
 	// º®.
-	//DemonicBladeCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collison)
+	//DemonicBladeCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collision)
 	//	{
 	//		State.ChangeState("Disappear");
 	//		return;

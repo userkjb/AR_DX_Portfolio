@@ -359,7 +359,7 @@ void ALasleyStageBoss::LasleyBossStageEndExit()
 // Collision
 void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
 {
-	BossStageStartCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	BossStageStartCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			State.ChangeState("LasleyBossStageStart");
 			return;
@@ -368,9 +368,9 @@ void ALasleyStageBoss::StageStartCollisionCheck(float _DeltaTime)
 
 void ALasleyStageBoss::PlayerStageOutCollisionCheck(float _DeltaTime)
 {
-	MapObjectLeftDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	MapObjectLeftDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 			if (true == IsPress('A') || true == IsDown('A') || true == IsUp('A'))
 			{
 				SendMapInDoor(Player, 0.0f);
@@ -381,9 +381,9 @@ void ALasleyStageBoss::PlayerStageOutCollisionCheck(float _DeltaTime)
 			}
 		});
 
-	MapObjectRightDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collison)
+	MapObjectRightDoorCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			APlayer* Player = dynamic_cast<APlayer*>(_Collison->GetActor());
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 			if (true == IsPress('D') || true == IsDown('D') || true == IsUp('D'))
 			{
 				SendMapInDoor(Player, 0.0f);

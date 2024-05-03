@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Wyvern.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "Player.h"
 
 AWyvern::AWyvern()
 {
@@ -16,6 +17,12 @@ AWyvern::AWyvern()
 	WyvernCollision->SetCollisionGroup(ECollisionOrder::Monster_Attack);
 	WyvernCollision->SetCollisionType(ECollisionType::RotRect);
 	WyvernCollision->SetScale((FVector(72.f, 74.0f)) * 4.0f);
+
+	PlayerCheck = CreateDefaultSubObject<UCollision>("Renderer");
+	PlayerCheck->SetupAttachment(Root);
+	PlayerCheck->SetCollisionGroup(ECollisionOrder::Monster);
+	PlayerCheck->SetCollisionType(ECollisionType::RotRect);
+	PlayerCheck->SetScale((FVector(72.f, 74.0f)) * 8.0f);
 
 	InputOn(); // Test
 }
@@ -71,6 +78,8 @@ void AWyvern::SettingBegin()
 {
 	SetActorLocation(InActorPos);
 	WyvernRenderer->SetPosition(InRenderPos);
+	WyvernCollision->SetPosition(InRenderPos);
+	PlayerCheck->SetPosition(InRenderPos);
 }
 
 
@@ -80,14 +89,14 @@ void AWyvern::IdleBegin()
 	if (false == WyvernRenderer->IsActive())
 	{
 		WyvernRenderer->SetActive(true);
+		WyvernCollision->SetActive(true);
+		PlayerCheck->SetActive(true);
 	}
-
-	WyvernCollision->SetPosition(WyvernRenderer->GetWorldPosition());
 }
 
 void AWyvern::IdleTick(float _DeltaTime)
 {
-	int a = 0;
+	
 
 	if (true == IsPress('N'))
 	{
@@ -124,4 +133,21 @@ void AWyvern::IdleTick(float _DeltaTime)
 
 void AWyvern::IdleExit()
 {
+}
+
+void AWyvern::CollisionCheck(float _DeltaTime)
+{
+	WyvernCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
+		{
+
+		}
+	);
+
+
+	PlayerCheck->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+
+		}
+	);
 }
