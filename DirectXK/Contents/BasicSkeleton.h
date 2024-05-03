@@ -52,9 +52,6 @@ private :
 	void AttackBegin();
 	void AttackTick(float _DeltaTime);
 	void AttackExit();
-	void DieBegin();
-	void DieTick(float _DeltaTime);
-	void DieExit();
 
 	void CollisionCheck(float _Time);
 
@@ -69,5 +66,6 @@ private :
 	float PlayerNotCatchTime = 0.0f;
 	float RunTime = 0.0f;
 	std::string PreState = "";
+	int Hp = 10;
 };
 

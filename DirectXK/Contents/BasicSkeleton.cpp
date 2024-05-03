@@ -84,10 +84,11 @@ void ABasicSkeleton::StateInit()
 		std::bind(&ABasicSkeleton::AttackBegin, this),
 		std::bind(&ABasicSkeleton::AttackTick, this, std::placeholders::_1),
 		std::bind(&ABasicSkeleton::AttackExit, this));
-	SKState.SetFunction("Die",
-		std::bind(&ABasicSkeleton::DieBegin, this),
-		std::bind(&ABasicSkeleton::DieTick, this, std::placeholders::_1),
-		std::bind(&ABasicSkeleton::DieExit, this));
+	SKState.SetStartFunction("Die", [=]()
+		{
+			Destroy();
+		}
+	);
 
 
 	SKState.ChangeState("None");
@@ -192,22 +193,19 @@ void ABasicSkeleton::AttackExit()
 
 
 
-
-void ABasicSkeleton::DieBegin()
-{
-}
-
-void ABasicSkeleton::DieTick(float _DeltaTime)
-{
-}
-
-void ABasicSkeleton::DieExit()
-{
-}
-
-
 void ABasicSkeleton::CollisionCheck(float _Time)
 {
+	BasicSkeletonCollision->CollisionStay(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			Hp -= 10;
+			if (Hp >= 0)
+			{
+				SKState.ChangeState("Die");
+				return;
+			}
+		}
+	);
+
 	PlayerCheckCollision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			SKState.ChangeState("Attack");
