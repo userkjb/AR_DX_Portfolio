@@ -16,6 +16,11 @@ public:
 	ALightningBall& operator=(const ALightningBall& _Other) = delete;
 	ALightningBall& operator=(ALightningBall&& _Other) noexcept = delete;
 
+	inline void SetPlayerDir(FVector _Pos)
+	{
+		MovePlayerDir = _Pos;
+	}
+
 	inline void SettingActorPosition(FVector _Pos)
 	{
 		CreatePos = _Pos;
@@ -46,8 +51,11 @@ private :
 	USpriteRenderer* LightningBallRenderer = nullptr;
 	
 	UStateManager State;
+	FVector MovePlayerDir = FVector::Zero;
 	FVector CreatePos = FVector::Zero;
-	FVector MoveDir = FVector::Zero;
-	EEngineDir WyvernDir = EEngineDir::MAX;
+
+	const float Speed = 200.0f;
+	const float LifeIsTime = 5.0f; // 5.0f
+	float LifeTime = 0.0f;
 };
 

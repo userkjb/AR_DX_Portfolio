@@ -181,7 +181,7 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 	if (true == IsDown('L'))
 	{
 		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
-		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
+		BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
 		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
 		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
 		BlackSphere->SettingPosition();
@@ -192,6 +192,17 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 			BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
 			BasicSkeleton->CreateBasicSkeleton();
 		}*/
+	}
+
+	if (nullptr != BlackSphere)
+	{
+		FVector PlayerDir = Player->GetActorLocation();
+		FVector WyvernPos = BlackSphere->GetRenderWorldPos();
+		
+		float4 Leng = PlayerDir - WyvernPos;
+		float4 MovePlayerDir = Leng.Normalize2DReturn();
+
+		BlackSphere->SetPlayerPos(MovePlayerDir);
 	}
 }
 

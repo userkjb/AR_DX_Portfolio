@@ -37,6 +37,16 @@ public:
 		InRenderPos = _Pos;
 	}
 
+	inline void SetPlayerPos(FVector _PlayerPos)
+	{
+		SendPlayerDir = _PlayerPos;
+	}
+
+	inline FVector GetRenderWorldPos()
+	{
+		return WyvernRenderer->GetWorldPosition();
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -63,10 +73,12 @@ private:
 
 	FVector InActorPos = FVector::Zero;
 	FVector InRenderPos = FVector::Zero;
+	FVector SendPlayerDir = FVector::Zero;
 	
 	bool Attack_Ready = false;
 	bool b_Attack_Down = false;
 	bool b_Attack_Up = false;
 	bool ChangeAnimation_One = false;
+	float AttackDelayTime = 0.0f;
 };
 

@@ -63,12 +63,21 @@ void ALightningBall::StateInit()
 void ALightningBall::CreateBegin()
 {
 	LightningBallRenderer->ChangeAnimation("LightningBall");
+	LifeTime = 0.0f;
 }
 void ALightningBall::CreateTick(float _DeltaTime)
 {
-	int a = 0;
+	LifeTime += _DeltaTime;
+
+	FVector ShotVector = MovePlayerDir * Speed * _DeltaTime;
+
+	AddActorLocation(ShotVector);
+
+	if (LifeIsTime <= LifeTime)
+	{
+		Destroy();
+	}
 }
 void ALightningBall::CreateExit()
 {
 }
-// ConditionParticle_Shock

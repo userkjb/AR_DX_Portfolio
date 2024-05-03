@@ -3,6 +3,7 @@
 
 class ALasleyStageTwoMap;
 class APlayer;
+class AWyvern;
 class ALasleyStageTwoGM : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -40,9 +41,10 @@ private :
 
 
 	bool FreeCamera = false;
-	std::shared_ptr<UCamera> Camera;
-	std::shared_ptr<ALasleyStageTwoMap> MapActor;
-	std::shared_ptr<APlayer> Player;
+	std::shared_ptr<UCamera> Camera = nullptr;
+	std::shared_ptr<ALasleyStageTwoMap> MapActor = nullptr;
+	std::shared_ptr<APlayer> Player = nullptr;
+	std::shared_ptr<AWyvern> BlackSphere = nullptr;
 
 	UStateManager LevelState;
 	bool IsOne = true;

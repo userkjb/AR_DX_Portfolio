@@ -106,6 +106,7 @@ void AWyvern::IdleBegin()
 	}
 
 	WyvernRenderer->ChangeAnimation("Idle");
+	AttackDelayTime = 0.0f;
 }
 
 void AWyvern::IdleTick(float _DeltaTime)
@@ -113,14 +114,6 @@ void AWyvern::IdleTick(float _DeltaTime)
 	CollisionCheck(_DeltaTime);
 
 
-
-	if (true == IsDown('K'))
-	{
-		FVector BallPos = GetActorLocation();
-		std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
-		LightningBall->SettingActorPosition(BallPos);
-		LightningBall->CreateLightningBool();
-	}
 
 	if (true == IsPress('N'))
 	{
@@ -157,6 +150,7 @@ void AWyvern::IdleTick(float _DeltaTime)
 
 void AWyvern::IdleExit()
 {
+	AttackDelayTime = 0.0f;
 }
 
 
@@ -196,13 +190,22 @@ void AWyvern::AttackTick(float _DeltaTime)
 	WyvernRenderer->SetFrameCallback("Attack_Down", 0, [=]()
 		{
 			// 공격!
-			int a = 0;
+			//FVector BallPos = GetActorLocation();
+			FVector BallPos = WyvernRenderer->GetWorldPosition();
 			std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
+			LightningBall->SetPlayerDir(SendPlayerDir);
+			LightningBall->SettingActorPosition(BallPos);
+			LightningBall->CreateLightningBool();
 		}
 	);
 	WyvernRenderer->SetFrameCallback("Attack_Down", 2, [=]()
 		{
 			// 공격!
+			FVector BallPos = WyvernRenderer->GetWorldPosition();
+			std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
+			LightningBall->SetPlayerDir(SendPlayerDir);
+			LightningBall->SettingActorPosition(BallPos);
+			LightningBall->CreateLightningBool();
 			b_Attack_Down = true;
 		}
 	);
@@ -242,11 +245,21 @@ void AWyvern::AttackTick(float _DeltaTime)
 	WyvernRenderer->SetFrameCallback("Attack_Up", 0, [=]()
 		{
 			// 공격!
+			FVector BallPos = WyvernRenderer->GetWorldPosition();
+			std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
+			LightningBall->SetPlayerDir(SendPlayerDir);
+			LightningBall->SettingActorPosition(BallPos);
+			LightningBall->CreateLightningBool();
 		}
 	);
 	WyvernRenderer->SetFrameCallback("Attack_Up", 2, [=]()
 		{
 			// 공격!
+			FVector BallPos = WyvernRenderer->GetWorldPosition();
+			std::shared_ptr<ALightningBall> LightningBall = GetWorld()->SpawnActor<ALightningBall>("LightningBall");
+			LightningBall->SetPlayerDir(SendPlayerDir);
+			LightningBall->SettingActorPosition(BallPos);
+			LightningBall->CreateLightningBool();
 		}
 	);
 
@@ -286,9 +299,9 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 		}
 	);
 
-
 	PlayerCheck->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
+			AttackDelayTime += _DeltaTime;
 			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 
 			FVector PlayerPos = Player->GetActorLocation();
@@ -304,8 +317,11 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 				WyvernRenderer->SetDir(EEngineDir::Left);
 			}
 
-			State.ChangeState("Attack");
-			return;
+			if (3.0f <= AttackDelayTime)
+			{
+				State.ChangeState("Attack");
+				return;
+			}
 		}
 	);
 }
