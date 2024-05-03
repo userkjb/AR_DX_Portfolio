@@ -23,6 +23,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void DebugMessageFunction(float _DeltaTime);
+
 	URenderer* Renderer;
 	float4 Color;
 };

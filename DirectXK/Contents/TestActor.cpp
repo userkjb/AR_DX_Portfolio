@@ -106,4 +106,19 @@ void ATestActor::Tick(float _DeltaTime)
 	{
 		GetWorld()->GetMainCamera()->SetActorLocation(GetActorLocation() + float4{ 0.0f, 0.0f, -100.0f });
 	}
+
+	DebugMessageFunction(_DeltaTime);
+}
+
+void ATestActor::DebugMessageFunction(float _DeltaTime)
+{
+	{
+		float4 WorldMousePos = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(GEngine->EngineWindow.GetScreenMousePos());
+		float4 PlayerPos = GetActorLocation();
+
+		float4 Dir = WorldMousePos - PlayerPos;
+
+		std::string Msg = std::format("Deg : {}\n", std::to_string(Dir.RightVectorToAngle2DDeg()));
+		UEngineDebugMsgWindow::PushMsg(Msg);
+	}
 }
