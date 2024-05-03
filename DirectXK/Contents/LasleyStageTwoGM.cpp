@@ -19,7 +19,9 @@ ALasleyStageTwoGM::ALasleyStageTwoGM()
 		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 	}
 
+#ifdef _DEBUG
 	InputOn(); // test
+#endif
 }
 
 ALasleyStageTwoGM::~ALasleyStageTwoGM()

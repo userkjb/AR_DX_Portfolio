@@ -170,6 +170,7 @@ void AWyvern::AttackBegin()
 
 void AWyvern::AttackTick(float _DeltaTime)
 {
+	CollisionCheck(_DeltaTime);
 	// 공격 준비가 끝나면,
 	WyvernRenderer->SetLastFrameCallback("Attack_Ready", [=]()
 		{

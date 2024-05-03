@@ -144,6 +144,7 @@ void ABasicSkeleton::RunBegin()
 void ABasicSkeleton::RunTick(float _DeltaTime)
 {
 	RunTime += _DeltaTime;
+	CollisionCheck(_DeltaTime);
 	FVector V_Run = FVector::Zero;
 
 	if (EEngineDir::Right == BasicSkeletonRenderer->GetDir())
@@ -179,6 +180,7 @@ void ABasicSkeleton::AttackBegin()
 
 void ABasicSkeleton::AttackTick(float _DeltaTime)
 {
+	CollisionCheck(_DeltaTime);
 	if (true == BasicSkeletonRenderer->IsCurAnimationEnd())
 	{
 		SKState.ChangeState("Idle");
@@ -195,7 +197,7 @@ void ABasicSkeleton::AttackExit()
 
 void ABasicSkeleton::CollisionCheck(float _Time)
 {
-	BasicSkeletonCollision->CollisionStay(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
+	BasicSkeletonCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			Hp -= 10;
 			if (Hp >= 0)
@@ -206,7 +208,7 @@ void ABasicSkeleton::CollisionCheck(float _Time)
 		}
 	);
 
-	PlayerCheckCollision->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+	PlayerCheckCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			SKState.ChangeState("Attack");
 			return;
