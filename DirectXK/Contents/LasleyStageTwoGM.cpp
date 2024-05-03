@@ -166,6 +166,9 @@ void ALasleyStageTwoGM::IdleExit()
 
 void ALasleyStageTwoGM::BattleBegin()
 {
+
+
+
 }
 
 void ALasleyStageTwoGM::BattleTick(float _DeltaTime)

@@ -114,7 +114,7 @@ void AWyvern::IdleTick(float _DeltaTime)
 	CollisionCheck(_DeltaTime);
 
 
-
+#ifdef _DEBUG
 	if (true == IsPress('N'))
 	{
 		FVector Value = FVector(-2.0f, 0.0f, 0.0f);
@@ -146,6 +146,7 @@ void AWyvern::IdleTick(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(LocalPos);
 	UEngineDebugMsgWindow::PushMsg(WorldRot);
 	UEngineDebugMsgWindow::PushMsg(LocalRot);
+#endif
 }
 
 void AWyvern::IdleExit()
@@ -270,7 +271,7 @@ void AWyvern::AttackTick(float _DeltaTime)
 	}
 
 
-
+#ifdef _DEBUG
 	std::string ActorRot = std::format("Actor Rot : {}\n", GetActorForwardVector().ToString());
 	std::string WorldPos = std::format("Wyvern World Pos : {}\n", WyvernCollision->GetWorldPosition().ToString());
 	std::string LocalPos = std::format("Wyvern Local Pos : {}\n", WyvernCollision->GetLocalPosition().ToString());
@@ -282,6 +283,7 @@ void AWyvern::AttackTick(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(LocalPos);
 	UEngineDebugMsgWindow::PushMsg(WorldRot);
 	UEngineDebugMsgWindow::PushMsg(LocalRot);
+#endif
 }
 
 void AWyvern::AttackExit()
