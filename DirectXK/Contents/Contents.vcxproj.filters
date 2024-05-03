@@ -85,6 +85,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Monster\Lightning_Ball">
       <UniqueIdentifier>{bdba1cca-c956-4fc6-8555-2646afa6a6b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Monster\Base">
+      <UniqueIdentifier>{f8af3257-450d-4d29-8232-f6ff68a8b77c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -213,6 +216,12 @@
     <ClCompile Include="LightningBall.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Monster\Lightning_Ball</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterBase.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicSkeleton.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -328,6 +337,12 @@
     </ClInclude>
     <ClInclude Include="LightningBall.h">
       <Filter>Level\03_LasleyLevel\Actor\Monster\Lightning_Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBase.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicSkeleton.h">
+      <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

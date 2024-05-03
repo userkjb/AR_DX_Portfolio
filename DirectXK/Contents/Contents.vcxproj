@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="AbyssGuardian.h" />
     <ClInclude Include="ArmoredSkel.h" />
+    <ClInclude Include="BasicSkeleton.h" />
     <ClInclude Include="DemonicBlade.h" />
     <ClInclude Include="DevilChurchWarlock.h" />
     <ClInclude Include="DimensionSlash.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="LasleyStageTwoMap.h" />
     <ClInclude Include="LightningBall.h" />
     <ClInclude Include="MapEditorGUI.h" />
+    <ClInclude Include="MonsterBase.h" />
     <ClInclude Include="MyWidget.h">
       <SubType>
       </SubType>
@@ -218,6 +220,7 @@
   <ItemGroup>
     <ClCompile Include="AbyssGuardian.cpp" />
     <ClCompile Include="ArmoredSkel.cpp" />
+    <ClCompile Include="BasicSkeleton.cpp" />
     <ClCompile Include="DemonicBlade.cpp" />
     <ClCompile Include="DevilChurchWarlock.cpp" />
     <ClCompile Include="DimensionSlash.cpp" />
@@ -240,6 +243,7 @@
     <ClCompile Include="Lasley_State.cpp" />
     <ClCompile Include="LightningBall.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
+    <ClCompile Include="MonsterBase.cpp" />
     <ClCompile Include="MyWidget.cpp">
       <SubType>
       </SubType>

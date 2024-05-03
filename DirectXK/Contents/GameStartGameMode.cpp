@@ -36,19 +36,6 @@ void AGameStartGameMode::BeginPlay()
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 	}
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\GlobalMonster\\Skeleton");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-		UEngineSprite::CreateCutting("sk_Attack.png", 6, 2);
-		UEngineSprite::CreateCutting("sk_Idle.png", 5, 1);
-		UEngineSprite::CreateCutting("sk_Run.png", 4, 2);
-	}
 
 	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));

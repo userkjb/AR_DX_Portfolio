@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Wyvern.h"
 #include "BackGround.h"
+#include "BasicSkeleton.h"
 
 ALasleyStageTwoGM::ALasleyStageTwoGM()
 {
@@ -28,6 +29,20 @@ ALasleyStageTwoGM::~ALasleyStageTwoGM()
 void ALasleyStageTwoGM::BeginPlay()
 {
 	Super::BeginPlay();
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\GlobalMonster\\Skeleton");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+		UEngineSprite::CreateCutting("sk_Attack.png", 6, 2);
+		UEngineSprite::CreateCutting("sk_Idle.png", 5, 1);
+		UEngineSprite::CreateCutting("sk_Run.png", 4, 2);
+	}
 
 	{
 		Camera = GetWorld()->GetMainCamera();
@@ -165,12 +180,16 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 
 	if (true == IsDown('L'))
 	{
-		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
-		std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
-		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
-		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
-		BlackSphere->SettingPosition();
-		BlackSphere->CreateWyvern();
+		//float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
+		//std::shared_ptr<AWyvern> BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
+		//BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
+		//BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		//BlackSphere->SettingPosition();
+		//BlackSphere->CreateWyvern();
+
+		std::shared_ptr<ABasicSkeleton> BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
+		BasicSkeleton->SetBasicSkeletonPos(FVector(200.0f, 200.0f));
+		BasicSkeleton->CreateBasicSkeleton();
 	}
 }
 
