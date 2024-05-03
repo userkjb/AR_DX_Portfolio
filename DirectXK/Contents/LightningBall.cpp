@@ -18,3 +18,4 @@ void ALightningBall::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 }
+// ConditionParticle_Shock
