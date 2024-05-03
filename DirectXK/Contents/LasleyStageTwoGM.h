@@ -4,6 +4,7 @@
 class ALasleyStageTwoMap;
 class APlayer;
 class AWyvern;
+class ABasicSkeleton;
 class ALasleyStageTwoGM : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -45,6 +46,7 @@ private :
 	std::shared_ptr<ALasleyStageTwoMap> MapActor = nullptr;
 	std::shared_ptr<APlayer> Player = nullptr;
 	std::shared_ptr<AWyvern> BlackSphere = nullptr;
+	std::shared_ptr<ABasicSkeleton> BasicSkeleton = nullptr;
 
 	UStateManager LevelState;
 	bool IsOne = true;

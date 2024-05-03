@@ -166,36 +166,28 @@ void ALasleyStageTwoGM::IdleExit()
 
 void ALasleyStageTwoGM::BattleBegin()
 {
+	// 소환.
+	{
+		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
 
+		BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
+		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
+		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		BlackSphere->SettingPosition();
+		BlackSphere->CreateWyvern();
+	}
 
+	{
+		BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
+		BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
+		BasicSkeleton->CreateBasicSkeleton();
+	}
 
 }
 
 void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 {
 	CameraMove(_DeltaTime);
-
-	if (true == MapActor->IsBattleEnd())
-	{
-		LevelState.ChangeState("Idle");
-		return;
-	}
-
-	if (true == IsDown('L'))
-	{
-		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
-		BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
-		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
-		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
-		BlackSphere->SettingPosition();
-		BlackSphere->CreateWyvern();
-
-		/*{
-			std::shared_ptr<ABasicSkeleton> BasicSkeleton = GetWorld()->SpawnActor<ABasicSkeleton>("BasicSkeleton");
-			BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
-			BasicSkeleton->CreateBasicSkeleton();
-		}*/
-	}
 
 	if (nullptr != BlackSphere)
 	{
@@ -206,6 +198,15 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 		float4 MovePlayerDir = Leng.Normalize2DReturn();
 
 		BlackSphere->SetPlayerPos(MovePlayerDir);
+	}
+
+
+	// 스테이지 끝나는 조건
+	if (true == BlackSphere->IsDestroy() &&
+		true == BasicSkeleton->IsDestroy())
+	{
+		LevelState.ChangeState("Idle");
+		return;
 	}
 }
 

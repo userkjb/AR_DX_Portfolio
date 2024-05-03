@@ -278,7 +278,6 @@ void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
 	if (true == IsDown('P'))
 	{
 		State.ChangeState("StageIdle");
-		b_BattleEnd = true;
 		return;
 	}
 }
