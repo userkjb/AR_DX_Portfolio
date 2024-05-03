@@ -271,14 +271,6 @@ void ALasleyStageTwoMap::StageBattleTick(float _DeltaTime)
 			MapObjectLeftDoor->ChangeAnimation("Stele_IdleLeftDoor");
 		}
 	);
-
-
-	// test
-	if (true == IsDown('P'))
-	{
-		State.ChangeState("StageIdle");
-		return;
-	}
 }
 
 void ALasleyStageTwoMap::StageBattleExit()

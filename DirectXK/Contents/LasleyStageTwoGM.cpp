@@ -205,6 +205,8 @@ void ALasleyStageTwoGM::BattleTick(float _DeltaTime)
 	if (true == BlackSphere->IsDestroy() &&
 		true == BasicSkeleton->IsDestroy())
 	{
+		MapActor->MapStateIdle(); // Map을 Idle 상태로 변경.
+
 		LevelState.ChangeState("Idle");
 		return;
 	}

@@ -32,6 +32,12 @@ public:
 		StageIsOne = _Val;
 	}
 
+	inline void MapStateIdle()
+	{
+		State.ChangeState("StageIdle");
+		return;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
