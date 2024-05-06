@@ -2,6 +2,7 @@
 #include <EngineCore/Widget.h>
 
 // Ό³Έν :
+class UImage;
 class MyWidget : public UWidget
 {
 	GENERATED_BODY(UWidget)
@@ -21,6 +22,6 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-
+	UImage* HpBar = nullptr;
 };
 

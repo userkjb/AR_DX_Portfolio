@@ -35,7 +35,7 @@ void URenderer::SetOrder(int _Order)
 
 	if (_Order == PrevOrder)
 	{
-		MsgBoxAssert("이전 Order와 같습니다.");
+		//MsgBoxAssert("이전 Order와 같습니다.");
 		return;
 	}
 

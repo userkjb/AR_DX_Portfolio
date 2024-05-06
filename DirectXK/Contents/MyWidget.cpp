@@ -34,16 +34,21 @@ void MyWidget::BeginPlay()
 	//	Image->SetPosition({ 400, 300 });
 	//}
 
+	//{
+	//	UTextWidget* Image = CreateWidget<UTextWidget>(GetWorld(), "Test");
+	//	Image->SetupAttachment(this);
+	//	Image->SetFont("叡辞");
+	//	Image->SetScale(100.0f);
+	//	Image->SetColor(Color8Bit::Blue);
+	//	Image->SetPosition({ 400, 300 });
+	//	Image->SetText("馬馬馬た買たびけしい君たびいけし君たびけいし");
+	//}
+
 	{
-		UTextWidget* Image = CreateWidget<UTextWidget>(GetWorld(), "Test");
-		Image->SetupAttachment(this);
-		Image->SetFont("叡辞");
-		Image->SetScale(100.0f);
-		Image->SetColor(Color8Bit::Blue);
-		Image->SetPosition({ 400, 300 });
-		Image->SetText("馬馬馬た買たびけしい君たびいけし君たびけいし");
+
 	}
 
+	// Hp Base
 	{
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		ScreenScaleHalf.X -= 148.0f;
@@ -60,16 +65,14 @@ void MyWidget::BeginPlay()
 		ScreenScaleHalf.X -= 148.0f;
 		ScreenScaleHalf.Y -= 32.0f;
 
-		UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBar");
-		//Image->SetupAttachment(this);
-		Image->AddToViewPort(2);
-		//Image->SetSprite("LifeBar.png");
-		Image->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
-		//Image->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-		Image->SetPosition(FVector(0.0f, 0.0f));
-		Image->SetAutoSize(4.0f, true);
-		Image->SetWidgetScale3D(FVector(100.0f, 100.0f));
-		Image->ChangeAnimation("HpBar");
+		HpBar = CreateWidget<UImage>(GetWorld(), "HpBar");
+		//Image->SetupAttachment(this); // 戚暗 馬檎 1波漆 繊生稽 蟹身.
+		HpBar->AddToViewPort(2);
+		HpBar->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
+		HpBar->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		HpBar->SetAutoSize(4.0f, true);
+		//Image->SetWidgetScale3D(FVector(100.0f, 100.0f));
+		HpBar->ChangeAnimation("HpBar");
 	}
 
 
@@ -79,4 +82,9 @@ void MyWidget::BeginPlay()
 void MyWidget::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	if (true == UEngineInput::IsDown('T'))
+	{
+		HpBar->AddPosition(FVector(1.0f, 0.0f, 0.0f));
+	}
 }
