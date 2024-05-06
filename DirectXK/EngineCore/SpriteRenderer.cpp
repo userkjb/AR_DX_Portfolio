@@ -370,7 +370,9 @@ void USpriteRenderer::CreateAnimation(
 
 void USpriteRenderer::ChangeAnimation(std::string_view _AnimationName, int StartFrame)
 {
-	if (nullptr != CurAnimation && _AnimationName == CurAnimation->GetName())
+	std::string ChangeAnimaionName = UEngineString::ToUpper(_AnimationName);
+	std::string CurAnimaionName = UEngineString::ToUpper(CurAnimation->GetName());
+	if (nullptr != CurAnimation && CurAnimaionName == ChangeAnimaionName)
 	{
 		return;
 	}
