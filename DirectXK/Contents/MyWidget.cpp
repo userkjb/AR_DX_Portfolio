@@ -2,6 +2,7 @@
 #include "MyWidget.h"
 #include <EngineCore/TextWidget.h>
 #include <EngineCore/Image.h>
+#include "PlayerStruct.h"
 
 // 하위 위젯들을 관리하는 위젯인것.
 MyWidget::MyWidget()
@@ -45,10 +46,18 @@ void MyWidget::BeginPlay()
 	//}
 
 	{
-
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= 148.0f;
+		ScreenScaleHalf.Y -= 32.0f;
+		HpBar_Base = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
+		HpBar_Base->SetupAttachment(this);
+		HpBar_Base->SetSprite("PlayerLifeBack2.png");
+		HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		HpBar_Base->SetAutoSize(4.0f, true);
+		DefaultScale = HpBar_Base->GetWidgetScale3D();
 	}
 
-	// Hp Base
+	
 	{
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		ScreenScaleHalf.X -= 148.0f;
@@ -65,14 +74,14 @@ void MyWidget::BeginPlay()
 		ScreenScaleHalf.X -= 148.0f;
 		ScreenScaleHalf.Y -= 32.0f;
 
-		HpBar = CreateWidget<UImage>(GetWorld(), "HpBar");
+		HpBar_Ani = CreateWidget<UImage>(GetWorld(), "HpBar");
 		//Image->SetupAttachment(this); // 이거 하면 1픽셀 점으로 나옴.
-		HpBar->AddToViewPort(2);
-		HpBar->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
-		HpBar->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-		HpBar->SetAutoSize(4.0f, true);
+		HpBar_Ani->AddToViewPort(2);
+		HpBar_Ani->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
+		HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		HpBar_Ani->SetAutoSize(4.0f, true);
 		//Image->SetWidgetScale3D(FVector(100.0f, 100.0f));
-		HpBar->ChangeAnimation("HpBar");
+		HpBar_Ani->ChangeAnimation("HpBar");
 	}
 
 
@@ -85,6 +94,11 @@ void MyWidget::Tick(float _DeltaTime)
 
 	if (true == UEngineInput::IsDown('T'))
 	{
-		HpBar->AddPosition(FVector(1.0f, 0.0f, 0.0f));
+		//HpBar_Ani->AddPosition(FVector(1.0f, 0.0f, 0.0f));
+
+		DefaultScale.X += -1.0f;
+		HpBar_Base->SetWidgetScale3D(DefaultScale);
 	}
+
+	int x = EPlayerStateValue::Hp;
 }

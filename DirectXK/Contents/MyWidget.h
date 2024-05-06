@@ -22,6 +22,8 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
-	UImage* HpBar = nullptr;
+	UImage* HpBar_Base = nullptr;
+	UImage* HpBar_Ani = nullptr;
+	FVector DefaultScale = FVector::Zero;
 };
 
