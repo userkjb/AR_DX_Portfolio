@@ -52,6 +52,7 @@ void MyWidget::BeginPlay()
 		HpBar_Base = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
 		HpBar_Base->SetupAttachment(this);
 		HpBar_Base->SetSprite("PlayerLifeBack2.png");
+		ScreenScaleHalf.X -= 80.0f;
 		HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
 		HpBar_Base->SetAutoSize(4.0f, true);
 		DefaultScale = HpBar_Base->GetWidgetScale3D();
@@ -98,6 +99,7 @@ void MyWidget::Tick(float _DeltaTime)
 
 		DefaultScale.X += -1.0f;
 		HpBar_Base->SetWidgetScale3D(DefaultScale);
+		HpBar_Base->AddPosition(FVector(-0.5f, 0.0f, 0.0f));
 	}
 
 	int x = EPlayerStateValue::Hp;
