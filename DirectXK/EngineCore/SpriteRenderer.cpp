@@ -297,6 +297,16 @@ void USpriteRenderer::SetSamplering(ETextureSampling _Value)
 		Resources->SettingTexture("Image", CurTexture, "POINT");
 		break;
 	}
+	case ETextureSampling::LINEARCLAMP:
+	{
+		Resources->SettingTexture("Image", CurTexture, "LINEARCLAMP");
+		break;
+	}
+	case ETextureSampling::POINTCLAMP:
+	{
+		Resources->SettingTexture("Image", CurTexture, "POINTCLAMP");
+		break;
+	}
 	default:
 		break;
 	}
