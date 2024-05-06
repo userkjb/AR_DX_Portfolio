@@ -3,6 +3,8 @@
 #include <EngineCore/Camera.h>
 
 #include "GameLogo.h"
+#include "GameStartText.h"
+#include "GameTitleBG.h"
 
 ATitleGameMode::ATitleGameMode()
 {
@@ -34,8 +36,12 @@ void ATitleGameMode::BeginPlay()
 		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 	}
 
-	std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-	Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	// 비둘기 렌더링 해야 함.
+
+	{
+		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
+		Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+	}
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -53,4 +59,6 @@ void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 	Super::LevelStart(_PrevLevel);
 
 	GetWorld()->SpawnActor<AGameLogo>("GameLogo");
+	GetWorld()->SpawnActor<AGameStartText>("GameStartText");
+	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG");
 }

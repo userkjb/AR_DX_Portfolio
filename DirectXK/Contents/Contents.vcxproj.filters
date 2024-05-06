@@ -88,6 +88,9 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Monster\Base">
       <UniqueIdentifier>{f8af3257-450d-4d29-8232-f6ff68a8b77c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\01_TitleLevel\Widget">
+      <UniqueIdentifier>{267bf9ec-4a95-4139-a702-738698d0d754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -222,6 +225,15 @@
     <ClCompile Include="BasicSkeleton.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
     </ClCompile>
+    <ClCompile Include="GameTitleBG.cpp">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleWidget.cpp">
+      <Filter>Level\01_TitleLevel\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStartText.cpp">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -343,6 +355,15 @@
     </ClInclude>
     <ClInclude Include="BasicSkeleton.h">
       <Filter>Level\03_LasleyLevel\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTitleBG.h">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleWidget.h">
+      <Filter>Level\01_TitleLevel\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStartText.h">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

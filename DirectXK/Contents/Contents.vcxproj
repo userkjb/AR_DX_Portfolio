@@ -177,6 +177,8 @@
     <ClInclude Include="ContentsConstValue.h" />
     <ClInclude Include="ContentsGUI.h" />
     <ClInclude Include="GameStartGameMode.h" />
+    <ClInclude Include="GameStartText.h" />
+    <ClInclude Include="GameTitleBG.h" />
     <ClInclude Include="LasleySkill.h" />
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -209,6 +211,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TitleGameMode.h" />
+    <ClInclude Include="TitleWidget.h" />
     <ClInclude Include="TownGameMode.h" />
     <ClInclude Include="WarlockBlackSphere.h" />
     <ClInclude Include="WeaponFX.h">
@@ -229,6 +232,8 @@
     <ClCompile Include="ContentsGUI.cpp" />
     <ClCompile Include="GameStartGameMode.cpp" />
     <ClCompile Include="GameStartGameMode_State.cpp" />
+    <ClCompile Include="GameStartText.cpp" />
+    <ClCompile Include="GameTitleBG.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />
@@ -269,6 +274,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TitleGameMode.cpp" />
+    <ClCompile Include="TitleWidget.cpp" />
     <ClCompile Include="TownGameMode.cpp" />
     <ClCompile Include="WarlockBlackSphere.cpp" />
     <ClCompile Include="WeaponFX.cpp">

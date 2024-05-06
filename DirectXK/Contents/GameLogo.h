@@ -1,7 +1,7 @@
 #pragma once
 #include <Enginecore/Actor.h>
-#include <EngineCore/SpriteRenderer.h>
 
+class USpriteRenderer;
 class AGameLogo : public AActor
 {
 	GENERATED_BODY(AActor)

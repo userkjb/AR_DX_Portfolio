@@ -1,9 +1,15 @@
 #include "PreCompile.h"
 #include "GameLogo.h"
+#include <EngineCore/DefaultSceneComponent.h>
+
 
 AGameLogo::AGameLogo()
 {
+	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
+	SetRoot(Root);
+
 	LogoRenderer = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
+	LogoRenderer->SetupAttachment(Root);
 }
 
 AGameLogo::~AGameLogo()
