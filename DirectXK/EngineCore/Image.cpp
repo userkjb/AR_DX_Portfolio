@@ -83,7 +83,7 @@ void UImage::MaterialSettingEnd()
 	Resources->SettingTexture("Image", "EngineBaseTexture.png", "POINT");
 	Resources->SettingConstantBuffer("ResultColorValue", ColorData);
 	Resources->SettingConstantBuffer("FCuttingData", CuttingDataValue);
-	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue); // FVertexUV ¼³Á¤.
+	Resources->SettingConstantBuffer("FVertexUV", VertexUVValue);
 }
 
 void UImage::Tick(float _DeltaTime)
@@ -356,4 +356,14 @@ void UImage::CreateAnimation(std::string_view _AnimationName, std::string_view _
 bool UImage::IsCurAnimationEnd()
 {
 	return CurAnimation->IsEnd;
+}
+
+void UImage::SetDir(EEngineDir _Dir)
+{
+	Dir = _Dir;
+
+	if (nullptr != CurInfo.Texture)
+	{
+		SetSpriteInfo(CurInfo);
+	}
 }
