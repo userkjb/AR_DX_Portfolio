@@ -33,6 +33,12 @@ void URenderer::SetOrder(int _Order)
 
 	int PrevOrder = GetOrder();
 
+	if (_Order == PrevOrder)
+	{
+		MsgBoxAssert("이전 Order와 같습니다.");
+		return;
+	}
+
 	Super::SetOrder(_Order);
 
 	if (nullptr != GetWorld())
