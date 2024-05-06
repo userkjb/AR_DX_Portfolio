@@ -285,6 +285,9 @@
     <ClCompile Include="TextWidget.cpp">
       <Filter>Object\UI\Contents</Filter>
     </ClCompile>
+    <ClCompile Include="EngineNetWindow.cpp">
+      <Filter>Editor\Contents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h">
@@ -475,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="TextWidget.h">
       <Filter>Object\UI\Contents</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineNetWindow.h">
+      <Filter>Editor\Contents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
