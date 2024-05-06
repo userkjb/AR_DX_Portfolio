@@ -89,21 +89,6 @@ void UEngineCore::EngineOptionInit()
 		File.Load(Ser);
 		EngineOption.DeSerialize(Ser);
 	}
-
-	{
-		UEngineDirectory NewDir;
-		NewDir.MoveToSearchChild("ContentsResources");
-		NewDir.Move("Image");
-		std::vector<UEngineFile> AllFiles = NewDir.GetAllFile({ ".ico" }, false);
-		if (AllFiles.empty() == true)
-		{
-			WindowIconPath = "";
-		}
-		else
-		{
-			WindowIconPath = AllFiles.front().GetFullPath();
-		}
-	}
 }
 
 void UEngineCore::EngineEnd()
