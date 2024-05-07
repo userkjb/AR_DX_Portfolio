@@ -34,8 +34,10 @@ private :
 
 
 	bool FreeCamera = false;
-
+	const float CameraMoveSpeed = 500.0f;
+	float DelayTime = 0.0f;
 	UStateManager LevelState;
+
 	void LevelStateInit();
 
 	void InStageBegin();
@@ -55,5 +57,6 @@ private :
 	void LasleyDieExit();
 
 	void CameraMove(float _DeltaTime);
+	void LasleySummonCameraMove(float _DeltaTime);
 };
 

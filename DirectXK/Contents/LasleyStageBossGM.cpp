@@ -47,7 +47,7 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 			FreeCamera = true;
 		}
 	}
-
+	
 }
 
 void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
@@ -163,14 +163,24 @@ void ALasleyStageBossGM::LasleySummonBegin()
 
 void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 {
+
 	std::string LasleyState = Lasley->GetState();
 	if (LasleyState != "Summons")
 	{
-		LevelState.ChangeState("LasleyBattle");
-		return;
+		DelayTime += _DeltaTime;
+		if (3.0f <= DelayTime)
+		{
+			// 약간의 딜레이 있어야 함.
+			// 정확히는 UI 이벤트가 끝나야 함.
+			LevelState.ChangeState("LasleyBattle");
+			return;
+		}
 	}
 
-	CameraMove(_DeltaTime);
+	// Player 키보드 입력 제한.
+
+	//CameraMove(_DeltaTime); // 카메라 Move 함수를 따로 만들어 줘야 한다.
+	LasleySummonCameraMove(_DeltaTime);
 }
 
 void ALasleyStageBossGM::LasleySummonExit()
@@ -257,5 +267,27 @@ void ALasleyStageBossGM::CameraMove(float _DeltaTime)
 		
 
 		Camera->SetActorLocation({ CameraPos.X, CameraPos.Y, -500.0f });
+	}
+}
+
+void ALasleyStageBossGM::LasleySummonCameraMove(float _DeltaTime)
+{
+	if (!FreeCamera) // false
+	{
+		FVector CameraMoveVector = FVector::Zero;
+
+		FVector CameraPos = Camera->GetActorLocation();
+		FVector LasleyPos = Lasley->GetActorLocation();
+		float CalPos = LasleyPos.X - CameraPos.X;
+		if (0 > CalPos)
+		{
+			CalPos *= -1.0f;
+		}
+
+		if (10.0 <= CalPos)
+		{
+			CameraMoveVector = FVector::Right * CameraMoveSpeed * _DeltaTime;
+			Camera->AddActorLocation(CameraMoveVector);
+		}
 	}
 }
