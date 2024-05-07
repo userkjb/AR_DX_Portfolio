@@ -40,6 +40,17 @@ public:
 		RecvVector.X = _RunX;
 	}
 
+	inline void SetPlayerStateIdleLock()
+	{
+		State.ChangeState("IdleLock");
+		return;
+	}
+	inline void SetPlayerStateIdle()
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+
 	void LevelIsDestroy();
 
 protected:
@@ -66,6 +77,9 @@ private:
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleEnd();
+	void IdleLockBegin();
+	void IdleLockTick(float _DeltaTime);
+	void IdleLockEnd();
 	void RunBegin();
 	void RunTick(float _DeltaTime);
 	void RunEnd();
@@ -87,6 +101,7 @@ private:
 	void CalMoveVector(float _DeltaTime);
 
 	void PixelCheck(float _DeltaTime);
+	void CollisionCheck(float _DeltaTime);
 
 	bool IsGround = false;
 	bool IsWall = false;

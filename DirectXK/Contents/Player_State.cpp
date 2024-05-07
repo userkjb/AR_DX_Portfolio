@@ -7,6 +7,7 @@
 void APlayer::StateInit()
 {
 	State.CreateState("Idle");
+	State.CreateState("IdleLock");
 	State.CreateState("Run");
 	State.CreateState("Jump");
 	State.CreateState("Jumping");
@@ -17,6 +18,10 @@ void APlayer::StateInit()
 		std::bind(&APlayer::IdleBegin, this),
 		std::bind(&APlayer::IdleTick, this, std::placeholders::_1),
 		std::bind(&APlayer::IdleEnd, this));
+	State.SetFunction("IdleLock",
+		std::bind(&APlayer::IdleLockBegin, this),
+		std::bind(&APlayer::IdleLockTick, this, std::placeholders::_1),
+		std::bind(&APlayer::IdleLockEnd, this));
 	State.SetFunction("Run",
 		std::bind(&APlayer::RunBegin, this),
 		std::bind(&APlayer::RunTick, this, std::placeholders::_1),
@@ -108,6 +113,19 @@ void APlayer::IdleTick(float _DeltaTime)
 void APlayer::IdleEnd()
 {
 	
+}
+#pragma endregion
+
+#pragma region Idle Lock
+void APlayer::IdleLockBegin()
+{
+	PlayerRenderer->ChangeAnimation("Idle");
+}
+void APlayer::IdleLockTick(float _DeltaTime)
+{
+}
+void APlayer::IdleLockEnd()
+{
 }
 #pragma endregion
 
@@ -454,4 +472,30 @@ void APlayer::CalMoveVector(float _DeltaTime)
 {
 	AddActorLocation(CalVectors * _DeltaTime);
 	int a = 0;
+}
+
+
+void APlayer::CollisionCheck(float _DeltaTime)
+{
+	PlayerCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			
+		}
+	);
+	PlayerCollision->CollisionEnter(ECollisionOrder::Monster_Attack, [=](std::shared_ptr<UCollision> _Collision)
+		{
+
+		}
+	);
+
+	PlayerCollision->CollisionEnter(ECollisionOrder::Boss, [=](std::shared_ptr<UCollision> _Collision)
+		{
+
+		}
+	);
+	PlayerCollision->CollisionEnter(ECollisionOrder::BossSkill, [=](std::shared_ptr<UCollision> _Collision)
+		{
+
+		}
+	);
 }

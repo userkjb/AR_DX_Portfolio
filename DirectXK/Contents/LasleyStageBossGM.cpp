@@ -159,13 +159,19 @@ void ALasleyStageBossGM::InStageExit()
 void ALasleyStageBossGM::LasleySummonBegin()
 {
 	Lasley->SetActive(true);
+
+	// Player 키보드 입력 제한.
+	if (nullptr != Player)
+	{
+		Player->SetPlayerStateIdleLock();
+	}
 }
 
 void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 {
 
 	std::string LasleyState = Lasley->GetState();
-	if (LasleyState != "Summons")
+	if (LasleyState != "Summons") // 라슬리의 상태가 Idle로 넘어감.
 	{
 		DelayTime += _DeltaTime;
 		if (3.0f <= DelayTime)
@@ -176,8 +182,6 @@ void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 			return;
 		}
 	}
-
-	// Player 키보드 입력 제한.
 
 	//CameraMove(_DeltaTime); // 카메라 Move 함수를 따로 만들어 줘야 한다.
 	LasleySummonCameraMove(_DeltaTime);
@@ -191,6 +195,8 @@ void ALasleyStageBossGM::LasleySummonExit()
 #pragma region LasleyBattle
 void ALasleyStageBossGM::LasleyBattleBegin()
 {
+	Player->SetPlayerStateIdle();
+	Lasley->IsStart();
 }
 
 void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)

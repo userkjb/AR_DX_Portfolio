@@ -154,8 +154,11 @@ void ALasley::IdleTick(float _DeltaTime)
 	// 정해진 첫 번째 패턴 DevilEye
 	if (2.0f <= IdleTime && PreStateName == "Summons")
 	{
-		State.ChangeState("DevilEye");
-		return;
+		if (true == BattleStart)
+		{
+			State.ChangeState("DevilEye");
+			return;
+		}
 	}
 
 	if (2.0f <= IdleTime && PreStateName == "DevilEye_One")

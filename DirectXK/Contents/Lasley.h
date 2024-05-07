@@ -24,6 +24,11 @@ public :
 	ALasley& operator=(const ALasley& _Other) = delete;
 	ALasley& operator=(ALasley&& _Other) noexcept = delete;
 
+	inline void IsStart()
+	{
+		BattleStart = true;
+	}
+
 	inline std::string GetState() const
 	{
 		return State.GetCurStateName();
@@ -104,6 +109,7 @@ private :
 
 	FVector PlayerPos = FVector::Zero;
 
+	bool BattleStart = false;
 	bool Large = false;
 	bool MoveBlade = false;
 	int Life = 3; // ºÎÈ° È½¼ö

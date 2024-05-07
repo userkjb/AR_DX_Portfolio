@@ -173,25 +173,14 @@ void MyWidget::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-	//if (EPlayerStateValue::MaxHp == EPlayerStateValue::Hp)
-	//{
-	//	HpBar_Ani->SetActive(false);
-	//}
-	//else
-	//{
-	//	HpBar_Ani->SetActive(true);
-	//}
-
-	if (true == UEngineInput::IsDown('T'))
+	if (true == InDamage)
 	{
-		DefaultScale.X += -1.0f;
+		float CalPosition = 1.0f;
+		DefaultScale.X += -CalPosition; // 196.0f
 		HpBar_Base->SetWidgetScale3D(DefaultScale);
-		HpBar_Base->AddPosition(FVector(-0.5f, 0.0f, 0.0f));
-		HpBar_Ani->AddPosition(FVector(-1.0f, 0.0f, 0.0f));
-	}
+		HpBar_Base->AddPosition(FVector(-(CalPosition / 2.0f), 0.0f, 0.0f));
+		HpBar_Ani->AddPosition(FVector(-CalPosition, 0.0f, 0.0f));
 
-	if (true == UEngineInput::IsDown('P'))
-	{
-		EPlayerStateValue::Hp -= 10;
+		InDamage = false;
 	}
 }

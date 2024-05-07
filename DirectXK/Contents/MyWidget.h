@@ -17,9 +17,15 @@ public:
 	MyWidget& operator=(const MyWidget& _Other) = delete;
 	MyWidget& operator=(MyWidget&& _Other) noexcept = delete;
 
-	std::vector<std::pair<UImage*, UImage*>> GetDashBaseImageV()
+	inline std::vector<std::pair<UImage*, UImage*>> GetDashBaseImageV()
 	{
 		return Dash_Base_Images;
+	}
+
+	inline void RecvDamageValue(bool _Boolean, float _Value)
+	{
+		InDamage = _Boolean;
+		Damage = _Value;
 	}
 
 protected:
@@ -30,9 +36,11 @@ private:
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
 
-	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
-
+	bool InDamage = false;
+	float Damage = 0.0f;
 	FVector DefaultScale = FVector::Zero;
 	float DashCountTime = 0.0f;
+
+	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
 };
 
