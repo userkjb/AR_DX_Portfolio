@@ -24,6 +24,7 @@ protected:
 private:
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
+	UImage* Dash_Base = nullptr;
 	FVector DefaultScale = FVector::Zero;
 };
 

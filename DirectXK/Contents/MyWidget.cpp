@@ -52,13 +52,29 @@ void MyWidget::BeginPlay()
 		HpBar_Base = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
 		HpBar_Base->SetupAttachment(this);
 		HpBar_Base->SetSprite("PlayerLifeBack2.png");
-		ScreenScaleHalf.X -= 80.0f;
+		HpBar_Base->SetWidgetScale3D((FVector(49.0f, 10.0f))*4.0f);
+		ScreenScaleHalf.X -= 38.0f;
 		HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-		HpBar_Base->SetAutoSize(4.0f, true);
 		DefaultScale = HpBar_Base->GetWidgetScale3D();
+		// 296 / 64
+		int a = 0;
 	}
 
-	
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= 148.0f;
+		ScreenScaleHalf.Y -= 32.0f;
+
+		HpBar_Ani = CreateWidget<UImage>(GetWorld(), "HpBar");
+		//Image->SetupAttachment(this); // ÀÌ°Å ÇÏ¸é 1ÇÈ¼¿ Á¡À¸·Î ³ª¿È.
+		HpBar_Ani->AddToViewPort(1);
+		HpBar_Ani->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
+		//HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		HpBar_Ani->SetPosition(FVector(-350.0f, ScreenScaleHalf.Y));
+		HpBar_Ani->SetAutoSize(4.0f, true);
+		HpBar_Ani->ChangeAnimation("HpBar");
+	}
+
 	{
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		ScreenScaleHalf.X -= 148.0f;
@@ -70,21 +86,6 @@ void MyWidget::BeginPlay()
 		Image->SetAutoSize(4.0f, true);
 	}
 
-	{
-		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
-		ScreenScaleHalf.X -= 148.0f;
-		ScreenScaleHalf.Y -= 32.0f;
-
-		HpBar_Ani = CreateWidget<UImage>(GetWorld(), "HpBar");
-		//Image->SetupAttachment(this); // ÀÌ°Å ÇÏ¸é 1ÇÈ¼¿ Á¡À¸·Î ³ª¿È.
-		HpBar_Ani->AddToViewPort(2);
-		HpBar_Ani->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
-		HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-		HpBar_Ani->SetAutoSize(4.0f, true);
-		//Image->SetWidgetScale3D(FVector(100.0f, 100.0f));
-		HpBar_Ani->ChangeAnimation("HpBar");
-	}
-
 
 	AddToViewPort(1);
 }
@@ -93,14 +94,25 @@ void MyWidget::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
+	//if (EPlayerStateValue::MaxHp == EPlayerStateValue::Hp)
+	//{
+	//	HpBar_Ani->SetActive(false);
+	//}
+	//else
+	//{
+	//	HpBar_Ani->SetActive(true);
+	//}
+
 	if (true == UEngineInput::IsDown('T'))
 	{
-		//HpBar_Ani->AddPosition(FVector(1.0f, 0.0f, 0.0f));
-
 		DefaultScale.X += -1.0f;
 		HpBar_Base->SetWidgetScale3D(DefaultScale);
 		HpBar_Base->AddPosition(FVector(-0.5f, 0.0f, 0.0f));
+		HpBar_Ani->AddPosition(FVector(-1.0f, 0.0f, 0.0f));
 	}
 
-	int x = EPlayerStateValue::Hp;
+	if (true == UEngineInput::IsDown('P'))
+	{
+		EPlayerStateValue::Hp -= 10;
+	}
 }
