@@ -93,11 +93,11 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
 	//GEngine->ChangeLevel("PlayLevel");
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
-	//GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
 
-	GEngine->ChangeLevel("LasleyLevel");
+	GEngine->ChangeLevel("TitleLevel");
 	//GEngine->ChangeLevel("LasleyLevelTwo");
 }

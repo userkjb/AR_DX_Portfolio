@@ -18,29 +18,42 @@ void ATitleGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UEngineDirectory Dir;
-	Dir.MoveToSearchChild("ContentsResources");
-	Dir.Move("Image\\GameTitle");
-	std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-	for (UEngineFile& File : Files)
 	{
-		// CuttingTest.png texture로도 한장이 로드가 됐고
-		// 스프라이트로도 1장짜리로 로드가 된 상황이야.
-		UEngineSprite::Load(File.GetFullPath());
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\GameTitle");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			// CuttingTest.png texture로도 한장이 로드가 됐고
+			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
+			UEngineSprite::Load(File.GetFullPath());
+		}
+
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\TitleLevel");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
 	}
 
-	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-	for (size_t i = 0; i < Directorys.size(); i++)
-	{
-		std::string Name = Directorys[i].GetFolderName();
-		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-	}
 
 	// 비둘기 렌더링 해야 함.
 
 	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
-		Camera->SetActorLocation(FVector(0.0f, 0.0f, -100.0f));
+		Camera->SetActorLocation(FVector(0.0f, 0.0f, -500.0f));
 	}
 }
 
@@ -58,7 +71,7 @@ void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
 
-	GetWorld()->SpawnActor<AGameLogo>("GameLogo");
-	GetWorld()->SpawnActor<AGameStartText>("GameStartText");
 	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG");
+	GetWorld()->SpawnActor<AGameStartText>("GameStartText");
+	GetWorld()->SpawnActor<AGameLogo>("GameLogo");
 }

@@ -10,6 +10,7 @@ AGameLogo::AGameLogo()
 
 	LogoRenderer = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
 	LogoRenderer->SetupAttachment(Root);
+	LogoRenderer->SetOrder(ERenderOrder::Map);
 }
 
 AGameLogo::~AGameLogo()
@@ -20,13 +21,12 @@ void AGameLogo::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetActorScale3D(FVector(156.0f, 75.0f, 0.0f));
+	//SetActorScale3D(FVector(156.0f, 75.0f, 0.0f));
 
-	//LogoRenderer->SetSprite("Idle.png"); // 이미지 단장.
-
-	LogoRenderer->CreateAnimation("GameTitleLogo", "GameTitleLogo", 0.25f);
-
-	LogoRenderer->ChangeAnimation("GameTitleLogo");
+	LogoRenderer->SetSprite("MainLogo1.png"); // 이미지 단장.
+	LogoRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	//LogoRenderer->CreateAnimation("GameTitleLogo", "GameTitleLogo", 0.25f);
+	//LogoRenderer->ChangeAnimation("GameTitleLogo");
 }
 
 void AGameLogo::Tick(float _DeltaTime)

@@ -24,7 +24,9 @@ protected:
 private:
 	USpriteRenderer* BackGround_Cloud_1 = nullptr;
 	USpriteRenderer* BackGround_Cloud_2 = nullptr;
+	USpriteRenderer* BackGround_Cloud_3 = nullptr;
 
-	float4 VertexPlus;
+
+	float4 VertexPlus = float4::Zero;;
 };
 

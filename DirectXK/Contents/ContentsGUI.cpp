@@ -22,6 +22,11 @@ void ContentsGUI::OnGui(ULevel* _Level, float _Delta)
 		GEngine->ChangeLevel("TestGameMode");
 	}
 
+	if (true == ImGui::Button("TitleLevel"))
+	{
+		GEngine->ChangeLevel("TitleLevel");
+	}
+
 	if (true == ImGui::Button("LasleyLevel"))
 	{
 		GEngine->ChangeLevel("LasleyLevel");
