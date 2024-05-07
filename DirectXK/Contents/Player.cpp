@@ -5,6 +5,7 @@
 #include <math.h>
 #include "PlayerStruct.h"
 #include "MyWidget.h"
+#include <EngineCore/Image.h>
 
 APlayer::APlayer()
 {
@@ -38,8 +39,7 @@ void APlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	MyWidget* Widget = CreateWidget<MyWidget>(GetWorld(), "UIBase");
-	
+	Widget = CreateWidget<MyWidget>(GetWorld(), "UIBase");
 	CreateAnimation();
 	StateInit();
 
@@ -116,15 +116,22 @@ void APlayer::CreateAnimation()
 
 void APlayer::DashCountTime(float _DeltaTime)
 {
+	int DashCountIndex = EPlayerStateValue::DashCount;
 	if (EPlayerStateValue::DashCount != EPlayerStateValue::DashCountMax)
 	{
 		DashCreationTime += _DeltaTime;
+		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
 	}
 
 	if (DashCreationTime >= EPlayerStateValue::DashCountUpTime)
 	{
+		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
 		EPlayerStateValue::DashCount++;
 		DashCreationTime = 0.0f;
+	}
+	else if (DashCreationTime >= EPlayerStateValue::DashCountUpTime / 2.0f)
+	{
+		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
 	}
 }
 

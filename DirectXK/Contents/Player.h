@@ -7,6 +7,7 @@ class USpriteRenderer;
 class UDefaultSceneComponent;
 class APlayerWeapon;
 class LasleyStageGUI;
+class MyWidget;
 class APlayer : public AActor , public std::enable_shared_from_this<APlayer>
 {
 	GENERATED_BODY(AActor)
@@ -101,6 +102,7 @@ private:
 	UCollision* PlayerCollision = nullptr;
 	EPlayerState ActorState = EPlayerState::Idle;
 	UStateManager State;
+	MyWidget* Widget = nullptr;
 	EEngineDir ActorDir = EEngineDir::MAX;
 	FVector PlayerPos = FVector::Zero;
 

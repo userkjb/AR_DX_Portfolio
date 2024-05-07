@@ -182,12 +182,6 @@ void MyWidget::Tick(float _DeltaTime)
 	//	HpBar_Ani->SetActive(true);
 	//}
 
-	// ´ë½¬
-	if(EPlayerStateValue::DashCountMax != EPlayerStateValue::DashCount)
-	{
-		CalDashCount(_DeltaTime);
-	}
-
 	if (true == UEngineInput::IsDown('T'))
 	{
 		DefaultScale.X += -1.0f;
@@ -200,11 +194,4 @@ void MyWidget::Tick(float _DeltaTime)
 	{
 		EPlayerStateValue::Hp -= 10;
 	}
-}
-
-void MyWidget::CalDashCount(float _DeltaTime)
-{
-	int DashCount = EPlayerStateValue::DashCount;
-
-	int a = 0;
 }

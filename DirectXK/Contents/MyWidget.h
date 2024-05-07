@@ -17,13 +17,16 @@ public:
 	MyWidget& operator=(const MyWidget& _Other) = delete;
 	MyWidget& operator=(MyWidget&& _Other) noexcept = delete;
 
+	std::vector<std::pair<UImage*, UImage*>> GetDashBaseImageV()
+	{
+		return Dash_Base_Images;
+	}
+
 protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
 
 private:
-	void CalDashCount(float _DeltaTime);
-
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
 
