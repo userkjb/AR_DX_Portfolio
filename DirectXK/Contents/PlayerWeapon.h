@@ -65,14 +65,14 @@ private :
 	/// Player에서 Weapon을 생성 후 해당 함수를 이용해서 Player Actor를 넘겨준다.
 	/// </summary>
 	/// <param name="_APlayer"></param>
-	inline void SetPlayerActor(std::shared_ptr<APlayer> _APlayer)
-	{
-		PlayerActor = _APlayer;
-	}
+	//inline void SetPlayerActor(std::shared_ptr<APlayer> _APlayer)
+	//{
+	//	PlayerActor = _APlayer;
+	//}
 
 	//========================================================
 
-	std::shared_ptr<APlayer> PlayerActor = nullptr;
+	//std::shared_ptr<APlayer> PlayerActor = nullptr;
 
 	UDefaultSceneComponent* Root = nullptr;
 	float4 PlayerToMouseDir = float4::Zero;
@@ -80,7 +80,6 @@ private :
 
 	UStateManager State;
 	
-	USpriteRenderer* Weapon_Image = nullptr;
 	USpriteRenderer* Weapon_Renderer = nullptr;
 	const float Range = 100.0f; // 무기 사거리.
 

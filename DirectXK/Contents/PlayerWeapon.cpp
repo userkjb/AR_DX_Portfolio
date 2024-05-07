@@ -20,10 +20,6 @@ APlayerWeapon::APlayerWeapon()
 	Weapon_Renderer->SetOrder(ERenderOrder::Weapon_Next);
 	Weapon_Renderer->SetDir(EEngineDir::Right);
 
-	Weapon_Image = CreateDefaultSubObject<USpriteRenderer>("WeaponRootRenderer");
-	Weapon_Image->SetupAttachment(Root);
-	Weapon_Image->SetOrder(ERenderOrder::Weapon_Next);
-
 	InputOn();
 }
 
@@ -37,9 +33,7 @@ void APlayerWeapon::BeginPlay()
 	CreateAnimation();
 	StateInit();
 
-	Weapon_Image->SetSprite("GreatSword.png");
-	Weapon_Image->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-	Weapon_Image->SetActive(false); // test
+	Weapon_Renderer->SetSprite("GreatSword.png");
 	Weapon_Renderer->SetAutoSize(2.0f, true);
 }
 
@@ -48,7 +42,6 @@ void APlayerWeapon::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
-	GetPlayerToMouseDir();
 
 	WeaponRotControll(_DeltaTime);
 
@@ -82,17 +75,6 @@ void APlayerWeapon::StateInit()
 
 
 	State.ChangeState("Weapon_Idle");
-}
-
-void APlayerWeapon::GetPlayerToMouseDir()
-{
-	if (nullptr == PlayerActor)
-	{
-		MsgBoxAssert("Player Actor 가 없습니다.");
-		return;
-	}
-
-	PlayerToMouseDir = PlayerActor->GetPlayerToMouseDir();
 }
 
 void APlayerWeapon::WeaponRotControll(float _DeltaTime)
@@ -158,7 +140,7 @@ void APlayerWeapon::SwingBegin()
 
 	{
 		std::shared_ptr<AWeaponFX> WeaponFXActor = GetWorld()->SpawnActor<AWeaponFX>("WeaponFX", ERenderOrder::Weapon_FX);
-		FVector ImageScale = Weapon_Image->GetLocalScale();
+		FVector ImageScale = Weapon_Renderer->GetLocalScale();
 		WeaponFXActor->SetFXScale(ImageScale);
 		FVector WeaponCollisionPos = FVector::Zero;
 		FVector WeaponCollisionRot = WeaponRotation;
@@ -168,7 +150,7 @@ void APlayerWeapon::SwingBegin()
 		WeaponCollisionPos.W = 1.0f;
 		WeaponFXActor->SetCreatePosition(WeaponCollisionPos); // 생성 위치
 		WeaponCollisionRot.Z -= 90.0f;
-		WeaponFXActor->SetCreateTotation(WeaponCollisionRot); // 생성 각도
+		WeaponFXActor->SetCreateRotation(WeaponCollisionRot); // 생성 각도
 
 		WeaponFXActor->CreateWeaponFX();
 	}

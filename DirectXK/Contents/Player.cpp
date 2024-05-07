@@ -48,7 +48,6 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
 	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon", EObjectOrder::Player);
-	Weapone->SetPlayerActor(shared_from_this());
 
 	MouseRendere->SetSprite("ShootingCursor2.png");
 	MouseRendere->SetAutoSize(Size, true);

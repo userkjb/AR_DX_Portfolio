@@ -31,7 +31,7 @@ public :
 		InPosition = _Pos;
 	}
 
-	inline void SetCreateTotation(FVector _Rot)
+	inline void SetCreateRotation(FVector _Rot)
 	{
 		InRotation = _Rot;
 	}
