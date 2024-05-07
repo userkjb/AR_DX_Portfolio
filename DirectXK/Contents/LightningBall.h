@@ -49,6 +49,7 @@ private :
 
 
 	USpriteRenderer* LightningBallRenderer = nullptr;
+	UCollision* LightningBallCollision = nullptr;
 	
 	UStateManager State;
 	FVector MovePlayerDir = FVector::Zero;

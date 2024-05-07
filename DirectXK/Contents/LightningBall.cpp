@@ -10,6 +10,12 @@ ALightningBall::ALightningBall()
 	LightningBallRenderer = CreateDefaultSubObject<USpriteRenderer>("Render");
 	LightningBallRenderer->SetupAttachment(Root);
 	LightningBallRenderer->SetOrder(ERenderOrder::Enemy);
+
+	LightningBallCollision = CreateDefaultSubObject<UCollision>("Collision");
+	LightningBallCollision->SetupAttachment(Root);
+	LightningBallCollision->SetCollisionGroup(ECollisionOrder::Monster_Attack);
+	LightningBallCollision->SetCollisionType(ECollisionType::CirCle);
+	LightningBallCollision->SetScale(FVector(38.0f, 41.0f));
 }
 
 ALightningBall::~ALightningBall()
