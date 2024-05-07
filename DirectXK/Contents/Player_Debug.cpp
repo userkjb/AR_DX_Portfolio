@@ -52,8 +52,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	std::string DashVectorMsg = std::format("DashVector : {}\n", DashVector.ToString());
 	//std::string T_Render_L = std::format("T_Render_L : {}\n", TesetRenserLOne.ToString());
 	//std::string T_Render_W = std::format("T_Render_W : {}\n", TesetRenserWOne.ToString());
-	std::string T_PlayerPoint_1 = std::format("T_Render_L1 : {}\n", V_Test_PlayerPoint_1.ToString());
-	std::string T_PlayerPoint_2 = std::format("T_Render_L2 : {}\n", V_Test_PlayerPoint_2.ToString());
+	//std::string T_PlayerPoint_1 = std::format("T_Render_L1 : {}\n", V_Test_PlayerPoint_1.ToString());
+	//std::string T_PlayerPoint_2 = std::format("T_Render_L2 : {}\n", V_Test_PlayerPoint_2.ToString());
 	std::string str_PlayerCollisionPos_W = std::format("Player Col Pos W : {}\n", V_PlayerColPos_W.ToString());
 	std::string str_PlayerCollisionPos_L = std::format("Player Col Pos L : {}\n", V_PlayerColPos_L.ToString());
 	std::string RecvVectorStr = std::format("Recv Vector : {}\n", RecvVector.ToString());
@@ -76,8 +76,8 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
 	UEngineDebugMsgWindow::PushMsg(s_IsWall);
 	UEngineDebugMsgWindow::PushMsg(s_IsHill);
-	UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_1);
-	UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_2);
+	//UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_1);
+	//UEngineDebugMsgWindow::PushMsg(T_PlayerPoint_2);
 	//UEngineDebugMsgWindow::PushMsg(RunVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(JumpVectorMsg);
 	//UEngineDebugMsgWindow::PushMsg(GravityVectorMsg);

@@ -91,6 +91,9 @@
     <Filter Include="Level\01_TitleLevel\Widget">
       <UniqueIdentifier>{267bf9ec-4a95-4139-a702-738698d0d754}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\03_LasleyLevel\Actor\Lasley\UI">
+      <UniqueIdentifier>{f740c633-0ceb-40af-b3a2-81983f97c35e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
