@@ -126,7 +126,6 @@ private:
 	//FVector DashSpectrumPos = FVector::Zero; // 잔상
 	std::queue<FVector> DashSpectrumPos; // 잔상 위치 저장 Queue
 	float DashSpectrumPosSaveTime = 0.0f;
-	const float DashCountUp = 3.0f; // 3초
 	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
 

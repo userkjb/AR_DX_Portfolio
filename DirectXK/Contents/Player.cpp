@@ -121,7 +121,7 @@ void APlayer::DashCountTime(float _DeltaTime)
 		DashCreationTime += _DeltaTime;
 	}
 
-	if (DashCreationTime >= DashCountUp)
+	if (DashCreationTime >= EPlayerStateValue::DashCountUpTime)
 	{
 		EPlayerStateValue::DashCount++;
 		DashCreationTime = 0.0f;

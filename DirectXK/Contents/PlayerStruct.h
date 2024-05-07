@@ -8,4 +8,5 @@ public:
 	static int DashCount;
 	static int DashCountMax;
 	static int Life;
+	static const float DashCountUpTime; // 3√ 
 };
