@@ -30,8 +30,9 @@ private:
 	UImage* Dash_Image_End = nullptr;
 
 
-	UImage* Dash_Count = nullptr;
+	UImage* Dash_Count_1 = nullptr;
 	UImage* Dash_Count_2 = nullptr;
+	UImage* Dash_Count_3 = nullptr;
 
 
 

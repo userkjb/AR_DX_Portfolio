@@ -131,12 +131,12 @@ void MyWidget::BeginPlay()
 			{
 				FVector Pos = Dash_Image_Start->GetWorldPosition();
 				Pos.X += 4.0f;
-				Dash_Count = CreateWidget<UImage>(GetWorld(), "DashCount");
-				Dash_Count->SetupAttachment(this);
-				Dash_Count->SetSprite("DashCount.png");
-				Dash_Count->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-				Dash_Count->SetPosition(Pos);
-				Dash_Count->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
+				Dash_Count_1 = CreateWidget<UImage>(GetWorld(), "DashCount");
+				Dash_Count_1->SetupAttachment(this);
+				Dash_Count_1->SetSprite("DashCount.png");
+				Dash_Count_1->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+				Dash_Count_1->SetPosition(Pos);
+				Dash_Count_1->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
 			}
 
 			{
