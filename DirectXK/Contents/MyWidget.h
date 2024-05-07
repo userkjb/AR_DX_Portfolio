@@ -22,22 +22,14 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void CalDashCount(float _DeltaTime);
+
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
 
-	UImage* Dash_Image_Start = nullptr;
-	UImage* Dash_Image_Mid_1 = nullptr;
-	UImage* Dash_Image_Mid_2 = nullptr;
-	UImage* Dash_Image_End = nullptr;
-
-
-	UImage* Dash_Count_1 = nullptr;
-	UImage* Dash_Count_2 = nullptr;
-	UImage* Dash_Count_3 = nullptr;
-	UImage* Dash_Count_4 = nullptr;
-
-
+	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
 
 	FVector DefaultScale = FVector::Zero;
+	float DashCountTime = 0.0f;
 };
 
