@@ -183,7 +183,6 @@ void ALasleyStageBossGM::LasleySummonTick(float _DeltaTime)
 		}
 	}
 
-	//CameraMove(_DeltaTime); // 카메라 Move 함수를 따로 만들어 줘야 한다.
 	LasleySummonCameraMove(_DeltaTime);
 }
 

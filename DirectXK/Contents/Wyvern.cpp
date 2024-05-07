@@ -21,7 +21,7 @@ AWyvern::AWyvern()
 
 	PlayerCheck = CreateDefaultSubObject<UCollision>("Renderer");
 	PlayerCheck->SetupAttachment(Root);
-	PlayerCheck->SetCollisionGroup(ECollisionOrder::Monster);
+	PlayerCheck->SetCollisionGroup(ECollisionOrder::Monster_Search);
 	PlayerCheck->SetCollisionType(ECollisionType::RotRect);
 	PlayerCheck->SetScale((FVector(72.f, 74.0f)) * 8.0f);
 

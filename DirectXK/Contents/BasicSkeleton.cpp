@@ -20,7 +20,7 @@ ABasicSkeleton::ABasicSkeleton()
 
 	PlayerCheckCollision = CreateDefaultSubObject<UCollision>("Collision");
 	PlayerCheckCollision->SetupAttachment(Root);
-	PlayerCheckCollision->SetCollisionGroup(ECollisionOrder::Monster);
+	PlayerCheckCollision->SetCollisionGroup(ECollisionOrder::Monster_Search);
 	PlayerCheckCollision->SetCollisionType(ECollisionType::RotRect);
 	PlayerCheckCollision->SetScale(FVector(66.0f, 60.0f) * 4.0f); // 탐지 범위 설정.
 }

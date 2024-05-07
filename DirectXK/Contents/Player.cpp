@@ -62,6 +62,11 @@ void APlayer::Tick(float _DeltaTime)
 	State.Update(_DeltaTime);
 
 	DashCountTime(_DeltaTime);
+	CollisionCheck(_DeltaTime);
+	if (false == IsCollision)
+	{
+		CollisionOff(_DeltaTime);
+	}
 
 	{
 		PlayerPos = GetActorLocation();

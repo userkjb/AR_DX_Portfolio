@@ -479,23 +479,57 @@ void APlayer::CollisionCheck(float _DeltaTime)
 {
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			
+			IsCollision = false;
 		}
 	);
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster_Attack, [=](std::shared_ptr<UCollision> _Collision)
 		{
-
+			IsCollision = false;
 		}
 	);
 
 	PlayerCollision->CollisionEnter(ECollisionOrder::Boss, [=](std::shared_ptr<UCollision> _Collision)
 		{
-
+			IsCollision = false;
 		}
 	);
 	PlayerCollision->CollisionEnter(ECollisionOrder::BossSkill, [=](std::shared_ptr<UCollision> _Collision)
 		{
-
+			IsCollision = false;
 		}
 	);
+}
+
+void APlayer::CollisionOff(float _DeltaTime)
+{
+	CollisionOffTime += _DeltaTime;
+	RenderTransparencyTime += _DeltaTime;
+
+	if (3.0f <= CollisionOffTime)
+	{
+		PlayerRenderer->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
+		PlayerCollision->SetActive(true);
+		IsCollision = true;
+		Transparency = false;
+		CollisionOffTime = 0.0f;
+	}
+	else
+	{
+		PlayerCollision->SetActive(false);
+	}
+
+	if (0.25f <= RenderTransparencyTime)
+	{
+		if (true == Transparency)
+		{
+			PlayerRenderer->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
+			Transparency = false;
+		}
+		else
+		{
+			PlayerRenderer->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
+			Transparency = true;
+		}
+		RenderTransparencyTime = 0.0f;
+	}
 }

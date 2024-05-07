@@ -102,6 +102,7 @@ private:
 
 	void PixelCheck(float _DeltaTime);
 	void CollisionCheck(float _DeltaTime);
+	void CollisionOff(float _DeltaTime);
 
 	bool IsGround = false;
 	bool IsWall = false;
@@ -145,6 +146,11 @@ private:
 	float DashSpectrumPosSaveTime = 0.0f;
 	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
+
+	float CollisionOffTime = 0.0f;
+	float RenderTransparencyTime = 0.0f;
+	bool IsCollision = true;
+	bool Transparency = false;
 
 	FVector WeaponDir = FVector::Zero;
 	std::shared_ptr<APlayerWeapon> Weapone = nullptr;

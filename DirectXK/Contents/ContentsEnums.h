@@ -33,6 +33,7 @@ enum class ECollisionOrder
 	Player,
 	Monster,
 	Monster_Attack,
+	Monster_Search,
 	Boss,
 	BossSkill,
 	WeaponFX,
