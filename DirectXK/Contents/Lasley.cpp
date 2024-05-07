@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "Lasley.h"
 #include <EngineCore/DefaultSceneComponent.h>
-
+#include "LasleyUI.h"
 
 ALasley::ALasley()
 {
@@ -234,7 +234,9 @@ ALasley::ALasley()
 	LasleySummonFX->SetActive(false);
 	
 
+#ifdef _DEBUG
 	InputOn(); // test
+#endif
 }
 
 ALasley::~ALasley()
@@ -246,6 +248,7 @@ void ALasley::BeginPlay()
 	Super::BeginPlay();
 
 	//SetActorScale3D(FVector(45.0f, 44.0f, 0.0f));
+	Widget = CreateWidget<ULasleyUI>(GetWorld(), "LasleyHp");
 
 	CreateAnimation();
 

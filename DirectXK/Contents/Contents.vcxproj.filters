@@ -237,6 +237,9 @@
     <ClCompile Include="GameStartText.cpp">
       <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="LasleyUI.cpp">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -367,6 +370,9 @@
     </ClInclude>
     <ClInclude Include="GameStartText.h">
       <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="LasleyUI.h">
+      <Filter>Level\03_LasleyLevel\Actor\Lasley\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

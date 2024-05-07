@@ -6,6 +6,7 @@
 class USpriteRenderer;
 class ADevilChurchWarlock;
 class ATentacle;
+class ULasleyUI;
 class ALasley : public AActor
 {
 	GENERATED_BODY(AActor)
@@ -97,6 +98,7 @@ private :
 	USpriteRenderer* LasleyDemonSword = nullptr;
 	USpriteRenderer* LasleySummonFX = nullptr; // 맨 처음 칼 잡았을 때. FX
 	UCollision* LasleyCollision = nullptr;
+	ULasleyUI* Widget = nullptr;
 
 	//ELasleyState State = ELasleyState::None;
 	UStateManager State;

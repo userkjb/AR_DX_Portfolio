@@ -191,6 +191,7 @@
     <ClInclude Include="LasleyStageBossGM.h" />
     <ClInclude Include="LasleyStageTwoGM.h" />
     <ClInclude Include="LasleyStageTwoMap.h" />
+    <ClInclude Include="LasleyUI.h" />
     <ClInclude Include="LightningBall.h" />
     <ClInclude Include="MapEditorGUI.h" />
     <ClInclude Include="MonsterBase.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="LasleyStageBossGM.cpp" />
     <ClCompile Include="LasleyStageTwoGM.cpp" />
     <ClCompile Include="LasleyStageTwoMap.cpp" />
+    <ClCompile Include="LasleyUI.cpp" />
     <ClCompile Include="Lasley_State.cpp" />
     <ClCompile Include="LightningBall.cpp" />
     <ClCompile Include="MapEditorGUI.cpp" />
