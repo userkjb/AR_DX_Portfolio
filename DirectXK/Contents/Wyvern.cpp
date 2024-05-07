@@ -165,6 +165,8 @@ void AWyvern::IdleExit()
 void AWyvern::AttackBegin()
 {
 	WyvernRenderer->ChangeAnimation("Attack_Ready");
+	AttackDelayTime = 0.0f;
+	PlayerCheck->SetActive(false);
 	ChangeAnimation_One = false;
 }
 
@@ -298,6 +300,7 @@ void AWyvern::AttackExit()
 	Attack_Ready = false;
 	b_Attack_Down = false;
 	b_Attack_Up = false;
+	PlayerCheck->SetActive(true);
 }
 
 void AWyvern::CollisionCheck(float _DeltaTime)

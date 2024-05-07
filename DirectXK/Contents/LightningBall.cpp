@@ -36,6 +36,7 @@ void ALightningBall::Tick(float _DeltaTime)
 	Super::Tick(_DeltaTime);
 
 	State.Update(_DeltaTime);
+	CollisionCheck(_DeltaTime);
 }
 
 void ALightningBall::CreateAnimation()
@@ -50,6 +51,7 @@ void ALightningBall::StateInit()
 	State.CreateState("None");
 	State.CreateState("Setting");
 	State.CreateState("Create");
+	State.CreateState("Die");
 
 	State.SetStartFunction("Setting", [=]()
 		{
@@ -61,6 +63,9 @@ void ALightningBall::StateInit()
 		std::bind(&ALightningBall::CreateBegin, this),
 		std::bind(&ALightningBall::CreateTick, this, std::placeholders::_1),
 		std::bind(&ALightningBall::CreateExit, this));
+
+	State.SetStartFunction("Die",
+		std::bind(&ALightningBall::DieBegin, this));
 
 	State.ChangeState("None");
 }
@@ -81,9 +86,27 @@ void ALightningBall::CreateTick(float _DeltaTime)
 
 	if (LifeIsTime <= LifeTime)
 	{
-		Destroy();
+		State.ChangeState("Die");
+		return;
 	}
 }
 void ALightningBall::CreateExit()
 {
+}
+
+
+void ALightningBall::DieBegin()
+{
+	Destroy();
+}
+
+
+void ALightningBall::CollisionCheck(float _DeltaTime)
+{
+	LightningBallCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			State.ChangeState("Die");
+			return;
+		}
+	);
 }

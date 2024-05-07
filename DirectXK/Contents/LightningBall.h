@@ -45,8 +45,9 @@ private :
 	void CreateBegin();
 	void CreateTick(float _DeltaTime);
 	void CreateExit();
+	void DieBegin();
 
-
+	void CollisionCheck(float _DeltaTime);
 
 	USpriteRenderer* LightningBallRenderer = nullptr;
 	UCollision* LightningBallCollision = nullptr;
