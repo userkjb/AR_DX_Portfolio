@@ -72,7 +72,7 @@ void APlayer::t_DeBugFunction(float _DeltaTime)
 	//UEngineDebugMsgWindow::PushMsg(Msg7);
 	//UEngineDebugMsgWindow::PushMsg(Msg8);
 	//UEngineDebugMsgWindow::PushMsg(Msg9);
-	//UEngineDebugMsgWindow::PushMsg(DashCountMsg);
+	UEngineDebugMsgWindow::PushMsg(DashCountMsg);
 	UEngineDebugMsgWindow::PushMsg(CalVectorsMsg);
 	UEngineDebugMsgWindow::PushMsg(s_IsWall);
 	UEngineDebugMsgWindow::PushMsg(s_IsHill);

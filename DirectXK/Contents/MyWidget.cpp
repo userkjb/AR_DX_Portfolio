@@ -108,16 +108,27 @@ void MyWidget::BeginPlay()
 			float UpdatePos = Dash_Image_Start->GetWidgetScale3D().X;
 			UpdatePos -= 2.0f;
 			StartPos.X += UpdatePos; // 42.0
-			Dash_Base = CreateWidget<UImage>(GetWorld(), "DashBase");
-			Dash_Base->SetupAttachment(this);
-			Dash_Base->SetSprite("DashCountBase_1.png");
-			Dash_Base->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
-			Dash_Base->SetPosition(FVector(StartPos.X, StartPos.Y));
+			Dash_Image_Mid_1 = CreateWidget<UImage>(GetWorld(), "DashBase");
+			Dash_Image_Mid_1->SetupAttachment(this);
+			Dash_Image_Mid_1->SetSprite("DashCountBase_1.png");
+			Dash_Image_Mid_1->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+			Dash_Image_Mid_1->SetPosition(FVector(StartPos.X, StartPos.Y));
+		}
+		{
+			FVector StartPos = Dash_Image_Mid_1->GetWorldPosition();
+			float UpdatePos = Dash_Image_Mid_1->GetWidgetScale3D().X;
+			//UpdatePos += 2.0f;
+			StartPos.X += UpdatePos; // 42.0
+			Dash_Image_Mid_2 = CreateWidget<UImage>(GetWorld(), "DashBase");
+			Dash_Image_Mid_2->SetupAttachment(this);
+			Dash_Image_Mid_2->SetSprite("DashCountBase_1.png");
+			Dash_Image_Mid_2->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+			Dash_Image_Mid_2->SetPosition(FVector(StartPos.X, StartPos.Y));
 		}
 
 		{
-			FVector StartPos = Dash_Base->GetWorldPosition();
-			float UpdatePos = Dash_Base->GetWidgetScale3D().X;
+			FVector StartPos = Dash_Image_Mid_2->GetWorldPosition();
+			float UpdatePos = Dash_Image_Mid_2->GetWidgetScale3D().X;
 			UpdatePos += 4.0f;
 			StartPos.X += UpdatePos; // 42.0
 			Dash_Image_End = CreateWidget<UImage>(GetWorld(), "DashBase");
@@ -140,7 +151,7 @@ void MyWidget::BeginPlay()
 			}
 
 			{
-				FVector Pos = Dash_Base->GetWorldPosition();
+				FVector Pos = Dash_Image_Mid_1->GetWorldPosition();
 				Pos.X += 2.0f;
 				Dash_Count_2 = CreateWidget<UImage>(GetWorld(), "DashCount");
 				Dash_Count_2->SetupAttachment(this);
@@ -149,16 +160,26 @@ void MyWidget::BeginPlay()
 				Dash_Count_2->SetPosition(Pos);
 				Dash_Count_2->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
 			}
-
 			{
-				FVector Pos = Dash_Image_End->GetWorldPosition();
-				Pos.X -= 2.0f;
+				FVector Pos = Dash_Image_Mid_2->GetWorldPosition();
+				Pos.X += 2.0f;
 				Dash_Count_3 = CreateWidget<UImage>(GetWorld(), "DashCount");
 				Dash_Count_3->SetupAttachment(this);
 				Dash_Count_3->SetSprite("DashCount.png");
 				Dash_Count_3->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 				Dash_Count_3->SetPosition(Pos);
 				Dash_Count_3->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
+			}
+
+			{
+				FVector Pos = Dash_Image_End->GetWorldPosition();
+				Pos.X -= 2.0f;
+				Dash_Count_4 = CreateWidget<UImage>(GetWorld(), "DashCount");
+				Dash_Count_4->SetupAttachment(this);
+				Dash_Count_4->SetSprite("DashCount.png");
+				Dash_Count_4->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+				Dash_Count_4->SetPosition(Pos);
+				Dash_Count_4->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
 			}
 		}
 	}

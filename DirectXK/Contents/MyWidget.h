@@ -26,13 +26,15 @@ private:
 	UImage* HpBar_Ani = nullptr;
 
 	UImage* Dash_Image_Start = nullptr;
-	UImage* Dash_Base = nullptr;
+	UImage* Dash_Image_Mid_1 = nullptr;
+	UImage* Dash_Image_Mid_2 = nullptr;
 	UImage* Dash_Image_End = nullptr;
 
 
 	UImage* Dash_Count_1 = nullptr;
 	UImage* Dash_Count_2 = nullptr;
 	UImage* Dash_Count_3 = nullptr;
+	UImage* Dash_Count_4 = nullptr;
 
 
 
