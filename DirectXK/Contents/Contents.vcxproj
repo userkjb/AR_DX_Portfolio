@@ -167,6 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bird.h" />
     <ClInclude Include="AbyssGuardian.h" />
     <ClInclude Include="ArmoredSkel.h" />
     <ClInclude Include="BasicSkeleton.h" />
@@ -222,6 +223,7 @@
     <ClInclude Include="Wyvern.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bird.cpp" />
     <ClCompile Include="AbyssGuardian.cpp" />
     <ClCompile Include="ArmoredSkel.cpp" />
     <ClCompile Include="BasicSkeleton.cpp" />

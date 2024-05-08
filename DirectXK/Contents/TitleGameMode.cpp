@@ -1,10 +1,12 @@
 #include "PreCompile.h"
 #include "TitleGameMode.h"
 #include <EngineCore/Camera.h>
+#include <EngineBase/EngineRandom.h>
 
 #include "GameLogo.h"
 #include "GameStartText.h"
 #include "GameTitleBG.h"
+#include "Bird.h"
 
 ATitleGameMode::ATitleGameMode()
 {
@@ -37,16 +39,6 @@ void ATitleGameMode::BeginPlay()
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
 	}
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\TitleLevel");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-	}
 
 
 	// 비둘기 렌더링 해야 함.
@@ -55,11 +47,51 @@ void ATitleGameMode::BeginPlay()
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 		Camera->SetActorLocation(FVector(0.0f, 0.0f, -500.0f));
 	}
+
+#ifdef _DEBUG
+	InputOn();
+#endif
+}
+
+void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
+{
+	Super::LevelStart(_PrevLevel);
+
+	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG", EObjectOrder::Map_BackGround);
+	GetWorld()->SpawnActor<AGameStartText>("GameStartText", EObjectOrder::Text);
+	GetWorld()->SpawnActor<AGameLogo>("GameLogo", EObjectOrder::Game_Title);
+
+	{
+		
+	}
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+	
+	CreateBird(_DeltaTime);
+}
+
+void ATitleGameMode::CreateBird(float _DeltaTime)
+{
+	BirdTime += _DeltaTime;
+
+	//if (true == IsDown('U'))
+	int CreateTime = static_cast<int>(BirdTime);
+	if (0 == CreateTime % 2 && 1.0f <= BirdTime)
+	{
+		float4 ScreenScale = GEngine->EngineWindow.GetWindowScale();
+		ScreenScale.X *= 2.0f;
+		float PositionX = UEngineRandom::MainRandom.RandomFloat(-ScreenScale.X, 0.0f);
+		std::shared_ptr<ABird> Bird = GetWorld()->SpawnActor<ABird>("Bird", EObjectOrder::Map_Object);
+		Bird->SetMoveDir(FVector(1.0f, 0.25f, 0.0f, 0.0f));
+		Bird->SetCreateActorPos(FVector(PositionX, -ScreenScale.hY()));
+		Bird->SetMoveSpeed(500.0f);
+		Bird->BirdCreate();
+
+		BirdTime = 0.0f;
+	}
 }
 
 void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
@@ -67,11 +99,4 @@ void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 	Super::LevelEnd(_NextLevel);
 }
 
-void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
-{
-	Super::LevelStart(_PrevLevel);
 
-	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG");
-	GetWorld()->SpawnActor<AGameStartText>("GameStartText");
-	GetWorld()->SpawnActor<AGameLogo>("GameLogo");
-}

@@ -4,6 +4,11 @@ enum class EObjectOrder
 {
 	Player,
 	Monster,
+	Text,
+	Game_Title,
+	Map_BackGround,
+	Map_BackTile,
+	Map_Object,
 };
 
 enum class ERenderOrder
@@ -24,6 +29,7 @@ enum class ERenderOrder
 	BossSkill_F,
 	Weapon_FX,
 	MapObject,
+	TitleImage,
 	Mouse,
 };
 

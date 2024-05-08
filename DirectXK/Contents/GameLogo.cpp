@@ -10,7 +10,7 @@ AGameLogo::AGameLogo()
 
 	LogoRenderer = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
 	LogoRenderer->SetupAttachment(Root);
-	LogoRenderer->SetOrder(ERenderOrder::Map);
+	LogoRenderer->SetOrder(ERenderOrder::TitleImage);
 }
 
 AGameLogo::~AGameLogo()

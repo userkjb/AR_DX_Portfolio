@@ -240,6 +240,9 @@
     <ClCompile Include="LasleyUI.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Bird.cpp">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -373,6 +376,9 @@
     </ClInclude>
     <ClInclude Include="LasleyUI.h">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Bird.h">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,5 +22,10 @@ protected :
 
 	void LevelEnd(ULevel* _NextLevel);
 	void LevelStart(ULevel* _PrevLevel);
+
+private :
+	void CreateBird(float _DeltaTime);
+
+	float BirdTime = 0.0f;
 };
 
