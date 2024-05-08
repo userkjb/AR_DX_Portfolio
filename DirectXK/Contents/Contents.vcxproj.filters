@@ -94,6 +94,12 @@
     <Filter Include="Level\03_LasleyLevel\Actor\Lasley\UI">
       <UniqueIdentifier>{f740c633-0ceb-40af-b3a2-81983f97c35e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\00_GameStart\Actor\Player\Weapon">
+      <UniqueIdentifier>{c6a324b5-91b6-45fa-911a-d244f5c2bd81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00_GameStart\Actor\Player\Weapon\CosmosSword">
+      <UniqueIdentifier>{54fbdb1e-4196-4259-b5de-17b61f93e323}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -180,12 +186,6 @@
     <ClCompile Include="Player_State.cpp">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerWeapon.cpp">
-      <Filter>Level\00_GameStart\Actor\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="WeaponFX.cpp">
-      <Filter>Level\00_GameStart\Actor\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Tentacle.cpp">
       <Filter>Level\03_LasleyLevel\Actor\Lasley\Skill</Filter>
     </ClCompile>
@@ -245,6 +245,18 @@
     </ClCompile>
     <ClCompile Include="TitleCloud.cpp">
       <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerWeapon.cpp">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponFX.cpp">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="CosmosSword.cpp">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
+    </ClCompile>
+    <ClCompile Include="CosmosSwordFX.cpp">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,13 +329,7 @@
     <ClInclude Include="PlayerStruct.h">
       <Filter>Level\00_GameStart\Actor\Player\Struct</Filter>
     </ClInclude>
-    <ClInclude Include="WeaponFX.h">
-      <Filter>Level\00_GameStart\Actor\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Level\00_GameStart\Actor\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerWeapon.h">
       <Filter>Level\00_GameStart\Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Tentacle.h">
@@ -385,6 +391,18 @@
     </ClInclude>
     <ClInclude Include="TitleCloud.h">
       <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerWeapon.h">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponFX.h">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="CosmosSword.h">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
+    </ClInclude>
+    <ClInclude Include="CosmosSwordFX.h">
+      <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

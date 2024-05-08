@@ -171,6 +171,8 @@
     <ClInclude Include="AbyssGuardian.h" />
     <ClInclude Include="ArmoredSkel.h" />
     <ClInclude Include="BasicSkeleton.h" />
+    <ClInclude Include="CosmosSword.h" />
+    <ClInclude Include="CosmosSwordFX.h" />
     <ClInclude Include="DemonicBlade.h" />
     <ClInclude Include="DevilChurchWarlock.h" />
     <ClInclude Include="DimensionSlash.h" />
@@ -228,6 +230,8 @@
     <ClCompile Include="AbyssGuardian.cpp" />
     <ClCompile Include="ArmoredSkel.cpp" />
     <ClCompile Include="BasicSkeleton.cpp" />
+    <ClCompile Include="CosmosSword.cpp" />
+    <ClCompile Include="CosmosSwordFX.cpp" />
     <ClCompile Include="DemonicBlade.cpp" />
     <ClCompile Include="DevilChurchWarlock.cpp" />
     <ClCompile Include="DimensionSlash.cpp" />

@@ -8,6 +8,7 @@ class UDefaultSceneComponent;
 class APlayerWeapon;
 class LasleyStageGUI;
 class MyWidget;
+class ACosmosSword;
 class APlayer : public AActor , public std::enable_shared_from_this<APlayer>
 {
 	GENERATED_BODY(AActor)
@@ -153,6 +154,7 @@ private:
 	bool Transparency = false;
 
 	FVector WeaponDir = FVector::Zero;
-	std::shared_ptr<APlayerWeapon> Weapone = nullptr;
+	//std::shared_ptr<APlayerWeapon> Weapone = nullptr;
+	std::shared_ptr<ACosmosSword> CosmosSword = nullptr;
 };
 

@@ -1,11 +1,12 @@
 #include "PreCompile.h"
 #include "Player.h"
-#include <EngineCore/DefaultSceneComponent.h>
-#include "PlayerWeapon.h"
 #include <math.h>
+#include <EngineCore/DefaultSceneComponent.h>
+#include <EngineCore/Image.h>
+#include "PlayerWeapon.h"
+#include "CosmosSword.h"
 #include "PlayerStruct.h"
 #include "MyWidget.h"
-#include <EngineCore/Image.h>
 
 APlayer::APlayer()
 {
@@ -47,7 +48,8 @@ void APlayer::BeginPlay()
 	PlayerRenderer->SetAutoSize(Size, true);
 	PlayerRenderer->SetOrder(ERenderOrder::Player);
 
-	Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon", EObjectOrder::Player);
+	//Weapone = GetWorld()->SpawnActor<APlayerWeapon>("Weapon", EObjectOrder::Player);
+	CosmosSword = GetWorld()->SpawnActor<ACosmosSword>("Weapon", EObjectOrder::Player);
 
 	MouseRendere->SetSprite("ShootingCursor2.png");
 	MouseRendere->SetAutoSize(Size, true);
@@ -72,7 +74,7 @@ void APlayer::Tick(float _DeltaTime)
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 		float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
 
-		FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
+		//FVector ScreenScale = GEngine->EngineWindow.GetWindowScale();
 		
 		float4 Leng = MousePosWorld - PlayerPos;
 		PlayerToMouseDir = Leng.Normalize2DReturn(); // 플레이어 기준 마우스 방향.
@@ -80,8 +82,6 @@ void APlayer::Tick(float _DeltaTime)
 		float Rot = atan2((MousePosWorld.Y - PlayerPos.Y), (MousePosWorld.X - PlayerPos.X));
 		Rot *= UEngineMath::RToD;
 		WeaponDir.Z = Rot;
-
-		
 	}
 	
 	// 커서
@@ -101,10 +101,25 @@ void APlayer::Tick(float _DeltaTime)
 
 	{
 		// 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
-		Weapone->AActor::SetActorLocation(PlayerPos);
-		Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
-		Weapone->SetPlayerDir(ActorDir);
+		//Weapone->AActor::SetActorLocation(PlayerPos);
+		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
+		//Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
+		//Weapone->SetPlayerDir(ActorDir);
+	}
+	{
+		if (nullptr != CosmosSword)
+		{
+			CosmosSword->SetWeaponActorPosition(GetActorLocation());
+			CosmosSword->SetPlayerRenderDir(PlayerRenderer->GetDir());
+
+
+
+			std::string WeaponStateName = CosmosSword->GetWeaponState();
+			if (WeaponStateName == "None")
+			{
+				CosmosSword->CreateWeapon();
+			}
+		}
 	}
 }
 
@@ -151,5 +166,6 @@ void APlayer::DashSpectrumCalPos(float _DeltaTime)
 
 void APlayer::LevelIsDestroy()
 {
-	Weapone->Destroy();
+	//Weapone->Destroy();
+	CosmosSword->Destroy();
 }
