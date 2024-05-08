@@ -20,9 +20,25 @@ public:
 		CreateVector = _Pos;
 	}
 
+	inline void SetSpriteVal(int _Val)
+	{
+		SpriteValue = _Val;
+	}
+
+	inline void SetCloudRenderOrder(int _Val)
+	{
+		RenderOrderValue = _Val;
+	}
+
 	inline void SetMoveSpeed(float _Speed)
 	{
 		MoveSpeed = _Speed;
+	}
+	
+	inline void CloudCreate()
+	{
+		State.ChangeState("Create");
+		return;
 	}
 
 protected:
@@ -43,6 +59,8 @@ private :
 	UStateManager State;
 
 	FVector CreateVector = FVector::Zero;
+	int SpriteValue = 0;
+	int RenderOrderValue = 0;
 	float MoveSpeed = 0.0f;
 };
 

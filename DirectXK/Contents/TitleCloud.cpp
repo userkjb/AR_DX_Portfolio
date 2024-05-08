@@ -33,7 +33,6 @@ void ATitleCloud::Tick(float _DeltaTime)
 void ATitleCloud::StateInit()
 {
 	State.CreateState("None");
-	State.CreateState("Setting");
 	State.CreateState("Create");
 
 	State.SetStartFunction("None", std::bind(&ATitleCloud::NoneBegin, this));
@@ -61,10 +60,40 @@ void ATitleCloud::NoneTick(float _DeltaTime)
 
 void ATitleCloud::CreateBegin()
 {
+	if (0 == SpriteValue)
+	{
+		CloudRenderer->SetSprite("MidCloud0.png");
+	}
+	else
+	{
+		CloudRenderer->SetSprite("MidCloud1.png");
+	}
+
+	if (0 == RenderOrderValue)
+	{
+		CloudRenderer->SetOrder(ERenderOrder::Map);
+	}
+	else
+	{
+		CloudRenderer->SetOrder(ERenderOrder::MapCol);
+	}
+
+	SetActorLocation(CreateVector);
+
 }
 
 void ATitleCloud::CreateTick(float _DeltaTime)
 {
+	FVector CalMoveVector = FVector::Zero;
+	CalMoveVector = FVector::Left * MoveSpeed * _DeltaTime;
+
+	AddActorLocation(CalMoveVector);
+
+	FVector CloudPosition = GetActorLocation();
+	if (-1500.0f >= CloudPosition.X)
+	{
+		Destroy();
+	}
 }
 
 void ATitleCloud::CreateExit()

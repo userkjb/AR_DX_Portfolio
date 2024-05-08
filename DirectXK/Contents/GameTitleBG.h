@@ -22,9 +22,10 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void CreateCloud(float _DeltaTime);
 	USpriteRenderer* BackGround_Cloud = nullptr;
 
-
-	float4 VertexPlus = float4::Zero;;
+	float4 VertexPlus = float4::Zero;
+	float CreateCloudTime = 0.0f;
 };
 
