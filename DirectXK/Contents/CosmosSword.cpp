@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "CosmosSword.h"
 #include <EngineCore/DefaultSceneComponent.h>
+#include "CosmosSwordFX.h"
 
 ACosmosSword::ACosmosSword()
 {
@@ -82,7 +83,6 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 	float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
 	float4 MousePosWorld = GetWorld()->GetMainCamera()->ScreenPosToWorldPos(CulMousPos);
 	float4 Leng = MousePosWorld - WeaponActorPos;
-	//Leng.ABS3DReturn();
 	float4 WeaponToMouseDir = Leng.Normalize2DReturn();
 	float Rot = atan2((MousePosWorld.Y - WeaponActorPos.Y), (MousePosWorld.X - WeaponActorPos.X));
 	Rot *= UEngineMath::RToD;
@@ -91,17 +91,21 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 
 	FVector DefaultMove = SetActorPos;
 	DefaultMove.Y -= 40.0f;
+
+	FVector AttackRotationFX = FVector::Zero;
 	if (EEngineDir::Right == SetPlayerDir)
 	{
 		DefaultMove.X += 30.0f;
 		SetActorLocation(DefaultMove);
 		WeaponRotation.Z = 0.0f;
+		//AttackRotationFX.X += 0.0f;
 	}
 	else if (EEngineDir::Left == SetPlayerDir)
 	{
 		DefaultMove.X -= 30.0f;
 		SetActorLocation(DefaultMove);
 		WeaponRotation.Z = -180.0f;
+		AttackRotationFX.X -= 180.0f;
 	}
 
 	if (true == IsDown(VK_LBUTTON))
@@ -116,6 +120,21 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 			AttackRotation.X -= 180.0f;
 			b_Attack = true;
 		}
+
+		std::shared_ptr<ACosmosSwordFX> WeaponFXActor = GetWorld()->SpawnActor<ACosmosSwordFX>("WeaponFX", ERenderOrder::Weapon_FX);
+		WeaponFXActor->SetFXScale(WeaponRenderer->GetLocalScale());
+		FVector WeaponCollisionPos = FVector::Zero;
+		FVector WeaponCollisionRot = WeaponRotation + AttackRotationFX;
+		WeaponCollisionRot.Z += Rot;
+		WeaponCollisionPos = GetActorLocation();
+		WeaponCollisionPos += WeaponToMouseDir * WeaponRenderer->GetLocalScale().hY();
+		WeaponCollisionPos.Z = 0.0f;
+		WeaponCollisionPos.W = 1.0f;
+		WeaponFXActor->SetCreatePosition(WeaponCollisionPos);
+		WeaponCollisionRot.Z -= 90.0f;
+		WeaponFXActor->SetCreateRotation(WeaponCollisionRot);
+
+		WeaponFXActor->CreateWeaponFX();
 	}
 
 	WeaponRotation += AttackRotation;
