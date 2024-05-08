@@ -23,7 +23,7 @@ void ABird::BeginPlay()
 	StateInit();
 	CreateAnimation();
 
-	BirdRenderer->SetAutoSize(4.0f, true);
+	BirdRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 }
 
 void ABird::Tick(float _DeltaTime)
@@ -36,7 +36,6 @@ void ABird::Tick(float _DeltaTime)
 void ABird::StateInit()
 {
 	State.CreateState("None");
-	State.CreateState("Setting");
 	State.CreateState("Create");
 
 	State.SetStartFunction("None", std::bind(&ABird::NoneBegin, this));
