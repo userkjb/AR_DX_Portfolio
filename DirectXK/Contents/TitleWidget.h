@@ -17,11 +17,14 @@ public:
 	UTitleWidget& operator=(UTitleWidget&& _Other) noexcept = delete;
 
 protected:
-	void BeginPlay();
+	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
 
 private :
-	UImage* GameStart_F = nullptr;
-	UImage* GameStart_E = nullptr;
+	bool IsGameStartHover = false;
+	bool IsGameStartDown = false;
+
+	UImage* GameStart = nullptr;
+	//UImage* GameEnd = nullptr;
 };
 
