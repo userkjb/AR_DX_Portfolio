@@ -61,7 +61,7 @@ void UTitleWidget::Tick(float _DeltaTime)
 		GameStart->SetSprite("PlayOff_Kor.png");
 	}
 
-
+	
 	//GameStart_F->SetDown([=]()
 	//	{
 	//		int a = 0;

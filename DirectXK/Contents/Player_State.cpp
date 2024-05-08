@@ -6,6 +6,7 @@
 
 void APlayer::StateInit()
 {
+	State.CreateState("None");
 	State.CreateState("Idle");
 	State.CreateState("IdleLock");
 	State.CreateState("Run");
@@ -43,7 +44,7 @@ void APlayer::StateInit()
 		std::bind(&APlayer::DieTick, this, std::placeholders::_1),
 		std::bind(&APlayer::DieEnd, this));
 
-	State.ChangeState("Idle");
+	State.ChangeState("None");
 }
 
 void APlayer::PlayerMouseDir()
