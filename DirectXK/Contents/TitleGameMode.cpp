@@ -60,10 +60,6 @@ void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG", EObjectOrder::Map_BackGround);
 	GetWorld()->SpawnActor<AGameStartText>("GameStartText", EObjectOrder::Text);
 	GetWorld()->SpawnActor<AGameLogo>("GameLogo", EObjectOrder::Game_Title);
-
-	{
-		
-	}
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -77,7 +73,6 @@ void ATitleGameMode::CreateBird(float _DeltaTime)
 {
 	BirdTime += _DeltaTime;
 
-	//if (true == IsDown('U'))
 	int CreateTime = static_cast<int>(BirdTime);
 	if (0 == CreateTime % 2 && 1.0f <= BirdTime)
 	{
