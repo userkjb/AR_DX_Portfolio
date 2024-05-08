@@ -212,6 +212,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TitleCloud.h" />
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TitleWidget.h" />
     <ClInclude Include="TownGameMode.h" />
@@ -277,6 +278,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="TitleCloud.cpp" />
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TitleWidget.cpp" />
     <ClCompile Include="TownGameMode.cpp" />

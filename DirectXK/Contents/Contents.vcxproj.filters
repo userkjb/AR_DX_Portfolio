@@ -243,6 +243,9 @@
     <ClCompile Include="Bird.cpp">
       <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="TitleCloud.cpp">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -378,6 +381,9 @@
       <Filter>Level\03_LasleyLevel\Actor\Lasley\UI</Filter>
     </ClInclude>
     <ClInclude Include="Bird.h">
+      <Filter>Level\01_TitleLevel\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleCloud.h">
       <Filter>Level\01_TitleLevel\Actor</Filter>
     </ClInclude>
   </ItemGroup>
