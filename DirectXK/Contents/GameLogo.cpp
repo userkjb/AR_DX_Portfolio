@@ -8,6 +8,8 @@ AGameLogo::AGameLogo()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 
+	SetActorLocation(FVector(0.0f, 150.0f));
+
 	LogoRenderer = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
 	LogoRenderer->SetupAttachment(Root);
 	LogoRenderer->SetOrder(ERenderOrder::TitleImage);
