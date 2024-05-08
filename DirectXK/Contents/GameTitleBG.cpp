@@ -9,9 +9,13 @@ AGameTitleBG::AGameTitleBG()
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
 
+	BackGround_Sky = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
+	BackGround_Sky->SetupAttachment(Root);
+	BackGround_Sky->SetOrder(ERenderOrder::MapBack);
+
 	BackGround_Cloud = CreateDefaultSubObject<USpriteRenderer>("LogoRenderer");
 	BackGround_Cloud->SetupAttachment(Root);
-	BackGround_Cloud->SetOrder(ERenderOrder::MapBack);
+	BackGround_Cloud->SetOrder(ERenderOrder::Map);
 }
 
 AGameTitleBG::~AGameTitleBG()
@@ -21,6 +25,9 @@ AGameTitleBG::~AGameTitleBG()
 void AGameTitleBG::BeginPlay()
 {
 	Super::BeginPlay();
+
+	BackGround_Sky->SetSprite("TitleSky.png");
+	BackGround_Sky->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 
 	BackGround_Cloud->SetSprite("BackCloud.png");
 	BackGround_Cloud->SetAutoSize(UContentsConstValue::AutoSizeValue, true);

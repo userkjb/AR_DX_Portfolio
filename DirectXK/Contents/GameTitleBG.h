@@ -23,6 +23,8 @@ protected:
 
 private:
 	void CreateCloud(float _DeltaTime);
+
+	USpriteRenderer* BackGround_Sky = nullptr;
 	USpriteRenderer* BackGround_Cloud = nullptr;
 
 	float4 VertexPlus = float4::Zero;
