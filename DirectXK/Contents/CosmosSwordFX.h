@@ -18,6 +18,11 @@ public:
 	ACosmosSwordFX& operator=(const ACosmosSwordFX) = delete;
 	ACosmosSwordFX& operator=(ACosmosSwordFX&& _Other) noexcept = delete;
 
+	inline int GetSwordDamage() const
+	{
+		return Damage;
+	}
+
 private :
 	inline void CreateWeaponFX()
 	{
@@ -59,4 +64,6 @@ private :
 	FVector InPosition = FVector::Zero;
 	FVector InRotation = FVector::Zero;
 	FVector InScale = FVector::Zero;
+
+	int Damage = 25;
 };

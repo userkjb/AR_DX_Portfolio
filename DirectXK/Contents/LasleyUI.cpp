@@ -45,13 +45,28 @@ void ULasleyUI::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
-
-	if (true == UEngineInput::IsDown('T'))
+	if (true == InHit)
 	{
 		FVector HpBarScale = HpBar_Back->GetWidgetScale3D(); // 500
-		float CalPosition = 1.0f;
-		HpBarScale.X += -CalPosition;
+		//int x = GetWeaponDamage; // 25
+		//int y = LasleyMaxHp;
+		float Cal = (static_cast<float>(GetWeaponDamage) * 100.0f) / static_cast<float>(LasleyMaxHp);
+
+		float Value = (HpBarScale.X * Cal) / 100.0f;
+
+		HpBarScale.X += -Value;
 		HpBar_Back->SetWidgetScale3D(HpBarScale);
-		HpBar_Back->AddPosition(FVector(-CalPosition / 2.0f, 0.0f));
+		HpBar_Back->AddPosition(FVector(-Value / 2.0f, 0.0f));
+
+		InHit = false;
 	}
+
+	//if (true == UEngineInput::IsDown('T'))
+	//{
+	//	FVector HpBarScale = HpBar_Back->GetWidgetScale3D(); // 500
+	//	float CalPosition = 1.0f;
+	//	HpBarScale.X += -CalPosition;
+	//	HpBar_Back->SetWidgetScale3D(HpBarScale);
+	//	HpBar_Back->AddPosition(FVector(-CalPosition / 2.0f, 0.0f));
+	//}
 }

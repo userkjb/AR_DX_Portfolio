@@ -5,6 +5,8 @@
 #include "DimensionSlash.h"
 #include "DemonicBlade.h"
 #include "DevilChurchWarlock.h"
+#include "LasleyUI.h"
+#include "CosmosSwordFX.h"
 
 void ALasley::StateInit()
 {
@@ -148,6 +150,7 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
+	/*
 	IdleTime += _DeltaTime;
 
 	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
@@ -235,6 +238,7 @@ void ALasley::IdleTick(float _DeltaTime)
 		State.ChangeState("DevilEye");
 		return;
 	}
+	*/
 
 #ifdef _DEBUG
 	{
@@ -927,13 +931,21 @@ void ALasley::CollisionCheck(float _DeltaTime)
 {
 	LasleyCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
+			ACosmosSwordFX* CosmosSword = dynamic_cast<ACosmosSwordFX*>(_Collision->GetActor());
+			if (nullptr == CosmosSword)
+			{
+				return;
+			}
+			int Damage = CosmosSword->GetSwordDamage();
+			Widget->RecvHit(true, MaxHp, Damage);
+
 			if (0 >= Hp)
 			{
 				Hp = 0;
 			}
 			else
 			{
-				Hp -= 20;
+				Hp -= Damage;
 			}
 
 			if (0 != Life && 0 >= Hp)
@@ -947,5 +959,6 @@ void ALasley::CollisionCheck(float _DeltaTime)
 				State.ChangeState("Die");
 				return;
 			}
-		});
+		}
+	);
 }
