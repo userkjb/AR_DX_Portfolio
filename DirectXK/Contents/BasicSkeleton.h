@@ -59,6 +59,7 @@ private :
 	USpriteRenderer* BasicSkeletonRenderer = nullptr;
 	UCollision* BasicSkeletonCollision = nullptr;
 	UCollision* PlayerCheckCollision = nullptr;
+	UCollision* AttackCol = nullptr;
 
 	const float RumSpeed = 100.0f;
 	FVector InPos = FVector::Zero;

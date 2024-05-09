@@ -25,6 +25,13 @@ ABasicSkeleton::ABasicSkeleton()
 	PlayerCheckCollision->SetCollisionGroup(ECollisionOrder::Monster_Search);
 	PlayerCheckCollision->SetCollisionType(ECollisionType::RotRect);
 	PlayerCheckCollision->SetScale(FVector(66.0f, 60.0f) * 4.0f); // 탐지 범위 설정.
+
+	AttackCol = CreateDefaultSubObject<UCollision>("Collision");
+	AttackCol->SetupAttachment(Root);
+	AttackCol->SetCollisionGroup(ECollisionOrder::Monster_Attack);
+	AttackCol->SetCollisionType(ECollisionType::RotRect);
+	AttackCol->SetScale(FVector(100.0f, 60.0f));
+	AttackCol->SetActive(false);
 }
 
 ABasicSkeleton::~ABasicSkeleton()
@@ -184,8 +191,23 @@ void ABasicSkeleton::AttackBegin()
 void ABasicSkeleton::AttackTick(float _DeltaTime)
 {
 	CollisionCheck(_DeltaTime);
+	BasicSkeletonRenderer->SetFrameCallback("Attack", 2, [=]()
+		{
+			AttackCol->SetActive(true);
+			if (EEngineDir::Right == BasicSkeletonRenderer->GetDir())
+			{
+				AttackCol->SetPosition(FVector(50.0f, 0.0f));
+			}
+			else
+			{
+				AttackCol->SetPosition(FVector(-50.0f, 0.0f));
+			}
+		}
+	);
+
 	if (true == BasicSkeletonRenderer->IsCurAnimationEnd())
 	{
+		AttackCol->SetActive(false);
 		SKState.ChangeState("Idle");
 		return;
 	}
