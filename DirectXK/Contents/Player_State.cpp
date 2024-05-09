@@ -15,6 +15,9 @@ void APlayer::StateInit()
 	State.CreateState("Dash");
 	State.CreateState("Die");
 
+	State.SetStartFunction("None", std::bind(&APlayer::NoneBegin, this));
+	State.SetUpdateFunction("None", std::bind(&APlayer::NoneTick, this, std::placeholders::_1));
+
 	State.SetFunction("Idle",
 		std::bind(&APlayer::IdleBegin, this),
 		std::bind(&APlayer::IdleTick, this, std::placeholders::_1),
@@ -60,6 +63,14 @@ void APlayer::PlayerMouseDir()
 		PlayerRenderer->SetDir(EEngineDir::Right);
 		ActorDir = PlayerRenderer->GetDir();
 	}
+}
+
+void APlayer::NoneBegin()
+{
+}
+
+void APlayer::NoneTick(float _DeltaTime)
+{
 }
 
 #pragma region Idle

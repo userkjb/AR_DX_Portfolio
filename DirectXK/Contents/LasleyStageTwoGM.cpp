@@ -51,6 +51,8 @@ void ALasleyStageTwoGM::BeginPlay()
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
 	}
+
+	InitState();
 }
 
 void ALasleyStageTwoGM::Tick(float _DeltaTime)
@@ -83,6 +85,7 @@ void ALasleyStageTwoGM::LevelStart(ULevel* _PrevLevel)
 	{
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
 		Player->SetActorLocation({ 1550.0f,  190.0f, 0.0f });
+		Player->SetPlayerStateIdle();
 	}
 
 	{
@@ -99,9 +102,6 @@ void ALasleyStageTwoGM::LevelStart(ULevel* _PrevLevel)
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
-
-
-	InitState();
 }
 
 void ALasleyStageTwoGM::LevelEnd(ULevel* _NextLevel)
@@ -184,7 +184,6 @@ void ALasleyStageTwoGM::BattleBegin()
 		BasicSkeleton->SetBasicSkeletonPos(FVector(800.0f, 192.0f));
 		BasicSkeleton->CreateBasicSkeleton();
 	}
-
 }
 
 void ALasleyStageTwoGM::BattleTick(float _DeltaTime)

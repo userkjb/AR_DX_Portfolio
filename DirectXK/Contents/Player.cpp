@@ -168,4 +168,5 @@ void APlayer::LevelIsDestroy()
 {
 	//Weapone->Destroy();
 	CosmosSword->Destroy();
+	CosmosSword = nullptr;
 }

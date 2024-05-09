@@ -75,6 +75,8 @@ private:
 	void DashSpectrumCalPos(float _DeltaTime);
 	void t_DeBugFunction(float _DeltaTime);
 
+	void NoneBegin();
+	void NoneTick(float _DeltaTime);
 	void IdleBegin();
 	void IdleTick(float _DeltaTime);
 	void IdleEnd();

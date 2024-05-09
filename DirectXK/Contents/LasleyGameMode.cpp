@@ -235,6 +235,7 @@ void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
 
+	Camera->Destroy();
 	StageMap_One->Destroy();
 	Player->LevelIsDestroy();
 	Player->Destroy();
