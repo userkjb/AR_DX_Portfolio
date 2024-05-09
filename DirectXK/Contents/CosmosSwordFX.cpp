@@ -33,8 +33,8 @@ void ACosmosSwordFX::BeginPlay()
 	CreateAnimation();
 	StateInit();
 
-	Weapon_FX_Render->SetAutoSize(4.0f, true);
-	Weapon_FX_Collision->SetScale(FVector(10.0f, 10.0f, 10.0f));
+	Weapon_FX_Render->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+	//Weapon_FX_Collision->SetScale(FVector(10.0f, 10.0f, 10.0f));
 }
 
 void ACosmosSwordFX::Tick(float _DeltaTime)
@@ -59,7 +59,7 @@ void ACosmosSwordFX::StateInit()
 
 void ACosmosSwordFX::CreateAnimation()
 {
-	Weapon_FX_Render->CreateAnimation("Attack", "GreatSword_FX", 0.125f, false, 0, 2);
+	Weapon_FX_Render->CreateAnimation("Attack", "CosmosSwingFX", 0.125f, false, 0, 2);
 
 	Weapon_FX_Render->ChangeAnimation("Attack");
 }
@@ -69,7 +69,9 @@ void ACosmosSwordFX::SwingBegin()
 	Weapon_FX_Render->ChangeAnimation("Attack");
 	Weapon_FX_Render->SetPosition(InPosition);
 	Weapon_FX_Render->SetRotationDeg(InRotation);
-	Weapon_FX_Collision->SetScale(InScale);
+	//Weapon_FX_Collision->SetScale(InScale);
+	Weapon_FX_Collision->SetScale(FVector(240.0f, 188.0f));
+	InPosition.Y += 94.0f;
 	Weapon_FX_Collision->SetPosition(InPosition);
 	Weapon_FX_Collision->SetRotationDeg(InRotation);
 

@@ -122,7 +122,7 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 		}
 
 		std::shared_ptr<ACosmosSwordFX> WeaponFXActor = GetWorld()->SpawnActor<ACosmosSwordFX>("WeaponFX", ERenderOrder::Weapon_FX);
-		WeaponFXActor->SetFXScale(WeaponRenderer->GetLocalScale());
+		//WeaponFXActor->SetFXScale(WeaponRenderer->GetLocalScale());
 		FVector WeaponCollisionPos = FVector::Zero;
 		FVector WeaponCollisionRot = WeaponRotation + AttackRotationFX;
 		WeaponCollisionRot.Z += Rot;
