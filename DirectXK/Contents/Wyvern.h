@@ -32,9 +32,18 @@ public:
 		InActorPos = _Pos;
 	}
 
-	inline void SetWyvernLocalPos(FVector _Pos)
+	//inline void SetWyvernLocalPos(FVector _Pos)
+	//{
+	//	InRenderPos = _Pos;
+	//}
+
+	/// <summary>
+	/// 받은 Position 값으로 오른쪽 왼쪽을 판단할 수 없다.
+	/// </summary>
+	/// <param name="_Dir"></param>
+	inline void SetWyvernRendDir(EEngineDir _Dir)
 	{
-		InRenderPos = _Pos;
+		InRenderDir = _Dir;
 	}
 
 	inline void SetPlayerPos(FVector _PlayerPos)
@@ -63,16 +72,20 @@ private:
 	void AttackTick(float _DeltaTime);
 	void AttackExit();
 
+	void RenderAndCollisionPosSetting();
 
 	void CollisionCheck(float _DeltaTime);
 
 	UStateManager State;
+#ifdef _DEBUG
+	USpriteRenderer* ActorRender = nullptr;
+#endif
 	USpriteRenderer* WyvernRenderer = nullptr;
 	UCollision* WyvernCollision = nullptr;
-	UCollision* PlayerCheck = nullptr;
+	UCollision* PlayerCheckCol = nullptr;
 
 	FVector InActorPos = FVector::Zero;
-	FVector InRenderPos = FVector::Zero;
+	FVector InRenderPos = FVector(300.0f, 0.0f, 0.0f);
 	FVector SendPlayerDir = FVector::Zero;
 	
 	bool Attack_Ready = false;
@@ -80,6 +93,7 @@ private:
 	bool b_Attack_Up = false;
 	bool ChangeAnimation_One = false;
 	float AttackDelayTime = 0.0f;
+	EEngineDir InRenderDir = EEngineDir::MAX;
 
 	int Hp = 10;
 };

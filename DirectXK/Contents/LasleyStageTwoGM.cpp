@@ -173,8 +173,9 @@ void ALasleyStageTwoGM::BattleBegin()
 		float4 SetPosValue = UContentsConstValue::MapTexScale.Half2D() * 4.0f;
 
 		BlackSphere = GetWorld()->SpawnActor<AWyvern>("Wyvern");
-		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X, SetPosValue.Y));
-		BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		BlackSphere->SetWyvernWorldPos(FVector(SetPosValue.X - 500.0f, SetPosValue.Y));
+		//BlackSphere->SetWyvernLocalPos(FVector(-300.0f, 0.0f));
+		BlackSphere->SetWyvernRendDir(EEngineDir::Left);
 		BlackSphere->SettingPosition();
 		BlackSphere->CreateWyvern();
 	}

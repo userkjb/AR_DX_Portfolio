@@ -8,6 +8,12 @@ AWyvern::AWyvern()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
 	SetRoot(Root);
+
+#ifdef _DEBUG
+	ActorRender = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	ActorRender->SetupAttachment(Root);
+	ActorRender->SetOrder(ERenderOrder::Enemy);
+#endif
 	
 	WyvernRenderer = CreateDefaultSubObject<USpriteRenderer>("Renderer");
 	WyvernRenderer->SetupAttachment(Root);
@@ -19,15 +25,11 @@ AWyvern::AWyvern()
 	WyvernCollision->SetCollisionType(ECollisionType::RotRect);
 	WyvernCollision->SetScale((FVector(72.f, 74.0f)) * 4.0f);
 
-	PlayerCheck = CreateDefaultSubObject<UCollision>("Renderer");
-	PlayerCheck->SetupAttachment(Root);
-	PlayerCheck->SetCollisionGroup(ECollisionOrder::Monster_Search);
-	PlayerCheck->SetCollisionType(ECollisionType::RotRect);
-	PlayerCheck->SetScale((FVector(72.f, 74.0f)) * 8.0f);
-
-#ifdef _DEBUG
-	InputOn(); // Test
-#endif
+	PlayerCheckCol = CreateDefaultSubObject<UCollision>("Renderer");
+	PlayerCheckCol->SetupAttachment(Root);
+	PlayerCheckCol->SetCollisionGroup(ECollisionOrder::Monster_Search);
+	PlayerCheckCol->SetCollisionType(ECollisionType::RotRect);
+	PlayerCheckCol->SetScale((FVector(72.f, 74.0f)) * 8.0f);
 }
 
 AWyvern::~AWyvern()
@@ -42,6 +44,13 @@ void AWyvern::BeginPlay()
 	CreateAnimation();
 	
 	WyvernRenderer->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+
+#ifdef _DEBUG
+	ActorRender->SetSprite("TestPointImage.png");
+	ActorRender->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+
+	InputOn(); // Test
+#endif
 }
 
 void AWyvern::Tick(float _DeltaTime)
@@ -94,9 +103,21 @@ void AWyvern::StateInit()
 void AWyvern::SettingBegin()
 {
 	SetActorLocation(InActorPos);
-	WyvernRenderer->SetPosition(InRenderPos);
-	WyvernCollision->SetPosition(InRenderPos);
-	PlayerCheck->SetPosition(InRenderPos);
+	if (EEngineDir::Right == InRenderDir)
+	{
+		InRenderPos *= -1.0f;
+		WyvernRenderer->SetDir(InRenderDir);
+		WyvernRenderer->SetPosition(InRenderPos);
+		WyvernCollision->SetPosition(InRenderPos);
+		PlayerCheckCol->SetPosition(InRenderPos);
+	}
+	else if (EEngineDir::Left == InRenderDir)
+	{
+		WyvernRenderer->SetDir(InRenderDir);
+		WyvernRenderer->SetPosition(InRenderPos);
+		WyvernCollision->SetPosition(InRenderPos);
+		PlayerCheckCol->SetPosition(InRenderPos);
+	}
 }
 
 
@@ -108,7 +129,7 @@ void AWyvern::IdleBegin()
 	{
 		WyvernRenderer->SetActive(true);
 		WyvernCollision->SetActive(true);
-		PlayerCheck->SetActive(true);
+		PlayerCheckCol->SetActive(true);
 	}
 
 	WyvernRenderer->ChangeAnimation("Idle");
@@ -143,11 +164,26 @@ void AWyvern::IdleTick(float _DeltaTime)
 		AddActorRotation(Value);
 		WyvernRenderer->AddRotationDeg(-Value);
 	}
+	if (true == IsDown('I'))
+	{
+		if (EEngineDir::Right == WyvernRenderer->GetDir())
+		{
+			WyvernRenderer->SetDir(EEngineDir::Left);
+		}
+		else
+		{
+			WyvernRenderer->SetDir(EEngineDir::Right);
+		}
+	}
 
-	std::string WorldPos = std::format("Wyvern World Pos : {}", WyvernCollision->GetWorldPosition().ToString());
-	std::string LocalPos = std::format("Wyvern Local Pos : {}", WyvernCollision->GetLocalPosition().ToString());
-	std::string WorldRot = std::format("Wyvern World Rot : {}", WyvernCollision->GetWorldRotation().ToString());
-	std::string LocalRot = std::format("Wyvern Local Rot : {}", WyvernCollision->GetLocalRotation().ToString());
+	std::string ActorPos = std::format("Actor Position : {}\n", GetActorLocation().ToString());
+	std::string ActorRot = std::format("Actor Rot : {}\n", GetActorForwardVector().ToString());
+	std::string WorldPos = std::format("Wyvern World Pos : {}\n", WyvernCollision->GetWorldPosition().ToString());
+	std::string LocalPos = std::format("Wyvern Local Pos : {}\n", WyvernCollision->GetLocalPosition().ToString());
+	std::string WorldRot = std::format("Wyvern World Rot : {}\n", WyvernCollision->GetWorldRotation().ToString());
+	std::string LocalRot = std::format("Wyvern Local Rot : {}\n", WyvernCollision->GetLocalRotation().ToString());
+	UEngineDebugMsgWindow::PushMsg(ActorPos);
+	UEngineDebugMsgWindow::PushMsg(ActorRot);
 	UEngineDebugMsgWindow::PushMsg(WorldPos);
 	UEngineDebugMsgWindow::PushMsg(LocalPos);
 	UEngineDebugMsgWindow::PushMsg(WorldRot);
@@ -166,7 +202,7 @@ void AWyvern::AttackBegin()
 {
 	WyvernRenderer->ChangeAnimation("Attack_Ready");
 	AttackDelayTime = 0.0f;
-	PlayerCheck->SetActive(false);
+	PlayerCheckCol->SetActive(false);
 	ChangeAnimation_One = false;
 }
 
@@ -237,7 +273,7 @@ void AWyvern::AttackTick(float _DeltaTime)
 	else if (EEngineDir::Left == WyvernRenderer->GetDir())
 	{
 		float testz = WyvernCollision->GetWorldRotation().Z;
-		if (90.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Down)
+		if (-90.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Down)
 		{
 			if (false == ChangeAnimation_One)
 			{
@@ -276,7 +312,12 @@ void AWyvern::AttackTick(float _DeltaTime)
 		}
 	);
 
-	if (0.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Up)
+	if (EEngineDir::Right == WyvernRenderer->GetDir() && 0.0f >= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Up)
+	{
+		State.ChangeState("Idle");
+		return;
+	}
+	else if (EEngineDir::Left == WyvernRenderer->GetDir() && 0.0f <= WyvernCollision->GetWorldRotation().Z && true == b_Attack_Up)
 	{
 		State.ChangeState("Idle");
 		return;
@@ -284,12 +325,13 @@ void AWyvern::AttackTick(float _DeltaTime)
 
 
 #ifdef _DEBUG
+	std::string ActorPos = std::format("Actor Position : {}\n", GetActorLocation().ToString());
 	std::string ActorRot = std::format("Actor Rot : {}\n", GetActorForwardVector().ToString());
 	std::string WorldPos = std::format("Wyvern World Pos : {}\n", WyvernCollision->GetWorldPosition().ToString());
 	std::string LocalPos = std::format("Wyvern Local Pos : {}\n", WyvernCollision->GetLocalPosition().ToString());
 	std::string WorldRot = std::format("Wyvern World Rot : {}\n", WyvernCollision->GetWorldRotation().ToString());
 	std::string LocalRot = std::format("Wyvern Local Rot : {}\n", WyvernCollision->GetLocalRotation().ToString());
-	
+	UEngineDebugMsgWindow::PushMsg(ActorPos);
 	UEngineDebugMsgWindow::PushMsg(ActorRot);
 	UEngineDebugMsgWindow::PushMsg(WorldPos);
 	UEngineDebugMsgWindow::PushMsg(LocalPos);
@@ -303,7 +345,70 @@ void AWyvern::AttackExit()
 	Attack_Ready = false;
 	b_Attack_Down = false;
 	b_Attack_Up = false;
-	PlayerCheck->SetActive(true);
+	PlayerCheckCol->SetActive(true);
+	
+	// Actor 초기화.
+	SetActorRotation(FVector::Zero);
+	WyvernRenderer->SetRotationDeg(FVector::Zero);
+	{
+		WyvernRenderer->SetPosition(FVector::Zero);
+		WyvernCollision->SetPosition(FVector::Zero);
+		PlayerCheckCol->SetPosition(FVector::Zero);
+
+		if (EEngineDir::Right == WyvernRenderer->GetDir())
+		{
+			FVector DefaultPosition = GetActorLocation();
+			DefaultPosition += InRenderPos * 2.0f;
+			SetActorLocation(DefaultPosition);
+
+			// Z축이 돌았잖아!!!
+			WyvernRenderer->SetPosition(-InRenderPos);
+			WyvernCollision->SetPosition(-InRenderPos);
+			PlayerCheckCol->SetPosition(-InRenderPos);
+		}
+		else if (EEngineDir::Left == WyvernRenderer->GetDir())
+		{
+			FVector DefaultPosition = GetActorLocation();
+			DefaultPosition -= InRenderPos * 2.0f;
+			SetActorLocation(DefaultPosition);
+
+			WyvernRenderer->SetPosition(InRenderPos);
+			WyvernCollision->SetPosition(InRenderPos);
+			PlayerCheckCol->SetPosition(InRenderPos);
+		}
+	}
+}
+
+void AWyvern::RenderAndCollisionPosSetting()
+{
+	WyvernRenderer->SetPosition(FVector::Zero);
+	WyvernCollision->SetPosition(FVector::Zero);
+	PlayerCheckCol->SetPosition(FVector::Zero);
+
+	if (EEngineDir::Right != WyvernRenderer->GetDir())
+	{
+		WyvernRenderer->SetDir(EEngineDir::Right);
+
+		FVector DefaultPosition = GetActorLocation();
+		DefaultPosition += InRenderPos * 2.0f;
+		SetActorLocation(DefaultPosition);
+
+		WyvernRenderer->SetPosition(-InRenderPos);
+		WyvernCollision->SetPosition(-InRenderPos);
+		PlayerCheckCol->SetPosition(-InRenderPos);
+	}
+	else if (EEngineDir::Left != WyvernRenderer->GetDir())
+	{
+		WyvernRenderer->SetDir(EEngineDir::Left);
+
+		FVector DefaultPosition = GetActorLocation();
+		DefaultPosition -= InRenderPos * 2.0f;
+		SetActorLocation(DefaultPosition);
+
+		WyvernRenderer->SetPosition(InRenderPos);
+		WyvernCollision->SetPosition(InRenderPos);
+		PlayerCheckCol->SetPosition(InRenderPos);
+	}
 }
 
 void AWyvern::CollisionCheck(float _DeltaTime)
@@ -319,27 +424,34 @@ void AWyvern::CollisionCheck(float _DeltaTime)
 		}
 	);
 
-	PlayerCheck->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+	PlayerCheckCol->CollisionStay(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			AttackDelayTime += _DeltaTime;
+			
 			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
 
 			FVector PlayerPos = Player->GetActorLocation();
-			FVector WyvernPos = PlayerCheck->GetWorldPosition();
+			FVector WyvernPos = PlayerCheckCol->GetWorldPosition();
 
-			//float Value = PlayerPos.X - WyvernPos.X;
 			if (WyvernPos.X <= PlayerPos.X)
 			{
-				WyvernRenderer->SetDir(EEngineDir::Right);
+				if (EEngineDir::Right != WyvernRenderer->GetDir())
+				{
+					RenderAndCollisionPosSetting();
+				}
 			}
-			else
+			else // Left
 			{
-				WyvernRenderer->SetDir(EEngineDir::Left);
+				if (EEngineDir::Left != WyvernRenderer->GetDir())
+				{
+					RenderAndCollisionPosSetting();
+				}
 			}
 
 			if (3.0f <= AttackDelayTime)
 			{
 				State.ChangeState("Attack");
+				AttackDelayTime = 0.0f;
 				return;
 			}
 		}
