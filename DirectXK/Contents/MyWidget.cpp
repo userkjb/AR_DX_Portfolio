@@ -52,6 +52,16 @@ void MyWidget::BeginPlay()
 	CreateDashBar();
 	//CreateDashBar_v2();
 
+	{
+		Hit = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
+		Hit->SetupAttachment(this);
+		Hit->SetSprite("Hit.png");
+		Hit->SetAutoSize(4.0f, true);
+		Hit->AddToViewPort(4);
+	}
+
+	
+
 	AddToViewPort(1);
 
 	DashCountTime = 0.0f;
@@ -63,13 +73,29 @@ void MyWidget::Tick(float _DeltaTime)
 
 	if (true == InDamage)
 	{
-		float CalPosition = 1.0f;
+		float CalPosition = 1.0f; // InDamageValue
 		DefaultScale.X += -CalPosition; // 196.0f
 		HpBar_Base->SetWidgetScale3D(DefaultScale);
 		HpBar_Base->AddPosition(FVector(-(CalPosition / 2.0f), 0.0f, 0.0f));
 		HpBar_Ani->AddPosition(FVector(-CalPosition, 0.0f, 0.0f));
 
 		InDamage = false;
+	}
+
+	if (true == InHit)
+	{
+		HitAlpha -= _DeltaTime * 0.5f;
+		Hit->SetMulColor(float4(1.0f, 1.0f, 1.0f, HitAlpha));
+
+		if (0.0f > HitAlpha)
+		{
+			HitAlpha = 1.0f;
+			InHit = false;
+		}
+	}
+	else
+	{
+		Hit->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
 	}
 }
 

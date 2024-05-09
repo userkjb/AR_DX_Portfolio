@@ -25,7 +25,12 @@ public:
 	inline void RecvDamageValue(bool _Boolean, float _Value)
 	{
 		InDamage = _Boolean;
-		Damage = _Value;
+		InDamageValue = _Value;
+	}
+
+	inline void RecvHitValue(bool _Value)
+	{
+		InHit = _Value;
 	}
 
 protected:
@@ -39,14 +44,17 @@ private:
 
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
+	UImage* Hit = nullptr;
 
 	bool InDamage = false;
-	float Damage = 0.0f;
+	bool InHit = false;
+	float InDamageValue = 0.0f;
 	FVector DefaultScale = FVector::Zero;
 	float DashCountTime = 0.0f;
 
 	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
-	std::vector<UImage*> DashBar_Bases;
-	std::vector<UImage*> DashBar_Counts;
+	//std::vector<UImage*> DashBar_Bases;
+	//std::vector<UImage*> DashBar_Counts;
+	float HitAlpha = 1.0f;
 };
 

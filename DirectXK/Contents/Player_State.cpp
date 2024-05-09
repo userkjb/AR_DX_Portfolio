@@ -3,6 +3,7 @@
 #include <EngineCore/SpriteRenderer.h>
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "PlayerStruct.h"
+#include "MyWidget.h"
 
 void APlayer::StateInit()
 {
@@ -497,6 +498,7 @@ void APlayer::CollisionCheck(float _DeltaTime)
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster_Attack, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsCollision = false;
+			Widget->RecvHitValue(true);
 		}
 	);
 
