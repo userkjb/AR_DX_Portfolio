@@ -33,6 +33,10 @@ protected:
 	void Tick(float _DeltaTime) override;
 
 private:
+	void CreateHpBar();
+	void CreateDashBar();
+	void CreateDashBar_v2();
+
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
 
@@ -42,5 +46,7 @@ private:
 	float DashCountTime = 0.0f;
 
 	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
+	std::vector<UImage*> DashBar_Bases;
+	std::vector<UImage*> DashBar_Counts;
 };
 

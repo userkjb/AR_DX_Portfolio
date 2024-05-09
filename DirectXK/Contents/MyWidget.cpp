@@ -46,51 +46,80 @@ void MyWidget::BeginPlay()
 	//}
 
 	// Hp
-	{
-		float SetPosX = 158.0f;
-		float SetPosY = 42.0f;
-		{
-			float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
-			ScreenScaleHalf.X -= SetPosX;
-			ScreenScaleHalf.Y -= SetPosY;
-			HpBar_Base = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
-			HpBar_Base->SetupAttachment(this);
-			HpBar_Base->SetSprite("PlayerLifeBack2.png");
-			HpBar_Base->SetWidgetScale3D((FVector(49.0f, 10.0f)) * 4.0f);
-			ScreenScaleHalf.X -= 38.0f;
-			HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-			DefaultScale = HpBar_Base->GetWidgetScale3D();
-		}
-
-		{
-			float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
-			ScreenScaleHalf.X -= SetPosX;
-			ScreenScaleHalf.Y -= SetPosY;
-
-			HpBar_Ani = CreateWidget<UImage>(GetWorld(), "HpBar");
-			//Image->SetupAttachment(this); // ÀÌ°Å ÇÏ¸é 1ÇÈ¼¿ Á¡À¸·Î ³ª¿È.
-			HpBar_Ani->AddToViewPort(1);
-			HpBar_Ani->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
-			//HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-			ScreenScaleHalf.X -= 142.0f;
-			HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-			HpBar_Ani->SetAutoSize(4.0f, true);
-			HpBar_Ani->ChangeAnimation("HpBar");
-		}
-
-		{
-			float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
-			ScreenScaleHalf.X -= SetPosX;
-			ScreenScaleHalf.Y -= SetPosY;
-			UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBarBase");
-			Image->SetupAttachment(this);
-			Image->SetSprite("PlayerLifeBase.png");
-			Image->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-			Image->SetAutoSize(4.0f, true);
-		}
-	}
+	CreateHpBar();
 	
 	// Dash
+	CreateDashBar();
+	//CreateDashBar_v2();
+
+	AddToViewPort(1);
+
+	DashCountTime = 0.0f;
+}
+
+void MyWidget::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	if (true == InDamage)
+	{
+		float CalPosition = 1.0f;
+		DefaultScale.X += -CalPosition; // 196.0f
+		HpBar_Base->SetWidgetScale3D(DefaultScale);
+		HpBar_Base->AddPosition(FVector(-(CalPosition / 2.0f), 0.0f, 0.0f));
+		HpBar_Ani->AddPosition(FVector(-CalPosition, 0.0f, 0.0f));
+
+		InDamage = false;
+	}
+}
+
+void MyWidget::CreateHpBar()
+{
+	float SetPosX = 158.0f;
+	float SetPosY = 42.0f;
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= SetPosX;
+		ScreenScaleHalf.Y -= SetPosY;
+		HpBar_Base = CreateWidget<UImage>(GetWorld(), "HpLifeBar");
+		HpBar_Base->SetupAttachment(this);
+		HpBar_Base->SetSprite("PlayerLifeBack2.png");
+		HpBar_Base->SetWidgetScale3D((FVector(49.0f, 10.0f)) * 4.0f);
+		ScreenScaleHalf.X -= 38.0f;
+		HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		DefaultScale = HpBar_Base->GetWidgetScale3D();
+	}
+
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= SetPosX;
+		ScreenScaleHalf.Y -= SetPosY;
+
+		HpBar_Ani = CreateWidget<UImage>(GetWorld(), "HpBar");
+		//Image->SetupAttachment(this); // ÀÌ°Å ÇÏ¸é 1ÇÈ¼¿ Á¡À¸·Î ³ª¿È.
+		HpBar_Ani->AddToViewPort(1);
+		HpBar_Ani->CreateAnimation("HpBar", "LifeBar", 0.125f, true, 1, 7);
+		//HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		ScreenScaleHalf.X -= 142.0f;
+		HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		HpBar_Ani->SetAutoSize(4.0f, true);
+		HpBar_Ani->ChangeAnimation("HpBar");
+	}
+
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.X -= SetPosX;
+		ScreenScaleHalf.Y -= SetPosY;
+		UImage* Image = CreateWidget<UImage>(GetWorld(), "HpBarBase");
+		Image->SetupAttachment(this);
+		Image->SetSprite("PlayerLifeBase.png");
+		Image->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+		Image->SetAutoSize(4.0f, true);
+	}
+}
+
+void MyWidget::CreateDashBar()
+{
 	for (size_t i = 0; i < static_cast<size_t>(EPlayerStateValue::DashCountMax); i++)
 	{
 		if (i == 0)
@@ -162,25 +191,24 @@ void MyWidget::BeginPlay()
 			Dash_Base_Images.push_back(std::make_pair(Dash_Image_End, Dash_Count_End));
 		}
 	}
-
-
-	AddToViewPort(1);
-
-	DashCountTime = 0.0f;
 }
 
-void MyWidget::Tick(float _DeltaTime)
+void MyWidget::CreateDashBar_v2()
 {
-	Super::Tick(_DeltaTime);
+	float DashBar_X_Right_Margin = 14.0f;
 
-	if (true == InDamage)
+	float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+	ScreenScaleHalf.X -= DashBar_X_Right_Margin; // 640
+	ScreenScaleHalf.Y -= 100.0f; // 340
+
+	// Start
 	{
-		float CalPosition = 1.0f;
-		DefaultScale.X += -CalPosition; // 196.0f
-		HpBar_Base->SetWidgetScale3D(DefaultScale);
-		HpBar_Base->AddPosition(FVector(-(CalPosition / 2.0f), 0.0f, 0.0f));
-		HpBar_Ani->AddPosition(FVector(-CalPosition, 0.0f, 0.0f));
-
-		InDamage = false;
+		UImage* StartDashBar = CreateWidget<UImage>(GetWorld(), "DashBase");
+		StartDashBar->SetupAttachment(this);
+		StartDashBar->SetSprite("DashBaseLeftEnd.png");
+		StartDashBar->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
+		StartDashBar->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
 	}
+
+
 }
