@@ -40,9 +40,6 @@ void ATitleGameMode::BeginPlay()
 		}
 	}
 
-
-	// 비둘기 렌더링 해야 함.
-
 	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 		Camera->SetActorLocation(FVector(0.0f, 0.0f, -500.0f));
