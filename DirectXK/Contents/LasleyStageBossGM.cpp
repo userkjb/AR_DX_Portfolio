@@ -72,6 +72,7 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 	{
 		Player = GetWorld()->SpawnActor<APlayer>("Player");
 		Player->SetActorLocation({ 160.0f,  125.0f, 0.0f });
+		Player->SetPlayerStateIdle();
 	}
 
 	{
