@@ -184,7 +184,10 @@ void AWyvern::AttackTick(float _DeltaTime)
 
 	if (true == Attack_Ready)
 	{
-		FVector Value = FVector(0.0f, 0.0f, 0.25f);
+		FVector Value = FVector::Zero;
+		float RotationSpeed = 100.0f;
+		Value.Z = RotationSpeed * _DeltaTime;
+
 		if (EEngineDir::Right == WyvernRenderer->GetDir())
 		{
 			AddActorRotation(Value);
