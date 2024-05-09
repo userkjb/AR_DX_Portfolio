@@ -2,6 +2,8 @@
 #include "BasicSkeleton.h"
 #include <EngineCore/DefaultSceneComponent.h>
 
+#include "Player.h"
+
 ABasicSkeleton::ABasicSkeleton()
 {
 	UDefaultSceneComponent* Root = CreateDefaultSubObject<UDefaultSceneComponent>("Renderer");
@@ -105,7 +107,7 @@ void ABasicSkeleton::IdleBegin()
 void ABasicSkeleton::IdleTick(float _DeltaTime)
 {
 	PlayerNotCatchTime += _DeltaTime;
-	CollisionCheck(PlayerNotCatchTime);
+	CollisionCheck(_DeltaTime);
 
 	if (3.0f <= PlayerNotCatchTime)
 	{
@@ -116,17 +118,7 @@ void ABasicSkeleton::IdleTick(float _DeltaTime)
 
 void ABasicSkeleton::IdleExit()
 {
-	PlayerNotCatchTime = 0.0f;
-	PreState = "Idle";
-}
-
-
-
-void ABasicSkeleton::RunBegin()
-{
-	BasicSkeletonRenderer->ChangeAnimation("Run");
-
-	if (PreState == "Idle")
+	if (PreState == "Run")
 	{
 		if (EEngineDir::Right == BasicSkeletonRenderer->GetDir())
 		{
@@ -137,6 +129,16 @@ void ABasicSkeleton::RunBegin()
 			BasicSkeletonRenderer->SetDir(EEngineDir::Right);
 		}
 	}
+
+	PlayerNotCatchTime = 0.0f;
+	PreState = "Idle";
+}
+
+
+
+void ABasicSkeleton::RunBegin()
+{
+	BasicSkeletonRenderer->ChangeAnimation("Run");
 
 	RunTime = 0.0f;
 }
@@ -176,6 +178,7 @@ void ABasicSkeleton::RunExit()
 void ABasicSkeleton::AttackBegin()
 {
 	BasicSkeletonRenderer->ChangeAnimation("Attack");
+	PlayerCheckCollision->SetActive(false);
 }
 
 void ABasicSkeleton::AttackTick(float _DeltaTime)
@@ -191,11 +194,12 @@ void ABasicSkeleton::AttackTick(float _DeltaTime)
 void ABasicSkeleton::AttackExit()
 {
 	PreState = "Attack";
+	PlayerCheckCollision->SetActive(true);
 }
 
 
 
-void ABasicSkeleton::CollisionCheck(float _Time)
+void ABasicSkeleton::CollisionCheck(float _DeltaTime)
 {
 	BasicSkeletonCollision->CollisionEnter(ECollisionOrder::WeaponFX, [=](std::shared_ptr<UCollision> _Collision)
 		{
@@ -208,8 +212,28 @@ void ABasicSkeleton::CollisionCheck(float _Time)
 		}
 	);
 
+	PlayerCheckCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			SKState.ChangeState("Idle");
+			return;
+		});
+
 	PlayerCheckCollision->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
 		{
+			APlayer* Player = dynamic_cast<APlayer*>(_Collision->GetActor());
+
+			FVector PlayerPos = Player->GetActorLocation();
+			FVector SkeletonPos = PlayerCheckCollision->GetWorldPosition();
+
+			if (SkeletonPos.X <= PlayerPos.X)
+			{
+				BasicSkeletonRenderer->SetDir(EEngineDir::Right);
+			}
+			else
+			{
+				BasicSkeletonRenderer->SetDir(EEngineDir::Left);
+			}
+
 			SKState.ChangeState("Attack");
 			return;
 		}

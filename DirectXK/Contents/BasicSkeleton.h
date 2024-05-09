@@ -53,7 +53,7 @@ private :
 	void AttackTick(float _DeltaTime);
 	void AttackExit();
 
-	void CollisionCheck(float _Time);
+	void CollisionCheck(float _DeltaTime);
 
 	UStateManager SKState;
 	USpriteRenderer* BasicSkeletonRenderer = nullptr;
@@ -66,6 +66,8 @@ private :
 	float PlayerNotCatchTime = 0.0f;
 	float RunTime = 0.0f;
 	std::string PreState = "";
+	EEngineDir AttackDir = EEngineDir::MAX; // 공격해야 하는 방향 = 플레이어가 있는 방향.
+
 	int Hp = 10;
 };
 
