@@ -150,7 +150,6 @@ void ALasley::IdleBegin()
 
 void ALasley::IdleTick(float _DeltaTime)
 {
-	/*
 	IdleTime += _DeltaTime;
 
 	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
@@ -238,7 +237,6 @@ void ALasley::IdleTick(float _DeltaTime)
 		State.ChangeState("DevilEye");
 		return;
 	}
-	*/
 
 #ifdef _DEBUG
 	{
