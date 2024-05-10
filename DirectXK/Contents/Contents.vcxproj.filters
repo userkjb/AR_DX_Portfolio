@@ -100,6 +100,9 @@
     <Filter Include="Level\00_GameStart\Actor\Player\Weapon\CosmosSword">
       <UniqueIdentifier>{54fbdb1e-4196-4259-b5de-17b61f93e323}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\02_TownLevel\Level_Actor">
+      <UniqueIdentifier>{e5aa5740-19b6-484d-949a-6dd5f5c1fa53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -258,6 +261,9 @@
     <ClCompile Include="CosmosSwordFX.cpp">
       <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
     </ClCompile>
+    <ClCompile Include="TownMap.cpp">
+      <Filter>Level\02_TownLevel\Level_Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -403,6 +409,9 @@
     </ClInclude>
     <ClInclude Include="CosmosSwordFX.h">
       <Filter>Level\00_GameStart\Actor\Player\Weapon\CosmosSword</Filter>
+    </ClInclude>
+    <ClInclude Include="TownMap.h">
+      <Filter>Level\02_TownLevel\Level_Actor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

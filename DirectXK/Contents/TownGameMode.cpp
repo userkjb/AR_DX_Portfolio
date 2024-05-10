@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "TownGameMode.h"
+#include "TownMap.h"
 
 ATownGameMode::ATownGameMode()
 {
@@ -12,6 +13,17 @@ ATownGameMode::~ATownGameMode()
 void ATownGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\TownStage\\Town");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+	}
 
 	{
 		UEngineDirectory Dir;
@@ -42,6 +54,25 @@ void ATownGameMode::Tick(float _DeltaTime)
 void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	UContentsConstValue::MapTex = UEngineTexture::FindRes("Town_Col.png");
+	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
+
+	// Map
+	{
+		std::shared_ptr<ATownMap> TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap");
+		float4 TexScale = UContentsConstValue::MapTexScale;
+		float Size = UContentsConstValue::AutoSizeValue; // const
+		TownMap->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
+	}
+
+	// Camera
+	{
+		Camera = GetWorld()->GetMainCamera();
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
+	}
+
 	Sound.On();
 }
 

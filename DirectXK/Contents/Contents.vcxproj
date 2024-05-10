@@ -218,6 +218,7 @@
     <ClInclude Include="TitleGameMode.h" />
     <ClInclude Include="TitleWidget.h" />
     <ClInclude Include="TownGameMode.h" />
+    <ClInclude Include="TownMap.h" />
     <ClInclude Include="WarlockBlackSphere.h" />
     <ClInclude Include="WeaponFX.h">
       <SubType>
@@ -286,6 +287,7 @@
     <ClCompile Include="TitleGameMode.cpp" />
     <ClCompile Include="TitleWidget.cpp" />
     <ClCompile Include="TownGameMode.cpp" />
+    <ClCompile Include="TownMap.cpp" />
     <ClCompile Include="WarlockBlackSphere.cpp" />
     <ClCompile Include="WeaponFX.cpp">
       <SubType>
