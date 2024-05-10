@@ -233,6 +233,19 @@ ALasley::ALasley()
 	LasleySummonFX->SetOrder(ERenderOrder::BossBodyFX);
 	LasleySummonFX->SetActive(false);
 	
+	{
+		Explosion_Sound = UEngineSound::SoundPlay("Explosion_Lasley.mp3");
+		Slash_Sound = UEngineSound::SoundPlay("Fantasy_Game_Blade_Draw_1_lasley.mp3");
+		Tentacle_Sound = UEngineSound::SoundPlay("LaslyTentacle.mp3");
+
+		Explosion_Sound.Loop(true);
+		Slash_Sound.Loop(true);
+		Tentacle_Sound.Loop(true);
+
+		Explosion_Sound.Off();
+		Slash_Sound.Off();
+		Tentacle_Sound.Off();
+	}
 
 #ifdef _DEBUG
 	InputOn(); // test

@@ -104,6 +104,10 @@ private :
 	UStateManager State;
 	std::string PreStateName = "";
 
+	UEngineSoundPlayer Explosion_Sound;
+	UEngineSoundPlayer Slash_Sound;
+	UEngineSoundPlayer Tentacle_Sound;
+
 	int MovePosNum = 0;
 	const float MoveSpeed = 1500.0f;
 	const float SwordSpeed = 500.0f;
@@ -120,7 +124,7 @@ private :
 
 	float SummonTime = 0.0f;
 	float IdleTime = 0.0f;
-	float DevilEyeTime = 0.0f;
+	float DevilEyeSoundTime = 0.0f;
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
 	float DieTime = 0.0f;
@@ -135,6 +139,7 @@ private :
 	FVector DemonSwordVector = FVector::Zero;
 	bool MoveOne = false;
 	bool DieOne = false;
+	bool b_DevilEyeSound = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.
