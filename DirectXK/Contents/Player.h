@@ -52,6 +52,11 @@ public:
 		return;
 	}
 
+	inline std::string GetState() const
+	{
+		return State.GetCurStateName();
+	}
+
 	void LevelIsDestroy();
 
 protected:

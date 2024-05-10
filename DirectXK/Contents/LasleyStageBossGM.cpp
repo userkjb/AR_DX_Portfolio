@@ -244,6 +244,13 @@ void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
 		return;
 	}
 
+	std::string PlayerState = Player->GetState();
+	if (PlayerState == "Die")
+	{
+		LevelState.ChangeState("PlayerDie");
+		return;
+	}
+
 	CameraMove(_DeltaTime);
 }
 
@@ -255,6 +262,8 @@ void ALasleyStageBossGM::LasleyBattleExit()
 #pragma region PlayerDie
 void ALasleyStageBossGM::PlayerDieBegin()
 {
+	UEngineSound::SoundPlay("dead.mp3");
+	Sound.Off();
 }
 
 void ALasleyStageBossGM::PlayerDieTick(float _DeltaTime)

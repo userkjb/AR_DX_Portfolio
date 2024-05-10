@@ -449,10 +449,19 @@ void APlayer::DieBegin()
 {
 	PlayerRenderer->ChangeAnimation("Die");
 	ActorState = EPlayerState::Die;
+
+	RunVector = FVector::Zero;
 }
 
 void APlayer::DieTick(float _DeltaTime)
 {
+	{
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
 }
 
 void APlayer::DieEnd()
@@ -505,6 +514,7 @@ void APlayer::CollisionCheck(float _DeltaTime)
 	);
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster_Attack, [=](std::shared_ptr<UCollision> _Collision)
 		{
+			EPlayerStateValue::Hp -= 5;
 			IsCollision = false;
 			Widget->RecvHitValue(true);
 		}

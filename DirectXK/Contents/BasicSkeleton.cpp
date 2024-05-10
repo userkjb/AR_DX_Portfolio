@@ -3,6 +3,7 @@
 #include <EngineCore/DefaultSceneComponent.h>
 
 #include "Player.h"
+#include "PlayerStruct.h"
 
 ABasicSkeleton::ABasicSkeleton()
 {
@@ -234,6 +235,13 @@ void ABasicSkeleton::CollisionCheck(float _DeltaTime)
 			}
 		}
 	);
+
+	AttackCol->CollisionEnter(ECollisionOrder::Player, [=](std::shared_ptr<UCollision> _Collision)
+		{
+			EPlayerStateValue::Hp -= 15;
+		}
+	);
+
 
 	PlayerCheckCollision->CollisionEnter(ECollisionOrder::MapDoor, [=](std::shared_ptr<UCollision> _Collision)
 		{

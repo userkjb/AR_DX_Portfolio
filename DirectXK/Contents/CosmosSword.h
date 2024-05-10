@@ -31,7 +31,8 @@ private :
 
 	inline std::string GetWeaponState() const
 	{
-		return PreState;
+		//return PreState;
+		return State.GetCurStateName();
 	}
 
 	inline void CreateWeapon()

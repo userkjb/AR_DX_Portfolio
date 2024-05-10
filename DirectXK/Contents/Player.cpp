@@ -69,6 +69,12 @@ void APlayer::Tick(float _DeltaTime)
 		CollisionOff(_DeltaTime);
 	}
 
+	if (0 >= EPlayerStateValue::Hp)
+	{
+		State.ChangeState("Die");
+		return;
+	}
+
 	{
 		PlayerPos = GetActorLocation();
 		float4 CulMousPos = GEngine->EngineWindow.GetScreenMousePos();
@@ -95,24 +101,11 @@ void APlayer::Tick(float _DeltaTime)
 		MouseRendere->SetPosition(MousePosition);
 	}
 
-#ifdef _DEBUG
-		t_DeBugFunction(_DeltaTime);
-#endif
-
-	{
-		// 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
-		//Weapone->AActor::SetActorLocation(PlayerPos);
-		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
-		//Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
-		//Weapone->SetPlayerDir(ActorDir);
-	}
 	{
 		if (nullptr != CosmosSword)
 		{
 			CosmosSword->SetWeaponActorPosition(GetActorLocation());
 			CosmosSword->SetPlayerRenderDir(PlayerRenderer->GetDir());
-
-
 
 			std::string WeaponStateName = CosmosSword->GetWeaponState();
 			if (WeaponStateName == "None")
@@ -121,6 +114,18 @@ void APlayer::Tick(float _DeltaTime)
 			}
 		}
 	}
+
+#ifdef _DEBUG
+	t_DeBugFunction(_DeltaTime);
+
+	{
+		// 무기 위치 = 플레이어 위치 // 이건 여기서 해주는 것이 맞다.
+		//Weapone->AActor::SetActorLocation(PlayerPos);
+		//Weapone->SetPlayerToMouseDir(PlayerToMouseDir);
+		//Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
+		//Weapone->SetPlayerDir(ActorDir);
+	}
+#endif
 }
 
 void APlayer::CreateAnimation()
