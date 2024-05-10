@@ -127,6 +127,25 @@ void ALasleyGameMode::BeginPlay()
 		}
 	}
 
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Sound\\DesertStage");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
+		for (UEngineFile& File : Files)
+		{
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+
+			char Arr[100];
+			File.Read(Arr, 100);
+
+			UEngineSound::Load(File.GetFullPath());
+		}
+
+		UContentsConstValue::DefaultFildSound = UEngineSound::SoundPlay("Desertfield.mp3");
+		UContentsConstValue::DefaultFildSound.Off();
+	}
+
 	// Camera
 	{
 		Camera = GetWorld()->GetMainCamera();
@@ -229,6 +248,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
+	UContentsConstValue::DefaultFildSound.On();
 }
 
 void ALasleyGameMode::LevelEnd(ULevel* _NextLevel)

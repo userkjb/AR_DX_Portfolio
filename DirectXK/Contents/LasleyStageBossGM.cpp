@@ -96,6 +96,8 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
+	UContentsConstValue::DefaultFildSound.Off();
+
 	LevelStateInit();
 }
 
