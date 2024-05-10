@@ -7,4 +7,5 @@ public :
 	static const float AutoSizeValue; // 4.0f
 	static std::shared_ptr<UEngineTexture> MapTex;
 	static float4 MapTexScale;
+	static UEngineSoundPlayer DefaultFildSound;
 };
