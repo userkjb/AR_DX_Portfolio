@@ -140,7 +140,10 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 
 	WeaponRotation += AttackRotation;
 	WeaponRotation.Z += Rot;
-	SetActorRotation(WeaponRotation);
+	if (false == b_PlayerDie)
+	{
+		SetActorRotation(WeaponRotation);
+	}
 
 
 
