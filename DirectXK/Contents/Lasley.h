@@ -107,6 +107,7 @@ private :
 
 	UEngineSoundPlayer Explosion_Sound;
 	UEngineSoundPlayer Cutter_Sound;
+	UEngineSoundPlayer DoubleCutter_Sound;
 	UEngineSoundPlayer Tentacle_Sound;
 
 	int MovePosNum = 0;
@@ -127,6 +128,7 @@ private :
 	float IdleTime = 0.0f;
 	float DevilEyeSoundTime = 0.0f;
 	float CutterSoundTime = 0.0f;
+	float DoubleCutterSoundTime = 0.0f;
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
 	float DieTime = 0.0f;
@@ -143,6 +145,7 @@ private :
 	bool DieOne = false;
 	bool b_DevilEyeSound = false;
 	bool b_CutterSound = false;
+	bool b_DoubleCutterSound = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.

@@ -236,14 +236,17 @@ ALasley::ALasley()
 	{
 		Explosion_Sound = UEngineSound::SoundPlay("Explosion_Lasley.mp3");
 		Cutter_Sound = UEngineSound::SoundPlay("Fantasy_Game_Blade_Draw_1_lasley.mp3");
+		DoubleCutter_Sound = UEngineSound::SoundPlay("Fantasy_Game_Blade_Draw_1_lasley.mp3");
 		Tentacle_Sound = UEngineSound::SoundPlay("LaslyTentacle.mp3");
 
 		Explosion_Sound.Loop(true);
 		Cutter_Sound.Loop(true);
+		DoubleCutter_Sound.Loop(true);
 		Tentacle_Sound.Loop(true);
 
 		Explosion_Sound.Off();
 		Cutter_Sound.Off();
+		DoubleCutter_Sound.Off();
 		Tentacle_Sound.Off();
 	}
 

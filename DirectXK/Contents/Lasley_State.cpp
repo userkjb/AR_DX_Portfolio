@@ -721,6 +721,8 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 {
 	LasleyRenderer->SetFrameCallback("LasleyDoubleDimensionCutter", 12, [=]()
 		{
+			Cutter_Sound.On();
+			b_CutterSound = true;
 			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
 			float fSlashRotRan = static_cast<float>(SlashRotRan);
 			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
@@ -733,6 +735,8 @@ void ALasley::DoubleDimensionCutterTick(float _DeltaTime)
 
 	LasleyRenderer->SetFrameCallback("LasleyDoubleDimensionCutter", 16, [=]()
 		{
+			DoubleCutter_Sound.On();
+			b_DoubleCutterSound = true;
 			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
 			float fSlashRotRan = static_cast<float>(SlashRotRan);
 			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
@@ -1000,6 +1004,18 @@ void ALasley::SoundCheck(float _DeltaTime)
 			Cutter_Sound.Replay();
 			b_CutterSound = false;
 			CutterSoundTime = 0.0f;
+		}
+	}
+
+	if (true == b_DoubleCutterSound)
+	{
+		DoubleCutterSoundTime += _DeltaTime;
+		if (0.7f <= DoubleCutterSoundTime)
+		{
+			DoubleCutter_Sound.Off();
+			DoubleCutter_Sound.Replay();
+			b_DoubleCutterSound = false;
+			DoubleCutterSoundTime = 0.0f;
 		}
 	}
 }
