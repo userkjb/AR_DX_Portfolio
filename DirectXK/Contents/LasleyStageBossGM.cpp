@@ -36,6 +36,20 @@ void ALasleyStageBossGM::BeginPlay()
 	}
 
 	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Sound\\Lasley");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
+		for (UEngineFile& File : Files)
+		{
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+
+			char Arr[100];
+			File.Read(Arr, 100);
+
+			UEngineSound::Load(File.GetFullPath());
+		}
+
 		Sound = UEngineSound::SoundPlay("DesertBoss.mp3");
 		Sound.Loop(true);
 		Sound.Off();
@@ -102,9 +116,6 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 		BackGournd->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, -200.0f });
 	}
 
-	UContentsConstValue::DefaultFildSound.Off();
-	Sound.On();
-
 	LevelStateInit();
 }
 
@@ -156,6 +167,9 @@ void ALasleyStageBossGM::LevelStateInit()
 #pragma region InStage
 void ALasleyStageBossGM::InStageBegin()
 {
+	UContentsConstValue::DefaultFildSound.Off();
+	Sound.On();
+
 	Lasley->SetActive(false);
 }
 
