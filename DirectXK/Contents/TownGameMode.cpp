@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "TownGameMode.h"
 #include "TownMap.h"
+#include "Player.h"
 
 ATownGameMode::ATownGameMode()
 {
@@ -61,6 +62,22 @@ void ATownGameMode::BeginPlay()
 void ATownGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
+
+	CameraMove(_DeltaTime);
+
+#ifdef _DEBUG
+	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
+	{
+		if (FreeCamera)
+		{
+			FreeCamera = false;
+		}
+		else
+		{
+			FreeCamera = true;
+		}
+	}
+#endif
 }
 
 void ATownGameMode::LevelStart(ULevel* _PrevLevel)
@@ -78,6 +95,12 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 		TownMap->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
 	}
 
+	{
+		Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
+		Player->SetActorLocation({ 1040.0f,  400.0f, 0.0f });
+		Player->SetPlayerStateIdle();
+	}
+
 	// Camera
 	{
 		Camera = GetWorld()->GetMainCamera();
@@ -91,4 +114,42 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 void ATownGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+}
+
+void ATownGameMode::CameraMove(float _DeltaTime)
+{
+	if (!FreeCamera)
+	{
+		float4 MapSize = UContentsConstValue::MapTexScale;
+		float4 GameMapSize = MapSize * UContentsConstValue::AutoSizeValue;
+		//float4 ScreenSize = GEngine->EngineWindow.GetWindowScale();
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		FVector PlayerPos = Player->GetPlayerPos();
+
+		FVector CameraPos = Camera->GetActorLocation();
+
+		CameraPos.X = PlayerPos.X;
+		CameraPos.Y = PlayerPos.Y;
+
+		if (CameraPos.X <= ScreenScaleHalf.X)
+		{
+			CameraPos.X = ScreenScaleHalf.X;
+		}
+		else if (CameraPos.X >= (GameMapSize.X - ScreenScaleHalf.X))
+		{
+			CameraPos.X = (GameMapSize.X - ScreenScaleHalf.X);
+		}
+
+
+		if (CameraPos.Y <= ScreenScaleHalf.Y)
+		{
+			CameraPos.Y = ScreenScaleHalf.Y;
+		}
+		else if (CameraPos.Y >= (GameMapSize.Y - ScreenScaleHalf.Y))
+		{
+			CameraPos.Y = (GameMapSize.Y - ScreenScaleHalf.Y);
+		}
+
+		Camera->SetActorLocation({ CameraPos.X, CameraPos.Y, -500.0f });
+	}
 }

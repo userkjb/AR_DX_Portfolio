@@ -25,6 +25,8 @@ protected:
 	void LevelEnd(ULevel* _NextLevel);
 
 private :
+	void CameraMove(float _DeltaTime);
+
 	std::shared_ptr<UCamera> Camera;
 	std::shared_ptr<APlayer> Player;
 	UEngineSoundPlayer Sound;
