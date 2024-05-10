@@ -27,5 +27,7 @@ private :
 	void CreateBird(float _DeltaTime);
 
 	float BirdTime = 0.0f;
+
+	UEngineSoundPlayer Sound;
 };
 

@@ -41,6 +41,25 @@ void ATitleGameMode::BeginPlay()
 	}
 
 	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Sound\\Title");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
+		for (UEngineFile& File : Files)
+		{
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+
+			char Arr[100];
+			File.Read(Arr, 100);
+
+			UEngineSound::Load(File.GetFullPath());
+		}
+		
+		Sound = UEngineSound::SoundPlay("title.wav");
+		Sound.Off();
+	}
+
+	{
 		std::shared_ptr<UCamera> Camera = GetWorld()->GetMainCamera();
 		Camera->SetActorLocation(FVector(0.0f, 0.0f, -500.0f));
 	}
@@ -57,6 +76,8 @@ void ATitleGameMode::LevelStart(ULevel* _PrevLevel)
 	GetWorld()->SpawnActor<AGameTitleBG>("GameTitleBG", EObjectOrder::Map_BackGround);
 	GetWorld()->SpawnActor<AGameStartText>("GameStartText", EObjectOrder::Text);
 	GetWorld()->SpawnActor<AGameLogo>("GameLogo", EObjectOrder::Game_Title);
+
+	Sound.On();
 }
 
 void ATitleGameMode::Tick(float _DeltaTime)
@@ -89,6 +110,7 @@ void ATitleGameMode::CreateBird(float _DeltaTime)
 void ATitleGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+	Sound.Off();
 }
 
 
