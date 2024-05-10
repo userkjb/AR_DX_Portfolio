@@ -93,6 +93,7 @@ private :
 	void DoorTentacle(float _DeltaTime);
 
 	void CollisionCheck(float _DeltaTime);
+	void SoundCheck(float _DeltaTime);
 
 	USpriteRenderer* LasleyRenderer = nullptr;
 	USpriteRenderer* LasleyDemonSword = nullptr;
@@ -105,7 +106,7 @@ private :
 	std::string PreStateName = "";
 
 	UEngineSoundPlayer Explosion_Sound;
-	UEngineSoundPlayer Slash_Sound;
+	UEngineSoundPlayer Cutter_Sound;
 	UEngineSoundPlayer Tentacle_Sound;
 
 	int MovePosNum = 0;
@@ -125,6 +126,7 @@ private :
 	float SummonTime = 0.0f;
 	float IdleTime = 0.0f;
 	float DevilEyeSoundTime = 0.0f;
+	float CutterSoundTime = 0.0f;
 	float DownTime = 0.0f;
 	float DoorTentacleTime = 0.0f;
 	float DieTime = 0.0f;
@@ -140,6 +142,7 @@ private :
 	bool MoveOne = false;
 	bool DieOne = false;
 	bool b_DevilEyeSound = false;
+	bool b_CutterSound = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.

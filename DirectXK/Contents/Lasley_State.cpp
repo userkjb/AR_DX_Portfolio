@@ -335,19 +335,6 @@ void ALasley::DevilEyeBegin()
 
 void ALasley::DevilEyeTick(float _DeltaTime)
 {
-	if (true == b_DevilEyeSound)
-	{
-		DevilEyeSoundTime += _DeltaTime;
-
-		if (1.8f <= DevilEyeSoundTime)
-		{
-			Explosion_Sound.Off();
-			Explosion_Sound.Replay();
-			b_DevilEyeSound = false;
-			DevilEyeSoundTime = 0.0f;
-		}
-	}
-
 	// 콜백으로 Tentacle 소환
 	if (false == b_DoorTentacle)
 	{
@@ -688,6 +675,9 @@ void ALasley::DimensionCutterTick(float _DeltaTime)
 {
 	LasleyRenderer->SetFrameCallback("LasleyDimensionCutter", 12, [=]()
 		{
+			Cutter_Sound.On();
+			b_CutterSound = true;
+
 			int SlashRotRan = UEngineRandom::MainRandom.RandomInt(0, 90);
 			float fSlashRotRan = static_cast<float>(SlashRotRan);
 			FVector SlashRot = { 0.0f, 0.0f, fSlashRotRan };
@@ -985,4 +975,31 @@ void ALasley::CollisionCheck(float _DeltaTime)
 			}
 		}
 	);
+}
+
+void ALasley::SoundCheck(float _DeltaTime)
+{
+	if (true == b_DevilEyeSound)
+	{
+		DevilEyeSoundTime += _DeltaTime;
+		if (1.8f <= DevilEyeSoundTime)
+		{
+			Explosion_Sound.Off();
+			Explosion_Sound.Replay();
+			b_DevilEyeSound = false;
+			DevilEyeSoundTime = 0.0f;
+		}
+	}
+
+	if (true == b_CutterSound)
+	{
+		CutterSoundTime += _DeltaTime;
+		if (0.7f <= CutterSoundTime)
+		{
+			Cutter_Sound.Off();
+			Cutter_Sound.Replay();
+			b_CutterSound = false;
+			CutterSoundTime = 0.0f;
+		}
+	}
 }
