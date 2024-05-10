@@ -133,9 +133,17 @@ void APlayer::IdleEnd()
 void APlayer::IdleLockBegin()
 {
 	PlayerRenderer->ChangeAnimation("Idle");
+	RunVector = FVector::Zero;
 }
 void APlayer::IdleLockTick(float _DeltaTime)
 {
+	{
+		Gravity(_DeltaTime); // 중력.
+		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
+
+		CalVector(); // Vector 최종 계산
+		CalMoveVector(_DeltaTime); // 움직이기.
+	}
 }
 void APlayer::IdleLockEnd()
 {
