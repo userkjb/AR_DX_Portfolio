@@ -17,6 +17,18 @@ void ATownGameMode::BeginPlay()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\TownStage");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Image\\TownStage\\Town");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
