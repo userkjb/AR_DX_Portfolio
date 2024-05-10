@@ -32,6 +32,7 @@ private :
 	std::shared_ptr<ALasleyStageBoss> BossMap;
 	std::shared_ptr<ALasley> Lasley;
 
+	UEngineSoundPlayer Sound;
 
 	bool FreeCamera = false;
 	const float CameraMoveSpeed = 500.0f;

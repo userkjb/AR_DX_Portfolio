@@ -34,6 +34,12 @@ void ALasleyStageBossGM::BeginPlay()
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));
 	}
+
+	{
+		Sound = UEngineSound::SoundPlay("DesertBoss.mp3");
+		Sound.Loop(true);
+		Sound.Off();
+	}
 }
 
 void ALasleyStageBossGM::Tick(float _DeltaTime)
@@ -97,6 +103,7 @@ void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
 	}
 
 	UContentsConstValue::DefaultFildSound.Off();
+	Sound.On();
 
 	LevelStateInit();
 }

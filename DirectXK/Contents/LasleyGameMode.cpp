@@ -142,7 +142,8 @@ void ALasleyGameMode::BeginPlay()
 			UEngineSound::Load(File.GetFullPath());
 		}
 
-		UContentsConstValue::DefaultFildSound = UEngineSound::SoundPlay("Desertfield.mp3");
+		UContentsConstValue::DefaultFildSound = UEngineSound::SoundPlay("DesertField.mp3");
+		UContentsConstValue::DefaultFildSound.Loop(true);
 		UContentsConstValue::DefaultFildSound.Off();
 	}
 
