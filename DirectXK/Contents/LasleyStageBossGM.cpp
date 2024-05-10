@@ -237,6 +237,13 @@ void ALasleyStageBossGM::LasleyBattleTick(float _DeltaTime)
 {
 	Lasley->GMToPlayerPos(Player->GetActorLocation());
 
+	std::string LasleyState = Lasley->GetState();
+	if (LasleyState == "Die")
+	{
+		LevelState.ChangeState("LasleyDie");
+		return;
+	}
+
 	CameraMove(_DeltaTime);
 }
 
@@ -245,6 +252,7 @@ void ALasleyStageBossGM::LasleyBattleExit()
 }
 #pragma endregion
 
+#pragma region PlayerDie
 void ALasleyStageBossGM::PlayerDieBegin()
 {
 }
@@ -256,9 +264,14 @@ void ALasleyStageBossGM::PlayerDieTick(float _DeltaTime)
 void ALasleyStageBossGM::PlayerDieExit()
 {
 }
+#pragma endregion
 
+
+#pragma region LasleyDie
 void ALasleyStageBossGM::LasleyDieBegin()
 {
+	UEngineSound::SoundPlay("bossDefeat.mp3");
+	Sound.Off();
 }
 
 void ALasleyStageBossGM::LasleyDieTick(float _DeltaTime)
@@ -270,6 +283,7 @@ void ALasleyStageBossGM::LasleyDieTick(float _DeltaTime)
 void ALasleyStageBossGM::LasleyDieExit()
 {
 }
+#pragma endregion
 
 void ALasleyStageBossGM::CameraMove(float _DeltaTime)
 {
