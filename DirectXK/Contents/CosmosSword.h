@@ -28,6 +28,11 @@ private :
 		SetPlayerDir = _Dir;
 	}
 
+	inline void InformPlayerDie(bool _Val)
+	{
+		b_PlayerDie = _Val;
+	}
+
 
 	inline std::string GetWeaponState() const
 	{
@@ -59,6 +64,7 @@ private :
 	UStateManager State;
 
 	bool b_Attack = false;
+	bool b_PlayerDie = false;
 	FVector SetActorPos = FVector::Zero;
 	FVector AttackRotation = FVector::Zero;
 	EEngineDir SetPlayerDir = EEngineDir::MAX;

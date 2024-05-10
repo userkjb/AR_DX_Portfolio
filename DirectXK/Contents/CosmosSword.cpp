@@ -108,7 +108,7 @@ void ACosmosSword::IdleTick(float _DeltaTime)
 		AttackRotationFX.X -= 180.0f;
 	}
 
-	if (true == IsDown(VK_LBUTTON))
+	if (true == IsDown(VK_LBUTTON) && false == b_PlayerDie)
 	{
 		UEngineSound::SoundPlay("katana2.mp3");
 		if (true == b_Attack)

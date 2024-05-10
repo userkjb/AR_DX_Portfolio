@@ -4,6 +4,7 @@
 #include <EngineCore/EngineDebugMsgWindow.h>
 #include "PlayerStruct.h"
 #include "MyWidget.h"
+#include "CosmosSword.h"
 
 void APlayer::StateInit()
 {
@@ -449,6 +450,7 @@ void APlayer::DieBegin()
 {
 	PlayerRenderer->ChangeAnimation("Die");
 	ActorState = EPlayerState::Die;
+	CosmosSword->InformPlayerDie(true);
 
 	RunVector = FVector::Zero;
 }
