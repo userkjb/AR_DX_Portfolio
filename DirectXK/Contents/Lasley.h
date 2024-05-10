@@ -126,6 +126,7 @@ private :
 
 	float SummonTime = 0.0f;
 	float IdleTime = 0.0f;
+	float ExplosionSoundTime = 0.0f;
 	float DevilEyeSoundTime = 0.0f;
 	float CutterSoundTime = 0.0f;
 	float DoubleCutterSoundTime = 0.0f;
@@ -143,9 +144,10 @@ private :
 	FVector DemonSwordVector = FVector::Zero;
 	bool MoveOne = false;
 	bool DieOne = false;
-	bool b_DevilEyeSound = false;
+	bool b_ExplosionSound = false;
 	bool b_CutterSound = false;
 	bool b_DoubleCutterSound = false;
+	bool b_TentacleSound = false;
 	
 	std::vector<std::shared_ptr<ATentacle>> DoorTentacles;
 	bool b_DoorTentacle = false; // Tick Æ®¸®°Å.

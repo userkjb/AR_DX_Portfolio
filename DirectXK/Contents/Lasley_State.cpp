@@ -132,6 +132,7 @@ void ALasley::SummonsEnd()
 	LasleyCollision->SetPosition(CulPosValue);
 
 	Explosion_Sound.On();
+	b_ExplosionSound = true;
 }
 
 void ALasley::LasleySummonEndCallBack()
@@ -153,12 +154,6 @@ void ALasley::IdleBegin()
 void ALasley::IdleTick(float _DeltaTime)
 {
 	IdleTime += _DeltaTime;
-
-	if (1.0f <= IdleTime)
-	{
-		Explosion_Sound.Replay();
-		Explosion_Sound.Off();
-	}
 
 	// 보스전 시작을 알리면, -> UI -> 보스 소개 끝
 	// 정해진 첫 번째 패턴 DevilEye
@@ -330,7 +325,7 @@ void ALasley::DevilEyeBegin()
 {
 	LasleyRenderer->ChangeAnimation("LasleyDevilEye");
 	LasleyRenderer->SetPivot(EPivot::BOT);
-	DevilEyeSoundTime = 0.0f;
+	ExplosionSoundTime = 0.0f;
 }
 
 void ALasley::DevilEyeTick(float _DeltaTime)
@@ -342,16 +337,16 @@ void ALasley::DevilEyeTick(float _DeltaTime)
 			{
 				b_DoorTentacle = true;
 
-				Explosion_Sound.On();
-				b_DevilEyeSound = true;
+				Tentacle_Sound.On();
+				b_TentacleSound = true;
 			});
 	}
 	else
 	{
 		LasleyRenderer->SetFrameCallback("LasleyDevilEye", 8, [=]()
 			{
-				Explosion_Sound.On();
-				b_DevilEyeSound = true;
+				Tentacle_Sound.On();
+				b_TentacleSound = true;
 				if (3 == Life)
 				{
 					int CreatePos = UEngineRandom::MainRandom.RandomInt(3, 6);
@@ -983,14 +978,26 @@ void ALasley::CollisionCheck(float _DeltaTime)
 
 void ALasley::SoundCheck(float _DeltaTime)
 {
-	if (true == b_DevilEyeSound)
+	if (true == b_ExplosionSound)
 	{
-		DevilEyeSoundTime += _DeltaTime;
-		if (1.8f <= DevilEyeSoundTime)
+		ExplosionSoundTime += _DeltaTime;
+		if (1.8f <= ExplosionSoundTime)
 		{
 			Explosion_Sound.Off();
 			Explosion_Sound.Replay();
-			b_DevilEyeSound = false;
+			b_ExplosionSound = false;
+			ExplosionSoundTime = 0.0f;
+		}
+	}
+
+	if (true == b_TentacleSound)
+	{
+		DevilEyeSoundTime += _DeltaTime;
+		if (0.7f <= DevilEyeSoundTime)
+		{
+			Tentacle_Sound.Off();
+			Tentacle_Sound.Replay();
+			b_TentacleSound = false;
 			DevilEyeSoundTime = 0.0f;
 		}
 	}
