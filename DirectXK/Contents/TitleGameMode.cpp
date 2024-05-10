@@ -55,7 +55,7 @@ void ATitleGameMode::BeginPlay()
 			UEngineSound::Load(File.GetFullPath());
 		}
 		
-		Sound = UEngineSound::SoundPlay("title.wav");
+		Sound = UEngineSound::SoundPlay("title.mp3");
 		Sound.Off();
 	}
 
