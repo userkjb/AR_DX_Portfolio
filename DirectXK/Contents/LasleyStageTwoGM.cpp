@@ -47,6 +47,22 @@ void ALasleyStageTwoGM::BeginPlay()
 	}
 
 	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Sound\\Monster");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
+		for (UEngineFile& File : Files)
+		{
+			File.Open(EIOOpenMode::Read, EIODataType::Binary);
+
+			char Arr[100];
+			File.Read(Arr, 100);
+
+			UEngineSound::Load(File.GetFullPath());
+		}
+	}
+
+	{
 		Camera = GetWorld()->GetMainCamera();
 		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
 		Camera->SetActorLocation(FVector(ScreenScaleHalf.X, ScreenScaleHalf.Y, -500.0f));

@@ -93,6 +93,7 @@ void AWyvern::StateInit()
 
 	State.SetStartFunction("Die", [=]()
 		{
+			UEngineSound::SoundPlay("MonsterDie.mp3");
 			Destroy();
 		}
 	);

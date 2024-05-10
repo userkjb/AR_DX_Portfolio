@@ -95,6 +95,7 @@ void ABasicSkeleton::StateInit()
 		std::bind(&ABasicSkeleton::AttackExit, this));
 	SKState.SetStartFunction("Die", [=]()
 		{
+			UEngineSound::SoundPlay("MonsterDie.mp3");
 			Destroy();
 		}
 	);
