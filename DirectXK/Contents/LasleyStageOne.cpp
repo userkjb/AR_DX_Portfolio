@@ -25,8 +25,6 @@ ALasleyStageOne::ALasleyStageOne()
 	LeftMapCol->SetPosition(FVector{ -608.0f, -250.0f, 0.0f });
 
 	SetRoot(Root);
-
-	InputOn(); // test
 }
 
 ALasleyStageOne::~ALasleyStageOne()
@@ -50,6 +48,10 @@ void ALasleyStageOne::BeginPlay()
 	CreateAnimation();
 
 	CreateMapImage();
+
+#ifdef _DEBUG
+	InputOn(); // test
+#endif
 }
 
 void ALasleyStageOne::Tick(float _DeltaTime)
@@ -58,6 +60,7 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 
 	CollisionCheck(_DeltaTime);
 
+#ifdef _DEBUG
 	if (true == IsDown('O'))
 	{
 		if (false == MapColRenderer->IsActive())
@@ -71,6 +74,7 @@ void ALasleyStageOne::Tick(float _DeltaTime)
 			MapColRenderer->SetActive(false);
 		}
 	}
+#endif
 }
 
 void ALasleyStageOne::CreateMapImage()
