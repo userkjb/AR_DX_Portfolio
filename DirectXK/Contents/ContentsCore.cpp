@@ -7,6 +7,7 @@
 #include "TestGameMode.h"
 #include "GameStartGameMode.h"
 #include "TitleGameMode.h"
+#include "TownGameMode.h"
 #include "LasleyGameMode.h"
 #include "ContentsGUI.h"
 #include "MapEditorGUI.h"
@@ -94,10 +95,11 @@ void UContentsCore::Initialize()
 	//GEngine->ChangeLevel("PlayLevel");
 	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	GEngine->CreateLevel<ATownGameMode>("TownLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
 	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
 
-	GEngine->ChangeLevel("TitleLevel");
-	//GEngine->ChangeLevel("LasleyLevelBoss");
+	//GEngine->ChangeLevel("TitleLevel");
+	GEngine->ChangeLevel("TownLevel");
 }
