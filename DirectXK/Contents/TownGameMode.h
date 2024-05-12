@@ -26,7 +26,18 @@ protected:
 	void LevelEnd(ULevel* _NextLevel);
 
 private :
+	void StateInit();
 	void CameraMove(float _DeltaTime);
+
+	void IdleBegin();
+	void IdleTick(float _DeltaTime);
+	void IdleExit();
+	void InDungeonBegin();
+	void InDungeonTick(float _DeltaTime);
+	void InDungeonExit();
+
+
+	UStateManager LevelState;
 
 	std::shared_ptr<UCamera> Camera;
 	std::shared_ptr<APlayer> Player;

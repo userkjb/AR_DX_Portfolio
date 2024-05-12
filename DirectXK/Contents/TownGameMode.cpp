@@ -57,6 +57,8 @@ void ATownGameMode::BeginPlay()
 		Sound.Loop(30);
 		Sound.Off();
 	}
+
+	StateInit();
 }
 
 void ATownGameMode::LevelStart(ULevel* _PrevLevel)
@@ -90,13 +92,32 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 	Sound.On();
 }
 
+void ATownGameMode::StateInit()
+{
+	LevelState.CreateState("Idle");
+	LevelState.CreateState("InDungeon");
+
+	LevelState.SetFunction("Idle",
+		std::bind(&ATownGameMode::IdleBegin, this),
+		std::bind(&ATownGameMode::IdleTick, this, std::placeholders::_1),
+		std::bind(&ATownGameMode::IdleExit, this));
+	LevelState.SetFunction("InDungeon",
+		std::bind(&ATownGameMode::InDungeonBegin, this),
+		std::bind(&ATownGameMode::InDungeonTick, this, std::placeholders::_1),
+		std::bind(&ATownGameMode::InDungeonExit, this));
+
+	LevelState.ChangeState("Idle");
+}
+
+
+
 void ATownGameMode::Tick(float _DeltaTime)
 {
 	Super::Tick(_DeltaTime);
 
 	CameraMove(_DeltaTime);
 
-	
+	LevelState.Update(_DeltaTime);
 
 #ifdef _DEBUG
 	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
@@ -112,6 +133,33 @@ void ATownGameMode::Tick(float _DeltaTime)
 	}
 #endif
 }
+
+
+void ATownGameMode::IdleBegin()
+{
+}
+
+void ATownGameMode::IdleTick(float _DeltaTime)
+{
+}
+
+void ATownGameMode::IdleExit()
+{
+}
+
+
+void ATownGameMode::InDungeonBegin()
+{
+}
+
+void ATownGameMode::InDungeonTick(float _DeltaTime)
+{
+}
+
+void ATownGameMode::InDungeonExit()
+{
+}
+
 
 void ATownGameMode::LevelEnd(ULevel* _NextLevel)
 {
