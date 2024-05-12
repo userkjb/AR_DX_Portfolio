@@ -59,27 +59,6 @@ void ATownGameMode::BeginPlay()
 	}
 }
 
-void ATownGameMode::Tick(float _DeltaTime)
-{
-	Super::Tick(_DeltaTime);
-
-	CameraMove(_DeltaTime);
-
-#ifdef _DEBUG
-	if (true == UEngineInput::IsDown(0x30)) // 키보드 0
-	{
-		if (FreeCamera)
-		{
-			FreeCamera = false;
-		}
-		else
-		{
-			FreeCamera = true;
-		}
-	}
-#endif
-}
-
 void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
@@ -89,7 +68,7 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 
 	// Map
 	{
-		std::shared_ptr<ATownMap> TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap");
+		TownMap = GetWorld()->SpawnActor<ATownMap>("TownMap");
 		float4 TexScale = UContentsConstValue::MapTexScale;
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		TownMap->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
@@ -109,6 +88,29 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 	}
 
 	Sound.On();
+}
+
+void ATownGameMode::Tick(float _DeltaTime)
+{
+	Super::Tick(_DeltaTime);
+
+	CameraMove(_DeltaTime);
+
+	
+
+#ifdef _DEBUG
+	if (true == UEngineInput::IsDown(0x30)) // 키보드 0
+	{
+		if (FreeCamera)
+		{
+			FreeCamera = false;
+		}
+		else
+		{
+			FreeCamera = true;
+		}
+	}
+#endif
 }
 
 void ATownGameMode::LevelEnd(ULevel* _NextLevel)

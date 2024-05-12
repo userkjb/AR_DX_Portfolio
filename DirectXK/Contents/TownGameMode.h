@@ -2,6 +2,7 @@
 #include <EngineCore/GameMode.h>
 
 class APlayer;
+class ATownMap;
 class ATownGameMode : public AGameMode
 {
 	GENERATED_BODY(AGameMode)
@@ -29,6 +30,7 @@ private :
 
 	std::shared_ptr<UCamera> Camera;
 	std::shared_ptr<APlayer> Player;
+	std::shared_ptr<ATownMap> TownMap;
 	UEngineSoundPlayer Sound;
 	bool FreeCamera = false;
 };

@@ -53,6 +53,7 @@ private:
 	void DownExit();
 
 	UStateManager State;
+
 	USpriteRenderer* MapImage = nullptr;
 	USpriteRenderer* MapCol = nullptr;
 	USpriteRenderer* DungeonEat = nullptr;

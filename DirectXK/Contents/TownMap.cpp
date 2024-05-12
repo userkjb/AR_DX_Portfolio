@@ -127,6 +127,7 @@ void ATownMap::NoneBegin()
 
 void ATownMap::NoneTick(float _DeltaTime)
 {
+	int a = 0;
 }
 
 
@@ -137,6 +138,7 @@ void ATownMap::IdleBegin()
 
 void ATownMap::IdleTick(float _DeltaTime)
 {
+	int a = 0;
 }
 
 void ATownMap::IdleExit()
