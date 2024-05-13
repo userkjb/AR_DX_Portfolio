@@ -28,6 +28,11 @@ public:
 		return State.GetCurStateName();
 	}
 
+	inline bool GoNextLevel() const
+	{
+		return IsNextLevel;
+	}
+
 protected:
 	void BeginPlay() override;
 	void Tick(float _DeltaTime) override;
@@ -58,5 +63,7 @@ private:
 	USpriteRenderer* MapCol = nullptr;
 	USpriteRenderer* DungeonEat = nullptr;
 	UCollision* DungeonInCol = nullptr;
+
+	bool IsNextLevel = false;
 };
 

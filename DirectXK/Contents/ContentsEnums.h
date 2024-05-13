@@ -46,6 +46,7 @@ enum class ECollisionOrder
 	NextMap,
 	BossStageStart,
 	MapDoor,
+	InDungeon,
 };
 
 enum class EPlayerState

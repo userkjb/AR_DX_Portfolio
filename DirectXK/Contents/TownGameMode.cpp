@@ -141,6 +141,15 @@ void ATownGameMode::IdleBegin()
 
 void ATownGameMode::IdleTick(float _DeltaTime)
 {
+	std::string TownState = TownMap->GetTownState();
+	if (TownState == "Down")
+	{
+		if (true == TownMap->GoNextLevel())
+		{
+			LevelState.ChangeState("InDungeon");
+			return;
+		}
+	}
 }
 
 void ATownGameMode::IdleExit()
@@ -154,6 +163,7 @@ void ATownGameMode::InDungeonBegin()
 
 void ATownGameMode::InDungeonTick(float _DeltaTime)
 {
+	int a = 0;
 }
 
 void ATownGameMode::InDungeonExit()

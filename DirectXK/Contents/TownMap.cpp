@@ -24,7 +24,7 @@ ATownMap::ATownMap()
 
 	DungeonInCol = CreateDefaultSubObject<UCollision>("Collision");
 	DungeonInCol->SetupAttachment(Root);
-	DungeonInCol->SetCollisionGroup(ECollisionOrder::Boss);
+	DungeonInCol->SetCollisionGroup(ECollisionOrder::InDungeon);
 	DungeonInCol->SetCollisionType(ECollisionType::RotRect);
 }
 
@@ -98,11 +98,10 @@ void ATownMap::StateInit()
 	State.SetStartFunction("None", std::bind(&ATownMap::NoneBegin, this));
 	State.SetUpdateFunction("None", std::bind(&ATownMap::NoneTick, this, std::placeholders::_1));
 
-	State.SetFunction("Up",
+	State.SetFunction("Idle",
 		std::bind(&ATownMap::IdleBegin, this),
 		std::bind(&ATownMap::IdleTick, this, std::placeholders::_1),
 		std::bind(&ATownMap::IdleExit, this));
-
 	State.SetFunction("Up",
 		std::bind(&ATownMap::UpBegin, this),
 		std::bind(&ATownMap::UpTick, this, std::placeholders::_1),
@@ -149,38 +148,64 @@ void ATownMap::IdleExit()
 
 void ATownMap::UpBegin()
 {
+	DungeonEat->SetActive(true);
 }
 
 void ATownMap::UpTick(float _DeltaTime)
 {
+	DungeonEat->SetLastFrameCallback("DungeonEat_Up", [=]()
+		{
+			State.ChangeState("Ing");
+			return;
+		}
+	);
 }
 
 void ATownMap::UpExit()
 {
 }
 
+
+
 void ATownMap::IngBegin()
 {
+	DungeonEat->ChangeAnimation("DungeonEat_Ing");
 }
 
 void ATownMap::IngTick(float _DeltaTime)
 {
+	DungeonEat->SetLastFrameCallback("DungeonEat_Ing", [=]()
+		{
+			State.ChangeState("Down");
+			return;
+		}
+	);
 }
 
 void ATownMap::IngExit()
 {
 }
 
+
+
+
 void ATownMap::DownBegin()
 {
+	DungeonEat->ChangeAnimation("DungeonEat_Down");
 }
 
 void ATownMap::DownTick(float _DeltaTime)
 {
+	DungeonEat->SetLastFrameCallback("DungeonEat_Down", [=]()
+		{
+			IsNextLevel = true;
+		}
+	);
 }
 
 void ATownMap::DownExit()
 {
+	DungeonEat->SetActive(false);
 }
 
 
