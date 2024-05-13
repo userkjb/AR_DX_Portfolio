@@ -198,6 +198,7 @@ void ATownMap::DownTick(float _DeltaTime)
 {
 	DungeonEat->SetLastFrameCallback("DungeonEat_Down", [=]()
 		{
+			DungeonEat->SetActive(false);
 			IsNextLevel = true;
 		}
 	);
@@ -205,8 +206,10 @@ void ATownMap::DownTick(float _DeltaTime)
 
 void ATownMap::DownExit()
 {
-	DungeonEat->SetActive(false);
 }
+
+
+
 
 
 void ATownMap::CollisionCheck(float _DeltaTime)

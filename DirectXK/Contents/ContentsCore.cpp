@@ -97,8 +97,8 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
 	GEngine->CreateLevel<ATownGameMode>("TownLevel");
 	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
-	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
+	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 
 	//GEngine->ChangeLevel("TitleLevel");
 	GEngine->ChangeLevel("TownLevel");

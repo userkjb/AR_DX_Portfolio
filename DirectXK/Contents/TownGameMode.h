@@ -44,5 +44,7 @@ private :
 	std::shared_ptr<ATownMap> TownMap;
 	UEngineSoundPlayer Sound;
 	bool FreeCamera = false;
+
+	std::vector<std::vector<USpriteRenderer>> RenderVector;
 };
 
