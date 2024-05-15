@@ -76,6 +76,7 @@ void ADemonicBlade::CreateAnimation()
 
 void ADemonicBlade::CreateBegin()
 {
+	UEngineSound::SoundPlay("Blade.mp3");
 	if (false == Lasley_Large)
 	{
 		DemonicBladeRenderer->SetPosition(StartPos);
