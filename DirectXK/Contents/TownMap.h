@@ -59,6 +59,8 @@ private:
 
 	UStateManager State;
 
+	USpriteRenderer* TownGB_1 = nullptr;
+	USpriteRenderer* TownGB_2 = nullptr;
 	USpriteRenderer* MapImage = nullptr;
 	USpriteRenderer* MapCol = nullptr;
 	USpriteRenderer* DungeonEat = nullptr;

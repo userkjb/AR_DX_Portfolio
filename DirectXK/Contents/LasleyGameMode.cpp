@@ -219,7 +219,7 @@ void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 		//float4 TexScale = UContentsConstValue::MapTexScale;
 		std::string Name = _PrevLevel->GetName();
 		Player = GetWorld()->SpawnActor<APlayer>("Player", EObjectOrder::Player);
-		if (Name == "TitleLevel")
+		if (Name == "TitleLevel" || Name == "TownLevel")
 		{
 			Player->SetActorLocation({ 1040.0f,  400.0f, 0.0f });
 		}

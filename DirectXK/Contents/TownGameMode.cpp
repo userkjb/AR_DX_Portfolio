@@ -74,6 +74,7 @@ void ATownGameMode::LevelStart(ULevel* _PrevLevel)
 		float4 TexScale = UContentsConstValue::MapTexScale;
 		float Size = UContentsConstValue::AutoSizeValue; // const
 		TownMap->SetActorLocation({ TexScale.hX() * Size, TexScale.hY() * Size, 100.0f });
+		TownMap->SetIdleTown();
 	}
 
 	{
@@ -148,10 +149,17 @@ void ATownGameMode::IdleTick(float _DeltaTime)
 		Player->SetPlayerStateIdleLock();
 	}
 
+	if (TownState == "Down")
+	{
+		LevelState.ChangeState("InDungeon");
+		return;
+	}
 }
 
 void ATownGameMode::IdleExit()
 {
+	Player->LevelIsDestroy();
+	Player->Destroy();
 }
 
 
@@ -167,7 +175,7 @@ void ATownGameMode::InDungeonTick(float _DeltaTime)
 	{
 		if (true == TownMap->GoNextLevel())
 		{
-			LevelState.ChangeState("InDungeon");
+			GEngine->ChangeLevel("LasleyLevel");
 			return;
 		}
 	}
@@ -177,12 +185,13 @@ void ATownGameMode::InDungeonExit()
 {
 }
 
-//GEngine->ChangeLevel("LasleyLevel");
+
 
 
 void ATownGameMode::LevelEnd(ULevel* _NextLevel)
 {
 	Super::LevelEnd(_NextLevel);
+	Sound.Off();
 }
 
 void ATownGameMode::CameraMove(float _DeltaTime)

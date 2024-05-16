@@ -26,6 +26,11 @@ ATownMap::ATownMap()
 	DungeonInCol->SetupAttachment(Root);
 	DungeonInCol->SetCollisionGroup(ECollisionOrder::InDungeon);
 	DungeonInCol->SetCollisionType(ECollisionType::RotRect);
+
+	TownGB_1 = CreateDefaultSubObject<USpriteRenderer>("Renderer");
+	TownGB_1->SetupAttachment(Root);
+	TownGB_1->SetSprite("Town_BG_1.png");
+	TownGB_1->SetOrder(ERenderOrder::BackGroundImage);
 }
 
 ATownMap::~ATownMap()
@@ -39,12 +44,15 @@ void ATownMap::BeginPlay()
 	MapImage->SetAutoSize(4.0f, true);
 	MapCol->SetAutoSize(4.0f, true);
 	DungeonEat->SetAutoSize(4.0f, true);
+	DungeonEat->SetPivot(EPivot::BOT);
 	DungeonEat->SetOrder(ERenderOrder::StageDoor);
-	DungeonEat->SetPosition(FVector(-4000.0f, -500.0f));
+	DungeonEat->SetPosition(FVector(200.0f, -700.0f));
 	DungeonEat->SetActive(false);
 
 	DungeonInCol->SetScale(FVector(100.0f, 100.0f));
 	DungeonInCol->SetPosition(DungeonEat->GetWorldPosition());
+
+	TownGB_1->SetAutoSize(25.0f, true);
 
 	StateInit();
 	CreateAnimation();

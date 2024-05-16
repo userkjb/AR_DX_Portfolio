@@ -14,6 +14,7 @@ enum class EObjectOrder
 enum class ERenderOrder
 {
 	BackGroundImage,
+	BackGroundImage_2,
 	BossSubObject,
 	MapBack,
 	Map,
