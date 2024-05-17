@@ -125,6 +125,20 @@ void APlayer::Tick(float _DeltaTime)
 		//Weapone->SetWeaponRotation(WeaponDir); // 무기에 회전 값을 넘겨줌.
 		//Weapone->SetPlayerDir(ActorDir);
 	}
+
+	{
+		if (true == IsDown('P'))
+		{
+			if (true == PlayerCollision->IsActive())
+			{
+				PlayerCollision->SetActive(false);
+			}
+			else
+			{
+				PlayerCollision->SetActive(true);
+			}
+		}
+	}
 #endif
 }
 
