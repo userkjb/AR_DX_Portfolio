@@ -53,7 +53,7 @@ void UTitleWidget::Tick(float _DeltaTime)
 
 		if (true == IsGameStartDown)
 		{
-			GEngine->ChangeLevel("LasleyLevel");
+			GEngine->ChangeLevel("TownLevel");
 		}
 	}
 	else

@@ -100,6 +100,6 @@ void UContentsCore::Initialize()
 	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
 	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
 
-	//GEngine->ChangeLevel("TitleLevel");
-	GEngine->ChangeLevel("TownLevel");
+	GEngine->ChangeLevel("TitleLevel");
+	//GEngine->ChangeLevel("TownLevel");
 }
