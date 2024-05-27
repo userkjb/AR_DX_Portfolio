@@ -120,8 +120,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	std::string FileName(name);
 	FileName += ".png";
 
-	std::string SaveFileName(SaveFileName);
-	SaveFileName += ".Data";
+	std::string SaveFileNameStr(SaveFileName);
+	SaveFileNameStr += ".Data";
 
 	// 타일 크기 지정
 	// 타일 개수 x
@@ -139,15 +139,15 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			{
 				IsCreateImage = false;
 			}
-			//else if (5 > FileName.size())
-			//{
-			//	IsCreateImage = false;
-			//}
+			else if (5 > FileName.size()) // Data File Name 의 길이가 .png 보다 작으면.
+			{
+				IsCreateImage = false;
+			}
 			else
 			{
 				//TileRenderer->CreateTileMap("Map4X(64).png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
-				TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
-				//TileRenderer->CreateTileMap(FileName, { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				//TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
+				TileRenderer->CreateTileMap(FileName, { InputTileSize.X, InputTileSize.Y }, InputHWValue[0], InputHWValue[1], 0);
 				IsCreateImage = true;
 			}
 		}
@@ -168,9 +168,13 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 		{
 			std::vector<std::vector<int>> TileData = TileRenderer->GetTileMapData();
 
-			if (0 == TileData.size())
+			if (0 == TileData.size()) // 맵을 만들지 않았다면,
 			{
-				// 맵을 만들지 않았음.
+				return;
+			}
+			else if (5 >= SaveFileNameStr.size()) // 저장할 파일 이름이 비어있다면,
+			{
+				return;
 			}
 			else
 			{
@@ -181,17 +185,20 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 				//std::vector<std::vector<int>> TileData_Test = { {4,3, 2}, {5,6, 7}, {7,6, 7} };
 
 				UEngineSerializer Ser;
-				std::string FileName = "DarkDesert_Sprite.png";
+				//std::string FileName = "DarkDesert_Sprite.png";
 				Ser << FileName;
 				Ser << TileData;
 
-				UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
+				//UEngineFile File = Dir.GetPathFromFile("Test.Data");
+				UEngineFile File = Dir.GetPathFromFile(SaveFileNameStr);
 				File.Open(EIOOpenMode::Write, EIODataType::Binary);
 				File.Save(Ser);
 				File.Close();
 			}
 		}
 	}
+
+	ImGui::InputText("Load File Name", LoadFileName, IM_ARRAYSIZE(LoadFileName));
 
 	// Save Data To Create
 	{ 
@@ -202,11 +209,15 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			Dir.MoveToSearchChild("Config");
 			Dir.Move("TileMapData");
 
+			std::string LoadFileNameStr = LoadFileName;
+			LoadFileNameStr += ".Data";
+
 			std::vector<std::vector<int>> TileData;
 			std::string FileName = "";
 			UEngineSerializer Ser;
 
-			UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
+			//UEngineFile File = Dir.GetPathFromFile("DarkStageStart.Data");
+			UEngineFile File = Dir.GetPathFromFile(LoadFileNameStr);
 			File.Open(EIOOpenMode::Read, EIODataType::Binary);
 			File.Load(Ser);
 
@@ -220,7 +231,8 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 			size_t ImageYSize = TileData.size();
 
 			//TileRenderer->CreateTileMap("Map4X(64).png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
-			TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+			//TileRenderer->CreateTileMap("DarkDesert_Sprite.png", { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
+			TileRenderer->CreateTileMap(FileName, { 64, 64 }, static_cast<int>(TileData[0].size()), static_cast<int>(TileData.size()), 0);
 
 			for (size_t y = 0; y < ImageYSize; y++)
 			{
@@ -240,61 +252,64 @@ void MapEditorGUI::OnGui(ULevel* _Level, float _Delta)
 	ImGui::Text(std::format("Index : {} {}", Index.iX(), Index.iY()).c_str());
 
 
-	//std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
-	std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("DarkDesert_Sprite.png");
-
-
-	// 다이렉트 디바이스랑
-	// 다이렉트 컨텍스
-	// imgui는 내부에서 자신의 쉐이더를 사용합니다.
-
-	// imgui에서 사용하는 쉐이더에 내 텍스처가 들어간다.
-	// ImVec2
-
-	// IMgui는 무조건 char* Event체크를 합니다;
-	if (SelectSpriteIndex != -1)
 	{
-		FSpriteInfo Info = Sprite->GetSpriteInfo(SelectSpriteIndex);
-
-		ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y };
-		ImVec2 UV1 = { Info.CuttingSize.X, Info.CuttingSize.Y };
-
-		UV1.x = UV1.x + UV0.x;
-		UV1.y = UV1.y + UV0.y;
-
-		ImGui::ImageButton("Select", Info.Texture->GetSRV(), { 100, 100 }, UV0, UV1);
-	}
-	else
-	{
-		ImGui::ImageButton("Select", nullptr, { 100, 100 });
-	}
-
-	ImGui::BeginChild("TileSelect", { 0, 0 }, false, ImGuiWindowFlags_HorizontalScrollbar);
+		//std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("Map4X(64).png");
+		std::shared_ptr<UEngineSprite> Sprite = UEngineSprite::FindRes("DarkDesert_Sprite.png");
 
 
-	for (int i = 0; i < Sprite->GetInfoSize(); i++)
-	{
-		FSpriteInfo Info = Sprite->GetSpriteInfo(i);
+		// 다이렉트 디바이스랑
+		// 다이렉트 컨텍스
+		// imgui는 내부에서 자신의 쉐이더를 사용합니다.
 
-		ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y };
-		ImVec2 UV1 = { Info.CuttingSize.X, Info.CuttingSize.Y };
+		// imgui에서 사용하는 쉐이더에 내 텍스처가 들어간다.
+		// ImVec2
 
-		UV1.x = UV1.x + UV0.x;
-		UV1.y = UV1.y + UV0.y;
-
-		std::string Text = std::to_string(i);
-
-		// 줄바꿈을 자동으로 해준다.
-		if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), { 64, 64 }, UV0, UV1)) // 출력 사이즈.
+		// IMgui는 무조건 char* Event체크를 합니다;
+		if (SelectSpriteIndex != -1)
 		{
-			SelectSpriteIndex = i;
+			FSpriteInfo Info = Sprite->GetSpriteInfo(SelectSpriteIndex);
+
+			ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y };
+			ImVec2 UV1 = { Info.CuttingSize.X, Info.CuttingSize.Y };
+
+			UV1.x = UV1.x + UV0.x;
+			UV1.y = UV1.y + UV0.y;
+
+			ImGui::ImageButton("Select", Info.Texture->GetSRV(), { 100, 100 }, UV0, UV1);
+		}
+		else
+		{
+			ImGui::ImageButton("Select", nullptr, { 100, 100 });
 		}
 
-		if ((i + 1) % 5)
+		ImGui::BeginChild("TileSelect", { 0, 0 }, false, ImGuiWindowFlags_HorizontalScrollbar);
+
+
+		for (int i = 0; i < Sprite->GetInfoSize(); i++)
 		{
-			ImGui::SameLine();
+			FSpriteInfo Info = Sprite->GetSpriteInfo(i);
+
+			ImVec2 UV0 = { Info.CuttingPosition.X, Info.CuttingPosition.Y };
+			ImVec2 UV1 = { Info.CuttingSize.X, Info.CuttingSize.Y };
+
+			UV1.x = UV1.x + UV0.x;
+			UV1.y = UV1.y + UV0.y;
+
+			std::string Text = std::to_string(i);
+
+			// 줄바꿈을 자동으로 해준다.
+			if (true == ImGui::ImageButton(Text.c_str(), Info.Texture->GetSRV(), { 64, 64 }, UV0, UV1)) // 출력 사이즈.
+			{
+				SelectSpriteIndex = i;
+			}
+
+			if ((i + 1) % 5)
+			{
+				ImGui::SameLine();
+			}
 		}
 	}
+	
 
 	// Index 내가 찍어야할 스프라이트
 

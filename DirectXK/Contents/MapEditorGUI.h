@@ -38,6 +38,7 @@ private:
 	bool IsCreateImage = false;
 
 	char name[128] = "DarkDesert_Sprite";
-	char SaveFileName[128] = "";
+	char SaveFileName[128] = "Test";
+	char LoadFileName[128] = "Test";
 };
 
