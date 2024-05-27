@@ -458,6 +458,9 @@ void APlayer::DieBegin()
 void APlayer::DieTick(float _DeltaTime)
 {
 	{
+		DashVector = FVector::Zero;
+		RunVector = FVector::Zero;
+		JumpVector = FVector::Zero;
 		Gravity(_DeltaTime); // 중력.
 		PixelCheck(_DeltaTime);// 중력에 대한 픽셀 충돌.
 
