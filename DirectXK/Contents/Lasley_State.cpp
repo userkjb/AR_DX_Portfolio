@@ -773,6 +773,7 @@ void ALasley::DownBegin()
 	LasleyRenderer->SetPivot(EPivot::BOT);
 	DownTime = 0.0f;
 	DemonSwordVector = FVector::Zero;
+	MoveOne = false;
 
 	if (false == LasleyDemonSword->IsActive())
 	{
