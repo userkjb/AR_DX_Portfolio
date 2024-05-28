@@ -34,6 +34,26 @@ void UContentsCore::Initialize()
 		UEngineFont::Load("±Ã¼­");
 	}
 
+
+	LoadResources();
+	
+
+	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
+	//GEngine->ChangeLevel("PlayLevel");
+	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
+	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
+	GEngine->CreateLevel<ATownGameMode>("TownLevel");
+	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
+	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
+	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
+
+	GEngine->ChangeLevel("TitleLevel");
+	//GEngine->ChangeLevel("TownLevel");
+}
+
+void UContentsCore::LoadResources()
+{
+
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
@@ -44,6 +64,7 @@ void UContentsCore::Initialize()
 			UEngineSprite::Load(File.GetFullPath());
 		}
 	}
+
 
 	{
 		UEngineDirectory Dir;
@@ -90,16 +111,4 @@ void UContentsCore::Initialize()
 			UEngineSprite::Load(File.GetFullPath());
 		}
 	}
-
-	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
-	//GEngine->ChangeLevel("PlayLevel");
-	//GEngine->CreateLevel<AGameStartGameMode>("GameStartGameMode");
-	GEngine->CreateLevel<ATitleGameMode>("TitleLevel");
-	GEngine->CreateLevel<ATownGameMode>("TownLevel");
-	GEngine->CreateLevel<ALasleyGameMode>("LasleyLevel");
-	GEngine->CreateLevel<ALasleyStageTwoGM>("LasleyLevelTwo");
-	GEngine->CreateLevel<ALasleyStageBossGM>("LasleyLevelBoss");
-
-	GEngine->ChangeLevel("TitleLevel");
-	//GEngine->ChangeLevel("TownLevel");
 }
