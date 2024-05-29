@@ -23,6 +23,11 @@ public:
 		GetWeaponDamage = _Damage;
 	}
 
+	inline void ResetHp(bool _Val)
+	{
+		ReSet = _Val;
+	}
+
 protected:
 	void BeginPlay();
 	void Tick(float _DeltaTime) override;
@@ -34,6 +39,7 @@ private :
 	UImage* HpBar_Icon = nullptr;
 
 	bool InHit = false;
+	bool ReSet = false;
 	int LasleyMaxHp = 0;
 	int GetWeaponDamage = 0;
 };

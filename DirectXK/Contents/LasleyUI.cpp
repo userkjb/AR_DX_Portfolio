@@ -69,6 +69,15 @@ void ULasleyUI::Tick(float _DeltaTime)
 		InHit = false;
 	}
 
+	if (true == ReSet)
+	{
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		ScreenScaleHalf.Y -= 42.0f;
+		HpBar_HpBar->SetWidgetScale3D(FVector(410.0f, 60.0f, 40.0f));
+		HpBar_HpBar->SetPosition(FVector(40.0f, -ScreenScaleHalf.Y));
+		ReSet = false;
+	}
+
 #ifdef _DEBUG
 	if (true == UEngineInput::IsDown('T'))
 	{

@@ -545,6 +545,7 @@ void ALasley::WakeBegin()
 	{
 		Hp = MaxHp; // ÇÇ È¸º¹.
 	}
+	Widget->ResetHp(true);
 	Life--;
 }
 
