@@ -30,6 +30,7 @@ protected:
 private :
 	UImage* HpBar_Back = nullptr;
 	UImage* HpBar_Base = nullptr;
+	UImage* HpBar_HpBar = nullptr;
 	UImage* HpBar_Icon = nullptr;
 
 	bool InHit = false;

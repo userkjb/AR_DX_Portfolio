@@ -771,6 +771,7 @@ void ALasley::DownBegin()
 {
 	LasleyRenderer->ChangeAnimation("Down");
 	LasleyRenderer->SetPivot(EPivot::BOT);
+	LasleyCollision->SetActive(false);
 	DownTime = 0.0f;
 	DemonSwordVector = FVector::Zero;
 	MoveOne = false;
@@ -875,7 +876,7 @@ void ALasley::DownExit()
 	WarlockCount = 0;
 	DownTime = 0.0f;
 	Warlocks.clear();
-	
+	LasleyCollision->SetActive(true);
 }
 #pragma endregion
 
@@ -884,6 +885,7 @@ void ALasley::DieBegin()
 {
 	LasleyRenderer->ChangeAnimation("Down");
 	LasleyRenderer->SetPivot(EPivot::BOT);
+	LasleyCollision->SetActive(false);
 
 	if (0 != DoorTentacles.size())
 	{
@@ -951,16 +953,16 @@ void ALasley::CollisionCheck(float _DeltaTime)
 				return;
 			}
 			int Damage = CosmosSword->GetSwordDamage();
-			Widget->RecvHit(true, MaxHp, Damage);
 
+			Hp -= Damage;
 			if (0 >= Hp)
 			{
 				Hp = 0;
 			}
-			else
-			{
-				Hp -= Damage;
-			}
+
+			Widget->RecvHit(true, MaxHp, Damage);
+
+			
 
 			if (0 != Life && 0 >= Hp)
 			{

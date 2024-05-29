@@ -13,6 +13,7 @@ class ALasley : public AActor
 
 #ifdef _DEBUG
 	friend LasleyStageGUI;
+	friend ULasleyUI;
 #endif
 public :
 	// constrcuter destructer
