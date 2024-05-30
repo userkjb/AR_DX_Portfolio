@@ -36,8 +36,9 @@ void UContentsCore::Initialize()
 
 	TitleLoadResources();
 	TownLoadResources();
-	LoadImageResources();
-	LoadSoundResources();
+	PlayerLoadResources();
+
+	LoadAllImageResources();
 
 	GEngine->CreateLevel<ATestGameMode>("TestGameMode");
 	//GEngine->ChangeLevel("PlayLevel");
@@ -128,32 +129,8 @@ void UContentsCore::TownLoadResources()
 	}
 }
 
-void UContentsCore::LoadImageResources()
+void UContentsCore::PlayerLoadResources()
 {
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\MapObject");
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\UI");
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
@@ -177,6 +154,33 @@ void UContentsCore::LoadImageResources()
 	}
 }
 
-void UContentsCore::LoadSoundResources()
+void UContentsCore::LoadAllImageResources()
 {
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\MapObject");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\UI");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			//std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
+	
 }

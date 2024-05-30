@@ -21,7 +21,7 @@ protected:
 private:
 	void TitleLoadResources();
 	void TownLoadResources();
-	void LoadImageResources();
-	void LoadSoundResources();
+	void PlayerLoadResources();
+	void LoadAllImageResources();
 };
 
