@@ -278,4 +278,31 @@ void UContentsCore::LoadAllImageResources()
 			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
 		}
 	}
+
+	// ALasleyStageTwoGM
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\LasleyStage\\Stage_Monster");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			//std::string Name = Directorys[i].GetFolderName();
+			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+		}
+	}
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\GlobalMonster\\Skeleton");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			//UEngineSprite::Load(File.GetFullPath());
+			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+		}
+	}
 }

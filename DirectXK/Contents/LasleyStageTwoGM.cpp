@@ -9,16 +9,6 @@
 
 ALasleyStageTwoGM::ALasleyStageTwoGM()
 {
-	UEngineDirectory Dir;
-	Dir.MoveToSearchChild("ContentsResources");
-	Dir.Move("Image\\LasleyStage\\Stage_Monster");
-	std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-	for (size_t i = 0; i < Directorys.size(); i++)
-	{
-		std::string Name = Directorys[i].GetFolderName();
-		UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-	}
-
 #ifdef _DEBUG
 	InputOn(); // test
 #endif
@@ -31,21 +21,7 @@ ALasleyStageTwoGM::~ALasleyStageTwoGM()
 void ALasleyStageTwoGM::BeginPlay()
 {
 	Super::BeginPlay();
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\GlobalMonster\\Skeleton");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-		UEngineSprite::CreateCutting("sk_Attack.png", 6, 2);
-		UEngineSprite::CreateCutting("sk_Idle.png", 5, 1);
-		UEngineSprite::CreateCutting("sk_Run.png", 4, 2);
-	}
-
+	
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
@@ -93,6 +69,12 @@ void ALasleyStageTwoGM::Tick(float _DeltaTime)
 void ALasleyStageTwoGM::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+
+	{
+		UEngineSprite::CreateCutting("sk_Attack.png", 6, 2);
+		UEngineSprite::CreateCutting("sk_Idle.png", 5, 1);
+		UEngineSprite::CreateCutting("sk_Run.png", 4, 2);
+	}
 
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("Stage_2_Col.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
