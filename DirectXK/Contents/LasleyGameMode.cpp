@@ -29,107 +29,6 @@ void ALasleyGameMode::BeginPlay()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\LasleyStage");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			// CuttingTest.png texture로도 한장이 로드가 됐고
-			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		Dir.Move("Boss_Lasley");
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-
-		UEngineSprite::CreateCutting("LasleyIdle.png", 5, 5);
-		UEngineSprite::CreateCutting("LasleyDimensionCutter.png", 5, 5);
-		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 6);
-		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
-		UEngineSprite::CreateCutting("DimensionSlashBack.png", 9, 3);
-		UEngineSprite::CreateCutting("DimensionSlashFront.png", 6, 2);
-		UEngineSprite::CreateCutting("LasleyDemonicBladeFX.png", 8, 1);
-		UEngineSprite::CreateCutting("LasleyDemonicBladeDisappearFX.png", 3, 3);
-		UEngineSprite::CreateCutting("LasleyLargeDemonicBladeFX.png", 5, 1);
-		UEngineSprite::CreateCutting("LasleyLargeDemonicBladeDisappearFX.png", 5, 2);
-		UEngineSprite::CreateCutting("DevilChurchWarlock.png", 8, 3);
-		UEngineSprite::CreateCutting("DevilChurchWarlockFX.png", 5, 5);
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\LasleyStage");
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\PlayerActor");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	// test 무기
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\Item");
-		//std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		//for (UEngineFile& File : Files)
-		//{
-		//	UEngineSprite::Load(File.GetFullPath());
-		//}
-
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\Item\\CosmosSword");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Sound\\DesertStage");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
 		for (UEngineFile& File : Files)
@@ -210,6 +109,20 @@ void ALasleyGameMode::Tick(float _DeltaTime)
 void ALasleyGameMode::LevelStart(ULevel* _PrevLevel)
 {
 	Super::LevelStart(_PrevLevel);
+	{
+		UEngineSprite::CreateCutting("LasleyIdle.png", 5, 5);
+		UEngineSprite::CreateCutting("LasleyDimensionCutter.png", 5, 5);
+		UEngineSprite::CreateCutting("LasleyDoubleDimensionCutter.png", 5, 6);
+		UEngineSprite::CreateCutting("LasleyDemonicBlade.png", 5, 4);
+		UEngineSprite::CreateCutting("DimensionSlashBack.png", 9, 3);
+		UEngineSprite::CreateCutting("DimensionSlashFront.png", 6, 2);
+		UEngineSprite::CreateCutting("LasleyDemonicBladeFX.png", 8, 1);
+		UEngineSprite::CreateCutting("LasleyDemonicBladeDisappearFX.png", 3, 3);
+		UEngineSprite::CreateCutting("LasleyLargeDemonicBladeFX.png", 5, 1);
+		UEngineSprite::CreateCutting("LasleyLargeDemonicBladeDisappearFX.png", 5, 2);
+		UEngineSprite::CreateCutting("DevilChurchWarlock.png", 8, 3);
+		UEngineSprite::CreateCutting("DevilChurchWarlockFX.png", 5, 5);
+	}
 
 	UContentsConstValue::MapTex = UEngineTexture::FindRes("StartStageCol.png");
 	UContentsConstValue::MapTexScale = UContentsConstValue::MapTex->GetScale();
