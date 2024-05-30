@@ -97,6 +97,11 @@ void MyWidget::Tick(float _DeltaTime)
 	{
 		Hit->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
 	}
+
+	if (true == IsCreate)
+	{
+		UpdateDashBar(_DeltaTime);
+	}
 }
 
 void MyWidget::CreateHpBar()
@@ -212,11 +217,19 @@ void MyWidget::CreateDashBar()
 			Dash_Count_End->SetSprite("DashCount.png");
 			Dash_Count_End->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 			Dash_Count_End->SetPosition(Pos);
-			Dash_Count_End->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
+			if (EPlayerStateValue::DashCount != EPlayerStateValue::DashCountMax)
+			{
+				Dash_Count_End->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
+			}
+			else
+			{
+				Dash_Count_End->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
+			}
 
 			Dash_Base_Images.push_back(std::make_pair(Dash_Image_End, Dash_Count_End));
 		}
 	}
+	IsCreate = true;
 }
 
 void MyWidget::CreateDashBar_v2()
@@ -237,4 +250,32 @@ void MyWidget::CreateDashBar_v2()
 	}
 
 
+}
+
+void MyWidget::UpdateDashBar(float _DeltaTime)
+{
+	if (EPlayerStateValue::DashCount != EPlayerStateValue::DashCountMax)
+	{
+		DashCountTime += _DeltaTime;
+		int DashCountIndex = EPlayerStateValue::DashCount;
+		Dash_Base_Images[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
+	}
+
+	if (DashCountTime >= EPlayerStateValue::DashCountUpTime)
+	{
+		int DashCountIndex = EPlayerStateValue::DashCount;
+		Dash_Base_Images[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
+		EPlayerStateValue::DashCount++;
+		DashCountTime = 0.0f;
+	}
+	else if (DashCountTime >= EPlayerStateValue::DashCountUpTime / 2.0f)
+	{
+		int DashCountIndex = EPlayerStateValue::DashCount;
+		int PlusCount = DashCountIndex + 1;
+		if (PlusCount != EPlayerStateValue::DashCountMax)
+		{
+			Dash_Base_Images[PlusCount].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
+		}
+		Dash_Base_Images[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
+	}
 }

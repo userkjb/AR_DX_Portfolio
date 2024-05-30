@@ -68,11 +68,7 @@ private:
 	void CreateAnimation();
 	void StateInit();
 	void PlayerMouseDir();
-	/// <summary>
-	/// 대쉬 함수
-	/// </summary>
-	/// <param name="_DeltaTime"></param>
-	void DashCountTime(float _DeltaTime);
+
 	/// <summary>
 	/// 대쉬 할 때 나오는 잔상 생성 함수.
 	/// </summary>
@@ -152,7 +148,6 @@ private:
 	//FVector DashSpectrumPos = FVector::Zero; // 잔상
 	std::queue<FVector> DashSpectrumPos; // 잔상 위치 저장 Queue
 	float DashSpectrumPosSaveTime = 0.0f;
-	float DashCreationTime = 0.0f;
 	float JumpTime = 0.0f;
 
 	float CollisionOffTime = 0.0f;

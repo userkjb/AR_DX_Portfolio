@@ -62,7 +62,6 @@ void APlayer::Tick(float _DeltaTime)
 
 	State.Update(_DeltaTime);
 
-	DashCountTime(_DeltaTime);
 	CollisionCheck(_DeltaTime);
 	if (false == IsCollision)
 	{
@@ -152,26 +151,6 @@ void APlayer::CreateAnimation()
 	PlayerRenderer->ChangeAnimation("Idle");
 }
 
-void APlayer::DashCountTime(float _DeltaTime)
-{
-	int DashCountIndex = EPlayerStateValue::DashCount;
-	if (EPlayerStateValue::DashCount != EPlayerStateValue::DashCountMax)
-	{
-		DashCreationTime += _DeltaTime;
-		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.0f));
-	}
-
-	if (DashCreationTime >= EPlayerStateValue::DashCountUpTime)
-	{
-		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 1.0f));
-		EPlayerStateValue::DashCount++;
-		DashCreationTime = 0.0f;
-	}
-	else if (DashCreationTime >= EPlayerStateValue::DashCountUpTime / 2.0f)
-	{
-		Widget->GetDashBaseImageV()[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
-	}
-}
 
 void APlayer::DashSpectrumCalPos(float _DeltaTime)
 {

@@ -17,11 +17,6 @@ public:
 	MyWidget& operator=(const MyWidget& _Other) = delete;
 	MyWidget& operator=(MyWidget&& _Other) noexcept = delete;
 
-	inline std::vector<std::pair<UImage*, UImage*>> GetDashBaseImageV()
-	{
-		return Dash_Base_Images;
-	}
-
 	inline void RecvDamageValue(bool _Boolean, float _Value)
 	{
 		InDamage = _Boolean;
@@ -41,6 +36,7 @@ private:
 	void CreateHpBar();
 	void CreateDashBar();
 	void CreateDashBar_v2();
+	void UpdateDashBar(float _DeltaTime);
 
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
@@ -48,6 +44,7 @@ private:
 
 	bool InDamage = false;
 	bool InHit = false;
+	bool IsCreate = false;
 	float InDamageValue = 0.0f;
 	FVector DefaultScale = FVector::Zero;
 	float DashCountTime = 0.0f;
