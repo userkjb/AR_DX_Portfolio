@@ -16,11 +16,10 @@ public:
 	ULasleyUI& operator=(const ULasleyUI& _Other) = delete;
 	ULasleyUI& operator=(ULasleyUI&& _Other) noexcept = delete;
 
-	inline void RecvHit(bool _Val, int _LasleyMaxHp, int _Damage)
+	inline void RecvHit(bool _Val, float _Percent)
 	{
 		InHit = _Val;
-		LasleyMaxHp = _LasleyMaxHp;
-		GetWeaponDamage = _Damage;
+		GetPercent = _Percent;
 	}
 
 	inline void ResetHp(bool _Val)
@@ -40,7 +39,7 @@ private :
 
 	bool InHit = false;
 	bool ReSet = false;
-	int LasleyMaxHp = 0;
-	int GetWeaponDamage = 0;
+	float GetPercent = 0.0f;
+	float HpMax = 0.0f;
 };
 

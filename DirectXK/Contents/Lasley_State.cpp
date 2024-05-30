@@ -961,7 +961,8 @@ void ALasley::CollisionCheck(float _DeltaTime)
 				Hp = 0;
 			}
 
-			Widget->RecvHit(true, MaxHp, Damage);
+			float Cal = (static_cast<float>(Damage) * 100.0f) / static_cast<float>(MaxHp);
+			Widget->RecvHit(true, Cal);
 
 			
 

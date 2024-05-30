@@ -55,16 +55,36 @@ void ULasleyUI::Tick(float _DeltaTime)
 
 	if (true == InHit)
 	{
-		FVector HpBarScale = HpBar_HpBar->GetWidgetScale3D(); // 500
-		//int x = GetWeaponDamage; // 25
-		//int y = LasleyMaxHp;
-		float Cal = (static_cast<float>(GetWeaponDamage) * 100.0f) / static_cast<float>(LasleyMaxHp);
+		// 라슬리 MAX HP, 들어온 대미지
+		
+		FVector HpBarScale = HpBar_HpBar->GetWidgetScale3D(); // 410
+		if (HpMax == 0.0f)
+		{
+			HpMax = HpBarScale.X;
+		}
+		
+		// 깍아야 할 퍼센트.
+		// CalPercent
 
-		float Value = (HpBarScale.X * Cal) / 100.0f;
+		// 410에서 계산된 퍼센트 빼기.
+		float ApplyValue = HpMax * GetPercent / 100.0f;
 
-		HpBarScale.X += -Value;
-		HpBar_HpBar->SetWidgetScale3D(HpBarScale);
-		HpBar_HpBar->AddPosition(FVector(-Value / 2.0f, 0.0f));
+
+		float CurHpValue = HpBarScale.X;
+		CurHpValue -= ApplyValue;
+		
+		if (0.0f >= CurHpValue)
+		{
+			CurHpValue = 0.0f;
+			float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+			HpBar_HpBar->SetWidgetScale3D(FVector(CurHpValue, HpBarScale.Y, HpBarScale.Z));
+			HpBar_HpBar->SetPosition(FVector(40.0f, -ScreenScaleHalf.Y));
+		}
+		else
+		{
+			HpBar_HpBar->SetWidgetScale3D(FVector(CurHpValue, HpBarScale.Y, HpBarScale.Z));
+			HpBar_HpBar->AddPosition(FVector(-ApplyValue / 2.0f, 0.0f));
+		}
 
 		InHit = false;
 	}
