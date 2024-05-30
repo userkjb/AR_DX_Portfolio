@@ -65,7 +65,7 @@ public:
 		std::string FileName = NewPath.GetFileName();
 
 		std::shared_ptr<UEngineSprite> NewRes = ThreadSafeCreateResName(_Path, FileName);
-		NewRes->ThreadSafeResLoad();
+		NewRes->ThreadSafeResLoadFolder();
 		return NewRes;
 	}
 
