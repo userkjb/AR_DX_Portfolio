@@ -305,4 +305,17 @@ void UContentsCore::LoadAllImageResources()
 			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
 		}
 	}
+
+	// Boss
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\BossUI");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			//UEngineSprite::Load(File.GetFullPath());
+			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+		}
+	}
 }
