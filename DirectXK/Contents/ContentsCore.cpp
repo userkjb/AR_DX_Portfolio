@@ -35,6 +35,7 @@ void UContentsCore::Initialize()
 	}
 
 	TitleLoadResources();
+	TownLoadResources();
 	LoadImageResources();
 	LoadSoundResources();
 
@@ -71,7 +72,18 @@ void UContentsCore::TitleLoadResources()
 			std::string Name = Directorys[i].GetFolderName();
 			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
 		}
-	}	
+	}
+
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\MouseCursor");
+		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
+		for (UEngineFile& File : Files)
+		{
+			UEngineSprite::Load(File.GetFullPath());
+		}
+	}
 
 	{
 		UEngineDirectory Dir;
@@ -90,21 +102,34 @@ void UContentsCore::TitleLoadResources()
 	}
 }
 
-void UContentsCore::LoadImageResources()
+void UContentsCore::TownLoadResources()
 {
+	{
+		UEngineDirectory Dir;
+		Dir.MoveToSearchChild("ContentsResources");
+		Dir.Move("Image\\TownStage");
+		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
+		for (size_t i = 0; i < Directorys.size(); i++)
+		{
+			std::string Name = Directorys[i].GetFolderName();
+			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
+		}
+	}
 
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\MouseCursor");
+		Dir.Move("Image\\TownStage\\Town");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
 		for (UEngineFile& File : Files)
 		{
 			UEngineSprite::Load(File.GetFullPath());
 		}
 	}
+}
 
-
+void UContentsCore::LoadImageResources()
+{
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
