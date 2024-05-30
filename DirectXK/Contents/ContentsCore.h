@@ -19,6 +19,8 @@ protected:
 	void Initialize() override;
 
 private:
-	void LoadResources();
+	void TitleLoadResources();
+	void LoadImageResources();
+	void LoadSoundResources();
 };
 

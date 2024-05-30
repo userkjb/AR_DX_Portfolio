@@ -23,26 +23,6 @@ void ATitleGameMode::BeginPlay()
 	{
 		UEngineDirectory Dir;
 		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Image\\TitleLevel");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".png" }, true);
-		for (UEngineFile& File : Files)
-		{
-			// CuttingTest.png texture로도 한장이 로드가 됐고
-			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
-			UEngineSprite::Load(File.GetFullPath());
-		}
-
-		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
-		for (size_t i = 0; i < Directorys.size(); i++)
-		{
-			std::string Name = Directorys[i].GetFolderName();
-			UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-		}
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
 		Dir.Move("Sound\\Title");
 		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
 		for (UEngineFile& File : Files)
@@ -54,25 +34,9 @@ void ATitleGameMode::BeginPlay()
 
 			UEngineSound::Load(File.GetFullPath());
 		}
-		
+
 		Sound = UEngineSound::SoundPlay("title.mp3");
 		Sound.Off();
-	}
-
-	{
-		UEngineDirectory Dir;
-		Dir.MoveToSearchChild("ContentsResources");
-		Dir.Move("Sound\\Player");
-		std::vector<UEngineFile> Files = Dir.GetAllFile({ ".wav", ".mp3" });
-		for (UEngineFile& File : Files)
-		{
-			File.Open(EIOOpenMode::Read, EIODataType::Binary);
-
-			char Arr[100];
-			File.Read(Arr, 100);
-
-			UEngineSound::Load(File.GetFullPath());
-		}
 	}
 
 	{
