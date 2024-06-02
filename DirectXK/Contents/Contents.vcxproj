@@ -182,6 +182,7 @@
     <ClInclude Include="GameStartGameMode.h" />
     <ClInclude Include="GameStartText.h" />
     <ClInclude Include="GameTitleBG.h" />
+    <ClInclude Include="GlobalStats.h" />
     <ClInclude Include="LasleySkill.h" />
     <ClInclude Include="ContentsCore.h" />
     <ClInclude Include="ContentsEnums.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="GameStartGameMode_State.cpp" />
     <ClCompile Include="GameStartText.cpp" />
     <ClCompile Include="GameTitleBG.cpp" />
+    <ClCompile Include="GlobalStats.cpp" />
     <ClCompile Include="LasleySkill.cpp" />
     <ClCompile Include="ContentsCore.cpp" />
     <ClCompile Include="GameLogo.cpp" />

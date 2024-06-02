@@ -25,7 +25,9 @@ UContentsCore::~UContentsCore()
 void UContentsCore::Initialize()
 {
 	{
+#ifdef _DEBUG
 		UEngineEditorGUI::CreateEditorWindow<ContentsGUI>("Contents");
+#endif // _DEBUG
 		UEngineEditorGUI::CreateEditorWindow<MapEditorGUI>("MapEditor");
 	}
 

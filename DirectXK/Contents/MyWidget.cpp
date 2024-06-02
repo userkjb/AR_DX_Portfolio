@@ -59,9 +59,7 @@ void MyWidget::BeginPlay()
 		Hit->SetAutoSize(4.0f, true);
 		Hit->AddToViewPort(4);
 	}
-
 	
-
 	AddToViewPort(1);
 
 	DashCountTime = 0.0f;
@@ -73,13 +71,7 @@ void MyWidget::Tick(float _DeltaTime)
 
 	if (true == InDamage)
 	{
-		float CalPosition = 1.0f; // InDamageValue
-		DefaultScale.X += -CalPosition; // 196.0f
-		HpBar_Base->SetWidgetScale3D(DefaultScale);
-		HpBar_Base->AddPosition(FVector(-(CalPosition / 2.0f), 0.0f, 0.0f));
-		HpBar_Ani->AddPosition(FVector(-CalPosition, 0.0f, 0.0f));
-
-		InDamage = false;
+		HpBarUpdate(_DeltaTime);
 	}
 
 	if (true == InHit)
@@ -118,7 +110,6 @@ void MyWidget::CreateHpBar()
 		HpBar_Base->SetWidgetScale3D((FVector(49.0f, 10.0f)) * 4.0f);
 		ScreenScaleHalf.X -= 38.0f;
 		HpBar_Base->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
-		DefaultScale = HpBar_Base->GetWidgetScale3D();
 	}
 
 	{
@@ -278,4 +269,40 @@ void MyWidget::UpdateDashBar(float _DeltaTime)
 		}
 		Dash_Base_Images[DashCountIndex].second->SetMulColor(float4(1.0f, 1.0f, 1.0f, 0.5f));
 	}
+}
+
+void MyWidget::HpBarUpdate(float _DeltaTime)
+{
+	FVector DefaultScale = HpBar_Base->GetWidgetScale3D(); // 196
+	if (HpBarMax == 0.0f)
+	{
+		HpBarMax = DefaultScale.X;
+	}
+
+	float ApplyValue = HpBarMax * InDamagePercent / 100.0f;
+
+	float CurHpValue = DefaultScale.X;
+	CurHpValue -= ApplyValue;
+
+	if (0.0f >= CurHpValue)
+	{
+		CurHpValue = 0.0f;
+		float4 ScreenScaleHale = GEngine->EngineWindow.GetWindowScale().Half2D();
+		HpBar_Base->SetWidgetScale3D(FVector(CurHpValue, DefaultScale.Y, DefaultScale.Z));
+		HpBar_Base->SetPosition(FVector(-ApplyValue / 2.0f, 0.0f));
+
+		float4 ScreenScaleHalf = GEngine->EngineWindow.GetWindowScale().Half2D();
+		float4 HpBar_AniScale = HpBar_Ani->GetWidgetScale3D();
+		HpBar_AniScale.X = 0.0f;
+		HpBar_Ani->SetWidgetScale3D(FVector(HpBar_AniScale.X, DefaultScale.Y, DefaultScale.Z));
+		HpBar_Ani->SetPosition(FVector(-ScreenScaleHalf.X, ScreenScaleHalf.Y));
+	}
+	else
+	{
+		HpBar_Base->SetWidgetScale3D(FVector(CurHpValue, DefaultScale.Y, DefaultScale.Z));
+		HpBar_Base->AddPosition(FVector(-ApplyValue / 2.0f, 0.0f));
+		HpBar_Ani->AddPosition(FVector(-ApplyValue, 0.0f));
+	}
+
+	InDamage = false;
 }

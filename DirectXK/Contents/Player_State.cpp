@@ -5,6 +5,7 @@
 #include "PlayerStruct.h"
 #include "MyWidget.h"
 #include "CosmosSword.h"
+#include "GlobalStats.h"
 
 void APlayer::StateInit()
 {
@@ -515,24 +516,54 @@ void APlayer::CollisionCheck(float _DeltaTime)
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsCollision = false;
+			Widget->RecvHitValue(true);
+
+			int Damage = GlobalStats::Monster_Body_Damage;
+			EPlayerStateValue::Hp -= Damage;
+
+			int PlayerMaxHp = EPlayerStateValue::MaxHp;
+			float DamagePercent = (static_cast<float>(Damage) * 100.0f) / static_cast<float>(PlayerMaxHp);
+			Widget->RecvDamageValue(true, DamagePercent);
 		}
 	);
 	PlayerCollision->CollisionEnter(ECollisionOrder::Monster_Attack, [=](std::shared_ptr<UCollision> _Collision)
 		{
-			EPlayerStateValue::Hp -= 5;
 			IsCollision = false;
 			Widget->RecvHitValue(true);
+
+			int Damage = GlobalStats::Monster_Attack_Damage;
+			EPlayerStateValue::Hp -= Damage;
+
+			int PlayerMaxHp = EPlayerStateValue::MaxHp;
+			float DamagePercent = (static_cast<float>(Damage) * 100.0f) / static_cast<float>(PlayerMaxHp);
+			Widget->RecvDamageValue(true, DamagePercent);
 		}
 	);
 
 	PlayerCollision->CollisionEnter(ECollisionOrder::Boss, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsCollision = false;
+			Widget->RecvHitValue(true);
+
+			int Damage = GlobalStats::Boss_Body_Damage;
+			EPlayerStateValue::Hp -= Damage;
+
+			int PlayerMaxHp = EPlayerStateValue::MaxHp;
+			float DamagePercent = (static_cast<float>(Damage) * 100.0f) / static_cast<float>(PlayerMaxHp);
+			Widget->RecvDamageValue(true, DamagePercent);
 		}
 	);
 	PlayerCollision->CollisionEnter(ECollisionOrder::BossSkill, [=](std::shared_ptr<UCollision> _Collision)
 		{
 			IsCollision = false;
+			Widget->RecvHitValue(true);
+
+			int Damage = GlobalStats::Boss_Skill_Damage;
+			EPlayerStateValue::Hp -= Damage;
+
+			int PlayerMaxHp = EPlayerStateValue::MaxHp;
+			float DamagePercent = (static_cast<float>(Damage) * 100.0f) / static_cast<float>(PlayerMaxHp);
+			Widget->RecvDamageValue(true, DamagePercent);
 		}
 	);
 }

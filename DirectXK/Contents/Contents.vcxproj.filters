@@ -264,6 +264,9 @@
     <ClCompile Include="TownMap.cpp">
       <Filter>Level\02_TownLevel\Level_Actor</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalStats.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -412,6 +415,9 @@
     </ClInclude>
     <ClInclude Include="TownMap.h">
       <Filter>Level\02_TownLevel\Level_Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalStats.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

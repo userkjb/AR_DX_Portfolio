@@ -20,9 +20,13 @@ public:
 	inline void RecvDamageValue(bool _Boolean, float _Value)
 	{
 		InDamage = _Boolean;
-		InDamageValue = _Value;
+		InDamagePercent = _Value;
 	}
 
+	/// <summary>
+	/// 알파값 조절 함수.
+	/// </summary>
+	/// <param name="_Value"></param>
 	inline void RecvHitValue(bool _Value)
 	{
 		InHit = _Value;
@@ -37,6 +41,7 @@ private:
 	void CreateDashBar();
 	void CreateDashBar_v2();
 	void UpdateDashBar(float _DeltaTime);
+	void HpBarUpdate(float _DeltaTime);
 
 	UImage* HpBar_Base = nullptr;
 	UImage* HpBar_Ani = nullptr;
@@ -45,8 +50,9 @@ private:
 	bool InDamage = false;
 	bool InHit = false;
 	bool IsCreate = false;
-	float InDamageValue = 0.0f;
-	FVector DefaultScale = FVector::Zero;
+	float InDamagePercent = 0.0f;
+	//FVector DefaultScale = FVector::Zero;
+	float HpBarMax = 0.0f;
 	float DashCountTime = 0.0f;
 
 	std::vector<std::pair<UImage*, UImage*>> Dash_Base_Images;
