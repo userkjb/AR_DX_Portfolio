@@ -2,7 +2,7 @@
 #include <EngineBase/TransformObject.h>
 #include "ActorComponent.h"
 
-// 설명 :
+// 설명 : 해당 Component가 있어야 위치를 알 수 있다.
 class USceneComponent : public UActorComponent, public UTransformObject
 {
 public:
