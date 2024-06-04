@@ -56,6 +56,7 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 		BossMap->SendLasley(Lasley);
 	}
 
+#ifdef _DEBUG
 	if (true == UEngineInput::IsDown(0x30)) // Å°º¸µå 0
 	{
 		if (FreeCamera)
@@ -67,7 +68,7 @@ void ALasleyStageBossGM::Tick(float _DeltaTime)
 			FreeCamera = true;
 		}
 	}
-	
+#endif
 }
 
 void ALasleyStageBossGM::LevelStart(ULevel* _PrevLevel)
