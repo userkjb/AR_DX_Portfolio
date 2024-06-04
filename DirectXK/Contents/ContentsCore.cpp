@@ -167,7 +167,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -180,7 +183,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -195,7 +201,10 @@ void UContentsCore::LoadAllImageResources()
 			// CuttingTest.png texture로도 한장이 로드가 됐고
 			// 스프라이트로도 1장짜리로 로드가 된 상황이야.
 			//UEngineSprite::Load(File.GetFullPath());
-			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+				});
 		}
 
 		Dir.Move("Boss_Lasley");
@@ -204,7 +213,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -217,7 +229,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -229,7 +244,10 @@ void UContentsCore::LoadAllImageResources()
 		for (UEngineFile& File : Files)
 		{
 			//UEngineSprite::Load(File.GetFullPath());
-			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+				});
 		}
 
 		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
@@ -237,7 +255,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -257,7 +278,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -269,7 +293,10 @@ void UContentsCore::LoadAllImageResources()
 		for (UEngineFile& File : Files)
 		{
 			//UEngineSprite::Load(File.GetFullPath());
-			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+				});
 		}
 
 		std::vector<UEngineDirectory> Directorys = Dir.GetAllDirectory();
@@ -277,7 +304,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -292,7 +322,10 @@ void UContentsCore::LoadAllImageResources()
 		{
 			//std::string Name = Directorys[i].GetFolderName();
 			//UEngineSprite::LoadFolder(Directorys[i].GetFullPath());
-			UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoadFolder(Directorys[i].GetFullPath());
+				});
 		}
 	}
 
@@ -304,7 +337,10 @@ void UContentsCore::LoadAllImageResources()
 		for (UEngineFile& File : Files)
 		{
 			//UEngineSprite::Load(File.GetFullPath());
-			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+				});
 		}
 	}
 
@@ -317,7 +353,10 @@ void UContentsCore::LoadAllImageResources()
 		for (UEngineFile& File : Files)
 		{
 			//UEngineSprite::Load(File.GetFullPath());
-			UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+			GEngine->JobWorker.Work([=]()
+				{
+					UEngineSprite::ThreadSafeLoad(File.GetFullPath());
+				});
 		}
 	}
 }
