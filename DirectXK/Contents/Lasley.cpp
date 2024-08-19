@@ -274,9 +274,9 @@ void ALasley::BeginPlay()
 	LasleySummonFX->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 	LasleyDemonSword->SetAutoSize(UContentsConstValue::AutoSizeValue, true);
 
-	//{
-	//	Warlocks.reserve(4);
-	//}
+	{
+		Warlocks.reserve(4);
+	}
 }
 
 void ALasley::Tick(float _DeltaTime)
