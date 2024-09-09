@@ -24,12 +24,12 @@ public:
 
 	void FrameCallBackCheck();
 
-	FSpriteInfo GetCurSpriteInfo()
+	inline FSpriteInfo GetCurSpriteInfo()
 	{
 		return Sprite->GetSpriteInfo(Frame[CurFrame]);
 	}
 
-	void Reset()
+	inline void Reset()
 	{
 		CurTime = 0.0f;
 		CurFrame = 0;
@@ -84,22 +84,22 @@ public:
 
 	bool IsCurAnimationEnd();
 
-	void SetPlusColor(float4 _Color)
+	inline void SetPlusColor(float4 _Color)
 	{
 		ColorData.PlusColor = _Color;
 	}
 
-	void SetMulColor(float4 _Color)
+	inline void SetMulColor(float4 _Color)
 	{
 		ColorData.MulColor = _Color;
 	}
 
-	void SetAlpha(float _Alpha)
+	inline void SetAlpha(float _Alpha)
 	{
 		ColorData.AlphaColor.A = _Alpha;
 	}
 
-	void SetPivot(EPivot _Pivot)
+	inline void SetPivot(EPivot _Pivot)
 	{
 		Pivot = _Pivot;
 	}
@@ -109,7 +109,7 @@ public:
 		return CurInfo;
 	}
 
-	void SetCurInfo(FSpriteInfo _CurInfo)
+	inline void SetCurInfo(FSpriteInfo _CurInfo)
 	{
 		CurInfo = _CurInfo;
 		SetSpriteInfo(CurInfo);
@@ -130,7 +130,7 @@ public:
 	/// UV Plus 인터페이스
 	/// </summary>
 	/// <param name="_UVPlus"></param>
-	void SetVertexUVPlus(float4 _UVPlus)
+	inline void SetVertexUVPlus(float4 _UVPlus)
 	{
 		VertexUVValue.PlusUV = _UVPlus;
 	}
