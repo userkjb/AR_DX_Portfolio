@@ -103,6 +103,9 @@
     <Filter Include="Level\02_TownLevel\Level_Actor">
       <UniqueIdentifier>{e5aa5740-19b6-484d-949a-6dd5f5c1fa53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Level\02_TownLevel\Actor\MapObject">
+      <UniqueIdentifier>{6b464c13-00e9-4362-ad81-1c2d63301d28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -267,6 +270,9 @@
     <ClCompile Include="GlobalStats.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="DungeonEntrance.cpp">
+      <Filter>Level\02_TownLevel\Actor\MapObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -418,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="GlobalStats.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonEntrance.h">
+      <Filter>Level\02_TownLevel\Actor\MapObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
