@@ -398,7 +398,7 @@ FodyWeavers.xsd
 *.sln.iml
 
 # AI
-DirectXK/CLAUDE.md
-DirectXK/GEMINI.md
+CLAUDE.md
+GEMINI.md
 DirectXK/nul
 
